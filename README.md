@@ -15,3 +15,12 @@ Once package has been run you can run the project on the embedded Jetty server u
     mvn jetty:run
 
 This will start a Jetty server with the project at http://localhost:8080/
+
+## Test
+
+Currently using htmlunit, invoke via:
+
+    mvn test
+
+Selenium?
+Vaadin TestBench is a commercial product.
