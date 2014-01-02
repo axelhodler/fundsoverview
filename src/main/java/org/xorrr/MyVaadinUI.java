@@ -24,16 +24,14 @@ public class MyVaadinUI extends UI
 
     @Override
     protected void init(VaadinRequest request) {
+        UI.getCurrent().getPage().setTitle("financegrabber");
         final VerticalLayout layout = new VerticalLayout();
         layout.setMargin(true);
         setContent(layout);
-        
-        Button button = new Button("Click Measdfasdfasd");
-        button.addClickListener(new Button.ClickListener() {
-            public void buttonClick(ClickEvent event) {
-                layout.addComponent(new Label("Thank you for clicking"));
-            }
-        });
+
+        Button button = new Button("click me");
+        button.setId("testid");
+
         layout.addComponent(button);
     }
 
