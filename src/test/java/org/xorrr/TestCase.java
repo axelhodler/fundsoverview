@@ -4,6 +4,7 @@ import static org.junit.Assert.assertEquals;
 
 import java.io.File;
 import java.io.IOException;
+import java.net.URL;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -21,8 +22,10 @@ public class TestCase {
     private String testWkn = "973270";
 
     private Document getDocumentFromHtmlFile() throws IOException {
-        File input = new File("example.html");
-        Document doc = Jsoup.parse(input, "UTF-8");
+        URL fileUrl = getClass().getResource("/example.html");
+        File file = new File(fileUrl.getFile());
+
+        Document doc = Jsoup.parse(file, "UTF-8");
 
         return doc;
     }
