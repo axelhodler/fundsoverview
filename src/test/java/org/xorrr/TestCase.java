@@ -1,7 +1,9 @@
 package org.xorrr;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
+
+import java.io.File;
+import java.io.IOException;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -32,6 +34,7 @@ public class TestCase {
         webClient.closeAllWindows();
     }
 
+    @Ignore
     @Test
     public void testGettingTheName() {
         String assertedName = "FF - European Growth";
@@ -44,5 +47,22 @@ public class TestCase {
 
         Document doc2 = ig.getDocumentForId("973270");
         assertEquals(ig.getName(doc2), assertedName);
+    }
+
+    @Test
+    public void testUsingFinanceProduct() {
+        File input = new File("example.html");
+
+        Document doc = null;
+        try {
+            doc = Jsoup.parse(input, "UTF-8");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        FinanceProduct fp = new FinanceProduct(doc);
+
+        assertEquals(fp.getName(), "FF - European Growth");
+        assertEquals(fp.getLastPrice(), "11,980");
     }
 }
