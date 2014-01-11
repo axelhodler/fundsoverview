@@ -34,10 +34,15 @@ public class TestCase {
 
     @Test
     public void testGettingTheName() {
+        String assertedName = "FF - European Growth";
+
         InfoGrabber ig = new InfoGrabber();
         Document doc = ig.getDocumentForId("LU0048578792");
 
         String name = ig.getName(doc);
-        assertEquals(name, "FF - European Growth");
+        assertEquals(name, assertedName);
+
+        Document doc2 = ig.getDocumentForId("973270");
+        assertEquals(ig.getName(doc2), assertedName);
     }
 }
