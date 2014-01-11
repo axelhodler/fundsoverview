@@ -33,18 +33,6 @@ public class TestCase {
     }
 
     @Test
-    public void testJsoup() throws Exception {
-
-        String test = "http://www.boerse-frankfurt.de/de/suche/"
-                + "ergebnis?order_by=wm_vbfw.name&name_isin_wkn=LU0048578792";
-
-        Document doc = Jsoup.connect(test).userAgent("Mozilla").get();
-
-        assertEquals(doc.getElementsByAttributeValue("class", "info").get(0)
-                .child(0).text(), "FF - European Growth");
-    }
-
-    @Test
     public void testGettingTheName() {
         InfoGrabber ig = new InfoGrabber();
         Document doc = ig.getDocumentForId("LU0048578792");
