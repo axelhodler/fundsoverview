@@ -1,10 +1,7 @@
 package org.xorrr;
 
 import static org.junit.Assert.assertEquals;
-
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileWriter;
+import static org.junit.Assert.assertNotNull;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -45,5 +42,13 @@ public class TestCase {
 
         assertEquals(doc.getElementsByAttributeValue("class", "info").get(0)
                 .child(0).text(), "FF - European Growth");
+    }
+
+    @Test
+    public void testGettingTheName() {
+        InfoGrabber ig = new InfoGrabber();
+        Document doc = ig.getDocumentForId("LU0048578792");
+
+        assertNotNull(doc);
     }
 }

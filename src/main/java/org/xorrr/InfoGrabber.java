@@ -1,0 +1,24 @@
+package org.xorrr;
+
+import java.io.IOException;
+
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+
+public class InfoGrabber {
+
+    public Document getDocumentForId(String id) {
+        String test = "http://www.boerse-frankfurt.de/de/suche/"
+                + "ergebnis?order_by=wm_vbfw.name&name_isin_wkn=" + id;
+
+        Document doc = null;
+        try {
+            doc = Jsoup.connect(test).userAgent("Mozilla").get();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        
+        return doc;
+    }
+
+}
