@@ -16,6 +16,17 @@ import com.gargoylesoftware.htmlunit.html.HtmlPage;
 
 public class TestCase {
 
+    private String assertedName = "FF - European Growth";
+    private String testIsin = "LU0048578792";
+    private String testWkn = "973270";
+
+    private Document getDocumentFromHtmlFile() throws IOException {
+        File input = new File("example.html");
+        Document doc = Jsoup.parse(input, "UTF-8");
+
+        return doc;
+    }
+
     @Ignore
     @Test
     public void testPage() throws Exception {
@@ -34,31 +45,21 @@ public class TestCase {
         webClient.closeAllWindows();
     }
 
-    @Ignore
     @Test
     public void testGettingTheName() {
-        String assertedName = "FF - European Growth";
-
         InfoGrabber ig = new InfoGrabber();
-        Document doc = ig.getDocumentForId("LU0048578792");
+        Document doc = ig.getDocumentForId(testIsin);
 
         String name = ig.getName(doc);
         assertEquals(name, assertedName);
 
-        Document doc2 = ig.getDocumentForId("973270");
+        Document doc2 = ig.getDocumentForId(testWkn);
         assertEquals(ig.getName(doc2), assertedName);
     }
 
     @Test
-    public void testUsingFinanceProduct() {
-        File input = new File("example.html");
-
-        Document doc = null;
-        try {
-            doc = Jsoup.parse(input, "UTF-8");
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+    public void testUsingFinanceProduct() throws Exception {
+        Document doc = getDocumentFromHtmlFile();
 
         FinanceProduct fp = new FinanceProduct(doc);
 
