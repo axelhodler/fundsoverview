@@ -21,4 +21,10 @@ public class InfoGrabber {
         return doc;
     }
 
+    public String getName(Document doc) {
+        String name = doc.getElementsByAttributeValue("class", "info").get(0)
+        .child(0).text();
+        return name;
+    }
+
 }

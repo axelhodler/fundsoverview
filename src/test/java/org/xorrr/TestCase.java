@@ -49,6 +49,7 @@ public class TestCase {
         InfoGrabber ig = new InfoGrabber();
         Document doc = ig.getDocumentForId("LU0048578792");
 
-        assertNotNull(doc);
+        String name = ig.getName(doc);
+        assertEquals(name, "FF - European Growth");
     }
 }
