@@ -2,11 +2,11 @@ package org.xorrr.financegrabber.model;
 
 import org.jsoup.nodes.Document;
 
-public class FinanceProduct {
+public class FinancialProduct {
 
     private Document doc;
 
-    public FinanceProduct(Document doc) {
+    public FinancialProduct(Document doc) {
         this.doc = doc;
     }
 

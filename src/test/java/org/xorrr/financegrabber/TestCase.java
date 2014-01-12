@@ -11,7 +11,7 @@ import org.jsoup.nodes.Document;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.xorrr.financegrabber.InfoGrabber;
-import org.xorrr.financegrabber.model.FinanceProduct;
+import org.xorrr.financegrabber.model.FinancialProduct;
 
 import com.gargoylesoftware.htmlunit.WebClient;
 import com.gargoylesoftware.htmlunit.html.HtmlDivision;
@@ -66,7 +66,7 @@ public class TestCase {
     public void testUsingFinanceProduct() throws Exception {
         Document doc = getDocumentFromHtmlFile();
 
-        FinanceProduct fp = new FinanceProduct(doc);
+        FinancialProduct fp = new FinancialProduct(doc);
 
         assertEquals(fp.getName(), "FF - European Growth");
         assertEquals(fp.getLastPrice(), "11,980");
