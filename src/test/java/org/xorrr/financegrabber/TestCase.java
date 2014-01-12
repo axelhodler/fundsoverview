@@ -10,7 +10,7 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.junit.Ignore;
 import org.junit.Test;
-import org.xorrr.financegrabber.InfoGrabber;
+import org.xorrr.financegrabber.helper.InfoGrabber;
 import org.xorrr.financegrabber.model.FinancialProduct;
 
 import com.gargoylesoftware.htmlunit.WebClient;

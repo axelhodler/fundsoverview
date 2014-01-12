@@ -1,4 +1,4 @@
-package org.xorrr.financegrabber;
+package org.xorrr.financegrabber.helper;
 
 import java.io.IOException;
 
