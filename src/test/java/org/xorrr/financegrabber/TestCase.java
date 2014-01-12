@@ -1,4 +1,4 @@
-package org.xorrr;
+package org.xorrr.financegrabber;
 
 import static org.junit.Assert.assertEquals;
 
@@ -10,6 +10,8 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.junit.Ignore;
 import org.junit.Test;
+import org.xorrr.financegrabber.InfoGrabber;
+import org.xorrr.financegrabber.model.FinanceProduct;
 
 import com.gargoylesoftware.htmlunit.WebClient;
 import com.gargoylesoftware.htmlunit.html.HtmlDivision;

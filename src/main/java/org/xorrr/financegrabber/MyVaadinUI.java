@@ -1,4 +1,4 @@
-package org.xorrr;
+package org.xorrr.financegrabber;
 
 import javax.servlet.annotation.WebServlet;
 
