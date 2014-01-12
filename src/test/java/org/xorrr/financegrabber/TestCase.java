@@ -8,14 +8,9 @@ import java.net.URL;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.xorrr.financegrabber.helper.InfoGrabber;
 import org.xorrr.financegrabber.model.FinancialProduct;
-
-import com.gargoylesoftware.htmlunit.WebClient;
-import com.gargoylesoftware.htmlunit.html.HtmlDivision;
-import com.gargoylesoftware.htmlunit.html.HtmlPage;
 
 public class TestCase {
 
@@ -30,24 +25,6 @@ public class TestCase {
         Document doc = Jsoup.parse(file, "UTF-8");
 
         return doc;
-    }
-
-    @Ignore
-    @Test
-    public void testPage() throws Exception {
-        final WebClient webClient = new WebClient();
-
-        final HtmlPage page = webClient
-                .getPage("http://localhost:8080/financegrabber");
-
-        webClient.waitForBackgroundJavaScript(5000);
-
-        final HtmlDivision div = page.getHtmlElementById("testid");
-
-        assertEquals("financegrabber", page.getTitleText());
-        assertEquals("button", div.getAttribute("role"));
-
-        webClient.closeAllWindows();
     }
 
     @Test
