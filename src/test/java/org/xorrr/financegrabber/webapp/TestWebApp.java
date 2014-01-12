@@ -19,10 +19,10 @@ public class TestWebApp {
 
         webClient.waitForBackgroundJavaScript(5000);
 
-        final HtmlDivision div = page.getHtmlElementById("testid");
+        final HtmlDivision div = page.getHtmlElementById("mainTable");
 
         assertEquals("financegrabber", page.getTitleText());
-        assertEquals("button", div.getAttribute("role"));
+        assertEquals("v-table v-widget", div.getAttribute("class"));
 
         webClient.closeAllWindows();
     }
