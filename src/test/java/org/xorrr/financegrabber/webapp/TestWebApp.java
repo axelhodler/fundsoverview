@@ -2,6 +2,7 @@ package org.xorrr.financegrabber.webapp;
 
 import static org.junit.Assert.assertEquals;
 
+import org.junit.Ignore;
 import org.junit.Test;
 
 import com.gargoylesoftware.htmlunit.WebClient;
@@ -10,6 +11,7 @@ import com.gargoylesoftware.htmlunit.html.HtmlPage;
 
 public class TestWebApp {
 
+    @Ignore
     @Test
     public void testPage() throws Exception {
         final WebClient webClient = new WebClient();
