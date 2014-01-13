@@ -61,6 +61,19 @@ public class TestEmbeddedMongo {
         assertEquals("testWkn", dbo.get("wkn"));
     }
 
+    @Test
+    public void testGettingSavedFinancialProducts() throws Exception {
+        BasicFinancialProduct bfp = new BasicFinancialProduct();
+        bfp.setWkn("testWkn");
+        BasicFinancialProduct bfp2 = new BasicFinancialProduct();
+        bfp2.setWkn("testWkn2");
+
+        this.ds.saveProduct(bfp);
+        this.ds.saveProduct(bfp2);
+
+        assertEquals(2, this.ds.getAllProducts().size());
+    }
+
     @After
     public void dropDatabase() throws Exception {
         client.dropDatabase("financegrabber");
