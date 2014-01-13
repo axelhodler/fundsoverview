@@ -7,10 +7,13 @@ import java.util.Date;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import org.xorrr.financegrabber.model.BasicFinancialProduct;
 
 import com.mongodb.BasicDBObject;
 import com.mongodb.DB;
 import com.mongodb.DBCollection;
+import com.mongodb.DBCursor;
+import com.mongodb.DBObject;
 import com.mongodb.MongoClient;
 import com.mongodb.MongoClientURI;
 
@@ -51,6 +54,21 @@ public class TestEmbeddedMongo {
         col.save(new BasicDBObject("testDoc", date));
 
         assertEquals(date, col.findOne().get("testDoc"));
+    }
+
+    @Test
+    public void testAddingFinancialProduct() throws Exception {
+        MongoClientURI uri = new MongoClientURI("mongodb://localhost:12345");
+        MongoClient client = new MongoClient(uri);
+        FinancialProductDatastore ds = new FinancialProductDatastore(client);
+        BasicFinancialProduct bfp = new BasicFinancialProduct();
+        bfp.setWkn("testWkn");
+
+        ds.saveProduct(bfp);
+
+        DBObject dbo = client.getDB("financegrabber").getCollection("FinancialProducts")
+                .findOne(new BasicDBObject("wkn", "testWkn"));
+        assertEquals("testWkn", dbo.get("wkn"));
     }
 
     @After
