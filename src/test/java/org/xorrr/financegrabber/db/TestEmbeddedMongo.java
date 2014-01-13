@@ -3,7 +3,9 @@ package org.xorrr.financegrabber.db;
 import static org.junit.Assert.assertEquals;
 
 import org.junit.After;
+import org.junit.AfterClass;
 import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.Test;
 import org.xorrr.financegrabber.model.BasicFinancialProduct;
 
@@ -22,39 +24,51 @@ import de.flapdoodle.embed.process.runtime.Network;
 
 public class TestEmbeddedMongo {
 
-    private MongodExecutable mongodExecutable = null;
-    private int port = 12345;
+    private static MongodExecutable mongodExecutable = null;
+    private static int port = 12345;
 
-    @Before
-    public void setUp() throws Exception {
+    private MongoClient client;
+    private FinancialProductDatastore ds;
+
+    @BeforeClass
+    public static void setUpEmbeddedMongo() throws Exception {
         IMongodConfig mongodConfig = new MongodConfigBuilder()
                 .version(Version.Main.PRODUCTION)
-                .net(new Net(this.port, Network.localhostIsIPv6())).build();
+                .net(new Net(port, Network.localhostIsIPv6())).build();
 
         MongodStarter runtime = MongodStarter.getDefaultInstance();
 
-        this.mongodExecutable = runtime.prepare(mongodConfig);
+        mongodExecutable = runtime.prepare(mongodConfig);
         mongodExecutable.start();
+    }
+
+    @Before
+    public void setUp() throws Exception {
+        MongoClientURI uri = new MongoClientURI("mongodb://localhost:12345");
+        this.client = new MongoClient(uri);
+        this.ds = new FinancialProductDatastore(this.client);
     }
 
     @Test
     public void testAddingFinancialProduct() throws Exception {
-        MongoClientURI uri = new MongoClientURI("mongodb://localhost:12345");
-        MongoClient client = new MongoClient(uri);
-        FinancialProductDatastore ds = new FinancialProductDatastore(client);
         BasicFinancialProduct bfp = new BasicFinancialProduct();
         bfp.setWkn("testWkn");
 
-        ds.saveProduct(bfp);
+        this.ds.saveProduct(bfp);
 
-        DBObject dbo = client.getDB("financegrabber").getCollection("FinancialProducts")
+        DBObject dbo = this.client.getDB("financegrabber").getCollection("FinancialProducts")
                 .findOne(new BasicDBObject("wkn", "testWkn"));
         assertEquals("testWkn", dbo.get("wkn"));
     }
 
     @After
-    public void tearDown() throws Exception {
-        if (this.mongodExecutable != null)
-            this.mongodExecutable.stop();
+    public void dropDatabase() throws Exception {
+        client.dropDatabase("financegrabber");
+    }
+
+    @AfterClass
+    public static void tearDown() throws Exception {
+        if (mongodExecutable != null)
+            mongodExecutable.stop();
     }
 }
