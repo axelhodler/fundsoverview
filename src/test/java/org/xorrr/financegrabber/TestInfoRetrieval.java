@@ -12,7 +12,7 @@ import org.junit.Test;
 import org.xorrr.financegrabber.helper.InfoGrabber;
 import org.xorrr.financegrabber.model.FinancialProduct;
 
-public class TestCase {
+public class TestInfoRetrieval {
 
     private String assertedName = "FF - European Growth";
     private String testIsin = "LU0048578792";
