@@ -10,6 +10,7 @@ import org.junit.Test;
 import org.xorrr.financegrabber.model.BasicFinancialProduct;
 
 import com.mongodb.BasicDBObject;
+import com.mongodb.DBCursor;
 import com.mongodb.DBObject;
 import com.mongodb.MongoClient;
 import com.mongodb.MongoClientURI;
@@ -56,7 +57,8 @@ public class TestEmbeddedMongo {
 
         this.ds.saveProduct(bfp);
 
-        DBObject dbo = this.client.getDB("financegrabber").getCollection("FinancialProducts")
+        DBObject dbo = this.client.getDB("financegrabber")
+                .getCollection("FinancialProducts")
                 .findOne(new BasicDBObject("wkn", "testWkn"));
         assertEquals("testWkn", dbo.get("wkn"));
     }
@@ -72,6 +74,27 @@ public class TestEmbeddedMongo {
         this.ds.saveProduct(bfp2);
 
         assertEquals(2, this.ds.getAllProducts().size());
+    }
+
+    @Test
+    public void testDeletingSavedFinancialProduct() throws Exception {
+        BasicFinancialProduct bfp = new BasicFinancialProduct();
+        bfp.setWkn("testWkn");
+        BasicFinancialProduct bfp2 = new BasicFinancialProduct();
+        bfp2.setWkn("testWkn2");
+
+        this.ds.saveProduct(bfp);
+        this.ds.saveProduct(bfp2);
+        DBCursor cur = client.getDB("financegrabber")
+                .getCollection("FinancialProducts")
+                .find(new BasicDBObject("wkn", "testWkn"));
+        String id = null;
+        while (cur.hasNext()) {
+            id = cur.next().get("_id").toString();
+        }
+
+        this.ds.deleteProductById(id);
+        assertEquals(1, this.ds.getAllProducts().size());
     }
 
     @After

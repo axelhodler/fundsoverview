@@ -3,10 +3,12 @@ package org.xorrr.financegrabber.db;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.bson.types.ObjectId;
 import org.xorrr.financegrabber.model.BasicFinancialProduct;
 
 import com.mongodb.BasicDBObject;
 import com.mongodb.DBCursor;
+import com.mongodb.DBObject;
 import com.mongodb.MongoClient;
 
 public class FinancialProductDatastore {
@@ -41,4 +43,8 @@ public class FinancialProductDatastore {
         }
     }
 
+    public void deleteProductById(String id) {
+        client.getDB("financegrabber").getCollection("FinancialProducts")
+                .remove(new BasicDBObject("_id", new ObjectId(id)));
+    }
 }
