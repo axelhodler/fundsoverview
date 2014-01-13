@@ -12,6 +12,8 @@ import com.mongodb.BasicDBObject;
 import com.mongodb.DB;
 import com.mongodb.DBCollection;
 import com.mongodb.MongoClient;
+import com.mongodb.MongoClientURI;
+import com.mongodb.MongoURI;
 
 import de.flapdoodle.embed.mongo.MongodExecutable;
 import de.flapdoodle.embed.mongo.MongodStarter;
@@ -42,6 +44,20 @@ public class TestEmbeddedMongo {
     public void testEmbeddedMongo() throws Exception {
         MongoClient mongo = new MongoClient("localhost", this.port);
         DB db = mongo.getDB("test");
+
+        DBCollection col = db.createCollection("testCol", new BasicDBObject());
+        Date date = new Date();
+        col.save(new BasicDBObject("testDoc", date));
+
+        assertEquals(date, col.findOne().get("testDoc"));
+    }
+
+    @Test
+    public void testEmbeddedWithMongoUri() throws Exception {
+        MongoClientURI uri = new MongoClientURI("mongodb://localhost:12345");
+        MongoClient client = new MongoClient(uri);
+
+        DB db = client.getDB("test");
 
         DBCollection col = db.createCollection("testCol", new BasicDBObject());
         Date date = new Date();
