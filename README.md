@@ -22,5 +22,6 @@ Currently using htmlunit, invoke via:
 
     mvn test
 
-Selenium?
-Vaadin TestBench is a commercial product.
+## Todo
+
+* start jetty automatically when running "mvn test"
