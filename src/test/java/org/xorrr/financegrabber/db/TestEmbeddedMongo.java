@@ -13,7 +13,6 @@ import com.mongodb.DB;
 import com.mongodb.DBCollection;
 import com.mongodb.MongoClient;
 import com.mongodb.MongoClientURI;
-import com.mongodb.MongoURI;
 
 import de.flapdoodle.embed.mongo.MongodExecutable;
 import de.flapdoodle.embed.mongo.MongodStarter;
@@ -38,18 +37,6 @@ public class TestEmbeddedMongo {
 
         this.mongodExecutable = runtime.prepare(mongodConfig);
         mongodExecutable.start();
-    }
-
-    @Test
-    public void testEmbeddedMongo() throws Exception {
-        MongoClient mongo = new MongoClient("localhost", this.port);
-        DB db = mongo.getDB("test");
-
-        DBCollection col = db.createCollection("testCol", new BasicDBObject());
-        Date date = new Date();
-        col.save(new BasicDBObject("testDoc", date));
-
-        assertEquals(date, col.findOne().get("testDoc"));
     }
 
     @Test
