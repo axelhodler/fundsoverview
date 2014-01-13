@@ -27,13 +27,18 @@ public class FinancialProductDatastore {
 
         DBCursor cur = client.getDB("financegrabber")
                 .getCollection("FinancialProducts").find();
+        iterateCursorAndAddEntriesToProducts(allProducts, cur);
+
+        return allProducts;
+    }
+
+    private void iterateCursorAndAddEntriesToProducts(
+            List<BasicFinancialProduct> allProducts, DBCursor cur) {
         while (cur.hasNext()) {
             BasicFinancialProduct curProduct = new BasicFinancialProduct();
             curProduct.setWkn(cur.next().get("wkn").toString());
             allProducts.add(curProduct);
         }
-
-        return allProducts;
     }
 
 }
