@@ -7,28 +7,26 @@ import org.bson.types.ObjectId;
 import org.xorrr.financegrabber.model.BasicFinancialProduct;
 
 import com.mongodb.BasicDBObject;
+import com.mongodb.DBCollection;
 import com.mongodb.DBCursor;
-import com.mongodb.DBObject;
 import com.mongodb.MongoClient;
 
 public class FinancialProductDatastore {
 
-    private MongoClient client;
+    private DBCollection col;
 
     public FinancialProductDatastore(MongoClient client) {
-        this.client = client;
+        this.col = client.getDB("financegrabber").getCollection("FinancialProducts");
     }
 
     public void saveProduct(BasicFinancialProduct bfp) {
-        client.getDB("financegrabber").getCollection("FinancialProducts")
-                .save(new BasicDBObject("wkn", bfp.getWkn()));
+        this.col.save(new BasicDBObject("wkn", bfp.getWkn()));
     }
 
     public List<BasicFinancialProduct> getAllProducts() {
         List<BasicFinancialProduct> allProducts = new ArrayList<BasicFinancialProduct>();
 
-        DBCursor cur = client.getDB("financegrabber")
-                .getCollection("FinancialProducts").find();
+        DBCursor cur = col.find();
         iterateCursorAndAddEntriesToProducts(allProducts, cur);
 
         return allProducts;
@@ -44,7 +42,6 @@ public class FinancialProductDatastore {
     }
 
     public void deleteProductById(String id) {
-        client.getDB("financegrabber").getCollection("FinancialProducts")
-                .remove(new BasicDBObject("_id", new ObjectId(id)));
+        col.remove(new BasicDBObject("_id", new ObjectId(id)));
     }
 }
