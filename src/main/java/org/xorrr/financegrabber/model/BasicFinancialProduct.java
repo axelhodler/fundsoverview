@@ -26,7 +26,7 @@ public class BasicFinancialProduct {
 
     private BasicFinancialProduct(Builder builder) {
         this.wkn = builder.wkn;
-        this.isin = builder.isin;
+        this.setIsin(builder.isin);
     }
 
     public void setWkn(String wkn) {
@@ -35,6 +35,14 @@ public class BasicFinancialProduct {
 
     public String getWkn() {
         return this.wkn;
+    }
+
+    public String getIsin() {
+        return isin;
+    }
+
+    public void setIsin(String isin) {
+        this.isin = isin;
     }
 
 }
