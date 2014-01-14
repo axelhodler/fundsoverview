@@ -10,6 +10,7 @@ import org.junit.Test;
 import org.xorrr.financegrabber.model.BasicFinancialProduct;
 
 import com.mongodb.BasicDBObject;
+import com.mongodb.DBCollection;
 import com.mongodb.DBCursor;
 import com.mongodb.DBObject;
 import com.mongodb.MongoClient;
@@ -30,6 +31,17 @@ public class TestEmbeddedMongo {
 
     private MongoClient client;
     private FinancialProductDatastore ds;
+    private DBCollection col;
+
+    private void createAndSaveTwoBasicFinancialProducts() {
+        BasicFinancialProduct bfp = new BasicFinancialProduct();
+        bfp.setWkn("testWkn");
+        BasicFinancialProduct bfp2 = new BasicFinancialProduct();
+        bfp2.setWkn("testWkn2");
+
+        this.ds.saveProduct(bfp);
+        this.ds.saveProduct(bfp2);
+    }
 
     @BeforeClass
     public static void setUpEmbeddedMongo() throws Exception {
@@ -47,6 +59,8 @@ public class TestEmbeddedMongo {
     public void setUp() throws Exception {
         MongoClientURI uri = new MongoClientURI("mongodb://localhost:12345");
         this.client = new MongoClient(uri);
+        this.col = this.client.getDB("financegrabber").getCollection(
+                "FinancialProducts");
         this.ds = new FinancialProductDatastore(this.client);
     }
 
@@ -57,37 +71,21 @@ public class TestEmbeddedMongo {
 
         this.ds.saveProduct(bfp);
 
-        DBObject dbo = this.client.getDB("financegrabber")
-                .getCollection("FinancialProducts")
-                .findOne(new BasicDBObject("wkn", "testWkn"));
+        DBObject dbo = col.findOne(new BasicDBObject("wkn", "testWkn"));
         assertEquals("testWkn", dbo.get("wkn"));
     }
 
     @Test
     public void testGettingSavedFinancialProducts() throws Exception {
-        BasicFinancialProduct bfp = new BasicFinancialProduct();
-        bfp.setWkn("testWkn");
-        BasicFinancialProduct bfp2 = new BasicFinancialProduct();
-        bfp2.setWkn("testWkn2");
-
-        this.ds.saveProduct(bfp);
-        this.ds.saveProduct(bfp2);
+        createAndSaveTwoBasicFinancialProducts();
 
         assertEquals(2, this.ds.getAllProducts().size());
     }
 
     @Test
     public void testDeletingSavedFinancialProduct() throws Exception {
-        BasicFinancialProduct bfp = new BasicFinancialProduct();
-        bfp.setWkn("testWkn");
-        BasicFinancialProduct bfp2 = new BasicFinancialProduct();
-        bfp2.setWkn("testWkn2");
-
-        this.ds.saveProduct(bfp);
-        this.ds.saveProduct(bfp2);
-        DBCursor cur = client.getDB("financegrabber")
-                .getCollection("FinancialProducts")
-                .find(new BasicDBObject("wkn", "testWkn"));
+        createAndSaveTwoBasicFinancialProducts();
+        DBCursor cur = col.find(new BasicDBObject("wkn", "testWkn"));
         String id = null;
         while (cur.hasNext()) {
             id = cur.next().get("_id").toString();
