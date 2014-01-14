@@ -34,10 +34,10 @@ public class TestEmbeddedMongo {
     private DBCollection col;
 
     private void createAndSaveTwoBasicFinancialProducts() {
-        BasicFinancialProduct bfp = new BasicFinancialProduct();
-        bfp.setWkn("testWkn");
-        BasicFinancialProduct bfp2 = new BasicFinancialProduct();
-        bfp2.setWkn("testWkn2");
+        BasicFinancialProduct bfp = new BasicFinancialProduct.Builder().wkn(
+                "testWkn").build();
+        BasicFinancialProduct bfp2 = new BasicFinancialProduct.Builder().wkn(
+                "testWkn2").build();
 
         this.ds.saveProduct(bfp);
         this.ds.saveProduct(bfp2);
@@ -66,12 +66,13 @@ public class TestEmbeddedMongo {
 
     @Test
     public void testAddingFinancialProduct() throws Exception {
-        BasicFinancialProduct bfp = new BasicFinancialProduct();
-        bfp.setWkn("testWkn");
+        BasicFinancialProduct bfp = new BasicFinancialProduct.Builder().wkn(
+                "testWkn").build();
 
         this.ds.saveProduct(bfp);
 
-        DBObject dbo = col.findOne(new BasicDBObject(DbProperties.WKN, "testWkn"));
+        DBObject dbo = col.findOne(new BasicDBObject(DbProperties.WKN,
+                "testWkn"));
         assertEquals("testWkn", dbo.get(DbProperties.WKN));
     }
 

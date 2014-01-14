@@ -36,8 +36,9 @@ public class FinancialProductDatastore {
     private void iterateCursorAndAddEntriesToProducts(
             List<BasicFinancialProduct> allProducts, DBCursor cur) {
         while (cur.hasNext()) {
-            BasicFinancialProduct curProduct = new BasicFinancialProduct();
-            curProduct.setWkn(cur.next().get(DbProperties.WKN).toString());
+            BasicFinancialProduct curProduct = new BasicFinancialProduct.Builder()
+                    .wkn(cur.next().get(DbProperties.WKN).toString()).build();
+
             allProducts.add(curProduct);
         }
     }
