@@ -59,8 +59,8 @@ public class TestEmbeddedMongo {
     public void setUp() throws Exception {
         MongoClientURI uri = new MongoClientURI("mongodb://localhost:12345");
         this.client = new MongoClient(uri);
-        this.col = this.client.getDB("financegrabber").getCollection(
-                "FinancialProducts");
+        this.col = this.client.getDB(DbProperties.DB).getCollection(
+                DbProperties.COL);
         this.ds = new FinancialProductDatastore(this.client);
     }
 
@@ -71,8 +71,8 @@ public class TestEmbeddedMongo {
 
         this.ds.saveProduct(bfp);
 
-        DBObject dbo = col.findOne(new BasicDBObject("wkn", "testWkn"));
-        assertEquals("testWkn", dbo.get("wkn"));
+        DBObject dbo = col.findOne(new BasicDBObject(DbProperties.WKN, "testWkn"));
+        assertEquals("testWkn", dbo.get(DbProperties.WKN));
     }
 
     @Test
@@ -85,10 +85,10 @@ public class TestEmbeddedMongo {
     @Test
     public void testDeletingSavedFinancialProduct() throws Exception {
         createAndSaveTwoBasicFinancialProducts();
-        DBCursor cur = col.find(new BasicDBObject("wkn", "testWkn"));
+        DBCursor cur = col.find(new BasicDBObject(DbProperties.WKN, "testWkn"));
         String id = null;
         while (cur.hasNext()) {
-            id = cur.next().get("_id").toString();
+            id = cur.next().get(DbProperties.ID).toString();
         }
 
         this.ds.deleteProductById(id);
@@ -97,7 +97,7 @@ public class TestEmbeddedMongo {
 
     @After
     public void dropDatabase() throws Exception {
-        client.dropDatabase("financegrabber");
+        client.dropDatabase(DbProperties.DB);
     }
 
     @AfterClass

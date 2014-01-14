@@ -16,11 +16,12 @@ public class FinancialProductDatastore {
     private DBCollection col;
 
     public FinancialProductDatastore(MongoClient client) {
-        this.col = client.getDB("financegrabber").getCollection("FinancialProducts");
+        this.col = client.getDB(DbProperties.DB)
+                .getCollection(DbProperties.COL);
     }
 
     public void saveProduct(BasicFinancialProduct bfp) {
-        this.col.save(new BasicDBObject("wkn", bfp.getWkn()));
+        this.col.save(new BasicDBObject(DbProperties.WKN, bfp.getWkn()));
     }
 
     public List<BasicFinancialProduct> getAllProducts() {
@@ -36,12 +37,12 @@ public class FinancialProductDatastore {
             List<BasicFinancialProduct> allProducts, DBCursor cur) {
         while (cur.hasNext()) {
             BasicFinancialProduct curProduct = new BasicFinancialProduct();
-            curProduct.setWkn(cur.next().get("wkn").toString());
+            curProduct.setWkn(cur.next().get(DbProperties.WKN).toString());
             allProducts.add(curProduct);
         }
     }
 
     public void deleteProductById(String id) {
-        col.remove(new BasicDBObject("_id", new ObjectId(id)));
+        col.remove(new BasicDBObject(DbProperties.ID, new ObjectId(id)));
     }
 }
