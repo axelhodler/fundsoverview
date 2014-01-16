@@ -29,6 +29,7 @@ public class TestWebApp {
         assertNotNull(panelDiv);
         assertNotNull(fundIdDiv);
         assertNotNull(addFundButtonDiv);
+        assertEquals("Add fond", addFundButtonDiv.getFirstChild().getFirstChild().asText());
 
         webClient.closeAllWindows();
     }
