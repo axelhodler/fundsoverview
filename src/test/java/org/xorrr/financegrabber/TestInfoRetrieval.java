@@ -8,10 +8,12 @@ import java.net.URL;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.xorrr.financegrabber.helper.InfoGrabber;
 import org.xorrr.financegrabber.model.FinancialProduct;
 
+@Ignore
 public class TestInfoRetrieval {
 
     private String assertedName = "FF - European Growth";
