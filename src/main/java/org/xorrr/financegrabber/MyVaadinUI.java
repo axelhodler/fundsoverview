@@ -6,7 +6,9 @@ import com.vaadin.annotations.Theme;
 import com.vaadin.annotations.VaadinServletConfiguration;
 import com.vaadin.server.VaadinRequest;
 import com.vaadin.server.VaadinServlet;
-import com.vaadin.ui.Table;
+import com.vaadin.ui.Button;
+import com.vaadin.ui.Panel;
+import com.vaadin.ui.TextField;
 import com.vaadin.ui.UI;
 import com.vaadin.ui.VerticalLayout;
 
@@ -23,19 +25,26 @@ public class MyVaadinUI extends UI
     @Override
     protected void init(VaadinRequest request) {
         UI.getCurrent().getPage().setTitle("financegrabber");
-        final VerticalLayout layout = new VerticalLayout();
-        layout.setMargin(true);
-        setContent(layout);
+        final VerticalLayout mainLayout = new VerticalLayout();
+        setContent(mainLayout);
 
-        Table table = new Table("Financial Products");
-        table.addContainerProperty("Name", String.class, null);
-        table.addContainerProperty("Last Price", String.class, null);
+        Panel addFundPanel = new Panel();
+        addFundPanel.setId("add_fund_panel");
 
-        table.addItem(new Object[] {"test", "123123.32"}, new Integer(1));
-        table.addItem(new Object[] {"test2", "153123.32"}, new Integer(2));
+        TextField fundIdField = new TextField();
+        fundIdField.setId("add_fund_id_field");
 
-        table.setId("mainTable");
-        layout.addComponent(table);
+        Button addFundButton = new Button("Add fond");
+        addFundButton.setId("add_fund_button");
+
+        VerticalLayout addFundsForm = new VerticalLayout();
+
+        addFundsForm.addComponent(fundIdField);
+        addFundsForm.addComponent(addFundButton);
+
+        addFundPanel.setContent(addFundsForm);
+
+        mainLayout.addComponent(addFundPanel);
     }
 
 }
