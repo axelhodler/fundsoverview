@@ -13,7 +13,7 @@ import com.gargoylesoftware.htmlunit.html.HtmlTextInput;
 public class TestWebApp {
 
     @Test
-    public void testPage() throws Exception {
+    public void testInitialPageStructure() throws Exception {
         WebClient webClient = new WebClient();
 
         HtmlPage page = webClient
