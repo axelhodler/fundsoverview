@@ -16,17 +16,8 @@ import com.mongodb.DBObject;
 import com.mongodb.MongoClient;
 import com.mongodb.MongoClientURI;
 
-import de.flapdoodle.embed.mongo.MongodExecutable;
-import de.flapdoodle.embed.mongo.MongodStarter;
-import de.flapdoodle.embed.mongo.config.IMongodConfig;
-import de.flapdoodle.embed.mongo.config.MongodConfigBuilder;
-import de.flapdoodle.embed.mongo.config.Net;
-import de.flapdoodle.embed.mongo.distribution.Version;
-import de.flapdoodle.embed.process.runtime.Network;
+public class TestFinancialProductDatastore {
 
-public class TestEmbeddedMongo {
-
-    private static MongodExecutable mongodExecutable = null;
     private static int port = 12345;
 
     private MongoClient client;
@@ -45,14 +36,7 @@ public class TestEmbeddedMongo {
 
     @BeforeClass
     public static void setUpEmbeddedMongo() throws Exception {
-        IMongodConfig mongodConfig = new MongodConfigBuilder()
-                .version(Version.Main.PRODUCTION)
-                .net(new Net(port, Network.localhostIsIPv6())).build();
-
-        MongodStarter runtime = MongodStarter.getDefaultInstance();
-
-        mongodExecutable = runtime.prepare(mongodConfig);
-        mongodExecutable.start();
+        EmbeddedMongo.startEmbeddedMongo(port);
     }
 
     @Before
@@ -103,7 +87,6 @@ public class TestEmbeddedMongo {
 
     @AfterClass
     public static void tearDown() throws Exception {
-        if (mongodExecutable != null)
-            mongodExecutable.stop();
+        EmbeddedMongo.stopEmbeddedMongo();
     }
 }
