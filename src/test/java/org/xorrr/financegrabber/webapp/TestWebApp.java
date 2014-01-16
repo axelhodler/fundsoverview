@@ -7,16 +7,13 @@ import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.xorrr.financegrabber.db.DbProperties;
 import org.xorrr.financegrabber.db.EmbeddedMongo;
 import org.xorrr.financegrabber.db.FinancialProductDatastore;
 
 import com.gargoylesoftware.htmlunit.BrowserVersion;
-import com.gargoylesoftware.htmlunit.ScriptResult;
 import com.gargoylesoftware.htmlunit.WebClient;
-import com.gargoylesoftware.htmlunit.html.HtmlButton;
 import com.gargoylesoftware.htmlunit.html.HtmlDivision;
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
 import com.gargoylesoftware.htmlunit.html.HtmlTextInput;
@@ -44,7 +41,6 @@ public class TestWebApp {
         this.ds = new FinancialProductDatastore(this.client);
     }
 
-    @Ignore
     @Test
     public void testInitialPageStructure() throws Exception {
         WebClient webClient = new WebClient();
@@ -62,7 +58,7 @@ public class TestWebApp {
         assertNotNull(panelDiv);
         assertNotNull(fundIdDiv);
         assertNotNull(addFundButtonDiv);
-        assertEquals("Add fond", addFundButtonDiv.getFirstChild().getFirstChild().asText());
+        assertEquals("ADD_FUND", addFundButtonDiv.getFirstChild().getFirstChild().asText());
 
         webClient.closeAllWindows();
     }
