@@ -1,12 +1,21 @@
 package org.xorrr.financegrabber;
 
+import java.net.UnknownHostException;
+
 import javax.servlet.annotation.WebServlet;
 
+import org.xorrr.financegrabber.db.FinancialProductDatastore;
+import org.xorrr.financegrabber.model.BasicFinancialProduct;
+
+import com.mongodb.MongoClient;
+import com.mongodb.MongoClientURI;
 import com.vaadin.annotations.Theme;
 import com.vaadin.annotations.VaadinServletConfiguration;
 import com.vaadin.server.VaadinRequest;
 import com.vaadin.server.VaadinServlet;
 import com.vaadin.ui.Button;
+import com.vaadin.ui.Button.ClickEvent;
+import com.vaadin.ui.Button.ClickListener;
 import com.vaadin.ui.Panel;
 import com.vaadin.ui.TextField;
 import com.vaadin.ui.UI;
@@ -31,7 +40,7 @@ public class MyVaadinUI extends UI
         Panel addFundPanel = new Panel();
         addFundPanel.setId("add_fund_panel");
 
-        TextField fundIdField = new TextField();
+        final TextField fundIdField = new TextField();
         fundIdField.setId("add_fund_id_field");
 
         Button addFundButton = new Button("Add fond");
@@ -45,6 +54,25 @@ public class MyVaadinUI extends UI
         addFundPanel.setContent(addFundsForm);
 
         mainLayout.addComponent(addFundPanel);
-    }
 
+        ClickListener addFunds = new Button.ClickListener() {
+            
+            @Override
+            public void buttonClick(ClickEvent event) {
+                MongoClientURI uri = new MongoClientURI("mongodb://localhost:12345");
+                FinancialProductDatastore ds = null;
+                try {
+                    ds = new FinancialProductDatastore(new MongoClient(uri));
+                } catch (UnknownHostException e) {
+                    e.printStackTrace();
+                }
+                BasicFinancialProduct bfp = new BasicFinancialProduct.Builder().wkn(
+                        fundIdField.getValue()).build();
+                ds.saveProduct(bfp);
+                
+            }
+        };
+
+        addFundButton.addClickListener(addFunds);
+    }
 }
