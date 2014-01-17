@@ -50,12 +50,10 @@ public class TestWebApp {
 
         webClient.waitForBackgroundJavaScript(5000);
 
-        HtmlDivision panelDiv = page.getHtmlElementById("add_fund_panel");
         HtmlTextInput fundIdDiv = page.getHtmlElementById("add_fund_id_field");
         HtmlDivision addFundButtonDiv = page.getHtmlElementById("add_fund_button");
 
         assertEquals("financegrabber", page.getTitleText());
-        assertNotNull(panelDiv);
         assertNotNull(fundIdDiv);
         assertNotNull(addFundButtonDiv);
         assertEquals("ADD_FUND", addFundButtonDiv.getFirstChild().getFirstChild().asText());

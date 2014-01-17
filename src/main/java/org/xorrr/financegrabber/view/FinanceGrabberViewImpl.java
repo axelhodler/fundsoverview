@@ -1,62 +1,47 @@
 package org.xorrr.financegrabber.view;
 
-import java.util.ArrayList;
-import java.util.List;
+import org.xorrr.financegrabber.presenter.FinanceGrabberViewHandler;
 
+import com.vaadin.navigator.ViewChangeListener.ViewChangeEvent;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.Button.ClickEvent;
-import com.vaadin.ui.Button.ClickListener;
-import com.vaadin.ui.CustomComponent;
-import com.vaadin.ui.Panel;
 import com.vaadin.ui.TextField;
 import com.vaadin.ui.VerticalLayout;
 
 @SuppressWarnings("serial")
-public class FinanceGrabberViewImpl extends CustomComponent implements
-        FinanceGrabberView, ClickListener {
+public class FinanceGrabberViewImpl extends VerticalLayout implements
+        FinanceGrabberView {
 
     private TextField fundIdField;
+    private Button addFundButton;
 
-    public FinanceGrabberViewImpl() {
-        Panel addFundPanel = new Panel();
-        addFundPanel.setId("add_fund_panel");
+    private FinanceGrabberViewHandler handler;
 
+    public void init() {
         fundIdField = new TextField();
         fundIdField.setId("add_fund_id_field");
 
-        Button addFundButton = new Button("ADD_FUND", this);
+        addFundButton = new Button("ADD_FUND");
         addFundButton.setId("add_fund_button");
+        addFundButton.addClickListener(new Button.ClickListener() {
+            
+            @Override
+            public void buttonClick(ClickEvent event) {
+                handler.addFund(fundIdField.getValue());
+            }
+        });
 
-        VerticalLayout addFundsForm = new VerticalLayout();
-
-        addFundsForm.addComponent(fundIdField);
-        addFundsForm.addComponent(addFundButton);
-
-        addFundPanel.setContent(addFundsForm);
-
-        setCompositionRoot(addFundPanel);
-    }
-
-    /* Only the presenter registers one listener... */
-    List<FinanceGrabberViewListener> listeners =
-            new ArrayList<FinanceGrabberViewListener>();
-
-    @Override
-    public void addListener(FinanceGrabberViewListener listener) {
-        listeners.add(listener);
-    }
-
-    /** Relay button clicks to the presenter with an
-     *  implementation-independent event */
-    @Override
-    public void buttonClick(ClickEvent event) {
-        for (FinanceGrabberViewListener listener: listeners) {
-            listener.buttonClick(event.getButton().getCaption());
-        }
+        addComponent(fundIdField);
+        addComponent(addFundButton);
     }
 
     @Override
-    public String getFundId() {
-        return fundIdField.getValue();
+    public void enter(ViewChangeEvent event) {
+
+    }
+
+    @Override
+    public void addHandler(FinanceGrabberViewHandler handler) {
+        this.handler = handler;
     }
 }

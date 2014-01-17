@@ -1,12 +1,13 @@
 package org.xorrr.financegrabber.view;
 
+import org.xorrr.financegrabber.presenter.FinanceGrabberViewHandler;
 
-public interface FinanceGrabberView {
+import com.vaadin.navigator.View;
 
-    interface FinanceGrabberViewListener {
-        void buttonClick(String string);
-    }
-    public void addListener(FinanceGrabberViewListener listener);
 
-    public String getFundId();
+public interface FinanceGrabberView extends View {
+
+    void init();
+
+    public void addHandler(FinanceGrabberViewHandler handler);
 }
