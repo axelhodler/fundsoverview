@@ -39,7 +39,7 @@ public class TestWebApp {
 
     @Before
     public void setUp() throws Exception {
-        MongoClientURI uri = new MongoClientURI("mongodb://localhost:12345");
+        MongoClientURI uri = new MongoClientURI(System.getenv("MONGODB_URI"));
         this.client = new MongoClient(uri);
         this.col = this.client.getDB(DbProperties.DB).getCollection(
                 DbProperties.COL);

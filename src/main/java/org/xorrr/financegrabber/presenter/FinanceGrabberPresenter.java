@@ -19,7 +19,7 @@ public class FinanceGrabberPresenter implements FinanceGrabberViewHandler {
 
     @Override
     public void addFund(String fundId) {
-        MongoClientURI uri = new MongoClientURI("mongodb://localhost:12345");
+        MongoClientURI uri = new MongoClientURI(System.getenv("MONGODB_URI"));
         FinancialProductDatastore ds = null;
         try {
             ds = new FinancialProductDatastore(new MongoClient(uri));
