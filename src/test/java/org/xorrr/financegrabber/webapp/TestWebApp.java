@@ -3,6 +3,8 @@ package org.xorrr.financegrabber.webapp;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
+import java.util.logging.Level;
+
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -39,6 +41,9 @@ public class TestWebApp {
         this.col = this.client.getDB(DbProperties.DB).getCollection(
                 DbProperties.COL);
         this.ds = new FinancialProductDatastore(this.client);
+
+        java.util.logging.Logger.getLogger("com.gargoylesoftware.htmlunit")
+                .setLevel(Level.OFF);
     }
 
     @Test
