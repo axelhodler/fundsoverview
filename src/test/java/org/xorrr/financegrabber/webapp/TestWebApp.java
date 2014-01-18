@@ -29,6 +29,9 @@ public class TestWebApp {
     private DBCollection col;
     private FinancialProductDatastore ds;
 
+    private WebClient webClient;
+    private HtmlPage page;
+
     @BeforeClass
     public static void startEmbeddedMongo() throws Exception {
         EmbeddedMongo.startEmbeddedMongo(12345);
@@ -44,43 +47,34 @@ public class TestWebApp {
 
         java.util.logging.Logger.getLogger("com.gargoylesoftware.htmlunit")
                 .setLevel(Level.OFF);
+        this.webClient = new WebClient(BrowserVersion.FIREFOX_17);
+        this.page = webClient
+                .getPage("http://localhost:8080/financegrabber");
+        webClient.waitForBackgroundJavaScript(5000);
     }
 
     @Test
     public void testInitialPageStructure() throws Exception {
-        WebClient webClient = new WebClient();
-
-        HtmlPage page = webClient
-                .getPage("http://localhost:8080/financegrabber");
-
-        webClient.waitForBackgroundJavaScript(5000);
-
         HtmlTextInput fundIdDiv = page.getHtmlElementById("add_fund_id_field");
-        HtmlDivision addFundButtonDiv = page.getHtmlElementById("add_fund_button");
+        HtmlDivision addFundButtonDiv = page
+                .getHtmlElementById("add_fund_button");
 
         assertEquals("financegrabber", page.getTitleText());
         assertNotNull(fundIdDiv);
         assertNotNull(addFundButtonDiv);
-        assertEquals("ADD_FUND", addFundButtonDiv.getFirstChild().getFirstChild().asText());
-
-        webClient.closeAllWindows();
+        assertEquals("ADD_FUND", addFundButtonDiv.getFirstChild()
+                .getFirstChild().asText());
     }
 
     @Test
     public void testAddingAFund() throws Exception {
-        WebClient webClient = new WebClient(BrowserVersion.FIREFOX_17);
-
-        HtmlPage page = webClient
-                .getPage("http://localhost:8080/financegrabber");
-
-        webClient.waitForBackgroundJavaScript(5000);
-
         assertEquals(0, ds.getAllProducts().size());
 
         HtmlTextInput fundIdDiv = page.getHtmlElementById("add_fund_id_field");
         fundIdDiv.setValueAttribute("iddqd");
         assertEquals("iddqd", fundIdDiv.asText());
-        HtmlDivision addFundButtonDiv = page.getHtmlElementById("add_fund_button");
+        HtmlDivision addFundButtonDiv = page
+                .getHtmlElementById("add_fund_button");
         addFundButtonDiv.click();
         webClient.waitForBackgroundJavaScript(2000);
 
@@ -91,6 +85,7 @@ public class TestWebApp {
     @After
     public void tearDown() throws Exception {
         col.drop();
+        webClient.closeAllWindows();
     }
 
     @AfterClass
