@@ -1,5 +1,6 @@
 package org.xorrr.financegrabber.view;
 
+import org.xorrr.financegrabber.model.BasicFinancialProduct;
 import org.xorrr.financegrabber.presenter.FinanceGrabberViewHandler;
 
 import com.vaadin.navigator.ViewChangeListener.ViewChangeEvent;
@@ -24,10 +25,11 @@ public class FinanceGrabberViewImpl extends VerticalLayout implements
         addFundButton = new Button("ADD_FUND");
         addFundButton.setId("add_fund_button");
         addFundButton.addClickListener(new Button.ClickListener() {
-            
+
             @Override
             public void buttonClick(ClickEvent event) {
-                handler.addFund(fundIdField.getValue());
+                handler.addFund(new BasicFinancialProduct.Builder()
+                .wkn(fundIdField.getValue()).build());
             }
         });
 

@@ -1,33 +1,21 @@
 package org.xorrr.financegrabber.presenter;
 
-import java.net.UnknownHostException;
-
 import org.xorrr.financegrabber.db.FinancialProductDatastore;
 import org.xorrr.financegrabber.model.BasicFinancialProduct;
 import org.xorrr.financegrabber.view.FinanceGrabberView;
 
-import com.mongodb.MongoClient;
-import com.mongodb.MongoClientURI;
-
 public class FinanceGrabberPresenter implements FinanceGrabberViewHandler {
 
     FinanceGrabberView view;
+    FinancialProductDatastore ds;
 
-    public FinanceGrabberPresenter(FinanceGrabberView view) {
+    public FinanceGrabberPresenter(FinanceGrabberView view, FinancialProductDatastore ds) {
         this.view = view;
+        this.ds = ds;
     }
 
     @Override
-    public void addFund(String fundId) {
-        MongoClientURI uri = new MongoClientURI(System.getenv("MONGODB_URI"));
-        FinancialProductDatastore ds = null;
-        try {
-            ds = new FinancialProductDatastore(new MongoClient(uri));
-        } catch (UnknownHostException e) {
-            e.printStackTrace();
-        }
-        BasicFinancialProduct bfp = new BasicFinancialProduct.Builder().wkn(
-                fundId).build();
+    public void addFund(BasicFinancialProduct bfp) {
         ds.saveProduct(bfp);
     }
 }

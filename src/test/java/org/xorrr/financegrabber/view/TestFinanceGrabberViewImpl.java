@@ -6,6 +6,8 @@ import static org.mockito.Mockito.verify;
 
 import org.junit.Before;
 import org.junit.Test;
+import org.mockito.Mockito;
+import org.xorrr.financegrabber.model.BasicFinancialProduct;
 import org.xorrr.financegrabber.presenter.FinanceGrabberViewHandler;
 
 public class TestFinanceGrabberViewImpl {
@@ -25,6 +27,7 @@ public class TestFinanceGrabberViewImpl {
     public void testIfAddFundMethodIsTriggeredWhenButtonIsClicked() {
         view.getAddFundBtn().click();
 
-        verify(handler, times(1)).addFund("");
+        verify(handler, times(1)).addFund(
+                Mockito.any(BasicFinancialProduct.class));
     }
 }

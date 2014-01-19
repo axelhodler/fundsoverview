@@ -1,11 +1,16 @@
 package org.xorrr.financegrabber;
 
+import java.net.UnknownHostException;
+
 import javax.servlet.annotation.WebServlet;
 
+import org.xorrr.financegrabber.db.FinancialProductDatastore;
 import org.xorrr.financegrabber.presenter.FinanceGrabberPresenter;
 import org.xorrr.financegrabber.view.FinanceGrabberView;
 import org.xorrr.financegrabber.view.FinanceGrabberViewImpl;
 
+import com.mongodb.MongoClient;
+import com.mongodb.MongoClientURI;
 import com.vaadin.annotations.Theme;
 import com.vaadin.annotations.VaadinServletConfiguration;
 import com.vaadin.navigator.Navigator;
@@ -29,7 +34,17 @@ public class MyVaadinUI extends UI {
         UI.getCurrent().getPage().setTitle("financegrabber");
 
         FinanceGrabberView view = new FinanceGrabberViewImpl();
-        FinanceGrabberPresenter handler = new FinanceGrabberPresenter(view);
+
+        MongoClientURI uri = new MongoClientURI(System.getenv("MONGODB_URI"));
+        FinancialProductDatastore ds = null;
+
+        try {
+            ds = new FinancialProductDatastore(new MongoClient(uri));
+        } catch (UnknownHostException e) {
+            e.printStackTrace();
+        }
+
+        FinanceGrabberPresenter handler = new FinanceGrabberPresenter(view, ds);
         view.addHandler(handler);
         view.init();
 
