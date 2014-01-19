@@ -44,4 +44,9 @@ public class FinanceGrabberViewImpl extends VerticalLayout implements
     public void addHandler(FinanceGrabberViewHandler handler) {
         this.handler = handler;
     }
+
+    @Override
+    public Button getAddFundBtn() {
+        return this.addFundButton;
+    }
 }

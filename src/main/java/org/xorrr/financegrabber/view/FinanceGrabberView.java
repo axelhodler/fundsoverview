@@ -3,11 +3,13 @@ package org.xorrr.financegrabber.view;
 import org.xorrr.financegrabber.presenter.FinanceGrabberViewHandler;
 
 import com.vaadin.navigator.View;
+import com.vaadin.ui.Button;
 
 
 public interface FinanceGrabberView extends View {
 
     void init();
 
-    public void addHandler(FinanceGrabberViewHandler handler);
+    void addHandler(FinanceGrabberViewHandler handler);
+    Button getAddFundBtn();
 }
