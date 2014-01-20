@@ -43,7 +43,7 @@ public class FinanceGrabberViewImpl extends VerticalLayout implements
     }
 
     @Override
-    public void addHandler(FinanceGrabberViewHandler handler) {
+    public void setHandler(FinanceGrabberViewHandler handler) {
         this.handler = handler;
     }
 

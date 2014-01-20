@@ -10,6 +10,6 @@ public interface FinanceGrabberView extends View {
 
     void init();
 
-    void addHandler(FinanceGrabberViewHandler handler);
+    void setHandler(FinanceGrabberViewHandler handler);
     Button getAddFundBtn();
 }

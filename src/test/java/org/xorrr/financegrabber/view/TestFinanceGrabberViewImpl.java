@@ -19,7 +19,7 @@ public class TestFinanceGrabberViewImpl {
     public void setUp() {
         view = new FinanceGrabberViewImpl();
         handler = mock(FinanceGrabberViewHandler.class);
-        view.addHandler(handler);
+        view.setHandler(handler);
         view.init();
     }
 

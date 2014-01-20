@@ -45,7 +45,7 @@ public class MyVaadinUI extends UI {
         }
 
         FinanceGrabberPresenter handler = new FinanceGrabberPresenter(view, ds);
-        view.addHandler(handler);
+        view.setHandler(handler);
         view.init();
 
         navigator.addView("", view);
