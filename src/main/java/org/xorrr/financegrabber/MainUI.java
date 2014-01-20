@@ -35,20 +35,24 @@ public class MainUI extends UI {
 
         FinanceGrabberView view = new FinanceGrabberViewImpl();
 
-        MongoClientURI uri = new MongoClientURI(System.getenv("MONGODB_URI"));
+        FinanceGrabberPresenter handler = new FinanceGrabberPresenter(view,
+                createFinancialDatastore());
+        view.setHandler(handler);
+        view.init();
+
+        navigator.addView("", view);
+        navigator.navigateTo("");
+    }
+
+    private FinancialProductDatastore createFinancialDatastore() {
         FinancialProductDatastore ds = null;
+        MongoClientURI uri = new MongoClientURI(System.getenv("MONGODB_URI"));
 
         try {
             ds = new FinancialProductDatastore(new MongoClient(uri));
         } catch (UnknownHostException e) {
             e.printStackTrace();
         }
-
-        FinanceGrabberPresenter handler = new FinanceGrabberPresenter(view, ds);
-        view.setHandler(handler);
-        view.init();
-
-        navigator.addView("", view);
-        navigator.navigateTo("");
+        return ds;
     }
 }
