@@ -1,6 +1,5 @@
 package org.xorrr.financegrabber.presenter;
 
-import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
@@ -30,7 +29,6 @@ public class TestFinanceGrabberPresenter {
 
         BasicFinancialProduct bfp = new BasicFinancialProduct.Builder().wkn("")
                 .build();
-        doNothing().when(ds).saveProduct(bfp);
 
         presenter.addFund(bfp);
 
