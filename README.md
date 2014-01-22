@@ -16,6 +16,9 @@ Once package has been run you can run the project on the embedded Jetty server u
 
 This will start a Jetty server with the project at http://localhost:8080/
 
+Also make sure the mongo daemon is running on port 27017 or edit the port accordingly in
+    /bin/run.sh
+
 ## Test
 
 Currently using htmlunit, invoke via:
