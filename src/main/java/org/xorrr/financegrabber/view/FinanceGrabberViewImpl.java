@@ -19,19 +19,16 @@ public class FinanceGrabberViewImpl extends VerticalLayout implements
     private FinanceGrabberViewHandler handler;
 
     public void init() {
+        initFormToAddFunds();
+    }
+
+    private void initFormToAddFunds() {
         fundIdField = new TextField();
         fundIdField.setId("add_fund_id_field");
 
         addFundButton = new Button("ADD_FUND");
         addFundButton.setId("add_fund_button");
-        addFundButton.addClickListener(new Button.ClickListener() {
-
-            @Override
-            public void buttonClick(ClickEvent event) {
-                handler.addFund(new BasicFinancialProduct.Builder()
-                .wkn(fundIdField.getValue()).build());
-            }
-        });
+        addFundButton.addClickListener(addFundListener);
 
         addComponent(fundIdField);
         addComponent(addFundButton);
@@ -51,4 +48,13 @@ public class FinanceGrabberViewImpl extends VerticalLayout implements
     public Button getAddFundBtn() {
         return this.addFundButton;
     }
+
+    Button.ClickListener addFundListener = new Button.ClickListener() {
+
+        @Override
+        public void buttonClick(ClickEvent event) {
+            handler.addFund(new BasicFinancialProduct.Builder()
+            .wkn(fundIdField.getValue()).build());
+        }
+    };
 }
