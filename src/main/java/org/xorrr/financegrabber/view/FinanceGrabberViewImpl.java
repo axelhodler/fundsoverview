@@ -1,5 +1,7 @@
 package org.xorrr.financegrabber.view;
 
+import java.util.List;
+
 import org.xorrr.financegrabber.model.BasicFinancialProduct;
 import org.xorrr.financegrabber.presenter.FinanceGrabberViewHandler;
 
@@ -57,4 +59,9 @@ public class FinanceGrabberViewImpl extends VerticalLayout implements
             .wkn(fundIdField.getValue()).build());
         }
     };
+
+    @Override
+    public void showFunds(List<BasicFinancialProduct> funds) {
+        
+    }
 }

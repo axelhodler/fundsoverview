@@ -1,5 +1,7 @@
 package org.xorrr.financegrabber.presenter;
 
+import java.util.List;
+
 import org.xorrr.financegrabber.db.FinancialProductDatastore;
 import org.xorrr.financegrabber.model.BasicFinancialProduct;
 import org.xorrr.financegrabber.view.FinanceGrabberView;
@@ -17,5 +19,11 @@ public class FinanceGrabberPresenter implements FinanceGrabberViewHandler {
     @Override
     public void addFund(BasicFinancialProduct bfp) {
         ds.saveProduct(bfp);
+    }
+
+    @Override
+    public void showFunds() {
+        List<BasicFinancialProduct> funds = ds.getAllProducts();
+        view.showFunds(funds);
     }
 }

@@ -1,5 +1,6 @@
 package org.xorrr.financegrabber.presenter;
 
+import static org.mockito.Matchers.anyList;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
@@ -33,5 +34,15 @@ public class TestFinanceGrabberPresenter {
         presenter.addFund(bfp);
 
         verify(ds, times(1)).saveProduct(bfp);
+    }
+
+    @SuppressWarnings("unchecked")
+    @Test
+    public void testTheShowFundsMethod() {
+        presenter.showFunds();
+
+        verify(ds, times(1)).getAllProducts();
+
+        verify(view, times(1)).showFunds(anyList());
     }
 }
