@@ -8,6 +8,7 @@ import org.xorrr.financegrabber.presenter.FinanceGrabberViewHandler;
 import com.vaadin.navigator.ViewChangeListener.ViewChangeEvent;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.Button.ClickEvent;
+import com.vaadin.ui.Table;
 import com.vaadin.ui.TextField;
 import com.vaadin.ui.VerticalLayout;
 
@@ -34,6 +35,7 @@ public class FinanceGrabberViewImpl extends VerticalLayout implements
 
         addComponent(fundIdField);
         addComponent(addFundButton);
+        handler.showFunds();
     }
 
     @Override
@@ -55,13 +57,19 @@ public class FinanceGrabberViewImpl extends VerticalLayout implements
 
         @Override
         public void buttonClick(ClickEvent event) {
-            handler.addFund(new BasicFinancialProduct.Builder()
-            .wkn(fundIdField.getValue()).build());
+            handler.addFund(new BasicFinancialProduct.Builder().wkn(
+                    fundIdField.getValue()).build());
         }
     };
 
     @Override
     public void showFunds(List<BasicFinancialProduct> funds) {
-        
+        Table fundTable = new Table("Funds");
+        fundTable.addContainerProperty("Fund", String.class, null);
+        for (int i = 0; i < funds.size(); i++) {
+            fundTable.addItem(new Object[] { funds.get(i).getWkn() },
+                    new Integer(i));
+        }
+        addComponent(fundTable);
     }
 }
