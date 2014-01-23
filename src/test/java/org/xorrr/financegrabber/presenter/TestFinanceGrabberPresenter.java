@@ -1,5 +1,6 @@
 package org.xorrr.financegrabber.presenter;
 
+import static org.mockito.Matchers.any;
 import static org.mockito.Matchers.anyList;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.times;
@@ -28,12 +29,10 @@ public class TestFinanceGrabberPresenter {
     @Test
     public void doesAddFundMethodWork() {
 
-        BasicFinancialProduct bfp = new BasicFinancialProduct.Builder().wkn("")
-                .build();
+        BasicFinancialProduct anyBfp = any(BasicFinancialProduct.class);
+        presenter.addFund(anyBfp);
 
-        presenter.addFund(bfp);
-
-        verify(ds, times(1)).saveProduct(bfp);
+        verify(ds, times(1)).saveProduct(anyBfp);
     }
 
     @SuppressWarnings("unchecked")
