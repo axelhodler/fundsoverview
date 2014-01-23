@@ -26,4 +26,9 @@ public class FinanceGrabberPresenter implements FinanceGrabberViewHandler {
         List<BasicFinancialProduct> funds = ds.getAllProducts();
         view.displayFunds(funds);
     }
+
+    @Override
+    public void removeFundTableItems() {
+        view.getFundTable().removeAllItems();
+    }
 }

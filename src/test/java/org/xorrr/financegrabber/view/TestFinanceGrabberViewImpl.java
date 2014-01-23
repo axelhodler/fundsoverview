@@ -30,4 +30,12 @@ public class TestFinanceGrabberViewImpl {
         verify(handler, times(1)).addFund(
                 Mockito.any(BasicFinancialProduct.class));
     }
+
+    @Test
+    public void areItemsInTableRedrawnAfterAddingFund() {
+        verify(handler, times(1)).showFunds();
+        view.getAddFundBtn().click();
+        verify(handler, times(1)).removeFundTableItems();
+        verify(handler, times(1)).showFunds();
+    }
 }

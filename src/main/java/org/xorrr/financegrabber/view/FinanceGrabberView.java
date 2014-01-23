@@ -7,6 +7,7 @@ import org.xorrr.financegrabber.presenter.FinanceGrabberViewHandler;
 
 import com.vaadin.navigator.View;
 import com.vaadin.ui.Button;
+import com.vaadin.ui.Table;
 
 
 public interface FinanceGrabberView extends View {
@@ -18,4 +19,6 @@ public interface FinanceGrabberView extends View {
     public Button getAddFundBtn();
 
     public void displayFunds(List<BasicFinancialProduct> funds);
+
+    public Table getFundTable();
 }

@@ -42,6 +42,11 @@ public class FinanceGrabberViewImpl extends VerticalLayout implements
     }
 
     @Override
+    public Table getFundTable() {
+        return this.fundTable;
+    }
+
+    @Override
     public void displayFunds(List<BasicFinancialProduct> funds) {
         for (int i = 0; i < funds.size(); i++) {
             fundTable.addItem(new Object[] { funds.get(i).getWkn() },
@@ -55,6 +60,8 @@ public class FinanceGrabberViewImpl extends VerticalLayout implements
         public void buttonClick(ClickEvent event) {
             handler.addFund(new BasicFinancialProduct.Builder().wkn(
                     fundIdField.getValue()).build());
+            handler.removeFundTableItems();
+            handler.showFunds();
         }
     };
 
@@ -82,4 +89,5 @@ public class FinanceGrabberViewImpl extends VerticalLayout implements
         fundTable = new Table("Funds");
         fundTable.addContainerProperty("Fund", String.class, null);
     }
+
 }

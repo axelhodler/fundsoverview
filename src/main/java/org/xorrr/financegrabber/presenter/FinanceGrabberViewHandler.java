@@ -6,4 +6,6 @@ public interface FinanceGrabberViewHandler {
     public void addFund(BasicFinancialProduct bfp);
 
     public void showFunds();
+
+    public void removeFundTableItems();
 }
