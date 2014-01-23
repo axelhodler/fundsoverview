@@ -28,10 +28,9 @@ public class TestFinanceGrabberPresenter {
 
     @Test
     public void doesAddFundMethodWork() {
-
         BasicFinancialProduct anyBfp = any(BasicFinancialProduct.class);
-        presenter.addFund(anyBfp);
 
+        presenter.addFund(anyBfp);
         verify(ds, times(1)).saveProduct(anyBfp);
     }
 
@@ -39,9 +38,7 @@ public class TestFinanceGrabberPresenter {
     @Test
     public void testTheShowFundsMethod() {
         presenter.showFunds();
-
         verify(ds, times(1)).getAllProducts();
-
         verify(view, times(1)).showFunds(anyList());
     }
 }
