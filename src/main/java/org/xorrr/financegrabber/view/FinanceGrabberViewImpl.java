@@ -18,24 +18,12 @@ public class FinanceGrabberViewImpl extends VerticalLayout implements
 
     private TextField fundIdField;
     private Button addFundButton;
-
+    private Table fundTable;
     private FinanceGrabberViewHandler handler;
 
     public void init() {
         initFormToAddFunds();
-    }
-
-    private void initFormToAddFunds() {
-        fundIdField = new TextField();
-        fundIdField.setId("add_fund_id_field");
-
-        addFundButton = new Button("ADD_FUND");
-        addFundButton.setId("add_fund_button");
-        addFundButton.addClickListener(addFundListener);
-
-        addComponent(fundIdField);
-        addComponent(addFundButton);
-        handler.showFunds();
+        initFundTable();
     }
 
     @Override
@@ -53,6 +41,14 @@ public class FinanceGrabberViewImpl extends VerticalLayout implements
         return this.addFundButton;
     }
 
+    @Override
+    public void displayFunds(List<BasicFinancialProduct> funds) {
+        for (int i = 0; i < funds.size(); i++) {
+            fundTable.addItem(new Object[] { funds.get(i).getWkn() },
+                    new Integer(i));
+        }
+    }
+
     Button.ClickListener addFundListener = new Button.ClickListener() {
 
         @Override
@@ -62,14 +58,28 @@ public class FinanceGrabberViewImpl extends VerticalLayout implements
         }
     };
 
-    @Override
-    public void displayFunds(List<BasicFinancialProduct> funds) {
-        Table fundTable = new Table("Funds");
-        fundTable.addContainerProperty("Fund", String.class, null);
-        for (int i = 0; i < funds.size(); i++) {
-            fundTable.addItem(new Object[] { funds.get(i).getWkn() },
-                    new Integer(i));
-        }
+
+    private void initFormToAddFunds() {
+        fundIdField = new TextField();
+        fundIdField.setId("add_fund_id_field");
+        
+        addFundButton = new Button("ADD_FUND");
+        addFundButton.setId("add_fund_button");
+        addFundButton.addClickListener(addFundListener);
+        
+        addComponent(fundIdField);
+        addComponent(addFundButton);
+    }
+
+    private void initFundTable() {
+        createFundTable();
         addComponent(fundTable);
+        
+        handler.showFunds();
+    }
+
+    private void createFundTable() {
+        fundTable = new Table("Funds");
+        fundTable.addContainerProperty("Fund", String.class, null);
     }
 }
