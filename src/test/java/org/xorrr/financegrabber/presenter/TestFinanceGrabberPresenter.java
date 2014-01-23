@@ -39,6 +39,6 @@ public class TestFinanceGrabberPresenter {
     public void testTheShowFundsMethod() {
         presenter.showFunds();
         verify(ds, times(1)).getAllProducts();
-        verify(view, times(1)).showFunds(anyList());
+        verify(view, times(1)).displayFunds(anyList());
     }
 }

@@ -17,5 +17,5 @@ public interface FinanceGrabberView extends View {
 
     public Button getAddFundBtn();
 
-    public void showFunds(List<BasicFinancialProduct> funds);
+    public void displayFunds(List<BasicFinancialProduct> funds);
 }

@@ -24,6 +24,6 @@ public class FinanceGrabberPresenter implements FinanceGrabberViewHandler {
     @Override
     public void showFunds() {
         List<BasicFinancialProduct> funds = ds.getAllProducts();
-        view.showFunds(funds);
+        view.displayFunds(funds);
     }
 }

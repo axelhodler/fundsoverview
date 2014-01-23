@@ -63,7 +63,7 @@ public class FinanceGrabberViewImpl extends VerticalLayout implements
     };
 
     @Override
-    public void showFunds(List<BasicFinancialProduct> funds) {
+    public void displayFunds(List<BasicFinancialProduct> funds) {
         Table fundTable = new Table("Funds");
         fundTable.addContainerProperty("Fund", String.class, null);
         for (int i = 0; i < funds.size(); i++) {
