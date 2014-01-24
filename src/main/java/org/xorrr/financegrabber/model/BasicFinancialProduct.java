@@ -4,6 +4,7 @@ public class BasicFinancialProduct {
 
     private String wkn;
     private String isin;
+    private String value;
 
     public static class Builder {
         private String wkn;
@@ -26,23 +27,25 @@ public class BasicFinancialProduct {
 
     private BasicFinancialProduct(Builder builder) {
         this.wkn = builder.wkn;
-        this.setIsin(builder.isin);
-    }
-
-    public void setWkn(String wkn) {
-        this.wkn = wkn;
-    }
-
-    public String getWkn() {
-        return this.wkn;
+        this.isin = builder.isin;
     }
 
     public String getIsin() {
         return isin;
     }
 
-    public void setIsin(String isin) {
-        this.isin = isin;
+    public String getWkn() {
+        return wkn;
     }
+
+    public String getValue() {
+        return value;
+    }
+
+    public void setValue(String value) {
+        this.value = value;
+    }
+
+
 
 }
