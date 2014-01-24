@@ -88,6 +88,7 @@ public class FinanceGrabberViewImpl extends VerticalLayout implements
     private void createFundTable() {
         fundTable = new Table("Funds");
         fundTable.addContainerProperty("Fund", String.class, null);
+        fundTable.addContainerProperty("Value", String.class, null);
     }
 
 }
