@@ -13,4 +13,11 @@ public class TestInfoRetrieval {
         ValuesRetriever ret = new ValuesRetriever();
         assertEquals("27,74$", ret.retrievePrice());
     }
+
+    @Test
+    public void testGettingTheName() throws IOException {
+        ValuesRetriever ret = new ValuesRetriever();
+        assertEquals("Fidelity Funds - Pacific Fund A (USD)",
+                ret.retrieveName());
+    }
 }

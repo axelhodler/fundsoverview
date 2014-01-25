@@ -21,6 +21,11 @@ public class ValuesRetriever {
         return removeSpaceInValue(e);
     }
 
+    public Object retrieveName() {
+        Element e = doc.getElementsByClass("fondIndexInfo").get(0);
+        return e.getElementsByClass("data_cont").html();
+    }
+
     private Document getDocumentFromHtmlFile() throws IOException {
         URL fileUrl = getClass().getResource("/example.html");
         File file = new File(fileUrl.getFile());
@@ -32,4 +37,6 @@ public class ValuesRetriever {
     private String removeSpaceInValue(Element e) {
         return e.html().replace("&nbsp;", "");
     }
+
+
 }
