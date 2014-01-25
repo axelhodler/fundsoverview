@@ -9,9 +9,19 @@ import java.net.URL;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
-import org.junit.Test;
 
-public class TestInfoRetrieval {
+public class ValuesRetriever {
+
+    private Document doc;
+
+    public ValuesRetriever() throws IOException {
+        this.doc = getDocumentFromHtmlFile();
+    }
+
+    public String getPrice() {
+        Element e = doc.getElementsByClass("priceValue").get(0);
+        return e.html().replace("&nbsp;", "");
+    }
 
     private Document getDocumentFromHtmlFile() throws IOException {
         URL fileUrl = getClass().getResource("/example.html");
@@ -20,19 +30,5 @@ public class TestInfoRetrieval {
         Document doc = Jsoup.parse(file, "UTF-8");
 
         return doc;
-    }
-
-    @Test
-    public void testGettingTheValue() throws IOException {
-        Document doc = getDocumentFromHtmlFile();
-        
-        Element e = doc.getElementsByClass("priceValue").get(0);
-        assertEquals("27,74$", e.html().replace("&nbsp;", ""));
-    }
-
-    @Test
-    public void testGettingThePrice() throws IOException {
-        ValuesRetriever ret = new ValuesRetriever();
-        assertEquals("27,74$", ret.getPrice());
     }
 }
