@@ -8,11 +8,11 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 
-public class ValuesRetriever {
+public class FileFundRetriever {
 
     private Document doc;
 
-    public ValuesRetriever() throws IOException {
+    public FileFundRetriever() throws IOException {
         this.doc = getDocumentFromHtmlFile();
     }
 
