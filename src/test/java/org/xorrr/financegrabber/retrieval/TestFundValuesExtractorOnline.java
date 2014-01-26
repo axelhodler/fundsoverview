@@ -6,7 +6,7 @@ import java.io.IOException;
 
 import org.junit.Test;
 
-public class TestOnlineFundRetrieval {
+public class TestFundValuesExtractorOnline {
 
     @Test
     public void testFidelityDocumentRetriever() throws IOException {
