@@ -31,4 +31,9 @@ public class FinanceGrabberPresenter implements FinanceGrabberViewHandler {
     public void removeFundTableItems() {
         view.getFundTable().removeAllItems();
     }
+
+    @Override
+    public void grabFundValues() {
+        
+    }
 }

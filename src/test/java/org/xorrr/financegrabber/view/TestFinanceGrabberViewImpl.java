@@ -36,6 +36,11 @@ public class TestFinanceGrabberViewImpl {
     }
 
     @Test
+    public void testFundsValuesAreRequestedAfterInit() {
+        verify(handler, times(1)).grabFundValues();
+    }
+
+    @Test
     public void testFundTableStructure() {
         Container cont = view.getFundTable().getContainerDataSource();
 
