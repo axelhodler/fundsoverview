@@ -8,24 +8,24 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 
-public class FundInfoRetriever {
+public class FundValuesExtractor {
 
     private Document doc;
 
-    public FundInfoRetriever() throws IOException {
+    public FundValuesExtractor() throws IOException {
         this.doc = getDocumentFromHtmlFile();
     }
 
-    public FundInfoRetriever(Document doc) {
+    public FundValuesExtractor(Document doc) {
         this.doc = doc;
     }
 
-    public String retrievePrice() {
+    public String extractPrice() {
         Element e = doc.getElementsByClass("priceValue").get(0);
         return removeSpaceInValue(e);
     }
 
-    public Object retrieveName() {
+    public Object extractName() {
         Element e = doc.getElementsByClass("fondIndexInfo").get(0);
         return e.getElementsByClass("data_cont").html();
     }

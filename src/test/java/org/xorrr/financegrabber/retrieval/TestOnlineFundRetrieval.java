@@ -10,8 +10,8 @@ public class TestOnlineFundRetrieval {
 
     @Test
     public void testFidelityDocumentRetriever() throws IOException {
-        FundDocument doc = new FundDocument("LU0049112450");
-        FundInfoRetriever ffr = new FundInfoRetriever(doc.getDocument());
-        assertEquals("Fidelity Funds - Pacific Fund A (USD)", ffr.retrieveName());
+        FidelityFundDocument doc = new FidelityFundDocument("LU0049112450");
+        FundValuesExtractor extractor = new FundValuesExtractor(doc.getDocument());
+        assertEquals("Fidelity Funds - Pacific Fund A (USD)", extractor.extractName());
     }
 }
