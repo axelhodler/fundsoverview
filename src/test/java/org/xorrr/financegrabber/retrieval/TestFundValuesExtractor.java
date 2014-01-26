@@ -17,7 +17,6 @@ public class TestFundValuesExtractor {
     @Test
     public void testGettingTheName() throws IOException {
         FundValuesExtractor ret = new FundValuesExtractor();
-        assertEquals("Fidelity Funds - Pacific Fund A (USD)",
-                ret.extractName());
+        assertEquals("Fidelity Funds - Pacific Fund A (USD)", ret.extractName());
     }
 }
