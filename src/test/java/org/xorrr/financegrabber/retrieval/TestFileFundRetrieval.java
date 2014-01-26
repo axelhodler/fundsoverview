@@ -10,13 +10,13 @@ public class TestFileFundRetrieval {
 
     @Test
     public void testGettingThePrice() throws IOException {
-        FileFundRetriever ret = new FileFundRetriever();
+        FundInfoRetriever ret = new FundInfoRetriever();
         assertEquals("27,74$", ret.retrievePrice());
     }
 
     @Test
     public void testGettingTheName() throws IOException {
-        FileFundRetriever ret = new FileFundRetriever();
+        FundInfoRetriever ret = new FundInfoRetriever();
         assertEquals("Fidelity Funds - Pacific Fund A (USD)",
                 ret.retrieveName());
     }

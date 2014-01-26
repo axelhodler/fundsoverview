@@ -8,12 +8,16 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 
-public class FileFundRetriever {
+public class FundInfoRetriever {
 
     private Document doc;
 
-    public FileFundRetriever() throws IOException {
+    public FundInfoRetriever() throws IOException {
         this.doc = getDocumentFromHtmlFile();
+    }
+
+    public FundInfoRetriever(Document doc) {
+        this.doc = doc;
     }
 
     public String retrievePrice() {

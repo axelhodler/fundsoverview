@@ -1,6 +1,6 @@
 package org.xorrr.financegrabber.retrieval;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 import java.io.IOException;
 
@@ -19,5 +19,12 @@ public class TestOnlineFundRetrieval {
         Element e = doc.getElementsByClass("fondIndexInfo").get(0);
         assertEquals("Fidelity Funds - Pacific Fund A (USD)", e
                 .getElementsByClass("data_cont").html());
+    }
+
+    @Test
+    public void testNameRetrievalViaFundRetriever() throws IOException {
+        Document doc = Jsoup.connect(url).userAgent("Mozilla").get();
+        FundInfoRetriever ffr = new FundInfoRetriever(doc);
+        assertEquals("Fidelity Funds - Pacific Fund A (USD)", ffr.retrieveName());
     }
 }
