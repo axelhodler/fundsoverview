@@ -4,6 +4,7 @@ import static org.junit.Assert.assertEquals;
 
 import java.io.IOException;
 
+import org.jsoup.nodes.Document;
 import org.junit.Test;
 
 public class TestFundValuesExtractorOnline {
@@ -11,9 +12,10 @@ public class TestFundValuesExtractorOnline {
     @Test
     public void testFidelityDocumentRetriever() throws IOException,
             InvalidIsinException {
-        FundDocumentAccessor doc = new FundDocumentAccessor("LU0049112450");
+        FundDocumentAccessor da = new FundDocumentAccessor();
+        Document doc = da.getDocumentForIsin("LU0049112450");
         FundValuesExtractor extractor = new FundValuesExtractor(
-                doc.getDocument());
+                doc);
         assertEquals("Fidelity Funds - Pacific Fund A (USD)",
                 extractor.extractName());
     }
@@ -21,6 +23,6 @@ public class TestFundValuesExtractorOnline {
     @Test(expected = InvalidIsinException.class)
     public void testFidelityDocumentRetrieverWithWrongIsin()
             throws IOException, InvalidIsinException {
-        new FundDocumentAccessor("foobarbaz");
+        new FundDocumentAccessor().getDocumentForIsin("foobarbaz");
     }
 }
