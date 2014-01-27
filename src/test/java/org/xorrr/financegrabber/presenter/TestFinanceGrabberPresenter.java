@@ -11,7 +11,7 @@ import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
-import org.xorrr.financegrabber.db.FinancialProductDatastore;
+import org.xorrr.financegrabber.db.MongoFundsDatastore;
 import org.xorrr.financegrabber.model.BasicFinancialProduct;
 import org.xorrr.financegrabber.view.FinanceGrabberView;
 
@@ -21,7 +21,7 @@ public class TestFinanceGrabberPresenter {
     @Mock
     FinanceGrabberView view;
     @Mock
-    FinancialProductDatastore ds;
+    MongoFundsDatastore ds;
 
     @InjectMocks
     FinanceGrabberPresenter presenter;

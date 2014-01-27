@@ -12,7 +12,7 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 import org.xorrr.financegrabber.db.DbProperties;
 import org.xorrr.financegrabber.db.EmbeddedMongo;
-import org.xorrr.financegrabber.db.FinancialProductDatastore;
+import org.xorrr.financegrabber.db.MongoFundsDatastore;
 
 import com.gargoylesoftware.htmlunit.BrowserVersion;
 import com.gargoylesoftware.htmlunit.WebClient;
@@ -27,7 +27,7 @@ public class TestWebApp {
 
     private MongoClient client;
     private DBCollection col;
-    private FinancialProductDatastore ds;
+    private MongoFundsDatastore ds;
 
     private WebClient webClient;
     private HtmlPage page;
@@ -43,7 +43,7 @@ public class TestWebApp {
         this.client = new MongoClient(uri);
         this.col = this.client.getDB(DbProperties.DB).getCollection(
                 DbProperties.COL);
-        this.ds = new FinancialProductDatastore(this.client);
+        this.ds = new MongoFundsDatastore(this.client);
 
         java.util.logging.Logger.getLogger("com.gargoylesoftware.htmlunit")
                 .setLevel(Level.OFF);

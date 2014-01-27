@@ -21,7 +21,7 @@ public class TestFinancialProductDatastore {
     private static int port = 12345;
 
     private MongoClient client;
-    private FinancialProductDatastore ds;
+    private MongoFundsDatastore ds;
     private DBCollection col;
 
     private void createAndSaveTwoBasicFinancialProducts() {
@@ -45,7 +45,7 @@ public class TestFinancialProductDatastore {
         this.client = new MongoClient(uri);
         this.col = this.client.getDB(DbProperties.DB).getCollection(
                 DbProperties.COL);
-        this.ds = new FinancialProductDatastore(this.client);
+        this.ds = new MongoFundsDatastore(this.client);
     }
 
     @Test

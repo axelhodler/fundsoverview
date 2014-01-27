@@ -11,11 +11,11 @@ import com.mongodb.DBCollection;
 import com.mongodb.DBCursor;
 import com.mongodb.MongoClient;
 
-public class FinancialProductDatastore implements FundsDatastore {
+public class MongoFundsDatastore implements FundsDatastore {
 
     private DBCollection col;
 
-    public FinancialProductDatastore(MongoClient client) {
+    public MongoFundsDatastore(MongoClient client) {
         this.col = client.getDB(DbProperties.DB)
                 .getCollection(DbProperties.COL);
     }

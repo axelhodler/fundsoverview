@@ -4,7 +4,7 @@ import java.net.UnknownHostException;
 
 import javax.servlet.annotation.WebServlet;
 
-import org.xorrr.financegrabber.db.FinancialProductDatastore;
+import org.xorrr.financegrabber.db.MongoFundsDatastore;
 import org.xorrr.financegrabber.presenter.FinanceGrabberPresenter;
 import org.xorrr.financegrabber.view.FinanceGrabberView;
 import org.xorrr.financegrabber.view.FinanceGrabberViewImpl;
@@ -44,12 +44,12 @@ public class MainUI extends UI {
         navigator.navigateTo("");
     }
 
-    private FinancialProductDatastore createFinancialDatastore() {
-        FinancialProductDatastore ds = null;
+    private MongoFundsDatastore createFinancialDatastore() {
+        MongoFundsDatastore ds = null;
         MongoClientURI uri = new MongoClientURI(System.getenv("MONGODB_URI"));
 
         try {
-            ds = new FinancialProductDatastore(new MongoClient(uri));
+            ds = new MongoFundsDatastore(new MongoClient(uri));
         } catch (UnknownHostException e) {
             e.printStackTrace();
         }
