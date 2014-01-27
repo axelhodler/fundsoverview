@@ -11,7 +11,7 @@ import com.mongodb.DBCollection;
 import com.mongodb.DBCursor;
 import com.mongodb.MongoClient;
 
-public class FinancialProductDatastore {
+public class FinancialProductDatastore implements FundsDatastore {
 
     private DBCollection col;
 
