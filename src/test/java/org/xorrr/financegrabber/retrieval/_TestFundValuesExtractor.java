@@ -7,7 +7,7 @@ import java.io.IOException;
 import org.junit.Before;
 import org.junit.Test;
 
-public class TestFundValuesExtractor {
+public class _TestFundValuesExtractor {
 
     private FundValuesExtractor extractor;
 

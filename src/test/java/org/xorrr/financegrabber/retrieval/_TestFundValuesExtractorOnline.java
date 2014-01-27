@@ -7,7 +7,7 @@ import java.io.IOException;
 import org.jsoup.nodes.Document;
 import org.junit.Test;
 
-public class TestFundValuesExtractorOnline {
+public class _TestFundValuesExtractorOnline {
 
     @Test
     public void testFidelityDocumentRetriever() throws IOException,

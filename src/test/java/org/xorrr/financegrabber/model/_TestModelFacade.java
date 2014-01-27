@@ -6,7 +6,7 @@ import org.junit.Test;
 import org.xorrr.financegrabber.db.MongoFundsDatastore;
 import org.xorrr.financegrabber.retrieval.FundDocumentAccessor;
 
-public class TestModelFacade {
+public class _TestModelFacade {
 
     @Test
     public void testModelFacade() {

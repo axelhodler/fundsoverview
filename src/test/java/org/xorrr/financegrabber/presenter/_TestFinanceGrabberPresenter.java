@@ -16,7 +16,7 @@ import org.xorrr.financegrabber.model.BasicFinancialProduct;
 import org.xorrr.financegrabber.view.FinanceGrabberView;
 
 @RunWith(MockitoJUnitRunner.class)
-public class TestFinanceGrabberPresenter {
+public class _TestFinanceGrabberPresenter {
 
     @Mock
     FinanceGrabberView view;

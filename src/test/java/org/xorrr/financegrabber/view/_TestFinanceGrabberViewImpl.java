@@ -13,7 +13,7 @@ import org.xorrr.financegrabber.presenter.FinanceGrabberViewHandler;
 
 import com.vaadin.data.Container;
 
-public class TestFinanceGrabberViewImpl {
+public class _TestFinanceGrabberViewImpl {
 
     private FinanceGrabberView view;
     private FinanceGrabberViewHandler handler;

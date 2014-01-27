@@ -23,7 +23,7 @@ import com.mongodb.DBCollection;
 import com.mongodb.MongoClient;
 import com.mongodb.MongoClientURI;
 
-public class TestWebApp {
+public class _TestWebApp {
 
     private MongoClient client;
     private DBCollection col;
