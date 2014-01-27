@@ -11,7 +11,7 @@ public class TestFundValuesExtractorOnline {
     @Test
     public void testFidelityDocumentRetriever() throws IOException,
             InvalidIsinException {
-        FidelityFundDocument doc = new FidelityFundDocument("LU0049112450");
+        FundDocumentAccessor doc = new FundDocumentAccessor("LU0049112450");
         FundValuesExtractor extractor = new FundValuesExtractor(
                 doc.getDocument());
         assertEquals("Fidelity Funds - Pacific Fund A (USD)",
@@ -21,6 +21,6 @@ public class TestFundValuesExtractorOnline {
     @Test(expected = InvalidIsinException.class)
     public void testFidelityDocumentRetrieverWithWrongIsin()
             throws IOException, InvalidIsinException {
-        new FidelityFundDocument("foobarbaz");
+        new FundDocumentAccessor("foobarbaz");
     }
 }

@@ -5,14 +5,14 @@ import java.io.IOException;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 
-public class FidelityFundDocument {
+public class FundDocumentAccessor {
 
     private Document doc;
     private String urlBase = "https://fww.biz/fidelity/direkt/fondsportraet/?&PARENT="
             + "https%3A//www.fidelity.de/de/fonds/fonds-detailansicht.page%3FISIN%3D";
     private String urlToFormat = "%s&ISIN=%s";
 
-    public FidelityFundDocument(String isin) throws IOException, InvalidIsinException {
+    public FundDocumentAccessor(String isin) throws IOException, InvalidIsinException {
         String url = urlBase + String.format(urlToFormat, isin, isin);
         this.doc = getDocumentWithJsoup(url);
         checkIsinValidity();
