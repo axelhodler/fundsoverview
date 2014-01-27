@@ -12,7 +12,7 @@ public class TestFundValuesExtractorOnline {
     @Test
     public void testFidelityDocumentRetriever() throws IOException,
             InvalidIsinException {
-        FundDocumentAccessor da = new FundDocumentAccessor();
+        FidelityFundDocumentAccessor da = new FidelityFundDocumentAccessor();
         Document doc = da.getDocumentForIsin("LU0049112450");
         FundValuesExtractor extractor = new FundValuesExtractor(
                 doc);
@@ -23,6 +23,6 @@ public class TestFundValuesExtractorOnline {
     @Test(expected = InvalidIsinException.class)
     public void testFidelityDocumentRetrieverWithWrongIsin()
             throws IOException, InvalidIsinException {
-        new FundDocumentAccessor().getDocumentForIsin("foobarbaz");
+        new FidelityFundDocumentAccessor().getDocumentForIsin("foobarbaz");
     }
 }
