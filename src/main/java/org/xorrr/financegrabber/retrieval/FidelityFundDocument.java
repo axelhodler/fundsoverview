@@ -15,14 +15,14 @@ public class FidelityFundDocument {
     public FidelityFundDocument(String isin) throws IOException, InvalidIsinException {
         String url = urlBase + String.format(urlToFormat, isin, isin);
         this.doc = getDocumentWithJsoup(url);
-        checkIfIsinIsInvalid();
+        checkIsinValidity();
     }
 
     public Document getDocument() {
         return this.doc;
     }
 
-    private void checkIfIsinIsInvalid() throws InvalidIsinException {
+    private void checkIsinValidity() throws InvalidIsinException {
         if (this.doc.body().html().equals("Invalid value for parameter ISIN."))
             throw new InvalidIsinException("The provided ISIN was invalid");
     }
