@@ -5,7 +5,11 @@ import java.net.UnknownHostException;
 import javax.servlet.annotation.WebServlet;
 
 import org.xorrr.financegrabber.db.MongoFundsDatastore;
+import org.xorrr.financegrabber.model.FundsDatastore;
+import org.xorrr.financegrabber.model.ModelFacade;
+import org.xorrr.financegrabber.model.ModelFacadeImpl;
 import org.xorrr.financegrabber.presenter.FinanceGrabberPresenter;
+import org.xorrr.financegrabber.retrieval.FidelityFundDocumentAccessor;
 import org.xorrr.financegrabber.view.FinanceGrabberView;
 import org.xorrr.financegrabber.view.FinanceGrabberViewImpl;
 
@@ -36,7 +40,7 @@ public class MainUI extends UI {
         FinanceGrabberView view = new FinanceGrabberViewImpl();
 
         FinanceGrabberPresenter handler = new FinanceGrabberPresenter(view,
-                createFinancialDatastore());
+                createModel());
         view.setHandler(handler);
         view.init();
 
@@ -44,15 +48,16 @@ public class MainUI extends UI {
         navigator.navigateTo("");
     }
 
-    private MongoFundsDatastore createFinancialDatastore() {
-        MongoFundsDatastore ds = null;
+    private ModelFacade createModel() {
         MongoClientURI uri = new MongoClientURI(System.getenv("MONGODB_URI"));
+        FundsDatastore ds = null;
 
         try {
             ds = new MongoFundsDatastore(new MongoClient(uri));
         } catch (UnknownHostException e) {
             e.printStackTrace();
         }
-        return ds;
+        ModelFacade model = new ModelFacadeImpl(ds, new FidelityFundDocumentAccessor());
+        return model;
     }
 }

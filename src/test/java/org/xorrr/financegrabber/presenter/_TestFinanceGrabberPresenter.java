@@ -9,19 +9,19 @@ import static org.mockito.Mockito.verify;
 
 import org.junit.Before;
 import org.junit.Test;
-import org.xorrr.financegrabber.db.MongoFundsDatastore;
 import org.xorrr.financegrabber.model.BasicFinancialProduct;
+import org.xorrr.financegrabber.model.ModelFacade;
 import org.xorrr.financegrabber.view.FinanceGrabberView;
 
 public class _TestFinanceGrabberPresenter {
 
     private FinanceGrabberPresenter presenter;
-    private MongoFundsDatastore model; 
+    private ModelFacade model; 
     private FinanceGrabberView view;
 
     @Before
     public void setUp() {
-        this.model = mock(MongoFundsDatastore.class);
+        this.model = mock(ModelFacade.class);
         this.view = mock(FinanceGrabberView.class);
 
         this.presenter = new FinanceGrabberPresenter(view, model);
@@ -30,7 +30,7 @@ public class _TestFinanceGrabberPresenter {
     @Test
     public void doesAddFundMethodWork() {
         presenter.addFund(any(BasicFinancialProduct.class));
-        verify(model, times(1)).saveProduct(any(BasicFinancialProduct.class));
+        verify(model, times(1)).addFund(any(BasicFinancialProduct.class));
     }
 
     @SuppressWarnings("unchecked")
@@ -40,7 +40,7 @@ public class _TestFinanceGrabberPresenter {
         assertNotNull(view);
         assertNotNull(model);
         presenter.showFunds();
-        verify(model, times(1)).getAllProducts();
+        verify(model, times(1)).getFunds();
         verify(view, times(1)).displayFunds(anyList());
     }
 }
