@@ -1,35 +1,37 @@
 package org.xorrr.financegrabber.model;
 
-import org.xorrr.financegrabber.db.MongoFundsDatastore;
+import java.io.IOException;
+import java.util.List;
+
+import org.jsoup.nodes.Document;
+import org.xorrr.financegrabber.db.FundsDatastore;
 import org.xorrr.financegrabber.retrieval.FundDocumentAccessor;
+import org.xorrr.financegrabber.retrieval.InvalidIsinException;
 
 public class ModelFacade implements IModelFacade {
 
-    private MongoFundsDatastore ds;
+    private FundsDatastore ds;
     private FundDocumentAccessor docAccessor;
 
-    public ModelFacade(MongoFundsDatastore ds,
-            FundDocumentAccessor docAccessor) {
+    public ModelFacade(FundsDatastore ds, FundDocumentAccessor docAccessor) {
         this.ds = ds;
         this.docAccessor = docAccessor;
     }
 
     @Override
-    public void getFundDocument() {
-        // TODO Auto-generated method stub
-        
+    public Document getFundDocument(String isin) throws IOException,
+            InvalidIsinException {
+        return this.docAccessor.getDocumentForIsin(isin);
     }
 
     @Override
-    public void addFund() {
-        // TODO Auto-generated method stub
-        
+    public void addFund(BasicFinancialProduct bfp) {
+        this.ds.saveProduct(bfp);
     }
 
     @Override
-    public void getFunds() {
-        // TODO Auto-generated method stub
-        
+    public List<BasicFinancialProduct> getFunds() {
+        return this.ds.getAllProducts();
     }
 
 }
