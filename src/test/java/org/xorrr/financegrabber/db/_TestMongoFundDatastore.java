@@ -16,7 +16,7 @@ import com.mongodb.DBObject;
 import com.mongodb.MongoClient;
 import com.mongodb.MongoClientURI;
 
-public class _TestFinancialProductDatastore {
+public class _TestMongoFundDatastore {
 
     private static int port = 12345;
 
