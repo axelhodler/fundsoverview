@@ -38,9 +38,12 @@ public class MainUI extends UI {
         UI.getCurrent().getPage().setTitle("financegrabber");
 
         FinanceGrabberView view = new FinanceGrabberViewImpl();
+        ModelFacade model = new ModelFacadeImpl(createFundsDatastore(),
+                new FidelityFundDocumentAccessor());
 
         FinanceGrabberPresenter handler = new FinanceGrabberPresenter(view,
-                createModel());
+                model);
+
         view.setHandler(handler);
         view.init();
 
@@ -48,7 +51,7 @@ public class MainUI extends UI {
         navigator.navigateTo("");
     }
 
-    private ModelFacade createModel() {
+    private FundsDatastore createFundsDatastore() {
         MongoClientURI uri = new MongoClientURI(System.getenv("MONGODB_URI"));
         FundsDatastore ds = null;
 
@@ -57,7 +60,6 @@ public class MainUI extends UI {
         } catch (UnknownHostException e) {
             e.printStackTrace();
         }
-        ModelFacade model = new ModelFacadeImpl(ds, new FidelityFundDocumentAccessor());
-        return model;
+        return ds;
     }
 }
