@@ -14,9 +14,9 @@ import org.xorrr.financegrabber.db.FundsDatastore;
 import org.xorrr.financegrabber.retrieval.FundDocumentAccessor;
 import org.xorrr.financegrabber.retrieval.InvalidIsinException;
 
-public class _TestModelFacade {
+public class _TestModelFacadeImpl {
 
-    private IModelFacade facade;
+    private ModelFacade facade;
     private FundsDatastore ds;
     private FundDocumentAccessor docAccessor;
 
@@ -25,7 +25,7 @@ public class _TestModelFacade {
         this.docAccessor = mock(FundDocumentAccessor.class);
 
         this.ds = mock(FundsDatastore.class);
-        this.facade = new ModelFacade(ds, docAccessor);
+        this.facade = new ModelFacadeImpl(ds, docAccessor);
     }
 
     @Test

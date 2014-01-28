@@ -4,34 +4,14 @@ import java.io.IOException;
 import java.util.List;
 
 import org.jsoup.nodes.Document;
-import org.xorrr.financegrabber.db.FundsDatastore;
-import org.xorrr.financegrabber.retrieval.FundDocumentAccessor;
 import org.xorrr.financegrabber.retrieval.InvalidIsinException;
 
-public class ModelFacade implements IModelFacade {
+public interface ModelFacade {
 
-    private FundsDatastore ds;
-    private FundDocumentAccessor docAccessor;
+    Document getFundDocument(String isin) throws IOException, InvalidIsinException;
 
-    public ModelFacade(FundsDatastore ds, FundDocumentAccessor docAccessor) {
-        this.ds = ds;
-        this.docAccessor = docAccessor;
-    }
+    void addFund(BasicFinancialProduct bfp);
 
-    @Override
-    public Document getFundDocument(String isin) throws IOException,
-            InvalidIsinException {
-        return this.docAccessor.getDocumentForIsin(isin);
-    }
-
-    @Override
-    public void addFund(BasicFinancialProduct bfp) {
-        this.ds.saveProduct(bfp);
-    }
-
-    @Override
-    public List<BasicFinancialProduct> getFunds() {
-        return this.ds.getAllProducts();
-    }
+    List<BasicFinancialProduct> getFunds();
 
 }
