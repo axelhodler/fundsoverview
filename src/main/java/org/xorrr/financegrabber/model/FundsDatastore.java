@@ -1,8 +1,6 @@
-package org.xorrr.financegrabber.db;
+package org.xorrr.financegrabber.model;
 
 import java.util.List;
-
-import org.xorrr.financegrabber.model.BasicFinancialProduct;
 
 public interface FundsDatastore {
 

@@ -10,7 +10,6 @@ import java.io.IOException;
 
 import org.junit.Before;
 import org.junit.Test;
-import org.xorrr.financegrabber.db.FundsDatastore;
 import org.xorrr.financegrabber.retrieval.FundDocumentAccessor;
 import org.xorrr.financegrabber.retrieval.InvalidIsinException;
 

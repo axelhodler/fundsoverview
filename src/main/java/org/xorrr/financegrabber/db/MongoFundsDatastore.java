@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.bson.types.ObjectId;
 import org.xorrr.financegrabber.model.BasicFinancialProduct;
+import org.xorrr.financegrabber.model.FundsDatastore;
 
 import com.mongodb.BasicDBObject;
 import com.mongodb.DBCollection;
