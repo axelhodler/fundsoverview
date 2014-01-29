@@ -3,20 +3,24 @@ package org.xorrr.financegrabber.presenter;
 import static org.junit.Assert.assertNotNull;
 import static org.mockito.Matchers.any;
 import static org.mockito.Matchers.anyList;
+import static org.mockito.Matchers.anyString;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
+
+import java.io.IOException;
 
 import org.junit.Before;
 import org.junit.Test;
 import org.xorrr.financegrabber.model.BasicFinancialProduct;
 import org.xorrr.financegrabber.model.ModelFacade;
+import org.xorrr.financegrabber.retrieval.InvalidIsinException;
 import org.xorrr.financegrabber.view.FinanceGrabberView;
 
 public class _TestFinanceGrabberPresenter {
 
     private FinanceGrabberPresenter presenter;
-    private ModelFacade model; 
+    private ModelFacade model;
     private FinanceGrabberView view;
 
     @Before
@@ -35,12 +39,14 @@ public class _TestFinanceGrabberPresenter {
 
     @SuppressWarnings("unchecked")
     @Test
-    public void testTheShowFundsMethod() {
+    public void testTheShowFundsMethod() throws IOException,
+            InvalidIsinException {
         assertNotNull(presenter);
         assertNotNull(view);
         assertNotNull(model);
         presenter.showFunds();
         verify(model, times(1)).getFunds();
+        verify(model).getFundDocument(anyString());
         verify(view, times(1)).displayFunds(anyList());
     }
 }

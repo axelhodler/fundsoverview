@@ -1,9 +1,11 @@
 package org.xorrr.financegrabber.presenter;
 
+import java.io.IOException;
 import java.util.List;
 
 import org.xorrr.financegrabber.model.BasicFinancialProduct;
 import org.xorrr.financegrabber.model.ModelFacade;
+import org.xorrr.financegrabber.retrieval.InvalidIsinException;
 import org.xorrr.financegrabber.view.FinanceGrabberView;
 
 public class FinanceGrabberPresenter implements FinanceGrabberViewHandler {
@@ -24,6 +26,13 @@ public class FinanceGrabberPresenter implements FinanceGrabberViewHandler {
     @Override
     public void showFunds() {
         List<BasicFinancialProduct> funds = model.getFunds();
+        try {
+            model.getFundDocument("");
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (InvalidIsinException e) {
+            e.printStackTrace();
+        }
         view.displayFunds(funds);
     }
 
