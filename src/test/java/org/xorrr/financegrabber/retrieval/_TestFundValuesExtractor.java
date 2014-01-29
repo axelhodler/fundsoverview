@@ -25,7 +25,8 @@ public class _TestFundValuesExtractor {
 
     @Before
     public void setUp() throws IOException {
-        this.extractor = new FundValuesExtractor(getDocumentFromHtmlFile());
+        this.extractor = new FundValuesExtractor();
+        extractor.useDocument(getDocumentFromHtmlFile());
     }
 
     @Test

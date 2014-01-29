@@ -7,10 +7,6 @@ public class FundValuesExtractor {
 
     private Document doc;
 
-    public FundValuesExtractor(Document doc) {
-        this.doc = doc;
-    }
-
     public String extractPrice() {
         Element e = doc.getElementsByClass("priceValue").get(0);
         return removeSpaceInValue(e);
@@ -23,5 +19,9 @@ public class FundValuesExtractor {
 
     private String removeSpaceInValue(Element e) {
         return e.html().replace("&nbsp;", "");
+    }
+
+    public void useDocument(Document doc) {
+        this.doc = doc;
     }
 }

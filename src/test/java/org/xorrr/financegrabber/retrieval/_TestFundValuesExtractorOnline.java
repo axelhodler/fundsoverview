@@ -14,8 +14,8 @@ public class _TestFundValuesExtractorOnline {
             InvalidIsinException {
         FidelityFundDocumentAccessor da = new FidelityFundDocumentAccessor();
         Document doc = da.getDocumentForIsin("LU0049112450");
-        FundValuesExtractor extractor = new FundValuesExtractor(
-                doc);
+        FundValuesExtractor extractor = new FundValuesExtractor();
+        extractor.useDocument(doc);
         assertEquals("Fidelity Funds - Pacific Fund A (USD)",
                 extractor.extractName());
     }
