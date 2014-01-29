@@ -4,6 +4,7 @@ public class BasicFinancialProduct {
 
     private String wkn;
     private String isin;
+    private String name;
     private String value;
 
     public static class Builder {
@@ -46,6 +47,11 @@ public class BasicFinancialProduct {
         this.value = value;
     }
 
+    public String getName() {
+        return name;
+    }
 
-
+    public void setName(String name) {
+        this.name = name;
+    }
 }
