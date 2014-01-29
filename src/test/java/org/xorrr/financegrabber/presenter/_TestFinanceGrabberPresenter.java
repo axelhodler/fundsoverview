@@ -45,11 +45,14 @@ public class _TestFinanceGrabberPresenter {
     public void testTheShowFundsMethod() throws IOException,
             InvalidIsinException {
         BasicFinancialProduct bfp = mock(BasicFinancialProduct.class);
+        BasicFinancialProduct bfp2 = mock(BasicFinancialProduct.class);
 
         when(bfp.getWkn()).thenReturn("thewkn");
+        when(bfp2.getWkn()).thenReturn("secondwkn");
 
         List<BasicFinancialProduct> list = new ArrayList<BasicFinancialProduct>();
         list.add(bfp);
+        list.add(bfp2);
 
         when(model.getFunds()).thenReturn(list);
 
@@ -59,6 +62,7 @@ public class _TestFinanceGrabberPresenter {
         presenter.showFunds();
         verify(model, times(1)).getFunds();
         verify(model).getFundDocument(bfp.getWkn());
+        verify(model).getFundDocument(bfp2.getWkn());
         verify(view, times(1)).displayFunds(anyList());
     }
 }

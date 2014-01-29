@@ -26,12 +26,16 @@ public class FinanceGrabberPresenter implements FinanceGrabberViewHandler {
     @Override
     public void showFunds() {
         List<BasicFinancialProduct> funds = model.getFunds();
-        try {
-            model.getFundDocument(funds.get(0).getWkn());
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (InvalidIsinException e) {
-            e.printStackTrace();
+        for (BasicFinancialProduct fund : funds) {
+            try {
+                model.getFundDocument(fund.getWkn());
+            } catch (IOException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            } catch (InvalidIsinException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
         }
         view.displayFunds(funds);
     }
