@@ -27,7 +27,7 @@ public class FinanceGrabberPresenter implements FinanceGrabberViewHandler {
     public void showFunds() {
         List<BasicFinancialProduct> funds = model.getFunds();
         try {
-            model.getFundDocument("");
+            model.getFundDocument(funds.get(0).getWkn());
         } catch (IOException e) {
             e.printStackTrace();
         } catch (InvalidIsinException e) {

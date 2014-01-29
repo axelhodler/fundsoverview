@@ -7,8 +7,11 @@ import static org.mockito.Matchers.anyString;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -41,12 +44,21 @@ public class _TestFinanceGrabberPresenter {
     @Test
     public void testTheShowFundsMethod() throws IOException,
             InvalidIsinException {
+        BasicFinancialProduct bfp = mock(BasicFinancialProduct.class);
+
+        when(bfp.getWkn()).thenReturn("thewkn");
+
+        List<BasicFinancialProduct> list = new ArrayList<BasicFinancialProduct>();
+        list.add(bfp);
+
+        when(model.getFunds()).thenReturn(list);
+
         assertNotNull(presenter);
         assertNotNull(view);
         assertNotNull(model);
         presenter.showFunds();
         verify(model, times(1)).getFunds();
-        verify(model).getFundDocument(anyString());
+        verify(model).getFundDocument(bfp.getWkn());
         verify(view, times(1)).displayFunds(anyList());
     }
 }
