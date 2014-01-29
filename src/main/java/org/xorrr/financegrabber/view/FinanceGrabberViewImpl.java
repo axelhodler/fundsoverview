@@ -81,7 +81,6 @@ public class FinanceGrabberViewImpl extends VerticalLayout implements
     private void initFundTable() {
         createFundTable();
         addComponent(fundTable);
-        handler.grabFundValues();
         handler.showFunds();
     }
 

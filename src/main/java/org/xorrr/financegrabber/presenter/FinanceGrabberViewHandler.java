@@ -8,6 +8,4 @@ public interface FinanceGrabberViewHandler {
     public void showFunds();
 
     public void removeFundTableItems();
-
-    public void grabFundValues();
 }
