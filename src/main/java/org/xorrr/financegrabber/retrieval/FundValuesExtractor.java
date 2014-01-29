@@ -1,10 +1,5 @@
 package org.xorrr.financegrabber.retrieval;
 
-import java.io.File;
-import java.io.IOException;
-import java.net.URL;
-
-import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 
@@ -29,6 +24,4 @@ public class FundValuesExtractor {
     private String removeSpaceInValue(Element e) {
         return e.html().replace("&nbsp;", "");
     }
-
-
 }
