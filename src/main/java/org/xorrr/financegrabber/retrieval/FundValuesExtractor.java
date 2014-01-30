@@ -12,7 +12,7 @@ public class FundValuesExtractor {
         return removeSpaceInValue(e);
     }
 
-    public Object extractName() {
+    public String extractName() {
         Element e = doc.getElementsByClass("fondIndexInfo").get(0);
         return e.getElementsByClass("data_cont").html();
     }
