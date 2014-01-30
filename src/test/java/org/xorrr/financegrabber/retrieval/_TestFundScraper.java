@@ -6,19 +6,26 @@ import static org.mockito.Mockito.verify;
 
 import java.io.IOException;
 
+import org.junit.Before;
 import org.junit.Test;
 
 public class _TestFundScraper {
 
     private FundDocumentAccessor accessor;
     private FundValuesExtractor extractor;
+    private FundScraper scraper;
 
-    @Test
-    public void testScraperCreation() throws IOException, InvalidIsinException {
+    @Before
+    public void setUp() {
         accessor = mock(FundDocumentAccessor.class);
         extractor = mock(FundValuesExtractor.class);
 
-        FundScraper scraper = new FundScraper(accessor, extractor);
+        this.scraper = new FundScraper(accessor, extractor);
+    }
+
+    @Test
+    public void canGetBasicFinancialProductForIsin() throws IOException,
+            InvalidIsinException {
         String isin = "asdf";
         scraper.getBasicFinancialProductForIsin(isin);
         verify(accessor, times(1)).getDocumentForIsin(isin);
