@@ -18,10 +18,10 @@ public class FundScraper {
 
     public BasicFinancialProduct getBasicFinancialProductForIsin(String isin)
             throws IOException, InvalidIsinException {
-        BasicFinancialProduct bfp = new BasicFinancialProduct.Builder().build();
-
         Document doc = accessor.getDocumentForIsin(isin);
         extractor.useDocument(doc);
+
+        BasicFinancialProduct bfp = new BasicFinancialProduct.Builder().build();
         bfp.setName(extractor.extractName());
         bfp.setValue(extractor.extractPrice());
 
