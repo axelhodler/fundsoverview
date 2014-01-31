@@ -16,7 +16,6 @@ import org.xorrr.financegrabber.presenter.FinanceGrabberViewHandler;
 
 import com.vaadin.data.Container;
 import com.vaadin.data.Item;
-import com.vaadin.ui.Table;
 
 public class _TestFinanceGrabberViewImpl {
 
@@ -60,9 +59,7 @@ public class _TestFinanceGrabberViewImpl {
 
         view.displayFunds(funds);
 
-        Table fundTable = view.getFundTable();
-        Item itm = fundTable.getItem(0);
-
+        Item itm = view.getFundTable().getItem(0);
         assertEquals(expectedName, itm.getItemProperty("Fund").toString());
         assertEquals(expectedPrice, itm.getItemProperty("Value").toString());
     }

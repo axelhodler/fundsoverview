@@ -48,11 +48,16 @@ public class FinanceGrabberViewImpl extends VerticalLayout implements
 
     @Override
     public void displayFunds(List<BasicFinancialProduct> funds) {
-        for (int i = 0; i < funds.size(); i++) {
-            fundTable.addItem(
-                    new Object[] { funds.get(i).getName(),
-                            funds.get(i).getCurrentPrice() }, new Integer(i));
+        for (int currentFund = 0; currentFund < funds.size(); currentFund++) {
+            addFundToTable(funds, currentFund);
         }
+    }
+
+    private void addFundToTable(List<BasicFinancialProduct> funds,
+            int currentFund) {
+        fundTable.addItem(new Object[] { funds.get(currentFund).getName(),
+                funds.get(currentFund).getCurrentPrice() }, new Integer(
+                currentFund));
     }
 
     Button.ClickListener addFundListener = new Button.ClickListener() {
