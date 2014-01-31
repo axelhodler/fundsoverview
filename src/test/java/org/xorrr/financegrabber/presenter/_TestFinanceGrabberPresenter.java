@@ -55,14 +55,14 @@ public class _TestFinanceGrabberPresenter {
 
         when(model.getBasicFinancialProduct(anyString())).thenReturn(
                 bfpWithExtractedInfos);
-        when(bfp.getWkn()).thenReturn("thewkn");
-        when(bfp2.getWkn()).thenReturn("secondwkn");
+        when(bfp.getIsin()).thenReturn("thewkn");
+        when(bfp2.getIsin()).thenReturn("secondwkn");
         when(model.getFunds()).thenReturn(list);
 
         presenter.showFunds();
         verify(model, times(1)).getFunds();
-        verify(model).getBasicFinancialProduct(bfp.getWkn());
-        verify(model).getBasicFinancialProduct(bfp2.getWkn());
+        verify(model).getBasicFinancialProduct(bfp.getIsin());
+        verify(model).getBasicFinancialProduct(bfp2.getIsin());
 
         verify(model, times(2)).getBasicFinancialProduct(anyString());
         verify(view, times(1)).displayFunds(anyListOf(BasicFinancialProduct.class));

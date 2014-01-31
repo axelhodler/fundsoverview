@@ -79,7 +79,7 @@ public class _TestWebApp {
         webClient.waitForBackgroundJavaScript(2000);
 
         assertEquals(1, ds.getAllProducts().size());
-        assertEquals("iddqd", ds.getAllProducts().get(0).getWkn());
+        assertEquals("iddqd", ds.getAllProducts().get(0).getIsin());
     }
 
     @After

@@ -22,7 +22,7 @@ public class MongoFundsDatastore implements FundsDatastore {
     }
 
     public void saveProduct(BasicFinancialProduct bfp) {
-        this.col.save(new BasicDBObject(DbProperties.WKN, bfp.getWkn()));
+        this.col.save(new BasicDBObject(DbProperties.WKN, bfp.getIsin()));
     }
 
     public List<BasicFinancialProduct> getAllProducts() {
@@ -38,7 +38,7 @@ public class MongoFundsDatastore implements FundsDatastore {
             List<BasicFinancialProduct> allProducts, DBCursor cur) {
         while (cur.hasNext()) {
             BasicFinancialProduct curProduct = new BasicFinancialProduct.Builder()
-                    .wkn(cur.next().get(DbProperties.WKN).toString()).build();
+                    .isin(cur.next().get(DbProperties.WKN).toString()).build();
 
             allProducts.add(curProduct);
         }

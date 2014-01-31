@@ -51,7 +51,7 @@ public class FinanceGrabberPresenter implements FinanceGrabberViewHandler {
             BasicFinancialProduct fund) {
         try {
             BasicFinancialProduct bfp = model.getBasicFinancialProduct(fund
-                    .getWkn());
+                    .getIsin());
             fundsWithInfos.add(bfp);
         } catch (IOException e) {
             e.printStackTrace();

@@ -2,19 +2,12 @@ package org.xorrr.financegrabber.model;
 
 public class BasicFinancialProduct {
 
-    private String wkn;
     private String isin;
     private String name;
     private String currentPrice;
 
     public static class Builder {
-        private String wkn;
         private String isin;
-
-        public Builder wkn(String wkn) {
-            this.wkn = wkn;
-            return this;
-        }
 
         public Builder isin(String isin) {
             this.isin = isin;
@@ -27,16 +20,11 @@ public class BasicFinancialProduct {
     }
 
     private BasicFinancialProduct(Builder builder) {
-        this.wkn = builder.wkn;
         this.isin = builder.isin;
     }
 
     public String getIsin() {
         return isin;
-    }
-
-    public String getWkn() {
-        return wkn;
     }
 
     public String getCurrentPrice() {

@@ -25,9 +25,9 @@ public class _TestMongoFundDatastore {
     private DBCollection col;
 
     private void createAndSaveTwoBasicFinancialProducts() {
-        BasicFinancialProduct bfp = new BasicFinancialProduct.Builder().wkn(
+        BasicFinancialProduct bfp = new BasicFinancialProduct.Builder().isin(
                 "testWkn").build();
-        BasicFinancialProduct bfp2 = new BasicFinancialProduct.Builder().wkn(
+        BasicFinancialProduct bfp2 = new BasicFinancialProduct.Builder().isin(
                 "testWkn2").build();
 
         this.ds.saveProduct(bfp);
@@ -50,7 +50,7 @@ public class _TestMongoFundDatastore {
 
     @Test
     public void testAddingFinancialProduct() throws Exception {
-        BasicFinancialProduct bfp = new BasicFinancialProduct.Builder().wkn(
+        BasicFinancialProduct bfp = new BasicFinancialProduct.Builder().isin(
                 "testWkn").build();
 
         this.ds.saveProduct(bfp);
