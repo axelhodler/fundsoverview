@@ -1,8 +1,8 @@
 package org.xorrr.financegrabber.presenter;
 
-import static org.junit.Assert.assertNotNull;
 import static org.mockito.Matchers.any;
-import static org.mockito.Matchers.anyList;
+import static org.mockito.Matchers.anyListOf;
+import static org.mockito.Matchers.anyString;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
@@ -39,26 +39,32 @@ public class _TestFinanceGrabberPresenter {
         verify(model, times(1)).addFund(any(BasicFinancialProduct.class));
     }
 
-    @SuppressWarnings("unchecked")
     @Test
     public void testTheShowFundsMethod() throws IOException,
             InvalidIsinException {
         BasicFinancialProduct bfp = mock(BasicFinancialProduct.class);
         BasicFinancialProduct bfp2 = mock(BasicFinancialProduct.class);
 
-        when(bfp.getWkn()).thenReturn("thewkn");
-        when(bfp2.getWkn()).thenReturn("secondwkn");
+        BasicFinancialProduct bfpWithExtractedInfos = new BasicFinancialProduct.Builder()
+                .build();
+        bfpWithExtractedInfos.setName("name");
 
         List<BasicFinancialProduct> list = new ArrayList<BasicFinancialProduct>();
         list.add(bfp);
         list.add(bfp2);
 
+        when(model.getBasicFinancialProduct(anyString())).thenReturn(
+                bfpWithExtractedInfos);
+        when(bfp.getWkn()).thenReturn("thewkn");
+        when(bfp2.getWkn()).thenReturn("secondwkn");
         when(model.getFunds()).thenReturn(list);
 
         presenter.showFunds();
         verify(model, times(1)).getFunds();
         verify(model).getBasicFinancialProduct(bfp.getWkn());
         verify(model).getBasicFinancialProduct(bfp2.getWkn());
-        verify(view, times(1)).displayFunds(anyList());
+
+        verify(model, times(2)).getBasicFinancialProduct(anyString());
+        verify(view, times(1)).displayFunds(anyListOf(BasicFinancialProduct.class));
     }
 }

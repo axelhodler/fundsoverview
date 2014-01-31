@@ -1,6 +1,7 @@
 package org.xorrr.financegrabber.presenter;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.xorrr.financegrabber.model.BasicFinancialProduct;
@@ -26,18 +27,20 @@ public class FinanceGrabberPresenter implements FinanceGrabberViewHandler {
     @Override
     public void showFunds() {
         List<BasicFinancialProduct> funds = model.getFunds();
+        List<BasicFinancialProduct> fundsWithInfos = new ArrayList<>();
+
         for (BasicFinancialProduct fund : funds) {
             try {
-                model.getBasicFinancialProduct(fund.getWkn());
+                BasicFinancialProduct bfp = model.getBasicFinancialProduct(fund
+                        .getWkn());
+                fundsWithInfos.add(bfp);
             } catch (IOException e) {
-                // TODO Auto-generated catch block
                 e.printStackTrace();
             } catch (InvalidIsinException e) {
-                // TODO Auto-generated catch block
                 e.printStackTrace();
             }
         }
-        view.displayFunds(funds);
+        view.displayFunds(fundsWithInfos);
     }
 
     @Override
