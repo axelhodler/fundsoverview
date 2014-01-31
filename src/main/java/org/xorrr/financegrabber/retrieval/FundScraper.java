@@ -23,7 +23,7 @@ public class FundScraper {
 
         BasicFinancialProduct bfp = new BasicFinancialProduct.Builder().build();
         bfp.setName(extractor.extractName());
-        bfp.setValue(extractor.extractPrice());
+        bfp.setCurrentPrice(extractor.extractPrice());
 
         return bfp;
     }

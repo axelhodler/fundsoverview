@@ -45,7 +45,7 @@ public class _TestFundScraper {
         verify(extractor, times(1)).useDocument(any(Document.class));
         verify(extractor, times(1)).extractName();
         assertEquals(expectedName, bfp.getName());
-        assertEquals(expectedValue, bfp.getValue());
+        assertEquals(expectedValue, bfp.getCurrentPrice());
     }
 
 }

@@ -5,7 +5,7 @@ public class BasicFinancialProduct {
     private String wkn;
     private String isin;
     private String name;
-    private String value;
+    private String currentPrice;
 
     public static class Builder {
         private String wkn;
@@ -39,12 +39,12 @@ public class BasicFinancialProduct {
         return wkn;
     }
 
-    public String getValue() {
-        return value;
+    public String getCurrentPrice() {
+        return currentPrice;
     }
 
-    public void setValue(String value) {
-        this.value = value;
+    public void setCurrentPrice(String currentPrice) {
+        this.currentPrice = currentPrice;
     }
 
     public String getName() {
