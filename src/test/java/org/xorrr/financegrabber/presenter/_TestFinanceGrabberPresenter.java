@@ -34,9 +34,31 @@ public class _TestFinanceGrabberPresenter {
     }
 
     @Test
-    public void doesAddFundMethodWork() {
-        presenter.addFund(any(BasicFinancialProduct.class));
+    public void doesAddFundMethodWork() throws IOException,
+            InvalidIsinException {
+        String validIsin = "validIsin";
+        BasicFinancialProduct bfp = new BasicFinancialProduct.Builder().isin(
+                validIsin).build();
+        when(model.getBasicFinancialProduct(validIsin)).thenReturn(bfp);
+
+        presenter.addFund(bfp);
+
         verify(model, times(1)).addFund(any(BasicFinancialProduct.class));
+    }
+
+    @Test
+    public void dontAddFundWithInvalidIsin() throws IOException,
+            InvalidIsinException {
+        String invalidIsin = "invalidIsin";
+        when(model.getBasicFinancialProduct(invalidIsin)).thenThrow(
+                new InvalidIsinException());
+        BasicFinancialProduct bfp = new BasicFinancialProduct.Builder().isin(
+                invalidIsin).build();
+
+        presenter.addFund(bfp);
+
+        verify(model, times(1)).getBasicFinancialProduct(invalidIsin);
+        verify(model, times(0)).addFund(bfp);
     }
 
     @Test
@@ -65,6 +87,7 @@ public class _TestFinanceGrabberPresenter {
         verify(model).getBasicFinancialProduct(bfp2.getIsin());
 
         verify(model, times(2)).getBasicFinancialProduct(anyString());
-        verify(view, times(1)).displayFunds(anyListOf(BasicFinancialProduct.class));
+        verify(view, times(1)).displayFunds(
+                anyListOf(BasicFinancialProduct.class));
     }
 }

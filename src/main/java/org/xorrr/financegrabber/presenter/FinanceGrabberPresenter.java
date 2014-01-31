@@ -21,7 +21,14 @@ public class FinanceGrabberPresenter implements FinanceGrabberViewHandler {
 
     @Override
     public void addFund(BasicFinancialProduct bfp) {
-        model.addFund(bfp);
+        try {
+            model.getBasicFinancialProduct(bfp.getIsin());
+            model.addFund(bfp);
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (InvalidIsinException e) {
+            System.out.println("The provided ISIN is not valid. Fund was not added");
+        }
     }
 
     @Override

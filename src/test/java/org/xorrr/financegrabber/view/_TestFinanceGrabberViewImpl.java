@@ -5,6 +5,7 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,6 +14,7 @@ import org.junit.Test;
 import org.mockito.Mockito;
 import org.xorrr.financegrabber.model.BasicFinancialProduct;
 import org.xorrr.financegrabber.presenter.FinanceGrabberViewHandler;
+import org.xorrr.financegrabber.retrieval.InvalidIsinException;
 
 import com.vaadin.data.Item;
 
@@ -30,7 +32,7 @@ public class _TestFinanceGrabberViewImpl {
     }
 
     @Test
-    public void testAddFundButton() {
+    public void testAddFundButton() throws IOException, InvalidIsinException {
         view.getAddFundBtn().click();
         verify(handler, times(1)).addFund(
                 Mockito.any(BasicFinancialProduct.class));
