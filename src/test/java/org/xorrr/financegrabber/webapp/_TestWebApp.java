@@ -9,6 +9,7 @@ import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.xorrr.financegrabber.db.DbProperties;
 import org.xorrr.financegrabber.db.EmbeddedMongo;
@@ -23,6 +24,7 @@ import com.mongodb.DBCollection;
 import com.mongodb.MongoClient;
 import com.mongodb.MongoClientURI;
 
+@Ignore
 public class _TestWebApp {
 
     private MongoClient client;
