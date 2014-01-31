@@ -20,10 +20,10 @@ public class DashboardPresenter implements DashboardViewHandler {
     }
 
     @Override
-    public void addFund(FundProduct bfp) {
+    public void addFund(FundProduct fp) {
         try {
-            model.getBasicFinancialProduct(bfp.getIsin());
-            model.addFund(bfp);
+            model.getBasicFinancialProduct(fp.getIsin());
+            model.addFund(fp);
         } catch (IOException e) {
             e.printStackTrace();
         } catch (InvalidIsinException e) {
@@ -57,9 +57,9 @@ public class DashboardPresenter implements DashboardViewHandler {
             List<FundProduct> fundsWithInfos,
             FundProduct fund) {
         try {
-            FundProduct bfp = model.getBasicFinancialProduct(fund
+            FundProduct fp = model.getBasicFinancialProduct(fund
                     .getIsin());
-            fundsWithInfos.add(bfp);
+            fundsWithInfos.add(fp);
         } catch (IOException e) {
             e.printStackTrace();
         } catch (InvalidIsinException e) {

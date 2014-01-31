@@ -9,7 +9,7 @@ public interface ModelFacade {
 
     FundProduct getBasicFinancialProduct(String isin) throws IOException, InvalidIsinException;
 
-    void addFund(FundProduct bfp);
+    void addFund(FundProduct fp);
 
     List<FundProduct> getFunds();
 

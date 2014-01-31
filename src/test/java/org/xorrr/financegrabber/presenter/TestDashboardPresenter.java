@@ -37,11 +37,11 @@ public class TestDashboardPresenter {
     public void addsFundWithValidIsin() throws IOException,
             InvalidIsinException {
         String validIsin = "validIsin";
-        FundProduct bfp = new FundProduct.Builder().isin(
+        FundProduct fp = new FundProduct.Builder().isin(
                 validIsin).build();
-        when(model.getBasicFinancialProduct(validIsin)).thenReturn(bfp);
+        when(model.getBasicFinancialProduct(validIsin)).thenReturn(fp);
 
-        presenter.addFund(bfp);
+        presenter.addFund(fp);
 
         verify(model, times(1)).addFund(any(FundProduct.class));
     }
@@ -52,39 +52,39 @@ public class TestDashboardPresenter {
         String invalidIsin = "invalidIsin";
         when(model.getBasicFinancialProduct(invalidIsin)).thenThrow(
                 new InvalidIsinException());
-        FundProduct bfp = new FundProduct.Builder().isin(
+        FundProduct fp = new FundProduct.Builder().isin(
                 invalidIsin).build();
 
-        presenter.addFund(bfp);
+        presenter.addFund(fp);
 
         verify(model, times(1)).getBasicFinancialProduct(invalidIsin);
-        verify(model, times(0)).addFund(bfp);
+        verify(model, times(0)).addFund(fp);
     }
 
     @Test
     public void testTheShowFundsMethod() throws IOException,
             InvalidIsinException {
-        FundProduct bfp = mock(FundProduct.class);
-        FundProduct bfp2 = mock(FundProduct.class);
+        FundProduct fp = mock(FundProduct.class);
+        FundProduct fp2 = mock(FundProduct.class);
 
-        FundProduct bfpWithExtractedInfos = new FundProduct.Builder()
+        FundProduct fpWithExtractedInfos = new FundProduct.Builder()
                 .build();
-        bfpWithExtractedInfos.setName("name");
+        fpWithExtractedInfos.setName("name");
 
         List<FundProduct> list = new ArrayList<FundProduct>();
-        list.add(bfp);
-        list.add(bfp2);
+        list.add(fp);
+        list.add(fp2);
 
         when(model.getBasicFinancialProduct(anyString())).thenReturn(
-                bfpWithExtractedInfos);
-        when(bfp.getIsin()).thenReturn("thewkn");
-        when(bfp2.getIsin()).thenReturn("secondwkn");
+                fpWithExtractedInfos);
+        when(fp.getIsin()).thenReturn("thewkn");
+        when(fp2.getIsin()).thenReturn("secondwkn");
         when(model.getFunds()).thenReturn(list);
 
         presenter.showFunds();
         verify(model, times(1)).getFunds();
-        verify(model).getBasicFinancialProduct(bfp.getIsin());
-        verify(model).getBasicFinancialProduct(bfp2.getIsin());
+        verify(model).getBasicFinancialProduct(fp.getIsin());
+        verify(model).getBasicFinancialProduct(fp2.getIsin());
 
         verify(model, times(2)).getBasicFinancialProduct(anyString());
         verify(view, times(1)).displayFunds(

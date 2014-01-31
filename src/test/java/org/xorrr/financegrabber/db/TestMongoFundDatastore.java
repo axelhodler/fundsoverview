@@ -25,13 +25,13 @@ public class TestMongoFundDatastore {
     private DBCollection col;
 
     private void createAndSaveTwoBasicFinancialProducts() {
-        FundProduct bfp = new FundProduct.Builder().isin(
+        FundProduct fp = new FundProduct.Builder().isin(
                 "testWkn").build();
-        FundProduct bfp2 = new FundProduct.Builder().isin(
+        FundProduct fp2 = new FundProduct.Builder().isin(
                 "testWkn2").build();
 
-        this.ds.saveProduct(bfp);
-        this.ds.saveProduct(bfp2);
+        this.ds.saveProduct(fp);
+        this.ds.saveProduct(fp2);
     }
 
     @BeforeClass
@@ -50,10 +50,10 @@ public class TestMongoFundDatastore {
 
     @Test
     public void testAddingFinancialProduct() throws Exception {
-        FundProduct bfp = new FundProduct.Builder().isin(
+        FundProduct fp = new FundProduct.Builder().isin(
                 "testWkn").build();
 
-        this.ds.saveProduct(bfp);
+        this.ds.saveProduct(fp);
 
         DBObject dbo = col.findOne(new BasicDBObject(DbProperties.ISIN,
                 "testWkn"));
@@ -70,10 +70,10 @@ public class TestMongoFundDatastore {
     @Test
     public void testDeletingSavedFinancialProduct() throws Exception {
         createAndSaveTwoBasicFinancialProducts();
-        DBCursor cur = col.find(new BasicDBObject(DbProperties.ISIN, "testWkn"));
+        DBCursor curs = col.find(new BasicDBObject(DbProperties.ISIN, "testWkn"));
         String id = null;
-        while (cur.hasNext()) {
-            id = cur.next().get(DbProperties.ID).toString();
+        while (curs.hasNext()) {
+            id = curs.next().get(DbProperties.ID).toString();
         }
 
         this.ds.deleteProductById(id);

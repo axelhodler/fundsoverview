@@ -44,11 +44,11 @@ public class TestDashboardViewImpl {
     public void basicFinancialProductsAreShown() {
         String expectedName = "foo";
         String expectedPrice = "23";
-        FundProduct bfp = new FundProduct.Builder().build();
-        bfp.setName(expectedName);
-        bfp.setCurrentPrice(expectedPrice);
+        FundProduct fp = new FundProduct.Builder().build();
+        fp.setName(expectedName);
+        fp.setCurrentPrice(expectedPrice);
         List<FundProduct> funds = new ArrayList<>();
-        funds.add(bfp);
+        funds.add(fp);
 
         view.displayFunds(funds);
 

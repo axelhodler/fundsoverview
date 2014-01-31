@@ -4,7 +4,7 @@ import java.util.List;
 
 public interface FundsDatastore {
 
-    void saveProduct(FundProduct bfp);
+    void saveProduct(FundProduct fp);
 
     List<FundProduct> getAllProducts();
 

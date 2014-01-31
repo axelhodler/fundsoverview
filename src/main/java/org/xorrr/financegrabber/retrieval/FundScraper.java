@@ -21,10 +21,10 @@ public class FundScraper {
         Document doc = accessor.getDocumentForIsin(isin);
         extractor.useDocument(doc);
 
-        FundProduct bfp = new FundProduct.Builder().build();
-        bfp.setName(extractor.extractName());
-        bfp.setCurrentPrice(extractor.extractPrice());
+        FundProduct fp = new FundProduct.Builder().build();
+        fp.setName(extractor.extractName());
+        fp.setCurrentPrice(extractor.extractPrice());
 
-        return bfp;
+        return fp;
     }
 }

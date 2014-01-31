@@ -23,8 +23,8 @@ public class ModelFacadeImpl implements ModelFacade {
     }
 
     @Override
-    public void addFund(FundProduct bfp) {
-        this.ds.saveProduct(bfp);
+    public void addFund(FundProduct fp) {
+        this.ds.saveProduct(fp);
     }
 
     @Override

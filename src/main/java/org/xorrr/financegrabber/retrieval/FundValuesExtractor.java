@@ -8,17 +8,17 @@ public class FundValuesExtractor {
     private Document doc;
 
     public String extractPrice() {
-        Element e = doc.getElementsByClass("priceValue").get(0);
-        return removeSpaceInValue(e);
+        Element element = doc.getElementsByClass("priceValue").get(0);
+        return removeSpaceInValue(element);
     }
 
     public String extractName() {
-        Element e = doc.getElementsByClass("fondIndexInfo").get(0);
-        return e.getElementsByClass("data_cont").html();
+        Element element = doc.getElementsByClass("fondIndexInfo").get(0);
+        return element.getElementsByClass("data_cont").html();
     }
 
-    private String removeSpaceInValue(Element e) {
-        return e.html().replace("&nbsp;", "");
+    private String removeSpaceInValue(Element element) {
+        return element.html().replace("&nbsp;", "");
     }
 
     public void useDocument(Document doc) {

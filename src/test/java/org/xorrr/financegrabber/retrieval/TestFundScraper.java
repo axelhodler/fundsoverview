@@ -38,14 +38,14 @@ public class TestFundScraper {
         when(extractor.extractName()).thenReturn(expectedName);
         when(extractor.extractPrice()).thenReturn(expectedValue);
 
-        FundProduct bfp = scraper
+        FundProduct fp = scraper
                 .getBasicFinancialProductForIsin(isin);
 
         verify(accessor, times(1)).getDocumentForIsin(isin);
         verify(extractor, times(1)).useDocument(any(Document.class));
         verify(extractor, times(1)).extractName();
-        assertEquals(expectedName, bfp.getName());
-        assertEquals(expectedValue, bfp.getCurrentPrice());
+        assertEquals(expectedName, fp.getName());
+        assertEquals(expectedValue, fp.getCurrentPrice());
     }
 
 }
