@@ -3,8 +3,6 @@ package org.xorrr.financegrabber.model;
 import java.io.IOException;
 import java.util.List;
 
-import org.jsoup.nodes.Document;
-import org.xorrr.financegrabber.retrieval.FundDocumentAccessor;
 import org.xorrr.financegrabber.retrieval.FundScraper;
 import org.xorrr.financegrabber.retrieval.InvalidIsinException;
 
