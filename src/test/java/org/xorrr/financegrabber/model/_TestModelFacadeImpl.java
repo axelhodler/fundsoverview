@@ -10,28 +10,28 @@ import java.io.IOException;
 
 import org.junit.Before;
 import org.junit.Test;
-import org.xorrr.financegrabber.retrieval.FundDocumentAccessor;
+import org.xorrr.financegrabber.retrieval.FundScraper;
 import org.xorrr.financegrabber.retrieval.InvalidIsinException;
 
 public class _TestModelFacadeImpl {
 
     private ModelFacade facade;
     private FundsDatastore ds;
-    private FundDocumentAccessor docAccessor;
+    private FundScraper scraper;
 
     @Before
     public void setUp() {
-        this.docAccessor = mock(FundDocumentAccessor.class);
+        this.scraper = mock(FundScraper.class);
 
         this.ds = mock(FundsDatastore.class);
-        this.facade = new ModelFacadeImpl(ds, docAccessor);
+        this.facade = new ModelFacadeImpl(ds, scraper);
     }
 
     @Test
     public void triggerGettingFundDocument() throws IOException,
             InvalidIsinException {
-        facade.getFundDocument(anyString());
-        verify(docAccessor).getDocumentForIsin(anyString());
+        facade.getBasicFinancialProduct(anyString());
+        verify(scraper).getBasicFinancialProductForIsin(anyString());
     }
 
     @Test

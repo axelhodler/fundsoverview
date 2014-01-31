@@ -10,6 +10,8 @@ import org.xorrr.financegrabber.model.ModelFacade;
 import org.xorrr.financegrabber.model.ModelFacadeImpl;
 import org.xorrr.financegrabber.presenter.FinanceGrabberPresenter;
 import org.xorrr.financegrabber.retrieval.FidelityFundDocumentAccessor;
+import org.xorrr.financegrabber.retrieval.FundScraper;
+import org.xorrr.financegrabber.retrieval.FundValuesExtractor;
 import org.xorrr.financegrabber.view.FinanceGrabberView;
 import org.xorrr.financegrabber.view.FinanceGrabberViewImpl;
 
@@ -39,7 +41,8 @@ public class MainUI extends UI {
 
         FinanceGrabberView view = new FinanceGrabberViewImpl();
         ModelFacade model = new ModelFacadeImpl(createFundsDatastore(),
-                new FidelityFundDocumentAccessor());
+                new FundScraper(new FidelityFundDocumentAccessor(),
+                        new FundValuesExtractor()));
 
         FinanceGrabberPresenter handler = new FinanceGrabberPresenter(view,
                 model);

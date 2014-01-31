@@ -61,8 +61,8 @@ public class _TestFinanceGrabberPresenter {
         assertNotNull(model);
         presenter.showFunds();
         verify(model, times(1)).getFunds();
-        verify(model).getFundDocument(bfp.getWkn());
-        verify(model).getFundDocument(bfp2.getWkn());
+        verify(model).getBasicFinancialProduct(bfp.getWkn());
+        verify(model).getBasicFinancialProduct(bfp2.getWkn());
         verify(view, times(1)).displayFunds(anyList());
     }
 }

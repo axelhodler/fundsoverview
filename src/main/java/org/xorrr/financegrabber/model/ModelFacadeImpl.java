@@ -5,22 +5,23 @@ import java.util.List;
 
 import org.jsoup.nodes.Document;
 import org.xorrr.financegrabber.retrieval.FundDocumentAccessor;
+import org.xorrr.financegrabber.retrieval.FundScraper;
 import org.xorrr.financegrabber.retrieval.InvalidIsinException;
 
 public class ModelFacadeImpl implements ModelFacade {
 
     private FundsDatastore ds;
-    private FundDocumentAccessor docAccessor;
+    private FundScraper scraper;
 
-    public ModelFacadeImpl(FundsDatastore ds, FundDocumentAccessor docAccessor) {
+    public ModelFacadeImpl(FundsDatastore ds, FundScraper scraper) {
         this.ds = ds;
-        this.docAccessor = docAccessor;
+        this.scraper = scraper;
     }
 
     @Override
-    public Document getFundDocument(String isin) throws IOException,
+    public BasicFinancialProduct getBasicFinancialProduct(String isin) throws IOException,
             InvalidIsinException {
-        return this.docAccessor.getDocumentForIsin(isin);
+        return this.scraper.getBasicFinancialProductForIsin(isin);
     }
 
     @Override
