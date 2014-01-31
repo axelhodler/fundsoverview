@@ -29,22 +29,34 @@ public class FinanceGrabberPresenter implements FinanceGrabberViewHandler {
         List<BasicFinancialProduct> funds = model.getFunds();
         List<BasicFinancialProduct> fundsWithInfos = new ArrayList<>();
 
-        for (BasicFinancialProduct fund : funds) {
-            try {
-                BasicFinancialProduct bfp = model.getBasicFinancialProduct(fund
-                        .getWkn());
-                fundsWithInfos.add(bfp);
-            } catch (IOException e) {
-                e.printStackTrace();
-            } catch (InvalidIsinException e) {
-                e.printStackTrace();
-            }
-        }
+        iterateSavedFunds(funds, fundsWithInfos);
         view.displayFunds(fundsWithInfos);
     }
+
 
     @Override
     public void removeFundTableItems() {
         view.getFundTable().removeAllItems();
+    }
+
+    private void iterateSavedFunds(List<BasicFinancialProduct> funds,
+            List<BasicFinancialProduct> fundsWithInfos) {
+        for (BasicFinancialProduct fund : funds) {
+            addExtractedToFunds(fundsWithInfos, fund);
+        }
+    }
+
+    private void addExtractedToFunds(
+            List<BasicFinancialProduct> fundsWithInfos,
+            BasicFinancialProduct fund) {
+        try {
+            BasicFinancialProduct bfp = model.getBasicFinancialProduct(fund
+                    .getWkn());
+            fundsWithInfos.add(bfp);
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (InvalidIsinException e) {
+            e.printStackTrace();
+        }
     }
 }
