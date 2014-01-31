@@ -14,7 +14,6 @@ import org.mockito.Mockito;
 import org.xorrr.financegrabber.model.BasicFinancialProduct;
 import org.xorrr.financegrabber.presenter.FinanceGrabberViewHandler;
 
-import com.vaadin.data.Container;
 import com.vaadin.data.Item;
 
 public class _TestFinanceGrabberViewImpl {
@@ -37,14 +36,6 @@ public class _TestFinanceGrabberViewImpl {
                 Mockito.any(BasicFinancialProduct.class));
         verify(handler, times(1)).removeFundTableItems();
         verify(handler, times(2)).showFunds();
-    }
-
-    @Test
-    public void testFundTableStructure() {
-        Container cont = view.getFundTable().getContainerDataSource();
-
-        assertEquals(String.class, cont.getType("Fund"));
-        assertEquals(String.class, cont.getType("Value"));
     }
 
     @Test
