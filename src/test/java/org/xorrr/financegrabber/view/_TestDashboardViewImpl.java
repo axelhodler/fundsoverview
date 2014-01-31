@@ -13,20 +13,20 @@ import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mockito;
 import org.xorrr.financegrabber.model.BasicFinancialProduct;
-import org.xorrr.financegrabber.presenter.FinanceGrabberViewHandler;
+import org.xorrr.financegrabber.presenter.DashboardViewHandler;
 import org.xorrr.financegrabber.retrieval.InvalidIsinException;
 
 import com.vaadin.data.Item;
 
-public class _TestFinanceGrabberViewImpl {
+public class _TestDashboardViewImpl {
 
-    private FinanceGrabberView view;
-    private FinanceGrabberViewHandler handler;
+    private DashboardView view;
+    private DashboardViewHandler handler;
 
     @Before
     public void setUp() {
-        view = new FinanceGrabberViewImpl();
-        handler = mock(FinanceGrabberViewHandler.class);
+        view = new DashboardViewImpl();
+        handler = mock(DashboardViewHandler.class);
         view.setHandler(handler);
         view.init();
     }

@@ -3,7 +3,7 @@ package org.xorrr.financegrabber.view;
 import java.util.List;
 
 import org.xorrr.financegrabber.model.BasicFinancialProduct;
-import org.xorrr.financegrabber.presenter.FinanceGrabberViewHandler;
+import org.xorrr.financegrabber.presenter.DashboardViewHandler;
 
 import com.vaadin.navigator.ViewChangeListener.ViewChangeEvent;
 import com.vaadin.ui.Button;
@@ -13,13 +13,13 @@ import com.vaadin.ui.TextField;
 import com.vaadin.ui.VerticalLayout;
 
 @SuppressWarnings("serial")
-public class FinanceGrabberViewImpl extends VerticalLayout implements
-        FinanceGrabberView {
+public class DashboardViewImpl extends VerticalLayout implements
+        DashboardView {
 
     private TextField fundIdField;
     private Button addFundButton;
     private Table fundTable;
-    private FinanceGrabberViewHandler handler;
+    private DashboardViewHandler handler;
 
     public void init() {
         initFormToAddFunds();
@@ -32,7 +32,7 @@ public class FinanceGrabberViewImpl extends VerticalLayout implements
     }
 
     @Override
-    public void setHandler(FinanceGrabberViewHandler handler) {
+    public void setHandler(DashboardViewHandler handler) {
         this.handler = handler;
     }
 

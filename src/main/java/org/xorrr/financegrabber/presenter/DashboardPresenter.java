@@ -7,14 +7,14 @@ import java.util.List;
 import org.xorrr.financegrabber.model.BasicFinancialProduct;
 import org.xorrr.financegrabber.model.ModelFacade;
 import org.xorrr.financegrabber.retrieval.InvalidIsinException;
-import org.xorrr.financegrabber.view.FinanceGrabberView;
+import org.xorrr.financegrabber.view.DashboardView;
 
-public class FinanceGrabberPresenter implements FinanceGrabberViewHandler {
+public class DashboardPresenter implements DashboardViewHandler {
 
-    FinanceGrabberView view;
+    DashboardView view;
     ModelFacade model;
 
-    public FinanceGrabberPresenter(FinanceGrabberView view, ModelFacade model) {
+    public DashboardPresenter(DashboardView view, ModelFacade model) {
         this.view = view;
         this.model = model;
     }

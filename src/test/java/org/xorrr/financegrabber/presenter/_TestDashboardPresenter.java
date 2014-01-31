@@ -17,20 +17,20 @@ import org.junit.Test;
 import org.xorrr.financegrabber.model.BasicFinancialProduct;
 import org.xorrr.financegrabber.model.ModelFacade;
 import org.xorrr.financegrabber.retrieval.InvalidIsinException;
-import org.xorrr.financegrabber.view.FinanceGrabberView;
+import org.xorrr.financegrabber.view.DashboardView;
 
-public class _TestFinanceGrabberPresenter {
+public class _TestDashboardPresenter {
 
-    private FinanceGrabberPresenter presenter;
+    private DashboardPresenter presenter;
     private ModelFacade model;
-    private FinanceGrabberView view;
+    private DashboardView view;
 
     @Before
     public void setUp() {
         this.model = mock(ModelFacade.class);
-        this.view = mock(FinanceGrabberView.class);
+        this.view = mock(DashboardView.class);
 
-        this.presenter = new FinanceGrabberPresenter(view, model);
+        this.presenter = new DashboardPresenter(view, model);
     }
 
     @Test

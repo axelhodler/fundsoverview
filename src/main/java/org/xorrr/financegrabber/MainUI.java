@@ -8,12 +8,12 @@ import org.xorrr.financegrabber.db.MongoFundsDatastore;
 import org.xorrr.financegrabber.model.FundsDatastore;
 import org.xorrr.financegrabber.model.ModelFacade;
 import org.xorrr.financegrabber.model.ModelFacadeImpl;
-import org.xorrr.financegrabber.presenter.FinanceGrabberPresenter;
+import org.xorrr.financegrabber.presenter.DashboardPresenter;
 import org.xorrr.financegrabber.retrieval.FidelityFundDocumentAccessor;
 import org.xorrr.financegrabber.retrieval.FundScraper;
 import org.xorrr.financegrabber.retrieval.FundValuesExtractor;
-import org.xorrr.financegrabber.view.FinanceGrabberView;
-import org.xorrr.financegrabber.view.FinanceGrabberViewImpl;
+import org.xorrr.financegrabber.view.DashboardView;
+import org.xorrr.financegrabber.view.DashboardViewImpl;
 
 import com.mongodb.MongoClient;
 import com.mongodb.MongoClientURI;
@@ -39,12 +39,12 @@ public class MainUI extends UI {
 
         UI.getCurrent().getPage().setTitle("financegrabber");
 
-        FinanceGrabberView view = new FinanceGrabberViewImpl();
+        DashboardView view = new DashboardViewImpl();
         ModelFacade model = new ModelFacadeImpl(createFundsDatastore(),
                 new FundScraper(new FidelityFundDocumentAccessor(),
                         new FundValuesExtractor()));
 
-        FinanceGrabberPresenter handler = new FinanceGrabberPresenter(view,
+        DashboardPresenter handler = new DashboardPresenter(view,
                 model);
 
         view.setHandler(handler);
