@@ -12,7 +12,7 @@ import java.io.IOException;
 import org.jsoup.nodes.Document;
 import org.junit.Before;
 import org.junit.Test;
-import org.xorrr.financegrabber.model.BasicFinancialProduct;
+import org.xorrr.financegrabber.model.FundProduct;
 
 public class TestFundScraper {
 
@@ -38,7 +38,7 @@ public class TestFundScraper {
         when(extractor.extractName()).thenReturn(expectedName);
         when(extractor.extractPrice()).thenReturn(expectedValue);
 
-        BasicFinancialProduct bfp = scraper
+        FundProduct bfp = scraper
                 .getBasicFinancialProductForIsin(isin);
 
         verify(accessor, times(1)).getDocumentForIsin(isin);

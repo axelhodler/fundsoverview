@@ -2,7 +2,7 @@ package org.xorrr.financegrabber.view;
 
 import java.util.List;
 
-import org.xorrr.financegrabber.model.BasicFinancialProduct;
+import org.xorrr.financegrabber.model.FundProduct;
 import org.xorrr.financegrabber.presenter.DashboardViewHandler;
 
 import com.vaadin.navigator.ViewChangeListener.ViewChangeEvent;
@@ -47,13 +47,13 @@ public class DashboardViewImpl extends VerticalLayout implements
     }
 
     @Override
-    public void displayFunds(List<BasicFinancialProduct> funds) {
+    public void displayFunds(List<FundProduct> funds) {
         for (int currentFund = 0; currentFund < funds.size(); currentFund++) {
             addFundToTable(funds, currentFund);
         }
     }
 
-    private void addFundToTable(List<BasicFinancialProduct> funds,
+    private void addFundToTable(List<FundProduct> funds,
             int currentFund) {
         fundTable.addItem(new Object[] { funds.get(currentFund).getName(),
                 funds.get(currentFund).getCurrentPrice() }, new Integer(
@@ -64,7 +64,7 @@ public class DashboardViewImpl extends VerticalLayout implements
 
         @Override
         public void buttonClick(ClickEvent event) {
-            handler.addFund(new BasicFinancialProduct.Builder().isin(
+            handler.addFund(new FundProduct.Builder().isin(
                     fundIdField.getValue()).build());
             handler.removeFundTableItems();
             handler.showFunds();

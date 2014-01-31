@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.bson.types.ObjectId;
-import org.xorrr.financegrabber.model.BasicFinancialProduct;
+import org.xorrr.financegrabber.model.FundProduct;
 import org.xorrr.financegrabber.model.FundsDatastore;
 
 import com.mongodb.BasicDBObject;
@@ -21,12 +21,12 @@ public class MongoFundsDatastore implements FundsDatastore {
                 .getCollection(DbProperties.COL);
     }
 
-    public void saveProduct(BasicFinancialProduct bfp) {
+    public void saveProduct(FundProduct bfp) {
         this.col.save(new BasicDBObject(DbProperties.ISIN, bfp.getIsin()));
     }
 
-    public List<BasicFinancialProduct> getAllProducts() {
-        List<BasicFinancialProduct> allProducts = new ArrayList<BasicFinancialProduct>();
+    public List<FundProduct> getAllProducts() {
+        List<FundProduct> allProducts = new ArrayList<FundProduct>();
 
         DBCursor cur = col.find();
         iterateCursorAndAddEntriesToProducts(allProducts, cur);
@@ -35,9 +35,9 @@ public class MongoFundsDatastore implements FundsDatastore {
     }
 
     private void iterateCursorAndAddEntriesToProducts(
-            List<BasicFinancialProduct> allProducts, DBCursor cur) {
+            List<FundProduct> allProducts, DBCursor cur) {
         while (cur.hasNext()) {
-            BasicFinancialProduct curProduct = new BasicFinancialProduct.Builder()
+            FundProduct curProduct = new FundProduct.Builder()
                     .isin(cur.next().get(DbProperties.ISIN).toString()).build();
 
             allProducts.add(curProduct);

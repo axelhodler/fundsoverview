@@ -2,7 +2,7 @@ package org.xorrr.financegrabber.view;
 
 import java.util.List;
 
-import org.xorrr.financegrabber.model.BasicFinancialProduct;
+import org.xorrr.financegrabber.model.FundProduct;
 import org.xorrr.financegrabber.presenter.DashboardViewHandler;
 
 import com.vaadin.navigator.View;
@@ -18,7 +18,7 @@ public interface DashboardView extends View {
 
     public Button getAddFundBtn();
 
-    public void displayFunds(List<BasicFinancialProduct> funds);
+    public void displayFunds(List<FundProduct> funds);
 
     public Table getFundTable();
 }

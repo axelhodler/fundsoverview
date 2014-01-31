@@ -14,7 +14,7 @@ import java.util.List;
 
 import org.junit.Before;
 import org.junit.Test;
-import org.xorrr.financegrabber.model.BasicFinancialProduct;
+import org.xorrr.financegrabber.model.FundProduct;
 import org.xorrr.financegrabber.model.ModelFacade;
 import org.xorrr.financegrabber.retrieval.InvalidIsinException;
 import org.xorrr.financegrabber.view.DashboardView;
@@ -37,13 +37,13 @@ public class TestDashboardPresenter {
     public void addsFundWithValidIsin() throws IOException,
             InvalidIsinException {
         String validIsin = "validIsin";
-        BasicFinancialProduct bfp = new BasicFinancialProduct.Builder().isin(
+        FundProduct bfp = new FundProduct.Builder().isin(
                 validIsin).build();
         when(model.getBasicFinancialProduct(validIsin)).thenReturn(bfp);
 
         presenter.addFund(bfp);
 
-        verify(model, times(1)).addFund(any(BasicFinancialProduct.class));
+        verify(model, times(1)).addFund(any(FundProduct.class));
     }
 
     @Test
@@ -52,7 +52,7 @@ public class TestDashboardPresenter {
         String invalidIsin = "invalidIsin";
         when(model.getBasicFinancialProduct(invalidIsin)).thenThrow(
                 new InvalidIsinException());
-        BasicFinancialProduct bfp = new BasicFinancialProduct.Builder().isin(
+        FundProduct bfp = new FundProduct.Builder().isin(
                 invalidIsin).build();
 
         presenter.addFund(bfp);
@@ -64,14 +64,14 @@ public class TestDashboardPresenter {
     @Test
     public void testTheShowFundsMethod() throws IOException,
             InvalidIsinException {
-        BasicFinancialProduct bfp = mock(BasicFinancialProduct.class);
-        BasicFinancialProduct bfp2 = mock(BasicFinancialProduct.class);
+        FundProduct bfp = mock(FundProduct.class);
+        FundProduct bfp2 = mock(FundProduct.class);
 
-        BasicFinancialProduct bfpWithExtractedInfos = new BasicFinancialProduct.Builder()
+        FundProduct bfpWithExtractedInfos = new FundProduct.Builder()
                 .build();
         bfpWithExtractedInfos.setName("name");
 
-        List<BasicFinancialProduct> list = new ArrayList<BasicFinancialProduct>();
+        List<FundProduct> list = new ArrayList<FundProduct>();
         list.add(bfp);
         list.add(bfp2);
 
@@ -88,6 +88,6 @@ public class TestDashboardPresenter {
 
         verify(model, times(2)).getBasicFinancialProduct(anyString());
         verify(view, times(1)).displayFunds(
-                anyListOf(BasicFinancialProduct.class));
+                anyListOf(FundProduct.class));
     }
 }

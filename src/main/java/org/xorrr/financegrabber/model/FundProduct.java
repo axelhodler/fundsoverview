@@ -1,6 +1,6 @@
 package org.xorrr.financegrabber.model;
 
-public class BasicFinancialProduct {
+public class FundProduct {
 
     private String isin;
     private String name;
@@ -14,12 +14,12 @@ public class BasicFinancialProduct {
             return this;
         }
 
-        public BasicFinancialProduct build() {
-            return new BasicFinancialProduct(this);
+        public FundProduct build() {
+            return new FundProduct(this);
         }
     }
 
-    private BasicFinancialProduct(Builder builder) {
+    private FundProduct(Builder builder) {
         this.isin = builder.isin;
     }
 

@@ -42,7 +42,7 @@ public class TestModelFacadeImpl {
 
     @Test
     public void triggerAddingFund() {
-        facade.addFund(any(BasicFinancialProduct.class));
-        verify(ds, times(1)).saveProduct(any(BasicFinancialProduct.class));
+        facade.addFund(any(FundProduct.class));
+        verify(ds, times(1)).saveProduct(any(FundProduct.class));
     }
 }

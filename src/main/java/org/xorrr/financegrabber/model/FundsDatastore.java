@@ -4,9 +4,9 @@ import java.util.List;
 
 public interface FundsDatastore {
 
-    void saveProduct(BasicFinancialProduct bfp);
+    void saveProduct(FundProduct bfp);
 
-    List<BasicFinancialProduct> getAllProducts();
+    List<FundProduct> getAllProducts();
 
     void deleteProductById(String id);
 }

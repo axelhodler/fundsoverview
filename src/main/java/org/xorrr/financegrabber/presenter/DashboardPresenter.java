@@ -4,7 +4,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.xorrr.financegrabber.model.BasicFinancialProduct;
+import org.xorrr.financegrabber.model.FundProduct;
 import org.xorrr.financegrabber.model.ModelFacade;
 import org.xorrr.financegrabber.retrieval.InvalidIsinException;
 import org.xorrr.financegrabber.view.DashboardView;
@@ -20,7 +20,7 @@ public class DashboardPresenter implements DashboardViewHandler {
     }
 
     @Override
-    public void addFund(BasicFinancialProduct bfp) {
+    public void addFund(FundProduct bfp) {
         try {
             model.getBasicFinancialProduct(bfp.getIsin());
             model.addFund(bfp);
@@ -33,8 +33,8 @@ public class DashboardPresenter implements DashboardViewHandler {
 
     @Override
     public void showFunds() {
-        List<BasicFinancialProduct> funds = model.getFunds();
-        List<BasicFinancialProduct> fundsWithInfos = new ArrayList<>();
+        List<FundProduct> funds = model.getFunds();
+        List<FundProduct> fundsWithInfos = new ArrayList<>();
 
         iterateSavedFunds(funds, fundsWithInfos);
         view.displayFunds(fundsWithInfos);
@@ -46,18 +46,18 @@ public class DashboardPresenter implements DashboardViewHandler {
         view.getFundTable().removeAllItems();
     }
 
-    private void iterateSavedFunds(List<BasicFinancialProduct> funds,
-            List<BasicFinancialProduct> fundsWithInfos) {
-        for (BasicFinancialProduct fund : funds) {
+    private void iterateSavedFunds(List<FundProduct> funds,
+            List<FundProduct> fundsWithInfos) {
+        for (FundProduct fund : funds) {
             addExtractedToFunds(fundsWithInfos, fund);
         }
     }
 
     private void addExtractedToFunds(
-            List<BasicFinancialProduct> fundsWithInfos,
-            BasicFinancialProduct fund) {
+            List<FundProduct> fundsWithInfos,
+            FundProduct fund) {
         try {
-            BasicFinancialProduct bfp = model.getBasicFinancialProduct(fund
+            FundProduct bfp = model.getBasicFinancialProduct(fund
                     .getIsin());
             fundsWithInfos.add(bfp);
         } catch (IOException e) {

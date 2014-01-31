@@ -17,18 +17,18 @@ public class ModelFacadeImpl implements ModelFacade {
     }
 
     @Override
-    public BasicFinancialProduct getBasicFinancialProduct(String isin) throws IOException,
+    public FundProduct getBasicFinancialProduct(String isin) throws IOException,
             InvalidIsinException {
         return this.scraper.getBasicFinancialProductForIsin(isin);
     }
 
     @Override
-    public void addFund(BasicFinancialProduct bfp) {
+    public void addFund(FundProduct bfp) {
         this.ds.saveProduct(bfp);
     }
 
     @Override
-    public List<BasicFinancialProduct> getFunds() {
+    public List<FundProduct> getFunds() {
         return this.ds.getAllProducts();
     }
 

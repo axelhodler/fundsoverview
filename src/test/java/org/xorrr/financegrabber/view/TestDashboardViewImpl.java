@@ -12,7 +12,7 @@ import java.util.List;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mockito;
-import org.xorrr.financegrabber.model.BasicFinancialProduct;
+import org.xorrr.financegrabber.model.FundProduct;
 import org.xorrr.financegrabber.presenter.DashboardViewHandler;
 import org.xorrr.financegrabber.retrieval.InvalidIsinException;
 
@@ -35,7 +35,7 @@ public class TestDashboardViewImpl {
     public void testAddFundButton() throws IOException, InvalidIsinException {
         view.getAddFundBtn().click();
         verify(handler, times(1)).addFund(
-                Mockito.any(BasicFinancialProduct.class));
+                Mockito.any(FundProduct.class));
         verify(handler, times(1)).removeFundTableItems();
         verify(handler, times(2)).showFunds();
     }
@@ -44,10 +44,10 @@ public class TestDashboardViewImpl {
     public void basicFinancialProductsAreShown() {
         String expectedName = "foo";
         String expectedPrice = "23";
-        BasicFinancialProduct bfp = new BasicFinancialProduct.Builder().build();
+        FundProduct bfp = new FundProduct.Builder().build();
         bfp.setName(expectedName);
         bfp.setCurrentPrice(expectedPrice);
-        List<BasicFinancialProduct> funds = new ArrayList<>();
+        List<FundProduct> funds = new ArrayList<>();
         funds.add(bfp);
 
         view.displayFunds(funds);

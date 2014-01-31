@@ -7,7 +7,7 @@ import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
-import org.xorrr.financegrabber.model.BasicFinancialProduct;
+import org.xorrr.financegrabber.model.FundProduct;
 
 import com.mongodb.BasicDBObject;
 import com.mongodb.DBCollection;
@@ -25,9 +25,9 @@ public class TestMongoFundDatastore {
     private DBCollection col;
 
     private void createAndSaveTwoBasicFinancialProducts() {
-        BasicFinancialProduct bfp = new BasicFinancialProduct.Builder().isin(
+        FundProduct bfp = new FundProduct.Builder().isin(
                 "testWkn").build();
-        BasicFinancialProduct bfp2 = new BasicFinancialProduct.Builder().isin(
+        FundProduct bfp2 = new FundProduct.Builder().isin(
                 "testWkn2").build();
 
         this.ds.saveProduct(bfp);
@@ -50,7 +50,7 @@ public class TestMongoFundDatastore {
 
     @Test
     public void testAddingFinancialProduct() throws Exception {
-        BasicFinancialProduct bfp = new BasicFinancialProduct.Builder().isin(
+        FundProduct bfp = new FundProduct.Builder().isin(
                 "testWkn").build();
 
         this.ds.saveProduct(bfp);

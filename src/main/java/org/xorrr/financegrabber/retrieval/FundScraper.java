@@ -3,7 +3,7 @@ package org.xorrr.financegrabber.retrieval;
 import java.io.IOException;
 
 import org.jsoup.nodes.Document;
-import org.xorrr.financegrabber.model.BasicFinancialProduct;
+import org.xorrr.financegrabber.model.FundProduct;
 
 public class FundScraper {
 
@@ -16,12 +16,12 @@ public class FundScraper {
         this.extractor = extractor;
     }
 
-    public BasicFinancialProduct getBasicFinancialProductForIsin(String isin)
+    public FundProduct getBasicFinancialProductForIsin(String isin)
             throws IOException, InvalidIsinException {
         Document doc = accessor.getDocumentForIsin(isin);
         extractor.useDocument(doc);
 
-        BasicFinancialProduct bfp = new BasicFinancialProduct.Builder().build();
+        FundProduct bfp = new FundProduct.Builder().build();
         bfp.setName(extractor.extractName());
         bfp.setCurrentPrice(extractor.extractPrice());
 

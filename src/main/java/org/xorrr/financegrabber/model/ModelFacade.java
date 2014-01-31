@@ -7,10 +7,10 @@ import org.xorrr.financegrabber.retrieval.InvalidIsinException;
 
 public interface ModelFacade {
 
-    BasicFinancialProduct getBasicFinancialProduct(String isin) throws IOException, InvalidIsinException;
+    FundProduct getBasicFinancialProduct(String isin) throws IOException, InvalidIsinException;
 
-    void addFund(BasicFinancialProduct bfp);
+    void addFund(FundProduct bfp);
 
-    List<BasicFinancialProduct> getFunds();
+    List<FundProduct> getFunds();
 
 }
