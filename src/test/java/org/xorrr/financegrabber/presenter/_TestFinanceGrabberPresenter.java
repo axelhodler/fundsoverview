@@ -34,7 +34,7 @@ public class _TestFinanceGrabberPresenter {
     }
 
     @Test
-    public void doesAddFundMethodWork() throws IOException,
+    public void addsFundWithValidIsin() throws IOException,
             InvalidIsinException {
         String validIsin = "validIsin";
         BasicFinancialProduct bfp = new BasicFinancialProduct.Builder().isin(
