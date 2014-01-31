@@ -14,7 +14,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.xorrr.financegrabber.model.BasicFinancialProduct;
 
-public class _TestFundScraper {
+public class TestFundScraper {
 
     private FundDocumentAccessor accessor;
     private FundValuesExtractor extractor;

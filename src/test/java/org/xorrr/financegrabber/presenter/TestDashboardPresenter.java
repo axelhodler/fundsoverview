@@ -19,7 +19,7 @@ import org.xorrr.financegrabber.model.ModelFacade;
 import org.xorrr.financegrabber.retrieval.InvalidIsinException;
 import org.xorrr.financegrabber.view.DashboardView;
 
-public class _TestDashboardPresenter {
+public class TestDashboardPresenter {
 
     private DashboardPresenter presenter;
     private ModelFacade model;

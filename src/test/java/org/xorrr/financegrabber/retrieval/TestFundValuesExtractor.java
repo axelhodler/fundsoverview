@@ -11,7 +11,7 @@ import org.jsoup.nodes.Document;
 import org.junit.Before;
 import org.junit.Test;
 
-public class _TestFundValuesExtractor {
+public class TestFundValuesExtractor {
 
     private FundValuesExtractor extractor;
 

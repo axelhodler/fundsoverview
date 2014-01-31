@@ -21,7 +21,7 @@ import org.powermock.modules.junit4.PowerMockRunner;
 
 @RunWith(PowerMockRunner.class)
 @PrepareForTest({ Jsoup.class })
-public class _TestFundAccessor {
+public class TestFundAccessor {
 
     private FundDocumentAccessor fund;
     private String url = "https://fww.biz/fidelity/direkt/fondsportraet/" 

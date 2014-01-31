@@ -25,7 +25,7 @@ import com.mongodb.MongoClient;
 import com.mongodb.MongoClientURI;
 
 @Ignore
-public class _TestWebApp {
+public class TestWebApp {
 
     private MongoClient client;
     private DBCollection col;

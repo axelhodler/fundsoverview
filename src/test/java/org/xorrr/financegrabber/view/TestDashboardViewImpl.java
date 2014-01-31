@@ -18,7 +18,7 @@ import org.xorrr.financegrabber.retrieval.InvalidIsinException;
 
 import com.vaadin.data.Item;
 
-public class _TestDashboardViewImpl {
+public class TestDashboardViewImpl {
 
     private DashboardView view;
     private DashboardViewHandler handler;

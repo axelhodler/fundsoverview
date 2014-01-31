@@ -13,7 +13,7 @@ import org.junit.Test;
 import org.xorrr.financegrabber.retrieval.FundScraper;
 import org.xorrr.financegrabber.retrieval.InvalidIsinException;
 
-public class _TestModelFacadeImpl {
+public class TestModelFacadeImpl {
 
     private ModelFacade facade;
     private FundsDatastore ds;
