@@ -55,9 +55,6 @@ public class _TestFinanceGrabberPresenter {
 
         when(model.getFunds()).thenReturn(list);
 
-        assertNotNull(presenter);
-        assertNotNull(view);
-        assertNotNull(model);
         presenter.showFunds();
         verify(model, times(1)).getFunds();
         verify(model).getBasicFinancialProduct(bfp.getWkn());
