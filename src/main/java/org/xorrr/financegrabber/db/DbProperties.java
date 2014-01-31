@@ -8,5 +8,5 @@ public class DbProperties {
     public static final String DB = "financegrabber";
     public static final String COL = "FinancialProducts";
     public static final String ID = "_id";
-    public static final String WKN = "wkn";
+    public static final String ISIN = "isin";
 }

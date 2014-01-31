@@ -55,9 +55,9 @@ public class _TestMongoFundDatastore {
 
         this.ds.saveProduct(bfp);
 
-        DBObject dbo = col.findOne(new BasicDBObject(DbProperties.WKN,
+        DBObject dbo = col.findOne(new BasicDBObject(DbProperties.ISIN,
                 "testWkn"));
-        assertEquals("testWkn", dbo.get(DbProperties.WKN));
+        assertEquals("testWkn", dbo.get(DbProperties.ISIN));
     }
 
     @Test
@@ -70,7 +70,7 @@ public class _TestMongoFundDatastore {
     @Test
     public void testDeletingSavedFinancialProduct() throws Exception {
         createAndSaveTwoBasicFinancialProducts();
-        DBCursor cur = col.find(new BasicDBObject(DbProperties.WKN, "testWkn"));
+        DBCursor cur = col.find(new BasicDBObject(DbProperties.ISIN, "testWkn"));
         String id = null;
         while (cur.hasNext()) {
             id = cur.next().get(DbProperties.ID).toString();
