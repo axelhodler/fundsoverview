@@ -6,7 +6,6 @@ import javax.servlet.annotation.WebServlet;
 
 import org.xorrr.financegrabber.db.MongoFundsDatastore;
 import org.xorrr.financegrabber.model.FundsDatastore;
-import org.xorrr.financegrabber.model.ModelFacade;
 import org.xorrr.financegrabber.model.ModelFacadeImpl;
 import org.xorrr.financegrabber.presenter.DashboardPresenter;
 import org.xorrr.financegrabber.retrieval.FidelityFundDocumentAccessor;
@@ -36,22 +35,26 @@ public class MainUI extends UI {
     @Override
     protected void init(VaadinRequest request) {
         Navigator navigator = new Navigator(this, this);
-
         UI.getCurrent().getPage().setTitle("financegrabber");
-
         DashboardView view = new DashboardViewImpl();
-        ModelFacade model = new ModelFacadeImpl(createFundsDatastore(),
-                new FundScraper(new FidelityFundDocumentAccessor(),
-                        new FundValuesExtractor()));
-
         DashboardPresenter handler = new DashboardPresenter(view,
-                model);
+                createModel());
 
         view.setHandler(handler);
         view.init();
 
         navigator.addView("", view);
         navigator.navigateTo("");
+    }
+
+    private ModelFacadeImpl createModel() {
+        return new ModelFacadeImpl(createFundsDatastore(),
+                createFundScraper());
+    }
+
+    private FundScraper createFundScraper() {
+        return new FundScraper(new FidelityFundDocumentAccessor(),
+                new FundValuesExtractor());
     }
 
     private FundsDatastore createFundsDatastore() {
