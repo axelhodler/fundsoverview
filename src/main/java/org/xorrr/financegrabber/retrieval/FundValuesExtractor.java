@@ -17,31 +17,39 @@ public class FundValuesExtractor {
         return element.getElementsByClass("data_cont").html();
     }
 
-    private String removeSpaceInValue(Element element) {
-        return element.html().replace("&nbsp;", "");
-    }
-
     public void useDocument(Document doc) {
         this.doc = doc;
     }
 
     public String extractCurrentYearGrowth() {
-        Element element = doc.select("table.productivity").first();
-        return element.child(1).child(0).child(1).html();
+        return getGrowth().child(1).html();
     }
 
     public String extractOneYearGrowth() {
-        Element element = doc.select("table.productivity").first();
-        return element.child(1).child(0).child(2).html();
+        return getGrowth().child(2).html();
     }
 
     public String extractThreeYearGrowth() {
-        Element element = doc.select("table.productivity").first();
-        return element.child(1).child(0).child(3).html();
+        return getGrowth().child(3).html();
     }
 
     public String extractFiveYearGrowth() {
-        Element element = doc.select("table.productivity").first();
-        return element.child(1).child(0).child(4).html();
+        return getGrowth().child(4).html();
+    }
+
+    private Element getGrowth() {
+        return getGrowthRateChild(getGrowthTableData());
+    }
+
+    private String removeSpaceInValue(Element element) {
+        return element.html().replace("&nbsp;", "");
+    }
+
+    private Element getGrowthTableData() {
+        return doc.select("table.productivity").first();
+    }
+
+    private Element getGrowthRateChild(Element element) {
+        return element.child(1).child(0);
     }
 }
