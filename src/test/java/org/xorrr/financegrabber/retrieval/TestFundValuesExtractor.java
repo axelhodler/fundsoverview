@@ -40,4 +40,23 @@ public class TestFundValuesExtractor {
                 extractor.extractName());
     }
 
+    @Test
+    public void testGettingGrowthThisYear() {
+        assertEquals("3,69%", extractor.extractCurrentYearGrowth());
+    }
+
+    @Test
+    public void testGettingGrowthOneYear() {
+        assertEquals("26,35%", extractor.extractOneYearGrowth());
+    }
+
+    @Test
+    public void testGettingGrowthThreeYears() {
+        assertEquals("26,89%", extractor.extractThreeYearGrowth());
+    }
+
+    @Test
+    public void testGettingGrowthFiveYears() {
+        assertEquals("184,73%", extractor.extractFiveYearGrowth());
+    }
 }

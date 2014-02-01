@@ -24,4 +24,24 @@ public class FundValuesExtractor {
     public void useDocument(Document doc) {
         this.doc = doc;
     }
+
+    public String extractCurrentYearGrowth() {
+        Element element = doc.select("table.productivity").first();
+        return element.child(1).child(0).child(1).html();
+    }
+
+    public String extractOneYearGrowth() {
+        Element element = doc.select("table.productivity").first();
+        return element.child(1).child(0).child(2).html();
+    }
+
+    public String extractThreeYearGrowth() {
+        Element element = doc.select("table.productivity").first();
+        return element.child(1).child(0).child(3).html();
+    }
+
+    public String extractFiveYearGrowth() {
+        Element element = doc.select("table.productivity").first();
+        return element.child(1).child(0).child(4).html();
+    }
 }
