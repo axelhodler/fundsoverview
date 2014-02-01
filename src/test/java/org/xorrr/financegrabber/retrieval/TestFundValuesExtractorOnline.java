@@ -6,7 +6,10 @@ import java.io.IOException;
 
 import org.jsoup.nodes.Document;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
+import org.xorrr.financegrabber.helpers.IntegrationTest;
 
+@Category(IntegrationTest.class)
 public class TestFundValuesExtractorOnline {
 
     @Test
