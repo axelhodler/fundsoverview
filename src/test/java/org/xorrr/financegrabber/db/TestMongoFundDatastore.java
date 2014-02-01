@@ -7,6 +7,8 @@ import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
+import org.xorrr.financegrabber.helpers.IntegrationTest;
 import org.xorrr.financegrabber.model.FundProduct;
 
 import com.mongodb.BasicDBObject;
@@ -16,6 +18,7 @@ import com.mongodb.DBObject;
 import com.mongodb.MongoClient;
 import com.mongodb.MongoClientURI;
 
+@Category(IntegrationTest.class)
 public class TestMongoFundDatastore {
 
     private static int port = 12345;
