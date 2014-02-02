@@ -8,6 +8,7 @@ import org.xorrr.fundsoverview.presenter.DashboardViewHandler;
 import com.vaadin.navigator.ViewChangeListener.ViewChangeEvent;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.Button.ClickEvent;
+import com.vaadin.ui.Label;
 import com.vaadin.ui.Table;
 import com.vaadin.ui.TextField;
 import com.vaadin.ui.VerticalLayout;
@@ -53,13 +54,22 @@ public class DashboardViewImpl extends VerticalLayout implements DashboardView {
     }
 
     private void addFundToTable(List<FundProduct> funds, int currentFund) {
+        Label currentYear = new Label(funds.get(currentFund).getCurrentGrowth());
+        currentYear.addStyleName("posGrowth");
+        Label oneYearGrowth = new Label(funds.get(currentFund).getOneYearGrowth());
+        oneYearGrowth.addStyleName("posGrowth");
+        Label threeYearGrowth = new Label(funds.get(currentFund).getThreeYearGrowth());
+        threeYearGrowth.addStyleName("posGrowth");
+        Label fiveYearGrowth = new Label(funds.get(currentFund).getFiveYearGrowth());
+        fiveYearGrowth.addStyleName("posGrowth");
+
         fundTable.addItem(
                 new Object[] { funds.get(currentFund).getName(),
                         funds.get(currentFund).getCurrentPrice(),
-                        funds.get(currentFund).getCurrentGrowth(),
-                        funds.get(currentFund).getOneYearGrowth(),
-                        funds.get(currentFund).getThreeYearGrowth(),
-                        funds.get(currentFund).getFiveYearGrowth() },
+                        currentYear,
+                        oneYearGrowth,
+                        threeYearGrowth,
+                        fiveYearGrowth },
                 new Integer(currentFund));
     }
 
@@ -96,10 +106,10 @@ public class DashboardViewImpl extends VerticalLayout implements DashboardView {
         fundTable = new Table("Funds");
         fundTable.addContainerProperty("Fund", String.class, null);
         fundTable.addContainerProperty("Value", String.class, null);
-        fundTable.addContainerProperty("cur Year", String.class, null);
-        fundTable.addContainerProperty("1 Years", String.class, null);
-        fundTable.addContainerProperty("3 Years", String.class, null);
-        fundTable.addContainerProperty("5 Years", String.class, null);
+        fundTable.addContainerProperty("cur Year", Label.class, null);
+        fundTable.addContainerProperty("1 Years", Label.class, null);
+        fundTable.addContainerProperty("3 Years", Label.class, null);
+        fundTable.addContainerProperty("5 Years", Label.class, null);
     }
 
 }

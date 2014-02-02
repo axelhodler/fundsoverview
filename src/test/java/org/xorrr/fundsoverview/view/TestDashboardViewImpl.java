@@ -19,6 +19,7 @@ import org.xorrr.fundsoverview.view.DashboardView;
 import org.xorrr.fundsoverview.view.DashboardViewImpl;
 
 import com.vaadin.data.Item;
+import com.vaadin.ui.Label;
 
 public class TestDashboardViewImpl {
 
@@ -67,9 +68,13 @@ public class TestDashboardViewImpl {
         Item itm = view.getFundTable().getItem(0);
         assertEquals(expectedName, itm.getItemProperty("Fund").toString());
         assertEquals(expectedPrice, itm.getItemProperty("Value").toString());
-        assertEquals(expectedCurrentGrowth, itm.getItemProperty("cur Year").toString());
-        assertEquals(expectedOneYearGrowth, itm.getItemProperty("1 Years").toString());
-        assertEquals(expectedThreeYearGrowth, itm.getItemProperty("3 Years").toString());
-        assertEquals(expectedFiveYearGrowth, itm.getItemProperty("5 Years").toString());
+        assertEquals(Label.class, itm.getItemProperty("cur Year").getType());
+        assertEquals(expectedCurrentGrowth, itm.getItemProperty("cur Year").getValue().toString());
+        assertEquals(Label.class, itm.getItemProperty("1 Years").getType());
+        assertEquals(expectedOneYearGrowth, itm.getItemProperty("1 Years").getValue().toString());
+        assertEquals(Label.class, itm.getItemProperty("3 Years").getType());
+        assertEquals(expectedThreeYearGrowth, itm.getItemProperty("3 Years").getValue().toString());
+        assertEquals(Label.class, itm.getItemProperty("5 Years").getType());
+        assertEquals(expectedFiveYearGrowth, itm.getItemProperty("5 Years").getValue().toString());
     }
 }
