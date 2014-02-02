@@ -53,25 +53,17 @@ public class DashboardViewImpl extends VerticalLayout implements DashboardView {
         }
     }
 
-    private void addFundToTable(List<FundProduct> funds, int currentFund) {
-        Label currentYear = new Label(funds.get(currentFund).getCurrentGrowth());
-        currentYear.addStyleName("posGrowth");
-        Label oneYearGrowth = new Label(funds.get(currentFund).getOneYearGrowth());
-        oneYearGrowth.addStyleName("posGrowth");
-        Label threeYearGrowth = new Label(funds.get(currentFund).getThreeYearGrowth());
-        threeYearGrowth.addStyleName("posGrowth");
-        Label fiveYearGrowth = new Label(funds.get(currentFund).getFiveYearGrowth());
-        fiveYearGrowth.addStyleName("posGrowth");
-
+    private void addFundToTable(List<FundProduct> funds, int fundCounter) {
         fundTable.addItem(
-                new Object[] { funds.get(currentFund).getName(),
-                        funds.get(currentFund).getCurrentPrice(),
-                        currentYear,
-                        oneYearGrowth,
-                        threeYearGrowth,
-                        fiveYearGrowth },
-                new Integer(currentFund));
+                new Object[] { funds.get(fundCounter).getName(),
+                        funds.get(fundCounter).getCurrentPrice(),
+                        createCurrentYearGrowthLabel(funds, fundCounter),
+                        createOneYearGrowthLabel(funds, fundCounter),
+                        createThreeYearGrowthLabel(funds, fundCounter),
+                        createFiveYearGrowthLabel(funds, fundCounter) },
+                new Integer(fundCounter));
     }
+
 
     Button.ClickListener addFundListener = new Button.ClickListener() {
 
@@ -112,4 +104,31 @@ public class DashboardViewImpl extends VerticalLayout implements DashboardView {
         fundTable.addContainerProperty("5 Years", Label.class, null);
     }
 
+    private Label createFiveYearGrowthLabel(List<FundProduct> funds,
+            int currentFund) {
+        Label fiveYearGrowth = new Label(funds.get(currentFund).getFiveYearGrowth());
+        fiveYearGrowth.addStyleName("posGrowth");
+        return fiveYearGrowth;
+    }
+    
+    private Label createThreeYearGrowthLabel(List<FundProduct> funds,
+            int currentFund) {
+        Label threeYearGrowth = new Label(funds.get(currentFund).getThreeYearGrowth());
+        threeYearGrowth.addStyleName("posGrowth");
+        return threeYearGrowth;
+    }
+    
+    private Label createOneYearGrowthLabel(List<FundProduct> funds,
+            int currentFund) {
+        Label oneYearGrowth = new Label(funds.get(currentFund).getOneYearGrowth());
+        oneYearGrowth.addStyleName("posGrowth");
+        return oneYearGrowth;
+    }
+    
+    private Label createCurrentYearGrowthLabel(List<FundProduct> funds,
+            int currentFund) {
+        Label currentYear = new Label(funds.get(currentFund).getCurrentGrowth());
+        currentYear.addStyleName("posGrowth");
+        return currentYear;
+    }
 }
