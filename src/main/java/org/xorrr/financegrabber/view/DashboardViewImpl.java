@@ -13,8 +13,7 @@ import com.vaadin.ui.TextField;
 import com.vaadin.ui.VerticalLayout;
 
 @SuppressWarnings("serial")
-public class DashboardViewImpl extends VerticalLayout implements
-        DashboardView {
+public class DashboardViewImpl extends VerticalLayout implements DashboardView {
 
     private TextField fundIdField;
     private Button addFundButton;
@@ -53,11 +52,15 @@ public class DashboardViewImpl extends VerticalLayout implements
         }
     }
 
-    private void addFundToTable(List<FundProduct> funds,
-            int currentFund) {
-        fundTable.addItem(new Object[] { funds.get(currentFund).getName(),
-                funds.get(currentFund).getCurrentPrice() }, new Integer(
-                currentFund));
+    private void addFundToTable(List<FundProduct> funds, int currentFund) {
+        fundTable.addItem(
+                new Object[] { funds.get(currentFund).getName(),
+                        funds.get(currentFund).getCurrentPrice(),
+                        funds.get(currentFund).getCurrentGrowth(),
+                        funds.get(currentFund).getOneYearGrowth(),
+                        funds.get(currentFund).getThreeYearGrowth(),
+                        funds.get(currentFund).getFiveYearGrowth() },
+                new Integer(currentFund));
     }
 
     Button.ClickListener addFundListener = new Button.ClickListener() {
@@ -93,6 +96,10 @@ public class DashboardViewImpl extends VerticalLayout implements
         fundTable = new Table("Funds");
         fundTable.addContainerProperty("Fund", String.class, null);
         fundTable.addContainerProperty("Value", String.class, null);
+        fundTable.addContainerProperty("cur Year", String.class, null);
+        fundTable.addContainerProperty("1 Years", String.class, null);
+        fundTable.addContainerProperty("3 Years", String.class, null);
+        fundTable.addContainerProperty("5 Years", String.class, null);
     }
 
 }
