@@ -23,7 +23,7 @@ import com.vaadin.server.VaadinRequest;
 import com.vaadin.server.VaadinServlet;
 import com.vaadin.ui.UI;
 
-@Theme("mytheme")
+@Theme("fundsoverview")
 @SuppressWarnings("serial")
 public class MainUI extends UI {
 
