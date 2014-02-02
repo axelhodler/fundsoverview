@@ -218,7 +218,7 @@
 					<includes>
 						<include>**/*.class</include>
 					</includes>
-					<excludedGroups>org.xorrr.financegrabber.helpers.IntegrationTest</excludedGroups>
+					<excludedGroups>org.xorrr.fundsoverview.helpers.IntegrationTest</excludedGroups>
 				</configuration>
 			</plugin>
 			<plugin>
