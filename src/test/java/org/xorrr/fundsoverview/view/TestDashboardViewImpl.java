@@ -48,9 +48,9 @@ public class TestDashboardViewImpl {
         String expectedName = "foo";
         String expectedPrice = "23";
         String expectedCurrentGrowth = "25%";
-        String expectedOneYearGrowth = "50%";
+        String expectedOneYearGrowth = "-50%";
         String expectedThreeYearGrowth = "100%";
-        String expectedFiveYearGrowth = "125%";
+        String expectedFiveYearGrowth = "-125%";
 
         FundProduct fp = new FundProduct.Builder().build();
         fp.setName(expectedName);
@@ -75,6 +75,13 @@ public class TestDashboardViewImpl {
         assertEquals(Label.class, itm.getItemProperty("3 Years").getType());
         assertEquals(expectedThreeYearGrowth, itm.getItemProperty("3 Years").getValue().toString());
         assertEquals(Label.class, itm.getItemProperty("5 Years").getType());
-        assertEquals(expectedFiveYearGrowth, itm.getItemProperty("5 Years").getValue().toString());
+        Label curYearGrowth = (Label) itm.getItemProperty("cur Year").getValue();
+        assertEquals("posGrowth", curYearGrowth.getStyleName());
+        Label oneYearGrowth = (Label) itm.getItemProperty("1 Years").getValue();
+        assertEquals("negGrowth", oneYearGrowth.getStyleName());
+        Label threeYearGrowth = (Label) itm.getItemProperty("3 Years").getValue();
+        assertEquals("posGrowth", threeYearGrowth.getStyleName());
+        Label fiveYearGrowth = (Label) itm.getItemProperty("5 Years").getValue();
+        assertEquals("negGrowth", fiveYearGrowth.getStyleName());
     }
 }

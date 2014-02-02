@@ -107,28 +107,36 @@ public class DashboardViewImpl extends VerticalLayout implements DashboardView {
     private Label createFiveYearGrowthLabel(List<FundProduct> funds,
             int currentFund) {
         Label fiveYearGrowth = new Label(funds.get(currentFund).getFiveYearGrowth());
-        fiveYearGrowth.addStyleName("posGrowth");
+        setGrowthStyle(fiveYearGrowth);
         return fiveYearGrowth;
     }
     
     private Label createThreeYearGrowthLabel(List<FundProduct> funds,
             int currentFund) {
         Label threeYearGrowth = new Label(funds.get(currentFund).getThreeYearGrowth());
-        threeYearGrowth.addStyleName("posGrowth");
+        setGrowthStyle(threeYearGrowth);
         return threeYearGrowth;
     }
     
     private Label createOneYearGrowthLabel(List<FundProduct> funds,
             int currentFund) {
         Label oneYearGrowth = new Label(funds.get(currentFund).getOneYearGrowth());
-        oneYearGrowth.addStyleName("posGrowth");
+        setGrowthStyle(oneYearGrowth);
         return oneYearGrowth;
     }
     
     private Label createCurrentYearGrowthLabel(List<FundProduct> funds,
             int currentFund) {
         Label currentYear = new Label(funds.get(currentFund).getCurrentGrowth());
-        currentYear.addStyleName("posGrowth");
+        setGrowthStyle(currentYear);
         return currentYear;
+    }
+
+    private void setGrowthStyle(Label growthLabel) {
+        if (growthLabel.getValue().subSequence(0, 1).equals("-")) {
+            growthLabel.addStyleName("negGrowth");
+        } else {
+            growthLabel.addStyleName("posGrowth");
+        }
     }
 }
