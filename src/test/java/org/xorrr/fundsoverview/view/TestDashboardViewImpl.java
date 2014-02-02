@@ -26,12 +26,34 @@ public class TestDashboardViewImpl {
     private DashboardView view;
     private DashboardViewHandler handler;
 
+    String expectedName = "foo";
+    String expectedPrice = "23";
+    String expectedCurrentGrowth = "25%";
+    String expectedOneYearGrowth = "-50%";
+    String expectedThreeYearGrowth = "100%";
+    String expectedFiveYearGrowth = "-125%";
+    FundProduct fp;
+    List<FundProduct> funds = new ArrayList<>();
+
+    private void createTestFundProduct() {
+        FundProduct fp = new FundProduct.Builder().build();
+        fp.setName(expectedName);
+        fp.setCurrentPrice(expectedPrice);
+        fp.setCurrentGrowth(expectedCurrentGrowth);
+        fp.setOneYearGrowth(expectedOneYearGrowth);
+        fp.setThreeYearGrowth(expectedThreeYearGrowth);
+        fp.setFiveYearGrowth(expectedFiveYearGrowth);
+        this.fp = fp;
+    }
+
     @Before
     public void setUp() {
         view = new DashboardViewImpl();
         handler = mock(DashboardViewHandler.class);
         view.setHandler(handler);
         view.init();
+        createTestFundProduct();
+        funds.add(fp);
     }
 
     @Test
@@ -45,24 +67,6 @@ public class TestDashboardViewImpl {
 
     @Test
     public void basicFinancialProductsAreShown() {
-        String expectedName = "foo";
-        String expectedPrice = "23";
-        String expectedCurrentGrowth = "25%";
-        String expectedOneYearGrowth = "-50%";
-        String expectedThreeYearGrowth = "100%";
-        String expectedFiveYearGrowth = "-125%";
-
-        FundProduct fp = new FundProduct.Builder().build();
-        fp.setName(expectedName);
-        fp.setCurrentPrice(expectedPrice);
-        fp.setCurrentGrowth(expectedCurrentGrowth);
-        fp.setOneYearGrowth(expectedOneYearGrowth);
-        fp.setThreeYearGrowth(expectedThreeYearGrowth);
-        fp.setFiveYearGrowth(expectedFiveYearGrowth);
-
-        List<FundProduct> funds = new ArrayList<>();
-        funds.add(fp);
-
         view.displayFunds(funds);
 
         Item itm = view.getFundTable().getItem(0);
@@ -75,13 +79,21 @@ public class TestDashboardViewImpl {
         assertEquals(Label.class, itm.getItemProperty("3 Years").getType());
         assertEquals(expectedThreeYearGrowth, itm.getItemProperty("3 Years").getValue().toString());
         assertEquals(Label.class, itm.getItemProperty("5 Years").getType());
+    }
+
+    @Test
+    public void assignCorrectStyle() {
+        view.displayFunds(funds);
+
+        Item itm = view.getFundTable().getItem(0);
         Label curYearGrowth = (Label) itm.getItemProperty("cur Year").getValue();
-        assertEquals("posGrowth", curYearGrowth.getStyleName());
         Label oneYearGrowth = (Label) itm.getItemProperty("1 Years").getValue();
-        assertEquals("negGrowth", oneYearGrowth.getStyleName());
         Label threeYearGrowth = (Label) itm.getItemProperty("3 Years").getValue();
-        assertEquals("posGrowth", threeYearGrowth.getStyleName());
         Label fiveYearGrowth = (Label) itm.getItemProperty("5 Years").getValue();
+
+        assertEquals("posGrowth", threeYearGrowth.getStyleName());
+        assertEquals("negGrowth", oneYearGrowth.getStyleName());
+        assertEquals("posGrowth", curYearGrowth.getStyleName());
         assertEquals("negGrowth", fiveYearGrowth.getStyleName());
     }
 }
