@@ -20,6 +20,16 @@ public class TestFundScraper {
     private FundValuesExtractor extractor;
     private FundScraper scraper;
 
+    private void verifyExtractorBehaviour() {
+        verify(extractor, times(1)).useDocument(any(Document.class));
+        verify(extractor, times(1)).extractName();
+        verify(extractor, times(1)).extractPrice();
+        verify(extractor, times(1)).extractCurrentYearGrowth();
+        verify(extractor, times(1)).extractOneYearGrowth();
+        verify(extractor, times(1)).extractThreeYearGrowth();
+        verify(extractor, times(1)).extractFiveYearGrowth();
+    }
+
     @Before
     public void setUp() {
         accessor = mock(FundDocumentAccessor.class);
@@ -53,13 +63,7 @@ public class TestFundScraper {
         FundProduct fp = scraper.getBasicFinancialProductForIsin(isin);
 
         verify(accessor, times(1)).getDocumentForIsin(isin);
-        verify(extractor, times(1)).useDocument(any(Document.class));
-        verify(extractor, times(1)).extractName();
-        verify(extractor, times(1)).extractPrice();
-        verify(extractor, times(1)).extractCurrentYearGrowth();
-        verify(extractor, times(1)).extractOneYearGrowth();
-        verify(extractor, times(1)).extractThreeYearGrowth();
-        verify(extractor, times(1)).extractFiveYearGrowth();
+        verifyExtractorBehaviour();
         
         assertEquals(expectedName, fp.getName());
         assertEquals(expectedValue, fp.getCurrentPrice());
@@ -68,5 +72,6 @@ public class TestFundScraper {
         assertEquals(expectedThreeYearGrowth, fp.getThreeYearGrowth());
         assertEquals(expectedFiveYearGrowth, fp.getFiveYearGrowth());
     }
+
 
 }

@@ -22,13 +22,17 @@ public class FundScraper {
         extractor.useDocument(doc);
 
         FundProduct fp = new FundProduct.Builder().build();
+        setFundProductFields(fp);
+
+        return fp;
+    }
+
+    private void setFundProductFields(FundProduct fp) {
         fp.setName(extractor.extractName());
         fp.setCurrentPrice(extractor.extractPrice());
         fp.setCurrentGrowth(extractor.extractCurrentYearGrowth());
         fp.setOneYearGrowth(extractor.extractOneYearGrowth());
         fp.setThreeYearGrowth(extractor.extractThreeYearGrowth());
         fp.setFiveYearGrowth(extractor.extractFiveYearGrowth());
-
-        return fp;
     }
 }
