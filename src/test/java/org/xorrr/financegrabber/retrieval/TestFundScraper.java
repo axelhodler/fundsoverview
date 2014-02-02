@@ -33,19 +33,40 @@ public class TestFundScraper {
             InvalidIsinException {
         String expectedName = "Name";
         String expectedValue = "23";
+        String expectedCurrentGrowth = "1%";
+        String expectedOneYearGrowth = "2%";
+        String expectedThreeYearGrowth = "3%";
+        String expectedFiveYearGrowth = "4%";
         String isin = "asdf";
 
         when(extractor.extractName()).thenReturn(expectedName);
         when(extractor.extractPrice()).thenReturn(expectedValue);
+        when(extractor.extractCurrentYearGrowth()).thenReturn(
+                expectedCurrentGrowth);
+        when(extractor.extractOneYearGrowth())
+                .thenReturn(expectedOneYearGrowth);
+        when(extractor.extractThreeYearGrowth()).thenReturn(
+                expectedThreeYearGrowth);
+        when(extractor.extractFiveYearGrowth()).thenReturn(
+                expectedFiveYearGrowth);
 
-        FundProduct fp = scraper
-                .getBasicFinancialProductForIsin(isin);
+        FundProduct fp = scraper.getBasicFinancialProductForIsin(isin);
 
         verify(accessor, times(1)).getDocumentForIsin(isin);
         verify(extractor, times(1)).useDocument(any(Document.class));
         verify(extractor, times(1)).extractName();
+        verify(extractor, times(1)).extractPrice();
+        verify(extractor, times(1)).extractCurrentYearGrowth();
+        verify(extractor, times(1)).extractOneYearGrowth();
+        verify(extractor, times(1)).extractThreeYearGrowth();
+        verify(extractor, times(1)).extractFiveYearGrowth();
+        
         assertEquals(expectedName, fp.getName());
         assertEquals(expectedValue, fp.getCurrentPrice());
+        assertEquals(expectedCurrentGrowth, fp.getCurrentGrowth());
+        assertEquals(expectedOneYearGrowth, fp.getOneYearGrowth());
+        assertEquals(expectedThreeYearGrowth, fp.getThreeYearGrowth());
+        assertEquals(expectedFiveYearGrowth, fp.getFiveYearGrowth());
     }
 
 }

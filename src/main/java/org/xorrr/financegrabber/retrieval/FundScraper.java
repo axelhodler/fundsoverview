@@ -24,6 +24,10 @@ public class FundScraper {
         FundProduct fp = new FundProduct.Builder().build();
         fp.setName(extractor.extractName());
         fp.setCurrentPrice(extractor.extractPrice());
+        fp.setCurrentGrowth(extractor.extractCurrentYearGrowth());
+        fp.setOneYearGrowth(extractor.extractOneYearGrowth());
+        fp.setThreeYearGrowth(extractor.extractThreeYearGrowth());
+        fp.setFiveYearGrowth(extractor.extractFiveYearGrowth());
 
         return fp;
     }
