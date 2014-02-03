@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
+import org.xorrr.fundsoverview.l18n.L18nVariables;
 import org.xorrr.fundsoverview.model.FundProduct;
 import org.xorrr.fundsoverview.presenter.DashboardViewHandler;
 
@@ -25,8 +26,8 @@ public class DashboardViewImpl extends VerticalLayout implements DashboardView {
     private ResourceBundle res;
 
     public void init() {
-        res = ResourceBundle.getBundle("MessagesBundle", new Locale("en",
-                "US"));
+        res = ResourceBundle
+                .getBundle("MessagesBundle", new Locale("en", "US"));
 
         initFormToAddFunds();
         initFundTable();
@@ -100,12 +101,18 @@ public class DashboardViewImpl extends VerticalLayout implements DashboardView {
 
     private void createFundTable() {
         fundTable = new Table("Funds");
-        fundTable.addContainerProperty(res.getString("fund"), String.class, null);
-        fundTable.addContainerProperty(res.getString("price"), String.class, null);
-        fundTable.addContainerProperty(res.getString("currentYear"), Label.class, null);
-        fundTable.addContainerProperty(res.getString("oneYear"), Label.class, null);
-        fundTable.addContainerProperty(res.getString("threeYears"), Label.class, null);
-        fundTable.addContainerProperty(res.getString("fiveYears"), Label.class, null);
+        fundTable.addContainerProperty(res.getString(L18nVariables.FUND),
+                String.class, null);
+        fundTable.addContainerProperty(res.getString(L18nVariables.PRICE),
+                String.class, null);
+        fundTable.addContainerProperty(
+                res.getString(L18nVariables.CURRENT_YEAR), Label.class, null);
+        fundTable.addContainerProperty(res.getString(L18nVariables.ONE_YEAR),
+                Label.class, null);
+        fundTable.addContainerProperty(
+                res.getString(L18nVariables.THREE_YEARS), Label.class, null);
+        fundTable.addContainerProperty(res.getString(L18nVariables.FIVE_YEARS),
+                Label.class, null);
     }
 
     private Label createFiveYearGrowthLabel(List<FundProduct> funds,

@@ -14,6 +14,7 @@ import java.util.ResourceBundle;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mockito;
+import org.xorrr.fundsoverview.l18n.L18nVariables;
 import org.xorrr.fundsoverview.model.FundProduct;
 import org.xorrr.fundsoverview.presenter.DashboardViewHandler;
 import org.xorrr.fundsoverview.retrieval.InvalidIsinException;
@@ -90,24 +91,27 @@ public class TestDashboardViewImpl {
         view.displayFunds(funds);
 
         setTestItem();
-        assertEquals(expectedName, testItem.getItemProperty(res.getString("fund"))
+        assertEquals(expectedName, testItem.getItemProperty(res.getString(L18nVariables.FUND))
                 .toString());
-        assertEquals(expectedPrice, testItem.getItemProperty(res.getString("price"))
+        assertEquals(expectedPrice, testItem.getItemProperty(res.getString(L18nVariables.PRICE))
                 .toString());
         assertEquals(expectedCurrentGrowth,
-                testItem.getItemProperty(res.getString("currentYear")).getValue()
+                testItem.getItemProperty(res.getString(L18nVariables.CURRENT_YEAR)).getValue()
                         .toString());
         assertEquals(expectedOneYearGrowth,
-                testItem.getItemProperty(res.getString("oneYear")).getValue()
+                testItem.getItemProperty(res.getString(L18nVariables.ONE_YEAR)).getValue()
                         .toString());
         assertEquals(expectedThreeYearGrowth,
-                testItem.getItemProperty(res.getString("threeYears")).getValue()
+                testItem.getItemProperty(res.getString(L18nVariables.THREE_YEARS)).getValue()
+                        .toString());
+        assertEquals(expectedFiveYearGrowth,
+                testItem.getItemProperty(res.getString(L18nVariables.FIVE_YEARS)).getValue()
                         .toString());
 
-        checkType("fiveYears");
-        checkType("currentYear");
-        checkType("oneYear");
-        checkType("threeYears");
+        checkType(L18nVariables.FIVE_YEARS);
+        checkType(L18nVariables.CURRENT_YEAR);
+        checkType(L18nVariables.ONE_YEAR);
+        checkType(L18nVariables.THREE_YEARS);
     }
 
     @Test
@@ -117,13 +121,13 @@ public class TestDashboardViewImpl {
         setTestItem();
 
         Label curYearGrowth = (Label) testItem.getItemProperty(
-                res.getString("currentYear")).getValue();
+                res.getString(L18nVariables.CURRENT_YEAR)).getValue();
         Label oneYearGrowth = (Label) testItem.getItemProperty(
-                res.getString("oneYear")).getValue();
+                res.getString(L18nVariables.ONE_YEAR)).getValue();
         Label threeYearGrowth = (Label) testItem.getItemProperty(
-                res.getString("threeYears")).getValue();
+                res.getString(L18nVariables.THREE_YEARS)).getValue();
         Label fiveYearGrowth = (Label) testItem.getItemProperty(
-                res.getString("fiveYears")).getValue();
+                res.getString(L18nVariables.FIVE_YEARS)).getValue();
 
         assertEquals("posGrowth", threeYearGrowth.getStyleName());
         assertEquals("negGrowth", oneYearGrowth.getStyleName());
