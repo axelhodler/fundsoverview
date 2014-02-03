@@ -1,8 +1,7 @@
 package org.xorrr.fundsoverview.l18n;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertNotNull;
 
-import java.util.Locale;
 import java.util.ResourceBundle;
 
 import org.junit.Test;
@@ -11,10 +10,8 @@ public class TestL18nVariables {
 
     @Test
     public void doDefinedVariablesExistForEn() {
-        Locale en = new Locale("en", "US");
-
-        ResourceBundle messages = ResourceBundle
-                .getBundle("MessagesBundle", en);
+        L18nHelper helper = new L18nHelper();
+        ResourceBundle messages = helper.getMessages();
 
         assertNotNull(messages.getString(L18nVariables.FUND));
         assertNotNull(messages.getString(L18nVariables.PRICE));
@@ -22,6 +19,7 @@ public class TestL18nVariables {
         assertNotNull(messages.getString(L18nVariables.ONE_YEAR));
         assertNotNull(messages.getString(L18nVariables.THREE_YEARS));
         assertNotNull(messages.getString(L18nVariables.FIVE_YEARS));
+        assertNotNull(messages.getString(L18nVariables.ADD_FUND));
     }
 
 }
