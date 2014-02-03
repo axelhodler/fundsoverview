@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
+import org.xorrr.fundsoverview.l18n.L18nHelper;
 import org.xorrr.fundsoverview.l18n.L18nVariables;
 import org.xorrr.fundsoverview.model.FundProduct;
 import org.xorrr.fundsoverview.presenter.DashboardViewHandler;
@@ -26,8 +27,8 @@ public class DashboardViewImpl extends VerticalLayout implements DashboardView {
     private ResourceBundle res;
 
     public void init() {
-        res = ResourceBundle
-                .getBundle("MessagesBundle", new Locale("en", "US"));
+        L18nHelper helper = new L18nHelper(); 
+        res =  helper.getMessages(new Locale("en", "US"));
 
         initFormToAddFunds();
         initFundTable();
