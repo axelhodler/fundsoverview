@@ -38,6 +38,7 @@ public class TestDashboardViewImpl {
     List<FundProduct> funds = new ArrayList<>();
     Locale en;
     ResourceBundle res;
+    private Item testItem;
 
     private void createTestFundProduct() {
         FundProduct fp = new FundProduct.Builder().build();
@@ -53,6 +54,15 @@ public class TestDashboardViewImpl {
     private void setUpLocale() {
         en = new Locale("en", "US");
         res = ResourceBundle.getBundle("MessagesBundle", en);
+    }
+
+    private void checkType(String id) {
+        assertEquals(Label.class, testItem.getItemProperty(res.getString(id))
+                .getType());
+    }
+
+    private Item setTestItem() {
+        return testItem = view.getFundTable().getItem(0);
     }
 
     @Before
@@ -79,42 +89,40 @@ public class TestDashboardViewImpl {
     public void basicFinancialProductsAreShown() {
         view.displayFunds(funds);
 
-        Item itm = view.getFundTable().getItem(0);
-        assertEquals(expectedName, itm.getItemProperty(res.getString("fund"))
+        setTestItem();
+        assertEquals(expectedName, testItem.getItemProperty(res.getString("fund"))
                 .toString());
-        assertEquals(expectedPrice, itm.getItemProperty(res.getString("price"))
+        assertEquals(expectedPrice, testItem.getItemProperty(res.getString("price"))
                 .toString());
-        assertEquals(Label.class,
-                itm.getItemProperty(res.getString("currentYear")).getType());
         assertEquals(expectedCurrentGrowth,
-                itm.getItemProperty(res.getString("currentYear")).getValue()
+                testItem.getItemProperty(res.getString("currentYear")).getValue()
                         .toString());
-        assertEquals(Label.class, itm.getItemProperty(res.getString("oneYear"))
-                .getType());
         assertEquals(expectedOneYearGrowth,
-                itm.getItemProperty(res.getString("oneYear")).getValue()
+                testItem.getItemProperty(res.getString("oneYear")).getValue()
                         .toString());
-        assertEquals(Label.class,
-                itm.getItemProperty(res.getString("threeYears")).getType());
         assertEquals(expectedThreeYearGrowth,
-                itm.getItemProperty(res.getString("threeYears")).getValue()
+                testItem.getItemProperty(res.getString("threeYears")).getValue()
                         .toString());
-        assertEquals(Label.class,
-                itm.getItemProperty(res.getString("fiveYears")).getType());
+
+        checkType("fiveYears");
+        checkType("currentYear");
+        checkType("oneYear");
+        checkType("threeYears");
     }
 
     @Test
     public void assignCorrectStyle() {
         view.displayFunds(funds);
 
-        Item itm = view.getFundTable().getItem(0);
-        Label curYearGrowth = (Label) itm.getItemProperty(
+        setTestItem();
+
+        Label curYearGrowth = (Label) testItem.getItemProperty(
                 res.getString("currentYear")).getValue();
-        Label oneYearGrowth = (Label) itm.getItemProperty(
+        Label oneYearGrowth = (Label) testItem.getItemProperty(
                 res.getString("oneYear")).getValue();
-        Label threeYearGrowth = (Label) itm.getItemProperty(
+        Label threeYearGrowth = (Label) testItem.getItemProperty(
                 res.getString("threeYears")).getValue();
-        Label fiveYearGrowth = (Label) itm.getItemProperty(
+        Label fiveYearGrowth = (Label) testItem.getItemProperty(
                 res.getString("fiveYears")).getValue();
 
         assertEquals("posGrowth", threeYearGrowth.getStyleName());
