@@ -7,4 +7,5 @@ public class L18nVariables {
     public static final String ONE_YEAR = "oneYear";
     public static final String THREE_YEARS = "threeYears";
     public static final String FIVE_YEARS = "fiveYears";
+    public static final String ADD_FUND = "addFund";
 }
