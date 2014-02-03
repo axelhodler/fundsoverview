@@ -54,7 +54,7 @@ public class TestDashboardViewImpl {
     }
 
     private void setUpLocale() {
-        Locale en = new Locale("en", "US");
+        Locale en = new Locale(System.getenv("LANG"), System.getenv("COUNTRY"));
         L18nHelper helper = new L18nHelper();
         res = helper.getMessages(en);
     }
@@ -93,21 +93,29 @@ public class TestDashboardViewImpl {
         view.displayFunds(funds);
 
         setTestItem();
-        assertEquals(expectedName, testItem.getItemProperty(res.getString(L18nVariables.FUND))
-                .toString());
-        assertEquals(expectedPrice, testItem.getItemProperty(res.getString(L18nVariables.PRICE))
-                .toString());
-        assertEquals(expectedCurrentGrowth,
-                testItem.getItemProperty(res.getString(L18nVariables.CURRENT_YEAR)).getValue()
+        assertEquals(expectedName,
+                testItem.getItemProperty(res.getString(L18nVariables.FUND))
+                        .toString());
+        assertEquals(expectedPrice,
+                testItem.getItemProperty(res.getString(L18nVariables.PRICE))
+                        .toString());
+        assertEquals(
+                expectedCurrentGrowth,
+                testItem.getItemProperty(
+                        res.getString(L18nVariables.CURRENT_YEAR)).getValue()
                         .toString());
         assertEquals(expectedOneYearGrowth,
-                testItem.getItemProperty(res.getString(L18nVariables.ONE_YEAR)).getValue()
+                testItem.getItemProperty(res.getString(L18nVariables.ONE_YEAR))
+                        .getValue().toString());
+        assertEquals(
+                expectedThreeYearGrowth,
+                testItem.getItemProperty(
+                        res.getString(L18nVariables.THREE_YEARS)).getValue()
                         .toString());
-        assertEquals(expectedThreeYearGrowth,
-                testItem.getItemProperty(res.getString(L18nVariables.THREE_YEARS)).getValue()
-                        .toString());
-        assertEquals(expectedFiveYearGrowth,
-                testItem.getItemProperty(res.getString(L18nVariables.FIVE_YEARS)).getValue()
+        assertEquals(
+                expectedFiveYearGrowth,
+                testItem.getItemProperty(
+                        res.getString(L18nVariables.FIVE_YEARS)).getValue()
                         .toString());
 
         checkType(L18nVariables.FIVE_YEARS);

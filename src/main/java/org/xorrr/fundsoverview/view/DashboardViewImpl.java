@@ -27,8 +27,9 @@ public class DashboardViewImpl extends VerticalLayout implements DashboardView {
     private ResourceBundle res;
 
     public void init() {
-        L18nHelper helper = new L18nHelper(); 
-        res =  helper.getMessages(new Locale("en", "US"));
+        L18nHelper helper = new L18nHelper();
+        res = helper.getMessages(new Locale(System.getenv("LANG"), System
+                .getenv("COUNTRY")));
 
         initFormToAddFunds();
         initFundTable();
