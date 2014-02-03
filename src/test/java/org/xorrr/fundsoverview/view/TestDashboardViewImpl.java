@@ -14,6 +14,7 @@ import java.util.ResourceBundle;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mockito;
+import org.xorrr.fundsoverview.l18n.L18nHelper;
 import org.xorrr.fundsoverview.l18n.L18nVariables;
 import org.xorrr.fundsoverview.model.FundProduct;
 import org.xorrr.fundsoverview.presenter.DashboardViewHandler;
@@ -53,8 +54,9 @@ public class TestDashboardViewImpl {
     }
 
     private void setUpLocale() {
-        en = new Locale("en", "US");
-        res = ResourceBundle.getBundle("MessagesBundle", en);
+        Locale en = new Locale("en", "US");
+        L18nHelper helper = new L18nHelper();
+        res = helper.getMessages(en);
     }
 
     private void checkType(String id) {
