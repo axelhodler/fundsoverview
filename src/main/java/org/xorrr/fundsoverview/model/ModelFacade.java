@@ -13,4 +13,5 @@ public interface ModelFacade {
 
     List<FundProduct> getFunds();
 
+    void deleteFund(String isin);
 }

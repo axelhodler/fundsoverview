@@ -49,4 +49,10 @@ public class TestModelFacadeImpl {
         facade.addFund(any(FundProduct.class));
         verify(ds, times(1)).saveProduct(any(FundProduct.class));
     }
+
+    @Test
+    public void triggerDeletingFundByIsin() {
+        facade.deleteFund(anyString());
+        verify(ds, times(1)).deleteProductByIsin(anyString());
+    }
 }

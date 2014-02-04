@@ -32,4 +32,9 @@ public class ModelFacadeImpl implements ModelFacade {
         return this.ds.getAllProducts();
     }
 
+    @Override
+    public void deleteFund(String isin) {
+        this.ds.deleteProductByIsin(isin);
+    }
+
 }

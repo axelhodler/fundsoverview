@@ -9,4 +9,6 @@ public interface FundsDatastore {
     List<FundProduct> getAllProducts();
 
     void deleteProductById(String id);
+
+    void deleteProductByIsin(String isin);
 }
