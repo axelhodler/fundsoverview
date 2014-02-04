@@ -63,13 +63,15 @@ public class DashboardViewImpl extends VerticalLayout implements DashboardView {
     }
 
     private void addFundToTable(List<Fund> funds, int fundCounter) {
+        Button deleteButton = new Button();
+
         fundTable.addItem(new Object[] { funds.get(fundCounter).getName(),
                 createPriceLabel(funds, fundCounter),
                 createCurrentYearGrowthLabel(funds, fundCounter),
                 createOneYearGrowthLabel(funds, fundCounter),
                 createThreeYearGrowthLabel(funds, fundCounter),
                 createFiveYearGrowthLabel(funds, fundCounter),
-                new Button()}, new Integer(
+                deleteButton}, new Integer(
                 fundCounter));
     }
 
