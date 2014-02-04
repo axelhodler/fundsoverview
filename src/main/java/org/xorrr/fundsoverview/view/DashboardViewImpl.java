@@ -1,5 +1,6 @@
 package org.xorrr.fundsoverview.view;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 import java.util.ResourceBundle;
@@ -25,6 +26,7 @@ public class DashboardViewImpl extends VerticalLayout implements DashboardView {
     private Table fundTable;
     private DashboardViewHandler handler;
     private ResourceBundle res;
+    private List<Button> buttons = new ArrayList<>();
 
     public void init() {
         L18nHelper helper = new L18nHelper();
@@ -51,6 +53,11 @@ public class DashboardViewImpl extends VerticalLayout implements DashboardView {
     }
 
     @Override
+    public List<Button> getDeleteFundButtons() {
+        return this.buttons;
+    }    
+
+    @Override
     public Table getFundTable() {
         return this.fundTable;
     }
@@ -64,6 +71,8 @@ public class DashboardViewImpl extends VerticalLayout implements DashboardView {
 
     private void addFundToTable(List<Fund> funds, int fundCounter) {
         Button deleteButton = new Button();
+        deleteButton.setData(funds.get(fundCounter).getIsin());
+        deleteButton.addClickListener(deleteFundListener);
 
         fundTable.addItem(new Object[] { funds.get(fundCounter).getName(),
                 createPriceLabel(funds, fundCounter),
@@ -73,6 +82,8 @@ public class DashboardViewImpl extends VerticalLayout implements DashboardView {
                 createFiveYearGrowthLabel(funds, fundCounter),
                 deleteButton}, new Integer(
                 fundCounter));
+
+        buttons.add(deleteButton);
     }
 
     Button.ClickListener addFundListener = new Button.ClickListener() {
@@ -83,6 +94,14 @@ public class DashboardViewImpl extends VerticalLayout implements DashboardView {
                     fundIdField.getValue()).build());
             handler.removeFundTableItems();
             handler.showFunds();
+        }
+    };
+
+    Button.ClickListener deleteFundListener = new Button.ClickListener() {
+
+        @Override
+        public void buttonClick(ClickEvent event) {
+            handler.deleteFund(event.getButton().getData().toString());
         }
     };
 
@@ -166,4 +185,5 @@ public class DashboardViewImpl extends VerticalLayout implements DashboardView {
             growthLabel.addStyleName("posGrowth");
         }
     }
+
 }

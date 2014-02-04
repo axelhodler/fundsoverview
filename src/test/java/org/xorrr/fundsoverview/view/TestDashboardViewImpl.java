@@ -1,6 +1,7 @@
 package org.xorrr.fundsoverview.view;
 
 import static org.junit.Assert.assertEquals;
+import static org.mockito.Matchers.anyString;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
@@ -29,6 +30,7 @@ public class TestDashboardViewImpl {
     private DashboardView view;
     private DashboardViewHandler handler;
 
+    String expectedIsin = "12345";
     String expectedName = "foo";
     String expectedPrice = "23";
     String expectedCurrentGrowth = "25%";
@@ -42,7 +44,7 @@ public class TestDashboardViewImpl {
     private Item testItem;
 
     private void createTestFundProduct() {
-        Fund fp = new Fund.Builder().build();
+        Fund fp = new Fund.Builder().isin(expectedIsin).build();
         fp.setName(expectedName);
         fp.setCurrentPrice(expectedPrice);
         fp.setCurrentGrowth(expectedCurrentGrowth);
@@ -135,5 +137,19 @@ public class TestDashboardViewImpl {
         assertEquals("posGrowth", curYearGrowth.getStyleName());
         assertEquals("negGrowth", fiveYearGrowth.getStyleName());
         assertEquals("price", price.getStyleName());
+    }
+
+    @Test
+    public void testDeleteFundButton() throws IOException, InvalidIsinException {
+        view.displayFunds(funds);
+
+        setTestItem();
+        Button button = (Button) testItem.getItemProperty(res.getString(L18nVariables.DELETE)).getValue();
+
+        assertEquals(expectedIsin, button.getData());
+
+        view.getDeleteFundButtons().get(0).click();
+
+        verify(handler, times(1)).deleteFund(anyString());
     }
 }

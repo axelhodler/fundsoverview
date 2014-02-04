@@ -18,6 +18,8 @@ public interface DashboardView extends View {
 
     public Button getAddFundBtn();
 
+    public List<Button> getDeleteFundButtons();
+
     public void displayFunds(List<Fund> funds);
 
     public Table getFundTable();
