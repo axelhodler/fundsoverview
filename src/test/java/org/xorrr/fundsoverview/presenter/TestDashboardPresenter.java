@@ -91,4 +91,10 @@ public class TestDashboardPresenter {
         verify(view, times(1)).displayFunds(
                 anyListOf(FundProduct.class));
     }
+
+    @Test
+    public void testFundDeletion() {
+        presenter.deleteFund(anyString());
+        verify(model, times(1)).deleteFund(anyString());
+    }
 }

@@ -8,4 +8,6 @@ public interface DashboardViewHandler {
     public void showFunds();
 
     public void removeFundTableItems();
+
+    public void deleteFund(String isin);
 }

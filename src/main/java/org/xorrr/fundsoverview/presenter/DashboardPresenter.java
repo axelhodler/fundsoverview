@@ -53,6 +53,11 @@ public class DashboardPresenter implements DashboardViewHandler {
         }
     }
 
+    @Override
+    public void deleteFund(String isin) {
+        model.deleteFund(isin);
+    }
+
     private void addExtractedToFunds(
             List<FundProduct> fundsWithInfos,
             FundProduct fund) {
@@ -66,4 +71,5 @@ public class DashboardPresenter implements DashboardViewHandler {
             e.printStackTrace();
         }
     }
+
 }
