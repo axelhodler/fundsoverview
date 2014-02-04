@@ -26,6 +26,9 @@ public class TestDashboardPresenter {
     private ModelFacade model;
     private DashboardView view;
 
+    private String validIsin = "validIsin";
+    private String invalidIsin = "invalidIsin";
+
     @Before
     public void setUp() {
         this.model = mock(ModelFacade.class);
@@ -37,7 +40,6 @@ public class TestDashboardPresenter {
     @Test
     public void addsFundWithValidIsin() throws IOException,
             InvalidIsinException {
-        String validIsin = "validIsin";
         Fund fp = new Fund.Builder().isin(
                 validIsin).build();
         when(model.getBasicFinancialProduct(validIsin)).thenReturn(fp);
@@ -50,7 +52,6 @@ public class TestDashboardPresenter {
     @Test
     public void dontAddFundWithInvalidIsin() throws IOException,
             InvalidIsinException {
-        String invalidIsin = "invalidIsin";
         when(model.getBasicFinancialProduct(invalidIsin)).thenThrow(
                 new InvalidIsinException());
         Fund fp = new Fund.Builder().isin(
