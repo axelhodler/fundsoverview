@@ -4,11 +4,11 @@ import java.util.List;
 
 public interface FundsDatastore {
 
-    void saveProduct(FundProduct fp);
+    void saveFund(FundProduct fp);
 
-    List<FundProduct> getAllProducts();
+    List<FundProduct> getAllFunds();
 
-    void deleteProductById(String id);
+    void deleteFundById(String id);
 
-    void deleteProductByIsin(String isin);
+    void deleteFundByIsin(String isin);
 }

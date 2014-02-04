@@ -36,8 +36,8 @@ public class TestMongoFundDatastore {
         FundProduct fp2 = new FundProduct.Builder().isin(
                 testIsin + "2").build();
 
-        this.ds.saveProduct(fp);
-        this.ds.saveProduct(fp2);
+        this.ds.saveFund(fp);
+        this.ds.saveFund(fp2);
     }
 
     @BeforeClass
@@ -59,7 +59,7 @@ public class TestMongoFundDatastore {
         FundProduct fp = new FundProduct.Builder().isin(
                 testIsin).build();
 
-        this.ds.saveProduct(fp);
+        this.ds.saveFund(fp);
 
         DBObject dbo = col.findOne(new BasicDBObject(DbProperties.ISIN,
                 testIsin));
@@ -70,7 +70,7 @@ public class TestMongoFundDatastore {
     public void testGettingSavedFinancialProducts() throws Exception {
         createAndSaveTwoBasicFinancialProducts();
 
-        assertEquals(2, this.ds.getAllProducts().size());
+        assertEquals(2, this.ds.getAllFunds().size());
     }
 
     @Test
@@ -82,16 +82,16 @@ public class TestMongoFundDatastore {
             id = curs.next().get(DbProperties.ID).toString();
         }
 
-        this.ds.deleteProductById(id);
-        assertEquals(1, this.ds.getAllProducts().size());
+        this.ds.deleteFundById(id);
+        assertEquals(1, this.ds.getAllFunds().size());
     }
 
     @Test
     public void deleteSavedFinancialProductByIsin() {
         createAndSaveTwoBasicFinancialProducts();
-        assertEquals(2, this.ds.getAllProducts().size());
-        this.ds.deleteProductByIsin(testIsin);
-        assertEquals(1, this.ds.getAllProducts().size());
+        assertEquals(2, this.ds.getAllFunds().size());
+        this.ds.deleteFundByIsin(testIsin);
+        assertEquals(1, this.ds.getAllFunds().size());
     }
 
     @After

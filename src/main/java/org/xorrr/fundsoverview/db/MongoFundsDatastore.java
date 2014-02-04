@@ -21,34 +21,34 @@ public class MongoFundsDatastore implements FundsDatastore {
                 .getCollection(DbProperties.COL);
     }
 
-    public void saveProduct(FundProduct bfp) {
+    public void saveFund(FundProduct bfp) {
         this.col.save(new BasicDBObject(DbProperties.ISIN, bfp.getIsin()));
     }
 
-    public List<FundProduct> getAllProducts() {
-        List<FundProduct> allProducts = new ArrayList<FundProduct>();
+    public List<FundProduct> getAllFunds() {
+        List<FundProduct> allFunds = new ArrayList<FundProduct>();
 
         DBCursor cur = col.find();
-        iterateCursorAndAddEntriesToProducts(allProducts, cur);
+        iterateCursorAndAddEntriesToProducts(allFunds, cur);
 
-        return allProducts;
+        return allFunds;
     }
 
-    public void deleteProductById(String id) {
+    public void deleteFundById(String id) {
         col.remove(new BasicDBObject(DbProperties.ID, new ObjectId(id)));
     }
     
-    public void deleteProductByIsin(String testIsin) {
+    public void deleteFundByIsin(String testIsin) {
         col.remove(new BasicDBObject(DbProperties.ISIN, testIsin));
     }
 
     private void iterateCursorAndAddEntriesToProducts(
-            List<FundProduct> allProducts, DBCursor cur) {
+            List<FundProduct> allFunds, DBCursor cur) {
         while (cur.hasNext()) {
-            FundProduct curProduct = new FundProduct.Builder()
+            FundProduct curFund = new FundProduct.Builder()
                     .isin(cur.next().get(DbProperties.ISIN).toString()).build();
 
-            allProducts.add(curProduct);
+            allFunds.add(curFund);
         }
     }
 }

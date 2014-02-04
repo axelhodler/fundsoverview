@@ -24,17 +24,17 @@ public class ModelFacadeImpl implements ModelFacade {
 
     @Override
     public void addFund(FundProduct fp) {
-        this.ds.saveProduct(fp);
+        this.ds.saveFund(fp);
     }
 
     @Override
     public List<FundProduct> getFunds() {
-        return this.ds.getAllProducts();
+        return this.ds.getAllFunds();
     }
 
     @Override
     public void deleteFund(String isin) {
-        this.ds.deleteProductByIsin(isin);
+        this.ds.deleteFundByIsin(isin);
     }
 
 }

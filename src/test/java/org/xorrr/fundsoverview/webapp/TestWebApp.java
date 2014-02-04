@@ -70,7 +70,7 @@ public class TestWebApp {
 
     @Test
     public void testAddingAFund() throws Exception {
-        assertEquals(0, ds.getAllProducts().size());
+        assertEquals(0, ds.getAllFunds().size());
 
         HtmlTextInput fundIdDiv = page.getHtmlElementById("add_fund_id_field");
         fundIdDiv.setValueAttribute("iddqd");
@@ -80,8 +80,8 @@ public class TestWebApp {
         addFundButtonDiv.click();
         webClient.waitForBackgroundJavaScript(2000);
 
-        assertEquals(1, ds.getAllProducts().size());
-        assertEquals("iddqd", ds.getAllProducts().get(0).getIsin());
+        assertEquals(1, ds.getAllFunds().size());
+        assertEquals("iddqd", ds.getAllFunds().get(0).getIsin());
     }
 
     @After

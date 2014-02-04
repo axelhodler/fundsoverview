@@ -41,18 +41,18 @@ public class TestModelFacadeImpl {
     @Test
     public void triggerGettingFunds() {
         facade.getFunds();
-        verify(ds, times(1)).getAllProducts();
+        verify(ds, times(1)).getAllFunds();
     }
 
     @Test
     public void triggerAddingFund() {
         facade.addFund(any(FundProduct.class));
-        verify(ds, times(1)).saveProduct(any(FundProduct.class));
+        verify(ds, times(1)).saveFund(any(FundProduct.class));
     }
 
     @Test
     public void triggerDeletingFundByIsin() {
         facade.deleteFund(anyString());
-        verify(ds, times(1)).deleteProductByIsin(anyString());
+        verify(ds, times(1)).deleteFundByIsin(anyString());
     }
 }
