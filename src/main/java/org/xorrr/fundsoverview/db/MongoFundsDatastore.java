@@ -34,6 +34,14 @@ public class MongoFundsDatastore implements FundsDatastore {
         return allProducts;
     }
 
+    public void deleteProductById(String id) {
+        col.remove(new BasicDBObject(DbProperties.ID, new ObjectId(id)));
+    }
+    
+    public void deleteProductByIsin(String testIsin) {
+        col.remove(new BasicDBObject(DbProperties.ISIN, testIsin));
+    }
+
     private void iterateCursorAndAddEntriesToProducts(
             List<FundProduct> allProducts, DBCursor cur) {
         while (cur.hasNext()) {
@@ -42,13 +50,5 @@ public class MongoFundsDatastore implements FundsDatastore {
 
             allProducts.add(curProduct);
         }
-    }
-
-    public void deleteProductById(String id) {
-        col.remove(new BasicDBObject(DbProperties.ID, new ObjectId(id)));
-    }
-
-    public void deleteProductByIsin(String testIsin) {
-        col.remove(new BasicDBObject(DbProperties.ISIN, testIsin));
     }
 }
