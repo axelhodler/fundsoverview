@@ -51,7 +51,7 @@ public class TestFundScraper {
         String expectedOneYearGrowth = "2%";
         String expectedThreeYearGrowth = "3%";
         String expectedFiveYearGrowth = "4%";
-        String isin = "asdf";
+        String expectedIsin = "asdf";
 
         when(extractor.extractName()).thenReturn(expectedName);
         when(extractor.extractPrice()).thenReturn(expectedValue);
@@ -64,11 +64,12 @@ public class TestFundScraper {
         when(extractor.extractFiveYearGrowth()).thenReturn(
                 expectedFiveYearGrowth);
 
-        Fund fp = scraper.getBasicFinancialProductForIsin(isin);
+        Fund fp = scraper.getBasicFinancialProductForIsin(expectedIsin);
 
-        verify(accessor, times(1)).getDocumentForIsin(isin);
+        verify(accessor, times(1)).getDocumentForIsin(expectedIsin);
         verifyExtractorBehaviour();
-        
+
+        assertEquals(expectedIsin, fp.getIsin());
         assertEquals(expectedName, fp.getName());
         assertEquals(expectedValue, fp.getCurrentPrice());
         assertEquals(expectedCurrentGrowth, fp.getCurrentGrowth());

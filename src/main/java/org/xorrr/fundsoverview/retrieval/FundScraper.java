@@ -21,7 +21,7 @@ public class FundScraper {
         Document doc = accessor.getDocumentForIsin(isin);
         extractor.useDocument(doc);
 
-        Fund fp = new Fund.Builder().build();
+        Fund fp = new Fund.Builder().isin(isin).build();
         setFundProductFields(fp);
 
         return fp;
