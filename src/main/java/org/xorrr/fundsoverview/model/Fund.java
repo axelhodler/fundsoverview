@@ -1,6 +1,6 @@
 package org.xorrr.fundsoverview.model;
 
-public class FundProduct {
+public class Fund {
 
     private String isin;
     private String name;
@@ -18,12 +18,12 @@ public class FundProduct {
             return this;
         }
 
-        public FundProduct build() {
-            return new FundProduct(this);
+        public Fund build() {
+            return new Fund(this);
         }
     }
 
-    private FundProduct(Builder builder) {
+    private Fund(Builder builder) {
         this.isin = builder.isin;
     }
 

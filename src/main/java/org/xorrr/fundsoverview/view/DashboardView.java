@@ -2,7 +2,7 @@ package org.xorrr.fundsoverview.view;
 
 import java.util.List;
 
-import org.xorrr.fundsoverview.model.FundProduct;
+import org.xorrr.fundsoverview.model.Fund;
 import org.xorrr.fundsoverview.presenter.DashboardViewHandler;
 
 import com.vaadin.navigator.View;
@@ -18,7 +18,7 @@ public interface DashboardView extends View {
 
     public Button getAddFundBtn();
 
-    public void displayFunds(List<FundProduct> funds);
+    public void displayFunds(List<Fund> funds);
 
     public Table getFundTable();
 }

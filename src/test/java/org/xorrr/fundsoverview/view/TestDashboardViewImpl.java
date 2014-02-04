@@ -16,7 +16,7 @@ import org.junit.Test;
 import org.mockito.Mockito;
 import org.xorrr.fundsoverview.l18n.L18nHelper;
 import org.xorrr.fundsoverview.l18n.L18nVariables;
-import org.xorrr.fundsoverview.model.FundProduct;
+import org.xorrr.fundsoverview.model.Fund;
 import org.xorrr.fundsoverview.presenter.DashboardViewHandler;
 import org.xorrr.fundsoverview.retrieval.InvalidIsinException;
 
@@ -35,14 +35,14 @@ public class TestDashboardViewImpl {
     String expectedOneYearGrowth = "-50%";
     String expectedThreeYearGrowth = "100%";
     String expectedFiveYearGrowth = "-125%";
-    FundProduct fp;
-    List<FundProduct> funds = new ArrayList<>();
+    Fund fp;
+    List<Fund> funds = new ArrayList<>();
     Locale en;
     ResourceBundle res;
     private Item testItem;
 
     private void createTestFundProduct() {
-        FundProduct fp = new FundProduct.Builder().build();
+        Fund fp = new Fund.Builder().build();
         fp.setName(expectedName);
         fp.setCurrentPrice(expectedPrice);
         fp.setCurrentGrowth(expectedCurrentGrowth);
@@ -93,7 +93,7 @@ public class TestDashboardViewImpl {
     @Test
     public void testAddFundButton() throws IOException, InvalidIsinException {
         view.getAddFundBtn().click();
-        verify(handler, times(1)).addFund(Mockito.any(FundProduct.class));
+        verify(handler, times(1)).addFund(Mockito.any(Fund.class));
         verify(handler, times(1)).removeFundTableItems();
         verify(handler, times(2)).showFunds();
     }

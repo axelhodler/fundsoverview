@@ -4,7 +4,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.xorrr.fundsoverview.model.FundProduct;
+import org.xorrr.fundsoverview.model.Fund;
 import org.xorrr.fundsoverview.model.ModelFacade;
 import org.xorrr.fundsoverview.retrieval.InvalidIsinException;
 import org.xorrr.fundsoverview.view.DashboardView;
@@ -20,7 +20,7 @@ public class DashboardPresenter implements DashboardViewHandler {
     }
 
     @Override
-    public void addFund(FundProduct fp) {
+    public void addFund(Fund fp) {
         try {
             model.getBasicFinancialProduct(fp.getIsin());
             model.addFund(fp);
@@ -33,8 +33,8 @@ public class DashboardPresenter implements DashboardViewHandler {
 
     @Override
     public void showFunds() {
-        List<FundProduct> funds = model.getFunds();
-        List<FundProduct> fundsWithInfos = new ArrayList<>();
+        List<Fund> funds = model.getFunds();
+        List<Fund> fundsWithInfos = new ArrayList<>();
 
         iterateSavedFunds(funds, fundsWithInfos);
         view.displayFunds(fundsWithInfos);
@@ -50,18 +50,18 @@ public class DashboardPresenter implements DashboardViewHandler {
         model.deleteFund(isin);
     }
 
-    private void iterateSavedFunds(List<FundProduct> funds,
-            List<FundProduct> fundsWithInfos) {
-        for (FundProduct fund : funds) {
+    private void iterateSavedFunds(List<Fund> funds,
+            List<Fund> fundsWithInfos) {
+        for (Fund fund : funds) {
             addExtractedToFunds(fundsWithInfos, fund);
         }
     }
 
     private void addExtractedToFunds(
-            List<FundProduct> fundsWithInfos,
-            FundProduct fund) {
+            List<Fund> fundsWithInfos,
+            Fund fund) {
         try {
-            FundProduct fp = model.getBasicFinancialProduct(fund
+            Fund fp = model.getBasicFinancialProduct(fund
                     .getIsin());
             fundsWithInfos.add(fp);
         } catch (IOException e) {

@@ -6,7 +6,7 @@ import java.util.ResourceBundle;
 
 import org.xorrr.fundsoverview.l18n.L18nHelper;
 import org.xorrr.fundsoverview.l18n.L18nVariables;
-import org.xorrr.fundsoverview.model.FundProduct;
+import org.xorrr.fundsoverview.model.Fund;
 import org.xorrr.fundsoverview.presenter.DashboardViewHandler;
 
 import com.vaadin.navigator.ViewChangeListener.ViewChangeEvent;
@@ -56,13 +56,13 @@ public class DashboardViewImpl extends VerticalLayout implements DashboardView {
     }
 
     @Override
-    public void displayFunds(List<FundProduct> funds) {
+    public void displayFunds(List<Fund> funds) {
         for (int currentFund = 0; currentFund < funds.size(); currentFund++) {
             addFundToTable(funds, currentFund);
         }
     }
 
-    private void addFundToTable(List<FundProduct> funds, int fundCounter) {
+    private void addFundToTable(List<Fund> funds, int fundCounter) {
         fundTable.addItem(new Object[] { funds.get(fundCounter).getName(),
                 createPriceLabel(funds, fundCounter),
                 createCurrentYearGrowthLabel(funds, fundCounter),
@@ -77,7 +77,7 @@ public class DashboardViewImpl extends VerticalLayout implements DashboardView {
 
         @Override
         public void buttonClick(ClickEvent event) {
-            handler.addFund(new FundProduct.Builder().isin(
+            handler.addFund(new Fund.Builder().isin(
                     fundIdField.getValue()).build());
             handler.removeFundTableItems();
             handler.showFunds();
@@ -120,7 +120,7 @@ public class DashboardViewImpl extends VerticalLayout implements DashboardView {
                 Button.class, null);
     }
 
-    private Label createFiveYearGrowthLabel(List<FundProduct> funds,
+    private Label createFiveYearGrowthLabel(List<Fund> funds,
             int currentFund) {
         Label fiveYearGrowth = new Label(funds.get(currentFund)
                 .getFiveYearGrowth());
@@ -128,7 +128,7 @@ public class DashboardViewImpl extends VerticalLayout implements DashboardView {
         return fiveYearGrowth;
     }
 
-    private Label createThreeYearGrowthLabel(List<FundProduct> funds,
+    private Label createThreeYearGrowthLabel(List<Fund> funds,
             int currentFund) {
         Label threeYearGrowth = new Label(funds.get(currentFund)
                 .getThreeYearGrowth());
@@ -136,13 +136,13 @@ public class DashboardViewImpl extends VerticalLayout implements DashboardView {
         return threeYearGrowth;
     }
 
-    private Label createPriceLabel(List<FundProduct> funds, int fundCounter) {
+    private Label createPriceLabel(List<Fund> funds, int fundCounter) {
         Label priceField = new Label(funds.get(fundCounter).getCurrentPrice());
         priceField.setStyleName("price");
         return priceField;
     }
 
-    private Label createOneYearGrowthLabel(List<FundProduct> funds,
+    private Label createOneYearGrowthLabel(List<Fund> funds,
             int currentFund) {
         Label oneYearGrowth = new Label(funds.get(currentFund)
                 .getOneYearGrowth());
@@ -150,7 +150,7 @@ public class DashboardViewImpl extends VerticalLayout implements DashboardView {
         return oneYearGrowth;
     }
 
-    private Label createCurrentYearGrowthLabel(List<FundProduct> funds,
+    private Label createCurrentYearGrowthLabel(List<Fund> funds,
             int currentFund) {
         Label currentYear = new Label(funds.get(currentFund).getCurrentGrowth());
         setGrowthStyle(currentYear);

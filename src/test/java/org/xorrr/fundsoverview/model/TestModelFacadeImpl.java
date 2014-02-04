@@ -10,7 +10,7 @@ import java.io.IOException;
 
 import org.junit.Before;
 import org.junit.Test;
-import org.xorrr.fundsoverview.model.FundProduct;
+import org.xorrr.fundsoverview.model.Fund;
 import org.xorrr.fundsoverview.model.FundsDatastore;
 import org.xorrr.fundsoverview.model.ModelFacade;
 import org.xorrr.fundsoverview.model.ModelFacadeImpl;
@@ -46,8 +46,8 @@ public class TestModelFacadeImpl {
 
     @Test
     public void triggerAddingFund() {
-        facade.addFund(any(FundProduct.class));
-        verify(ds, times(1)).saveFund(any(FundProduct.class));
+        facade.addFund(any(Fund.class));
+        verify(ds, times(1)).saveFund(any(Fund.class));
     }
 
     @Test

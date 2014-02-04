@@ -11,7 +11,7 @@ import org.junit.experimental.categories.Category;
 import org.xorrr.fundsoverview.db.DbProperties;
 import org.xorrr.fundsoverview.db.MongoFundsDatastore;
 import org.xorrr.fundsoverview.helpers.IntegrationTest;
-import org.xorrr.fundsoverview.model.FundProduct;
+import org.xorrr.fundsoverview.model.Fund;
 
 import com.mongodb.BasicDBObject;
 import com.mongodb.DBCollection;
@@ -31,9 +31,9 @@ public class TestMongoFundDatastore {
     private String testIsin = "testIsin";
 
     private void createAndSaveTwoBasicFinancialProducts() {
-        FundProduct fp = new FundProduct.Builder().isin(
+        Fund fp = new Fund.Builder().isin(
                 testIsin).build();
-        FundProduct fp2 = new FundProduct.Builder().isin(
+        Fund fp2 = new Fund.Builder().isin(
                 testIsin + "2").build();
 
         this.ds.saveFund(fp);
@@ -56,7 +56,7 @@ public class TestMongoFundDatastore {
 
     @Test
     public void testAddingFinancialProduct() throws Exception {
-        FundProduct fp = new FundProduct.Builder().isin(
+        Fund fp = new Fund.Builder().isin(
                 testIsin).build();
 
         this.ds.saveFund(fp);

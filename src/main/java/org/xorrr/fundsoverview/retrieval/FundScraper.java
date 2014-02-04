@@ -3,7 +3,7 @@ package org.xorrr.fundsoverview.retrieval;
 import java.io.IOException;
 
 import org.jsoup.nodes.Document;
-import org.xorrr.fundsoverview.model.FundProduct;
+import org.xorrr.fundsoverview.model.Fund;
 
 public class FundScraper {
 
@@ -16,18 +16,18 @@ public class FundScraper {
         this.extractor = extractor;
     }
 
-    public FundProduct getBasicFinancialProductForIsin(String isin)
+    public Fund getBasicFinancialProductForIsin(String isin)
             throws IOException, InvalidIsinException {
         Document doc = accessor.getDocumentForIsin(isin);
         extractor.useDocument(doc);
 
-        FundProduct fp = new FundProduct.Builder().build();
+        Fund fp = new Fund.Builder().build();
         setFundProductFields(fp);
 
         return fp;
     }
 
-    private void setFundProductFields(FundProduct fp) {
+    private void setFundProductFields(Fund fp) {
         fp.setName(extractor.extractName());
         fp.setCurrentPrice(extractor.extractPrice());
         fp.setCurrentGrowth(extractor.extractCurrentYearGrowth());

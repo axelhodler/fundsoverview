@@ -12,7 +12,7 @@ import java.io.IOException;
 import org.jsoup.nodes.Document;
 import org.junit.Before;
 import org.junit.Test;
-import org.xorrr.fundsoverview.model.FundProduct;
+import org.xorrr.fundsoverview.model.Fund;
 import org.xorrr.fundsoverview.retrieval.FundDocumentAccessor;
 import org.xorrr.fundsoverview.retrieval.FundScraper;
 import org.xorrr.fundsoverview.retrieval.FundValuesExtractor;
@@ -64,7 +64,7 @@ public class TestFundScraper {
         when(extractor.extractFiveYearGrowth()).thenReturn(
                 expectedFiveYearGrowth);
 
-        FundProduct fp = scraper.getBasicFinancialProductForIsin(isin);
+        Fund fp = scraper.getBasicFinancialProductForIsin(isin);
 
         verify(accessor, times(1)).getDocumentForIsin(isin);
         verifyExtractorBehaviour();

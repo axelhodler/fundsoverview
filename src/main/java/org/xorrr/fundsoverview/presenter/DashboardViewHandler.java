@@ -1,9 +1,9 @@
 package org.xorrr.fundsoverview.presenter;
 
-import org.xorrr.fundsoverview.model.FundProduct;
+import org.xorrr.fundsoverview.model.Fund;
 
 public interface DashboardViewHandler {
-    public void addFund(FundProduct fp);
+    public void addFund(Fund fp);
 
     public void showFunds();
 

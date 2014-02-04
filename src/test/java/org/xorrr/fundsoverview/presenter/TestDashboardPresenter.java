@@ -14,7 +14,7 @@ import java.util.List;
 
 import org.junit.Before;
 import org.junit.Test;
-import org.xorrr.fundsoverview.model.FundProduct;
+import org.xorrr.fundsoverview.model.Fund;
 import org.xorrr.fundsoverview.model.ModelFacade;
 import org.xorrr.fundsoverview.presenter.DashboardPresenter;
 import org.xorrr.fundsoverview.retrieval.InvalidIsinException;
@@ -38,13 +38,13 @@ public class TestDashboardPresenter {
     public void addsFundWithValidIsin() throws IOException,
             InvalidIsinException {
         String validIsin = "validIsin";
-        FundProduct fp = new FundProduct.Builder().isin(
+        Fund fp = new Fund.Builder().isin(
                 validIsin).build();
         when(model.getBasicFinancialProduct(validIsin)).thenReturn(fp);
 
         presenter.addFund(fp);
 
-        verify(model, times(1)).addFund(any(FundProduct.class));
+        verify(model, times(1)).addFund(any(Fund.class));
     }
 
     @Test
@@ -53,7 +53,7 @@ public class TestDashboardPresenter {
         String invalidIsin = "invalidIsin";
         when(model.getBasicFinancialProduct(invalidIsin)).thenThrow(
                 new InvalidIsinException());
-        FundProduct fp = new FundProduct.Builder().isin(
+        Fund fp = new Fund.Builder().isin(
                 invalidIsin).build();
 
         presenter.addFund(fp);
@@ -65,14 +65,14 @@ public class TestDashboardPresenter {
     @Test
     public void testTheShowFundsMethod() throws IOException,
             InvalidIsinException {
-        FundProduct fp = mock(FundProduct.class);
-        FundProduct fp2 = mock(FundProduct.class);
+        Fund fp = mock(Fund.class);
+        Fund fp2 = mock(Fund.class);
 
-        FundProduct fpWithExtractedInfos = new FundProduct.Builder()
+        Fund fpWithExtractedInfos = new Fund.Builder()
                 .build();
         fpWithExtractedInfos.setName("name");
 
-        List<FundProduct> list = new ArrayList<FundProduct>();
+        List<Fund> list = new ArrayList<Fund>();
         list.add(fp);
         list.add(fp2);
 
@@ -89,7 +89,7 @@ public class TestDashboardPresenter {
 
         verify(model, times(2)).getBasicFinancialProduct(anyString());
         verify(view, times(1)).displayFunds(
-                anyListOf(FundProduct.class));
+                anyListOf(Fund.class));
     }
 
     @Test
