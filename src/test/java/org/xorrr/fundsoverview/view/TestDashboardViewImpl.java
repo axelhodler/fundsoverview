@@ -19,10 +19,9 @@ import org.xorrr.fundsoverview.l18n.L18nVariables;
 import org.xorrr.fundsoverview.model.FundProduct;
 import org.xorrr.fundsoverview.presenter.DashboardViewHandler;
 import org.xorrr.fundsoverview.retrieval.InvalidIsinException;
-import org.xorrr.fundsoverview.view.DashboardView;
-import org.xorrr.fundsoverview.view.DashboardViewImpl;
 
 import com.vaadin.data.Item;
+import com.vaadin.ui.Button;
 import com.vaadin.ui.Label;
 
 public class TestDashboardViewImpl {
@@ -74,6 +73,11 @@ public class TestDashboardViewImpl {
                         .getValue().toString());
     }
 
+    private Label getLabelFor(String l18nvar) {
+        return (Label) testItem.getItemProperty(
+                res.getString(l18nvar)).getValue();
+    }
+
     @Before
     public void setUp() {
         view = new DashboardViewImpl();
@@ -112,6 +116,7 @@ public class TestDashboardViewImpl {
         checkType(Label.class, L18nVariables.ONE_YEAR);
         checkType(Label.class, L18nVariables.THREE_YEARS);
         checkType(Label.class, L18nVariables.PRICE);
+        checkType(Button.class, L18nVariables.DELETE);
     }
 
     @Test
@@ -120,17 +125,11 @@ public class TestDashboardViewImpl {
 
         setTestItem();
 
-        Label curYearGrowth = (Label) testItem.getItemProperty(
-                res.getString(L18nVariables.CURRENT_YEAR)).getValue();
-        Label oneYearGrowth = (Label) testItem.getItemProperty(
-                res.getString(L18nVariables.ONE_YEAR)).getValue();
-        Label threeYearGrowth = (Label) testItem.getItemProperty(
-                res.getString(L18nVariables.THREE_YEARS)).getValue();
-        Label fiveYearGrowth = (Label) testItem.getItemProperty(
-                res.getString(L18nVariables.FIVE_YEARS)).getValue();
-        Label price = (Label) testItem.getItemProperty(
-                res.getString(L18nVariables.PRICE)).getValue();
-
+        Label curYearGrowth = getLabelFor(L18nVariables.CURRENT_YEAR);
+        Label oneYearGrowth = getLabelFor(L18nVariables.ONE_YEAR);
+        Label threeYearGrowth = getLabelFor(L18nVariables.THREE_YEARS);
+        Label fiveYearGrowth = getLabelFor(L18nVariables.FIVE_YEARS);
+        Label price = getLabelFor(L18nVariables.PRICE);
         assertEquals("posGrowth", threeYearGrowth.getStyleName());
         assertEquals("negGrowth", oneYearGrowth.getStyleName());
         assertEquals("posGrowth", curYearGrowth.getStyleName());

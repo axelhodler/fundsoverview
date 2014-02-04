@@ -68,7 +68,8 @@ public class DashboardViewImpl extends VerticalLayout implements DashboardView {
                 createCurrentYearGrowthLabel(funds, fundCounter),
                 createOneYearGrowthLabel(funds, fundCounter),
                 createThreeYearGrowthLabel(funds, fundCounter),
-                createFiveYearGrowthLabel(funds, fundCounter) }, new Integer(
+                createFiveYearGrowthLabel(funds, fundCounter),
+                new Button()}, new Integer(
                 fundCounter));
     }
 
@@ -115,6 +116,8 @@ public class DashboardViewImpl extends VerticalLayout implements DashboardView {
                 res.getString(L18nVariables.THREE_YEARS), Label.class, null);
         fundTable.addContainerProperty(res.getString(L18nVariables.FIVE_YEARS),
                 Label.class, null);
+        fundTable.addContainerProperty(res.getString(L18nVariables.DELETE),
+                Button.class, null);
     }
 
     private Label createFiveYearGrowthLabel(List<FundProduct> funds,
