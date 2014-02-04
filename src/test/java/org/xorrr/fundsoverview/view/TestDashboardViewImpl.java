@@ -71,7 +71,7 @@ public class TestDashboardViewImpl {
     private void checkLabelContent(String expected, String contentVariable) {
         assertEquals(expected,
                 testItem.getItemProperty(res.getString(contentVariable))
-                .getValue().toString());
+                        .getValue().toString());
     }
 
     @Before
@@ -114,7 +114,6 @@ public class TestDashboardViewImpl {
         checkType(Label.class, L18nVariables.PRICE);
     }
 
-
     @Test
     public void assignCorrectStyle() {
         view.displayFunds(funds);
@@ -129,10 +128,13 @@ public class TestDashboardViewImpl {
                 res.getString(L18nVariables.THREE_YEARS)).getValue();
         Label fiveYearGrowth = (Label) testItem.getItemProperty(
                 res.getString(L18nVariables.FIVE_YEARS)).getValue();
+        Label price = (Label) testItem.getItemProperty(
+                res.getString(L18nVariables.PRICE)).getValue();
 
         assertEquals("posGrowth", threeYearGrowth.getStyleName());
         assertEquals("negGrowth", oneYearGrowth.getStyleName());
         assertEquals("posGrowth", curYearGrowth.getStyleName());
         assertEquals("negGrowth", fiveYearGrowth.getStyleName());
+        assertEquals("price", price.getStyleName());
     }
 }

@@ -134,7 +134,9 @@ public class DashboardViewImpl extends VerticalLayout implements DashboardView {
     }
 
     private Label createPriceLabel(List<FundProduct> funds, int fundCounter) {
-        return new Label(funds.get(fundCounter).getCurrentPrice());
+        Label priceField = new Label(funds.get(fundCounter).getCurrentPrice());
+        priceField.setStyleName("price");
+        return priceField;
     }
 
     private Label createOneYearGrowthLabel(List<FundProduct> funds,
