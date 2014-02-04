@@ -7,3 +7,7 @@
 .negGrowth {
     color: red;
 }
+
+.price {
+    font-weight: bold;
+}
