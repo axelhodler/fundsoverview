@@ -70,7 +70,7 @@ public class DashboardViewImpl extends VerticalLayout implements DashboardView {
     }
 
     private void addFundToTable(List<Fund> funds, int fundCounter) {
-        Button deleteButton = new Button();
+        Button deleteButton = new Button(res.getString(L18nVariables.DELETE));
         deleteButton.setData(funds.get(fundCounter).getIsin());
         deleteButton.addClickListener(deleteFundListener);
 
