@@ -151,5 +151,7 @@ public class TestDashboardViewImpl {
         view.getDeleteFundButtons().get(0).click();
 
         verify(handler, times(1)).deleteFund(anyString());
+        verify(handler, times(1)).removeFundTableItems();
+        verify(handler, times(2)).showFunds();
     }
 }

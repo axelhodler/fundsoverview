@@ -102,6 +102,8 @@ public class DashboardViewImpl extends VerticalLayout implements DashboardView {
         @Override
         public void buttonClick(ClickEvent event) {
             handler.deleteFund(event.getButton().getData().toString());
+            handler.removeFundTableItems();
+            handler.showFunds();
         }
     };
 
