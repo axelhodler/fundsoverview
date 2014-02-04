@@ -28,12 +28,13 @@ public class TestMongoFundDatastore {
     private MongoClient client;
     private MongoFundsDatastore ds;
     private DBCollection col;
+    private String testIsin = "testIsin";
 
     private void createAndSaveTwoBasicFinancialProducts() {
         FundProduct fp = new FundProduct.Builder().isin(
-                "testWkn").build();
+                testIsin).build();
         FundProduct fp2 = new FundProduct.Builder().isin(
-                "testWkn2").build();
+                testIsin + "2").build();
 
         this.ds.saveProduct(fp);
         this.ds.saveProduct(fp2);
@@ -56,13 +57,13 @@ public class TestMongoFundDatastore {
     @Test
     public void testAddingFinancialProduct() throws Exception {
         FundProduct fp = new FundProduct.Builder().isin(
-                "testWkn").build();
+                testIsin).build();
 
         this.ds.saveProduct(fp);
 
         DBObject dbo = col.findOne(new BasicDBObject(DbProperties.ISIN,
-                "testWkn"));
-        assertEquals("testWkn", dbo.get(DbProperties.ISIN));
+                testIsin));
+        assertEquals(testIsin, dbo.get(DbProperties.ISIN));
     }
 
     @Test
@@ -75,7 +76,7 @@ public class TestMongoFundDatastore {
     @Test
     public void testDeletingSavedFinancialProduct() throws Exception {
         createAndSaveTwoBasicFinancialProducts();
-        DBCursor curs = col.find(new BasicDBObject(DbProperties.ISIN, "testWkn"));
+        DBCursor curs = col.find(new BasicDBObject(DbProperties.ISIN, testIsin));
         String id = null;
         while (curs.hasNext()) {
             id = curs.next().get(DbProperties.ID).toString();
