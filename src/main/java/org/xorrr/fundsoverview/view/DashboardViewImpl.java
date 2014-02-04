@@ -87,7 +87,7 @@ public class DashboardViewImpl extends VerticalLayout implements DashboardView {
         fundIdField = new TextField();
         fundIdField.setId("add_fund_id_field");
 
-        addFundButton = new Button("ADD_FUND");
+        addFundButton = new Button(res.getString(L18nVariables.ADD_FUND));
         addFundButton.setId("add_fund_button");
         addFundButton.addClickListener(addFundListener);
 
