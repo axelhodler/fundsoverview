@@ -68,6 +68,12 @@ public class TestDashboardViewImpl {
         return testItem = view.getFundTable().getItem(0);
     }
 
+    private void checkLabelContent(String expected, String contentVariable) {
+        assertEquals(expected,
+                testItem.getItemProperty(res.getString(contentVariable))
+                .getValue().toString());
+    }
+
     @Before
     public void setUp() {
         view = new DashboardViewImpl();
@@ -93,36 +99,20 @@ public class TestDashboardViewImpl {
         view.displayFunds(funds);
 
         setTestItem();
-        assertEquals(expectedName,
-                testItem.getItemProperty(res.getString(L18nVariables.FUND))
-                        .toString());
-        assertEquals(expectedPrice,
-                testItem.getItemProperty(res.getString(L18nVariables.PRICE))
-                        .toString());
-        assertEquals(
-                expectedCurrentGrowth,
-                testItem.getItemProperty(
-                        res.getString(L18nVariables.CURRENT_YEAR)).getValue()
-                        .toString());
-        assertEquals(expectedOneYearGrowth,
-                testItem.getItemProperty(res.getString(L18nVariables.ONE_YEAR))
-                        .getValue().toString());
-        assertEquals(
-                expectedThreeYearGrowth,
-                testItem.getItemProperty(
-                        res.getString(L18nVariables.THREE_YEARS)).getValue()
-                        .toString());
-        assertEquals(
-                expectedFiveYearGrowth,
-                testItem.getItemProperty(
-                        res.getString(L18nVariables.FIVE_YEARS)).getValue()
-                        .toString());
+
+        checkLabelContent(expectedName, L18nVariables.FUND);
+        checkLabelContent(expectedPrice, L18nVariables.PRICE);
+        checkLabelContent(expectedCurrentGrowth, L18nVariables.CURRENT_YEAR);
+        checkLabelContent(expectedOneYearGrowth, L18nVariables.ONE_YEAR);
+        checkLabelContent(expectedThreeYearGrowth, L18nVariables.THREE_YEARS);
+        checkLabelContent(expectedFiveYearGrowth, L18nVariables.FIVE_YEARS);
 
         checkType(L18nVariables.FIVE_YEARS);
         checkType(L18nVariables.CURRENT_YEAR);
         checkType(L18nVariables.ONE_YEAR);
         checkType(L18nVariables.THREE_YEARS);
     }
+
 
     @Test
     public void assignCorrectStyle() {
