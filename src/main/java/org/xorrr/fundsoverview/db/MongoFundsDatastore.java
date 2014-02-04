@@ -47,4 +47,8 @@ public class MongoFundsDatastore implements FundsDatastore {
     public void deleteProductById(String id) {
         col.remove(new BasicDBObject(DbProperties.ID, new ObjectId(id)));
     }
+
+    public void deleteProductByIsin(String testIsin) {
+        col.remove(new BasicDBObject(DbProperties.ISIN, testIsin));
+    }
 }

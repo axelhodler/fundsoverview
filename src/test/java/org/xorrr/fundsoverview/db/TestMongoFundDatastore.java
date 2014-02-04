@@ -86,6 +86,14 @@ public class TestMongoFundDatastore {
         assertEquals(1, this.ds.getAllProducts().size());
     }
 
+    @Test
+    public void deleteSavedFinancialProductByIsin() {
+        createAndSaveTwoBasicFinancialProducts();
+        assertEquals(2, this.ds.getAllProducts().size());
+        this.ds.deleteProductByIsin(testIsin);
+        assertEquals(1, this.ds.getAllProducts().size());
+    }
+
     @After
     public void dropDatabase() throws Exception {
         client.dropDatabase(DbProperties.DB);
