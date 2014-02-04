@@ -40,10 +40,14 @@ public class DashboardPresenter implements DashboardViewHandler {
         view.displayFunds(fundsWithInfos);
     }
 
-
     @Override
     public void removeFundTableItems() {
         view.getFundTable().removeAllItems();
+    }
+
+    @Override
+    public void deleteFund(String isin) {
+        model.deleteFund(isin);
     }
 
     private void iterateSavedFunds(List<FundProduct> funds,
@@ -51,11 +55,6 @@ public class DashboardPresenter implements DashboardViewHandler {
         for (FundProduct fund : funds) {
             addExtractedToFunds(fundsWithInfos, fund);
         }
-    }
-
-    @Override
-    public void deleteFund(String isin) {
-        model.deleteFund(isin);
     }
 
     private void addExtractedToFunds(
@@ -71,5 +70,4 @@ public class DashboardPresenter implements DashboardViewHandler {
             e.printStackTrace();
         }
     }
-
 }
