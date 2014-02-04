@@ -41,7 +41,7 @@ public class TestDashboardViewImpl {
     List<Fund> funds = new ArrayList<>();
     Locale en;
     ResourceBundle res;
-    private Item testItem;
+    Item testItem;
 
     private void createTestFundProduct() {
         Fund fp = new Fund.Builder().isin(expectedIsin).build();
@@ -132,6 +132,7 @@ public class TestDashboardViewImpl {
         Label threeYearGrowth = getLabelFor(L18nVariables.THREE_YEARS);
         Label fiveYearGrowth = getLabelFor(L18nVariables.FIVE_YEARS);
         Label price = getLabelFor(L18nVariables.PRICE);
+
         assertEquals("posGrowth", threeYearGrowth.getStyleName());
         assertEquals("negGrowth", oneYearGrowth.getStyleName());
         assertEquals("posGrowth", curYearGrowth.getStyleName());
@@ -142,11 +143,10 @@ public class TestDashboardViewImpl {
     @Test
     public void testDeleteFundButton() throws IOException, InvalidIsinException {
         view.displayFunds(funds);
-
         setTestItem();
-        Button button = (Button) testItem.getItemProperty(res.getString(L18nVariables.DELETE)).getValue();
+        Button testButton = (Button) testItem.getItemProperty(res.getString(L18nVariables.DELETE)).getValue();
 
-        assertEquals(expectedIsin, button.getData());
+        assertEquals(expectedIsin, testButton.getData());
 
         view.getDeleteFundButtons().get(0).click();
 
