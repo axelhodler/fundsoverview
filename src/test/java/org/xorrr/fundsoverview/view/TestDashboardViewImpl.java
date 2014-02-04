@@ -111,6 +111,7 @@ public class TestDashboardViewImpl {
         checkType(Label.class, L18nVariables.CURRENT_YEAR);
         checkType(Label.class, L18nVariables.ONE_YEAR);
         checkType(Label.class, L18nVariables.THREE_YEARS);
+        checkType(Label.class, L18nVariables.PRICE);
     }
 
 

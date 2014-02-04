@@ -64,7 +64,7 @@ public class DashboardViewImpl extends VerticalLayout implements DashboardView {
 
     private void addFundToTable(List<FundProduct> funds, int fundCounter) {
         fundTable.addItem(new Object[] { funds.get(fundCounter).getName(),
-                funds.get(fundCounter).getCurrentPrice(),
+                new Label(funds.get(fundCounter).getCurrentPrice()),
                 createCurrentYearGrowthLabel(funds, fundCounter),
                 createOneYearGrowthLabel(funds, fundCounter),
                 createThreeYearGrowthLabel(funds, fundCounter),
@@ -106,7 +106,7 @@ public class DashboardViewImpl extends VerticalLayout implements DashboardView {
         fundTable.addContainerProperty(res.getString(L18nVariables.FUND),
                 String.class, null);
         fundTable.addContainerProperty(res.getString(L18nVariables.PRICE),
-                String.class, null);
+                Label.class, null);
         fundTable.addContainerProperty(
                 res.getString(L18nVariables.CURRENT_YEAR), Label.class, null);
         fundTable.addContainerProperty(res.getString(L18nVariables.ONE_YEAR),
