@@ -59,8 +59,8 @@ public class TestDashboardViewImpl {
         res = helper.getMessages(en);
     }
 
-    private void checkType(String id) {
-        assertEquals(Label.class, testItem.getItemProperty(res.getString(id))
+    private void checkType(Object expected, String id) {
+        assertEquals(expected, testItem.getItemProperty(res.getString(id))
                 .getType());
     }
 
@@ -107,10 +107,10 @@ public class TestDashboardViewImpl {
         checkLabelContent(expectedThreeYearGrowth, L18nVariables.THREE_YEARS);
         checkLabelContent(expectedFiveYearGrowth, L18nVariables.FIVE_YEARS);
 
-        checkType(L18nVariables.FIVE_YEARS);
-        checkType(L18nVariables.CURRENT_YEAR);
-        checkType(L18nVariables.ONE_YEAR);
-        checkType(L18nVariables.THREE_YEARS);
+        checkType(Label.class, L18nVariables.FIVE_YEARS);
+        checkType(Label.class, L18nVariables.CURRENT_YEAR);
+        checkType(Label.class, L18nVariables.ONE_YEAR);
+        checkType(Label.class, L18nVariables.THREE_YEARS);
     }
 
 
