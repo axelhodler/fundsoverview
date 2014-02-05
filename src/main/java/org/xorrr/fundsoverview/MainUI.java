@@ -5,6 +5,7 @@ import java.net.UnknownHostException;
 import javax.servlet.annotation.WebServlet;
 
 import org.xorrr.fundsoverview.db.MongoFundsDatastore;
+import org.xorrr.fundsoverview.events.EventBus;
 import org.xorrr.fundsoverview.model.FundsDatastore;
 import org.xorrr.fundsoverview.model.ModelFacadeImpl;
 import org.xorrr.fundsoverview.presenter.DashboardPresenter;
@@ -38,7 +39,7 @@ public class MainUI extends UI {
         UI.getCurrent().getPage().setTitle("financegrabber");
         DashboardView view = new DashboardViewImpl();
         DashboardPresenter handler = new DashboardPresenter(view,
-                createModel());
+                createModel(), EventBus.getInstance());
 
         view.setHandler(handler);
         view.init();

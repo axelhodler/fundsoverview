@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.xorrr.fundsoverview.events.EventBus;
 import org.xorrr.fundsoverview.model.Fund;
 import org.xorrr.fundsoverview.model.ModelFacade;
 import org.xorrr.fundsoverview.retrieval.InvalidIsinException;
@@ -13,10 +14,12 @@ public class DashboardPresenter implements DashboardViewHandler {
 
     DashboardView view;
     ModelFacade model;
+    EventBus bus;
 
-    public DashboardPresenter(DashboardView view, ModelFacade model) {
+    public DashboardPresenter(DashboardView view, ModelFacade model, EventBus bus) {
         this.view = view;
         this.model = model;
+        this.bus = bus;
     }
 
     @Override

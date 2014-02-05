@@ -14,6 +14,7 @@ import java.util.List;
 
 import org.junit.Before;
 import org.junit.Test;
+import org.xorrr.fundsoverview.events.EventBus;
 import org.xorrr.fundsoverview.model.Fund;
 import org.xorrr.fundsoverview.model.ModelFacade;
 import org.xorrr.fundsoverview.presenter.DashboardPresenter;
@@ -25,6 +26,7 @@ public class TestDashboardPresenter {
     private DashboardPresenter presenter;
     private ModelFacade model;
     private DashboardView view;
+    private EventBus bus;
 
     private String validIsin = "validIsin";
     private String invalidIsin = "invalidIsin";
@@ -33,8 +35,9 @@ public class TestDashboardPresenter {
     public void setUp() {
         this.model = mock(ModelFacade.class);
         this.view = mock(DashboardView.class);
+        this.bus = mock(EventBus.class);
 
-        this.presenter = new DashboardPresenter(view, model);
+        this.presenter = new DashboardPresenter(view, model, bus);
     }
 
     @Test
