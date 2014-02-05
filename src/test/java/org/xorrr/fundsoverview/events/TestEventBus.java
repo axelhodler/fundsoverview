@@ -12,7 +12,7 @@ public class TestEventBus {
     public void testEventBus() {
         EventHandler handler = mock(FundAlreadyAddedEventHandler.class);
         EventHandler secondHandler = mock(SecondEventHandler.class);
-        EventBus bus = new EventBus();
+        EventBus bus = EventBus.getInstance();
         bus.addHandler(EventType.FUND_ALREADY_ADDED, handler);
         bus.addHandler(EventType.SECOND, secondHandler);
         bus.addHandler(EventType.SECOND, handler);
@@ -23,5 +23,4 @@ public class TestEventBus {
         verify(handler, times(1)).handleEvent(EventType.SECOND);
         verify(secondHandler, times(1)).handleEvent(EventType.SECOND);
     }
-
 }

@@ -9,6 +9,9 @@ import com.google.gwt.thirdparty.guava.common.collect.Maps;
 public class EventBus {
 
     private final Map<EventType, List<EventHandler>> handlerMap = Maps.newHashMap();
+    private static EventBus instance = null;
+
+    private EventBus() {}
 
     public void addHandler(EventType type,
             EventHandler handler) {
@@ -21,6 +24,13 @@ public class EventBus {
         for (EventHandler handler : handlerMap.get(type)) {
             handler.handleEvent(type);
         }
+    }
+
+    public static EventBus getInstance() {
+        if (instance == null) {
+            instance = new EventBus();
+        }
+        return instance;
     }
 
 }
