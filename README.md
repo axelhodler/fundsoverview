@@ -19,6 +19,12 @@ This will start a Jetty server with the project at http://localhost:8080/
 Also make sure the mongo daemon is running on port 27017 or edit the port accordingly in
     /bin/run.sh
 
+### Used Environment Variables
+
+*MONGODB_URI=mongodb://localhost:27017
+*LANG=en
+*COUNTRY=EN
+
 ## Test
 
 Currently using htmlunit, invoke via:
