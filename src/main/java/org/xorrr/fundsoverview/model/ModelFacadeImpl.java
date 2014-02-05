@@ -37,4 +37,8 @@ public class ModelFacadeImpl implements ModelFacade {
         this.ds.deleteFundByIsin(isin);
     }
 
+    @Override
+    public boolean checkIfIsinAlreadyAdded(String isin) {
+        return this.ds.checkIfIsinAlreadyAdded(isin);
+    }
 }

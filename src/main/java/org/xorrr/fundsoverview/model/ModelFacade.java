@@ -14,4 +14,6 @@ public interface ModelFacade {
     List<Fund> getFunds();
 
     void deleteFund(String isin);
+
+    boolean checkIfIsinAlreadyAdded(String isin);
 }

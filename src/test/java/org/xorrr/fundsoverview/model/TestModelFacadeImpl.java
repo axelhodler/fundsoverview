@@ -55,4 +55,10 @@ public class TestModelFacadeImpl {
         facade.deleteFund(anyString());
         verify(ds, times(1)).deleteFundByIsin(anyString());
     }
+
+    @Test
+    public void checkIfIsinAlreadyAdded() {
+        facade.checkIfIsinAlreadyAdded(anyString());
+        verify(ds, times(1)).checkIfIsinAlreadyAdded(anyString());
+    }
 }
