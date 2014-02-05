@@ -6,6 +6,8 @@ import javax.servlet.annotation.WebServlet;
 
 import org.xorrr.fundsoverview.db.MongoFundsDatastore;
 import org.xorrr.fundsoverview.events.EventBus;
+import org.xorrr.fundsoverview.events.EventType;
+import org.xorrr.fundsoverview.events.FundAlreadyAddedEventHandler;
 import org.xorrr.fundsoverview.model.FundsDatastore;
 import org.xorrr.fundsoverview.model.ModelFacadeImpl;
 import org.xorrr.fundsoverview.presenter.DashboardPresenter;
@@ -38,8 +40,10 @@ public class MainUI extends UI {
         Navigator navigator = new Navigator(this, this);
         UI.getCurrent().getPage().setTitle("financegrabber");
         DashboardView view = new DashboardViewImpl();
+        EventBus bus = EventBus.getInstance();
+        bus.addHandler(EventType.FUND_ALREADY_ADDED, new FundAlreadyAddedEventHandler());
         DashboardPresenter handler = new DashboardPresenter(view,
-                createModel(), EventBus.getInstance());
+                createModel(), bus);
 
         view.setHandler(handler);
         view.init();
