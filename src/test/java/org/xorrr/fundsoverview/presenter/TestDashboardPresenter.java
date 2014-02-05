@@ -15,6 +15,7 @@ import java.util.List;
 import org.junit.Before;
 import org.junit.Test;
 import org.xorrr.fundsoverview.events.EventBus;
+import org.xorrr.fundsoverview.events.EventType;
 import org.xorrr.fundsoverview.model.Fund;
 import org.xorrr.fundsoverview.model.ModelFacade;
 import org.xorrr.fundsoverview.presenter.DashboardPresenter;
@@ -112,5 +113,13 @@ public class TestDashboardPresenter {
 
         verify(model, times(1)).checkIfIsinAlreadyAdded(validIsin);
         verify(model, times(0)).addFund(testFund);
+    }
+
+    @Test
+    public void fireFundAlreadyAddedEventWhenAddedAgain() {
+        when(model.checkIfIsinAlreadyAdded(anyString())).thenReturn(true);
+        presenter.addFund(testFund);
+
+        verify(bus, times(1)).fireEvent(EventType.FUND_ALREADY_ADDED);
     }
 }

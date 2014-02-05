@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.xorrr.fundsoverview.events.EventBus;
+import org.xorrr.fundsoverview.events.EventType;
 import org.xorrr.fundsoverview.model.Fund;
 import org.xorrr.fundsoverview.model.ModelFacade;
 import org.xorrr.fundsoverview.retrieval.InvalidIsinException;
@@ -28,6 +29,8 @@ public class DashboardPresenter implements DashboardViewHandler {
             model.getBasicFinancialProduct(fp.getIsin());
             if (!model.checkIfIsinAlreadyAdded(fp.getIsin()))
                 model.addFund(fp);
+            else
+                bus.fireEvent(EventType.FUND_ALREADY_ADDED);
         } catch (IOException e) {
             e.printStackTrace();
         } catch (InvalidIsinException e) {
