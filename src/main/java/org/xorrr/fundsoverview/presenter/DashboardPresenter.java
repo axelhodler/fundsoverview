@@ -26,7 +26,8 @@ public class DashboardPresenter implements DashboardViewHandler {
     public void addFund(Fund fp) {
         try {
             model.getBasicFinancialProduct(fp.getIsin());
-            model.addFund(fp);
+            if (!model.checkIfIsinAlreadyAdded(fp.getIsin()))
+                model.addFund(fp);
         } catch (IOException e) {
             e.printStackTrace();
         } catch (InvalidIsinException e) {

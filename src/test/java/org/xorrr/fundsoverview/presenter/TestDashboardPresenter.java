@@ -101,4 +101,16 @@ public class TestDashboardPresenter {
         presenter.deleteFund(anyString());
         verify(model, times(1)).deleteFund(anyString());
     }
+
+    @Test
+    public void cantAddSameIsinTwice() {
+        Fund fp = new Fund.Builder().isin(
+                validIsin).build();
+
+        when(model.checkIfIsinAlreadyAdded(anyString())).thenReturn(true);
+        presenter.addFund(fp);
+
+        verify(model, times(1)).checkIfIsinAlreadyAdded(validIsin);
+        verify(model, times(0)).addFund(fp);
+    }
 }
