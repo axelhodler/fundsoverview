@@ -11,4 +11,6 @@ public interface FundsDatastore {
     void deleteFundById(String id);
 
     void deleteFundByIsin(String isin);
+
+    boolean checkIfIsinAlreadyAdded(String isin);
 }

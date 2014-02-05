@@ -51,4 +51,12 @@ public class MongoFundsDatastore implements FundsDatastore {
             allFunds.add(curFund);
         }
     }
+
+    @Override
+    public boolean checkIfIsinAlreadyAdded(String isin) {
+        DBCursor cur = col.find(new BasicDBObject(DbProperties.ISIN, isin));
+        if (cur.length() == 0)
+            return false;
+        return true;
+    }
 }

@@ -1,6 +1,6 @@
 package org.xorrr.fundsoverview.db;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.*;
 
 import org.junit.After;
 import org.junit.AfterClass;
@@ -92,6 +92,13 @@ public class TestMongoFundDatastore {
         assertEquals(2, this.ds.getAllFunds().size());
         this.ds.deleteFundByIsin(testIsin);
         assertEquals(1, this.ds.getAllFunds().size());
+    }
+
+    @Test
+    public void checkIfIsinAdded() {
+        this.ds.saveFund(new Fund.Builder().isin(testIsin).build());
+        assertTrue(this.ds.checkIfIsinAlreadyAdded(testIsin));
+        assertFalse(this.ds.checkIfIsinAlreadyAdded("12345"));
     }
 
     @After
