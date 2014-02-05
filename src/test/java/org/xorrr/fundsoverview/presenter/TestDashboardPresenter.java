@@ -122,4 +122,18 @@ public class TestDashboardPresenter {
 
         verify(bus, times(1)).fireEvent(EventType.FUND_ALREADY_ADDED);
     }
+
+    @Test
+    public void fireInvalidIsinEvent() throws IOException, InvalidIsinException {
+        Fund invalidFund = new Fund.Builder().isin(
+                invalidIsin).build();
+
+        when(model.getBasicFinancialProduct(invalidIsin)).thenThrow(
+                new InvalidIsinException());
+
+        presenter.addFund(invalidFund);
+
+        verify(model, times(1)).getBasicFinancialProduct(invalidIsin);
+        verify(bus, times(1)).fireEvent(EventType.INVALID_ISIN);
+    }
 }

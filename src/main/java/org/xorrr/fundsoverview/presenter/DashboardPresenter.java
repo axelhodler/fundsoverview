@@ -34,7 +34,7 @@ public class DashboardPresenter implements DashboardViewHandler {
         } catch (IOException e) {
             e.printStackTrace();
         } catch (InvalidIsinException e) {
-            System.out.println("The provided ISIN is not valid. Fund was not added");
+            bus.fireEvent(EventType.INVALID_ISIN);
         }
     }
 
