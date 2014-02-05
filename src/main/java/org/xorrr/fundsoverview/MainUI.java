@@ -40,8 +40,7 @@ public class MainUI extends UI {
         Navigator navigator = new Navigator(this, this);
         UI.getCurrent().getPage().setTitle("financegrabber");
         DashboardView view = new DashboardViewImpl();
-        EventBus bus = EventBus.getInstance();
-        bus.addHandler(EventType.FUND_ALREADY_ADDED, new FundAlreadyAddedEventHandler());
+        EventBus bus = initEventBus();
         DashboardPresenter handler = new DashboardPresenter(view,
                 createModel(), bus);
 
@@ -50,6 +49,12 @@ public class MainUI extends UI {
 
         navigator.addView("", view);
         navigator.navigateTo("");
+    }
+
+    private EventBus initEventBus() {
+        EventBus bus = EventBus.getInstance();
+        bus.addHandler(EventType.FUND_ALREADY_ADDED, new FundAlreadyAddedEventHandler());
+        return bus;
     }
 
     private ModelFacadeImpl createModel() {
