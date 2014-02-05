@@ -30,6 +30,7 @@ public class TestDashboardPresenter {
 
     private String validIsin = "validIsin";
     private String invalidIsin = "invalidIsin";
+    private Fund testFund;
 
     @Before
     public void setUp() {
@@ -37,17 +38,18 @@ public class TestDashboardPresenter {
         this.view = mock(DashboardView.class);
         this.bus = mock(EventBus.class);
 
+        this.testFund = new Fund.Builder().isin(
+                validIsin).build();
+
         this.presenter = new DashboardPresenter(view, model, bus);
     }
 
     @Test
     public void addsFundWithValidIsin() throws IOException,
             InvalidIsinException {
-        Fund fp = new Fund.Builder().isin(
-                validIsin).build();
-        when(model.getBasicFinancialProduct(validIsin)).thenReturn(fp);
+        when(model.getBasicFinancialProduct(validIsin)).thenReturn(testFund);
 
-        presenter.addFund(fp);
+        presenter.addFund(testFund);
 
         verify(model, times(1)).addFund(any(Fund.class));
     }
@@ -55,15 +57,16 @@ public class TestDashboardPresenter {
     @Test
     public void dontAddFundWithInvalidIsin() throws IOException,
             InvalidIsinException {
-        when(model.getBasicFinancialProduct(invalidIsin)).thenThrow(
-                new InvalidIsinException());
-        Fund fp = new Fund.Builder().isin(
+        Fund invalidFund = new Fund.Builder().isin(
                 invalidIsin).build();
 
-        presenter.addFund(fp);
+        when(model.getBasicFinancialProduct(invalidIsin)).thenThrow(
+                new InvalidIsinException());
+
+        presenter.addFund(invalidFund);
 
         verify(model, times(1)).getBasicFinancialProduct(invalidIsin);
-        verify(model, times(0)).addFund(fp);
+        verify(model, times(0)).addFund(testFund);
     }
 
     @Test
@@ -104,13 +107,10 @@ public class TestDashboardPresenter {
 
     @Test
     public void cantAddSameIsinTwice() {
-        Fund fp = new Fund.Builder().isin(
-                validIsin).build();
-
         when(model.checkIfIsinAlreadyAdded(anyString())).thenReturn(true);
-        presenter.addFund(fp);
+        presenter.addFund(testFund);
 
         verify(model, times(1)).checkIfIsinAlreadyAdded(validIsin);
-        verify(model, times(0)).addFund(fp);
+        verify(model, times(0)).addFund(testFund);
     }
 }
