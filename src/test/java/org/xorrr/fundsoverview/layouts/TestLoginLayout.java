@@ -1,13 +1,17 @@
 package org.xorrr.fundsoverview.layouts;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.*;
 
 import org.junit.Before;
 import org.junit.Test;
+import org.xorrr.fundsoverview.MainUI;
 import org.xorrr.fundsoverview.login.User;
 import org.xorrr.fundsoverview.login.UserService;
 
+import com.vaadin.ui.Button;
 import com.vaadin.ui.Component;
+import com.vaadin.ui.TextField;
+import com.vaadin.ui.UI;
 
 public class TestLoginLayout {
 
@@ -33,6 +37,7 @@ public class TestLoginLayout {
         layout = new LoginLayout();
         layout.init();
         fakeUserService();
+        UI.setCurrent(new MainUI());
     }
 
     @Test
@@ -48,5 +53,18 @@ public class TestLoginLayout {
     @Test
     public void passwordFieldExists() {
         checkComponentExistence(layout.getPasswordField());
+    }
+
+    @Test
+    public void loginWorks() {
+        TextField username = layout.getUsernameField();
+        username.setValue("1");
+        TextField password = layout.getPasswordField();
+        password.setValue("2");
+        Button loginButton = layout.getLoginButton();
+        loginButton.click();
+
+        User user = (User) UI.getCurrent().getData();
+        assertNotNull(user);
     }
 }

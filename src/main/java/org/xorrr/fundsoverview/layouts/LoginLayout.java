@@ -1,9 +1,12 @@
 package org.xorrr.fundsoverview.layouts;
 
+import org.xorrr.fundsoverview.login.User;
 import org.xorrr.fundsoverview.login.UserService;
 
 import com.vaadin.ui.Button;
+import com.vaadin.ui.Button.ClickEvent;
 import com.vaadin.ui.TextField;
+import com.vaadin.ui.UI;
 import com.vaadin.ui.VerticalLayout;
 
 public class LoginLayout extends VerticalLayout {
@@ -17,6 +20,15 @@ public class LoginLayout extends VerticalLayout {
         addComponent(loginButton);
         addComponent(usernameField);
         addComponent(passwordField);
+        loginButton.addClickListener(new Button.ClickListener() {
+
+            @Override
+            public void buttonClick(ClickEvent event) {
+                User user = userService.login(usernameField.getValue(),
+                        passwordField.getValue());
+                UI.getCurrent().setData(user);
+            }
+        });
     }
 
     public void setUserService(UserService userService) {
