@@ -5,8 +5,8 @@ import java.util.List;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
-import org.xorrr.fundsoverview.l18n.L18nHelper;
-import org.xorrr.fundsoverview.l18n.L18nVariables;
+import org.xorrr.fundsoverview.l18n.Localization;
+import org.xorrr.fundsoverview.l18n.LocalizationStrings;
 import org.xorrr.fundsoverview.model.Fund;
 import org.xorrr.fundsoverview.presenter.DashboardViewHandler;
 
@@ -29,7 +29,7 @@ public class DashboardViewImpl extends VerticalLayout implements DashboardView {
     private List<Button> buttons = new ArrayList<>();
 
     public void init() {
-        L18nHelper helper = new L18nHelper();
+        Localization helper = new Localization();
         res = helper.getMessages(new Locale(System.getenv("LANG"), System
                 .getenv("COUNTRY")));
 
@@ -70,7 +70,7 @@ public class DashboardViewImpl extends VerticalLayout implements DashboardView {
     }
 
     private void addFundToTable(List<Fund> funds, int fundCounter) {
-        Button deleteButton = new Button(res.getString(L18nVariables.DELETE));
+        Button deleteButton = new Button(res.getString(LocalizationStrings.DELETE));
         deleteButton.setData(funds.get(fundCounter).getIsin());
         deleteButton.addClickListener(deleteFundListener);
 
@@ -111,7 +111,7 @@ public class DashboardViewImpl extends VerticalLayout implements DashboardView {
         fundIdField = new TextField();
         fundIdField.setId("add_fund_id_field");
 
-        addFundButton = new Button(res.getString(L18nVariables.ADD_FUND));
+        addFundButton = new Button(res.getString(LocalizationStrings.ADD_FUND));
         addFundButton.setId("add_fund_button");
         addFundButton.addClickListener(addFundListener);
 
@@ -127,19 +127,19 @@ public class DashboardViewImpl extends VerticalLayout implements DashboardView {
 
     private void createFundTable() {
         fundTable = new Table("Funds");
-        fundTable.addContainerProperty(res.getString(L18nVariables.FUND),
+        fundTable.addContainerProperty(res.getString(LocalizationStrings.FUND),
                 String.class, null);
-        fundTable.addContainerProperty(res.getString(L18nVariables.PRICE),
+        fundTable.addContainerProperty(res.getString(LocalizationStrings.PRICE),
                 Label.class, null);
         fundTable.addContainerProperty(
-                res.getString(L18nVariables.CURRENT_YEAR), Label.class, null);
-        fundTable.addContainerProperty(res.getString(L18nVariables.ONE_YEAR),
+                res.getString(LocalizationStrings.CURRENT_YEAR), Label.class, null);
+        fundTable.addContainerProperty(res.getString(LocalizationStrings.ONE_YEAR),
                 Label.class, null);
         fundTable.addContainerProperty(
-                res.getString(L18nVariables.THREE_YEARS), Label.class, null);
-        fundTable.addContainerProperty(res.getString(L18nVariables.FIVE_YEARS),
+                res.getString(LocalizationStrings.THREE_YEARS), Label.class, null);
+        fundTable.addContainerProperty(res.getString(LocalizationStrings.FIVE_YEARS),
                 Label.class, null);
-        fundTable.addContainerProperty(res.getString(L18nVariables.DELETE),
+        fundTable.addContainerProperty(res.getString(LocalizationStrings.DELETE),
                 Button.class, null);
     }
 

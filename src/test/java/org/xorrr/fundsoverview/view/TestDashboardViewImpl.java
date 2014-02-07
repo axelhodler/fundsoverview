@@ -15,8 +15,8 @@ import java.util.ResourceBundle;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mockito;
-import org.xorrr.fundsoverview.l18n.L18nHelper;
-import org.xorrr.fundsoverview.l18n.L18nVariables;
+import org.xorrr.fundsoverview.l18n.Localization;
+import org.xorrr.fundsoverview.l18n.LocalizationStrings;
 import org.xorrr.fundsoverview.model.Fund;
 import org.xorrr.fundsoverview.presenter.DashboardViewHandler;
 import org.xorrr.fundsoverview.retrieval.InvalidIsinException;
@@ -56,7 +56,7 @@ public class TestDashboardViewImpl {
 
     private void setUpLocale() {
         Locale en = new Locale(System.getenv("LANG"), System.getenv("COUNTRY"));
-        L18nHelper helper = new L18nHelper();
+        Localization helper = new Localization();
         res = helper.getMessages(en);
     }
 
@@ -106,19 +106,19 @@ public class TestDashboardViewImpl {
 
         setTestItem();
 
-        checkLabelContent(expectedName, L18nVariables.FUND);
-        checkLabelContent(expectedPrice, L18nVariables.PRICE);
-        checkLabelContent(expectedCurrentGrowth, L18nVariables.CURRENT_YEAR);
-        checkLabelContent(expectedOneYearGrowth, L18nVariables.ONE_YEAR);
-        checkLabelContent(expectedThreeYearGrowth, L18nVariables.THREE_YEARS);
-        checkLabelContent(expectedFiveYearGrowth, L18nVariables.FIVE_YEARS);
+        checkLabelContent(expectedName, LocalizationStrings.FUND);
+        checkLabelContent(expectedPrice, LocalizationStrings.PRICE);
+        checkLabelContent(expectedCurrentGrowth, LocalizationStrings.CURRENT_YEAR);
+        checkLabelContent(expectedOneYearGrowth, LocalizationStrings.ONE_YEAR);
+        checkLabelContent(expectedThreeYearGrowth, LocalizationStrings.THREE_YEARS);
+        checkLabelContent(expectedFiveYearGrowth, LocalizationStrings.FIVE_YEARS);
 
-        checkType(Label.class, L18nVariables.FIVE_YEARS);
-        checkType(Label.class, L18nVariables.CURRENT_YEAR);
-        checkType(Label.class, L18nVariables.ONE_YEAR);
-        checkType(Label.class, L18nVariables.THREE_YEARS);
-        checkType(Label.class, L18nVariables.PRICE);
-        checkType(Button.class, L18nVariables.DELETE);
+        checkType(Label.class, LocalizationStrings.FIVE_YEARS);
+        checkType(Label.class, LocalizationStrings.CURRENT_YEAR);
+        checkType(Label.class, LocalizationStrings.ONE_YEAR);
+        checkType(Label.class, LocalizationStrings.THREE_YEARS);
+        checkType(Label.class, LocalizationStrings.PRICE);
+        checkType(Button.class, LocalizationStrings.DELETE);
     }
 
     @Test
@@ -127,11 +127,11 @@ public class TestDashboardViewImpl {
 
         setTestItem();
 
-        Label curYearGrowth = getLabelFor(L18nVariables.CURRENT_YEAR);
-        Label oneYearGrowth = getLabelFor(L18nVariables.ONE_YEAR);
-        Label threeYearGrowth = getLabelFor(L18nVariables.THREE_YEARS);
-        Label fiveYearGrowth = getLabelFor(L18nVariables.FIVE_YEARS);
-        Label price = getLabelFor(L18nVariables.PRICE);
+        Label curYearGrowth = getLabelFor(LocalizationStrings.CURRENT_YEAR);
+        Label oneYearGrowth = getLabelFor(LocalizationStrings.ONE_YEAR);
+        Label threeYearGrowth = getLabelFor(LocalizationStrings.THREE_YEARS);
+        Label fiveYearGrowth = getLabelFor(LocalizationStrings.FIVE_YEARS);
+        Label price = getLabelFor(LocalizationStrings.PRICE);
 
         assertEquals("posGrowth", threeYearGrowth.getStyleName());
         assertEquals("negGrowth", oneYearGrowth.getStyleName());
@@ -144,7 +144,7 @@ public class TestDashboardViewImpl {
     public void testDeleteFundButton() throws IOException, InvalidIsinException {
         view.displayFunds(funds);
         setTestItem();
-        Button testButton = (Button) testItem.getItemProperty(res.getString(L18nVariables.DELETE)).getValue();
+        Button testButton = (Button) testItem.getItemProperty(res.getString(LocalizationStrings.DELETE)).getValue();
 
         assertEquals(expectedIsin, testButton.getData());
 
