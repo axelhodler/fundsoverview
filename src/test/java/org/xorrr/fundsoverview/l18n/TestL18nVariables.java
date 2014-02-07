@@ -9,7 +9,6 @@ import org.junit.Before;
 import org.junit.Test;
 
 public class TestL18nVariables {
-
     private L18nHelper l18n;
 
     private Locale createLocale(String language, String country) {
@@ -39,10 +38,8 @@ public class TestL18nVariables {
         translationExists(l18n.getMessages(createLocale("en", "US")));
     }
 
-
     @Test
     public void germanTranslationsExist() {
         translationExists(l18n.getMessages(createLocale("de", "DE")));
     }
-
 }
