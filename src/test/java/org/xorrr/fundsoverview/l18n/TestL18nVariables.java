@@ -30,6 +30,8 @@ public class TestL18nVariables {
         assertNotNull(messages.getString(L18nVariables.FIVE_YEARS));
         assertNotNull(messages.getString(L18nVariables.ADD_FUND));
         assertNotNull(messages.getString(L18nVariables.DELETE));
+        assertNotNull(messages.getString(L18nVariables.FUND_ALREADY_ADDED));
+        assertNotNull(messages.getString(L18nVariables.ISIN_INVALID));
     }
 
     @Test
@@ -45,6 +47,8 @@ public class TestL18nVariables {
         assertNotNull(messages.getString(L18nVariables.FIVE_YEARS));
         assertNotNull(messages.getString(L18nVariables.ADD_FUND));
         assertNotNull(messages.getString(L18nVariables.DELETE));
+        assertNotNull(messages.getString(L18nVariables.FUND_ALREADY_ADDED));
+        assertNotNull(messages.getString(L18nVariables.ISIN_INVALID));
     }
 
 }

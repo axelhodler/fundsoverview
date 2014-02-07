@@ -9,4 +9,6 @@ public class L18nVariables {
     public static final String FIVE_YEARS = "fiveYears";
     public static final String ADD_FUND = "addFund";
     public static final String DELETE = "delete";
+    public static final String FUND_ALREADY_ADDED = "alreadyAdded";
+    public static final String ISIN_INVALID = "isinInvalid";
 }
