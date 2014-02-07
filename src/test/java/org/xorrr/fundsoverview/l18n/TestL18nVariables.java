@@ -10,45 +10,39 @@ import org.junit.Test;
 
 public class TestL18nVariables {
 
-    private L18nHelper helper;
+    private L18nHelper l18n;
+
+    private Locale createLocale(String language, String country) {
+        return new Locale(language, country);
+    }
+
+    private void translationExists(ResourceBundle messages) {
+        assertNotNull(messages.getString(L18nVariables.FUND));
+        assertNotNull(messages.getString(L18nVariables.PRICE));
+        assertNotNull(messages.getString(L18nVariables.CURRENT_YEAR));
+        assertNotNull(messages.getString(L18nVariables.ONE_YEAR));
+        assertNotNull(messages.getString(L18nVariables.THREE_YEARS));
+        assertNotNull(messages.getString(L18nVariables.FIVE_YEARS));
+        assertNotNull(messages.getString(L18nVariables.ADD_FUND));
+        assertNotNull(messages.getString(L18nVariables.DELETE));
+        assertNotNull(messages.getString(L18nVariables.FUND_ALREADY_ADDED));
+        assertNotNull(messages.getString(L18nVariables.ISIN_INVALID));
+    }
 
     @Before
     public void setUp() {
-        helper = new L18nHelper();
+        l18n = new L18nHelper();
     }
 
     @Test
-    public void doDefinedVariablesExistForEn() {
-        Locale en = new Locale("en", "US");
-        ResourceBundle messages = helper.getMessages(en);
-
-        assertNotNull(messages.getString(L18nVariables.FUND));
-        assertNotNull(messages.getString(L18nVariables.PRICE));
-        assertNotNull(messages.getString(L18nVariables.CURRENT_YEAR));
-        assertNotNull(messages.getString(L18nVariables.ONE_YEAR));
-        assertNotNull(messages.getString(L18nVariables.THREE_YEARS));
-        assertNotNull(messages.getString(L18nVariables.FIVE_YEARS));
-        assertNotNull(messages.getString(L18nVariables.ADD_FUND));
-        assertNotNull(messages.getString(L18nVariables.DELETE));
-        assertNotNull(messages.getString(L18nVariables.FUND_ALREADY_ADDED));
-        assertNotNull(messages.getString(L18nVariables.ISIN_INVALID));
+    public void englishTranslationsExist() {
+        translationExists(l18n.getMessages(createLocale("en", "US")));
     }
 
-    @Test
-    public void doDefinedVariablesExistForDe() {
-        Locale ger = new Locale("de", "DE");
-        ResourceBundle messages = helper.getMessages(ger);
 
-        assertNotNull(messages.getString(L18nVariables.FUND));
-        assertNotNull(messages.getString(L18nVariables.PRICE));
-        assertNotNull(messages.getString(L18nVariables.CURRENT_YEAR));
-        assertNotNull(messages.getString(L18nVariables.ONE_YEAR));
-        assertNotNull(messages.getString(L18nVariables.THREE_YEARS));
-        assertNotNull(messages.getString(L18nVariables.FIVE_YEARS));
-        assertNotNull(messages.getString(L18nVariables.ADD_FUND));
-        assertNotNull(messages.getString(L18nVariables.DELETE));
-        assertNotNull(messages.getString(L18nVariables.FUND_ALREADY_ADDED));
-        assertNotNull(messages.getString(L18nVariables.ISIN_INVALID));
+    @Test
+    public void germanTranslationsExist() {
+        translationExists(l18n.getMessages(createLocale("de", "DE")));
     }
 
 }
