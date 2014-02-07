@@ -7,6 +7,9 @@ import java.util.ResourceBundle;
 
 import org.xorrr.fundsoverview.l18n.Localization;
 import org.xorrr.fundsoverview.l18n.LocalizationStrings;
+import org.xorrr.fundsoverview.layouts.LoginLayout;
+import org.xorrr.fundsoverview.login.User;
+import org.xorrr.fundsoverview.login.UserService;
 import org.xorrr.fundsoverview.model.Fund;
 import org.xorrr.fundsoverview.presenter.DashboardViewHandler;
 
@@ -35,6 +38,7 @@ public class DashboardViewImpl extends VerticalLayout implements DashboardView {
 
         initFormToAddFunds();
         initFundTable();
+        initLoginForm();
     }
 
     @Override
@@ -67,6 +71,20 @@ public class DashboardViewImpl extends VerticalLayout implements DashboardView {
         for (int currentFund = 0; currentFund < funds.size(); currentFund++) {
             addFundToTable(funds, currentFund);
         }
+    }
+
+    private void initLoginForm() {
+        LoginLayout loginLayout = new LoginLayout();
+        loginLayout.init();
+        loginLayout.setUserService(new UserService() {
+
+            @Override
+            public User login(String username, String password) {
+                return new User();
+            }
+            
+        });
+        addComponent(loginLayout);
     }
 
     private void addFundToTable(List<Fund> funds, int fundCounter) {
