@@ -54,14 +54,14 @@ public class MainUI extends UI {
 
     private EventBus initEventBus() {
         EventBus bus = EventBus.getInstance();
-        bus.addHandler(EventType.FUND_ALREADY_ADDED, new FundAlreadyAddedEventHandler());
+        bus.addHandler(EventType.FUND_ALREADY_ADDED,
+                new FundAlreadyAddedEventHandler());
         bus.addHandler(EventType.INVALID_ISIN, new InvalidIsinEventHandler());
         return bus;
     }
 
     private ModelFacadeImpl createModel() {
-        return new ModelFacadeImpl(createFundsDatastore(),
-                createFundScraper());
+        return new ModelFacadeImpl(createFundsDatastore(), createFundScraper());
     }
 
     private FundScraper createFundScraper() {
@@ -70,7 +70,8 @@ public class MainUI extends UI {
     }
 
     private FundsDatastore createFundsDatastore() {
-        MongoClientURI uri = new MongoClientURI(System.getenv("MONGODB_URI"));
+        MongoClientURI uri = new MongoClientURI(
+                System.getenv(EnvironmentVariables.MONGODB_URI));
         FundsDatastore ds = null;
 
         try {

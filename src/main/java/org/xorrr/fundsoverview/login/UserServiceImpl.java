@@ -1,5 +1,7 @@
 package org.xorrr.fundsoverview.login;
 
+import org.xorrr.fundsoverview.EnvironmentVariables;
+
 public class UserServiceImpl implements UserService {
 
     @Override
@@ -11,7 +13,7 @@ public class UserServiceImpl implements UserService {
     }
 
     private boolean isPasswordCorrect(String password) {
-        return password.equals(System.getenv("PASS"));
+        return password.equals(System.getenv(EnvironmentVariables.PASS));
     }
 
     private boolean isUsernameCorrect(String username) {
