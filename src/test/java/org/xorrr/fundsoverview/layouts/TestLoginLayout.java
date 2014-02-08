@@ -1,12 +1,14 @@
 package org.xorrr.fundsoverview.layouts;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 
 import org.junit.Before;
 import org.junit.Test;
+import org.xorrr.fundsoverview.EnvironmentVariables;
 import org.xorrr.fundsoverview.MainUI;
 import org.xorrr.fundsoverview.login.User;
-import org.xorrr.fundsoverview.login.UserService;
+import org.xorrr.fundsoverview.login.UserServiceImpl;
 
 import com.vaadin.ui.Button;
 import com.vaadin.ui.Component;
@@ -23,20 +25,11 @@ public class TestLoginLayout {
         assertEquals(expectedComponent, component);
     }
 
-    private void fakeUserService() {
-        layout.setUserService(new UserService() {
-            @Override
-            public User login(String username, String password) {
-                return new User();
-            }
-        });
-    }
-
     @Before
     public void setUp() {
         layout = new LoginLayout();
         layout.init();
-        fakeUserService();
+        layout.setUserService(new UserServiceImpl());
         UI.setCurrent(new MainUI());
     }
 
@@ -58,9 +51,9 @@ public class TestLoginLayout {
     @Test
     public void loginWorks() {
         TextField username = layout.getUsernameField();
-        username.setValue("1");
+        username.setValue(System.getenv(EnvironmentVariables.USER));
         TextField password = layout.getPasswordField();
-        password.setValue("2");
+        password.setValue(System.getenv(EnvironmentVariables.PASS));
         Button loginButton = layout.getLoginButton();
         loginButton.click();
 
