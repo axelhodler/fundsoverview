@@ -10,6 +10,8 @@ import com.vaadin.ui.UI;
 import com.vaadin.ui.VerticalLayout;
 
 public class LoginLayout extends VerticalLayout {
+    private static final long serialVersionUID = -6114361172208149300L;
+
     private Button loginButton = new Button("Login");
     private TextField usernameField = new TextField("username:");
     private TextField passwordField = new TextField("password");
@@ -20,16 +22,19 @@ public class LoginLayout extends VerticalLayout {
         addComponent(loginButton);
         addComponent(usernameField);
         addComponent(passwordField);
-        loginButton.addClickListener(new Button.ClickListener() {
-
-            @Override
-            public void buttonClick(ClickEvent event) {
-                User user = userService.login(usernameField.getValue(),
-                        passwordField.getValue());
-                UI.getCurrent().setData(user);
-            }
-        });
+        loginButton.addClickListener(loginButtonListener);
     }
+
+    Button.ClickListener loginButtonListener = new Button.ClickListener() {
+        private static final long serialVersionUID = -8573483079166742117L;
+
+        @Override
+        public void buttonClick(ClickEvent event) {
+            User user = userService.login(usernameField.getValue(),
+                    passwordField.getValue());
+            UI.getCurrent().setData(user);
+        }
+    };
 
     public void setUserService(UserService userService) {
         this.userService = userService;
