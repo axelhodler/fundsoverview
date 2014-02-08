@@ -26,6 +26,9 @@ public class TestLocalization {
         assertNotNull(messages.getString(LocalizationStrings.DELETE));
         assertNotNull(messages.getString(LocalizationStrings.FUND_ALREADY_ADDED));
         assertNotNull(messages.getString(LocalizationStrings.ISIN_INVALID));
+        assertNotNull(messages.getString(LocalizationStrings.LOGIN_BUTTON));
+        assertNotNull(messages.getString(LocalizationStrings.USERNAME));
+        assertNotNull(messages.getString(LocalizationStrings.PASSWORD));
     }
 
     @Before

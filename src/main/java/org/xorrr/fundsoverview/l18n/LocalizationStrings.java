@@ -11,4 +11,7 @@ public class LocalizationStrings {
     public static final String DELETE = "delete";
     public static final String FUND_ALREADY_ADDED = "alreadyAdded";
     public static final String ISIN_INVALID = "isinInvalid";
+    public static final String LOGIN_BUTTON = "loginButton";
+    public static final String USERNAME = "username";
+    public static final String PASSWORD = "password";
 }
