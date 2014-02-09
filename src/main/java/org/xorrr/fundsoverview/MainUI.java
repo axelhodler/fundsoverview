@@ -38,10 +38,14 @@ public class MainUI extends UI {
     protected void init(VaadinRequest request) {
         this.injector = Guice.createInjector(new Module());
 
+        EventBus bus = new EventBus();
+        bus.addHandler(EventType.FUND_ALREADY_ADDED,
+                new FundAlreadyAddedHandler());
+        bus.addHandler(EventType.INVALID_ISIN, new InvalidIsinEventHandler());
+
         Navigator navigator = new Navigator(this, this);
         UI.getCurrent().getPage().setTitle("financegrabber");
         DashboardView view = new DashboardViewImpl();
-        EventBus bus = initEventBus();
         DashboardPresenter handler = null;
         try {
             handler = new DashboardPresenter(view,
@@ -56,14 +60,6 @@ public class MainUI extends UI {
 
         navigator.addView("", view);
         navigator.navigateTo("");
-    }
-
-    private EventBus initEventBus() {
-        EventBus bus = EventBus.getInstance();
-        bus.addHandler(EventType.FUND_ALREADY_ADDED,
-                new FundAlreadyAddedHandler());
-        bus.addHandler(EventType.INVALID_ISIN, new InvalidIsinEventHandler());
-        return bus;
     }
 
     private ModelFacadeImpl createModel() throws UnknownHostException {

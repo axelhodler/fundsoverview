@@ -18,7 +18,7 @@ public class TestEventBus {
 
     @Before
     public void setUp() {
-        bus = EventBus.getInstance();
+        bus = new EventBus();
     }
 
     @Test
