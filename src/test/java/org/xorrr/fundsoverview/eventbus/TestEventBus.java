@@ -1,4 +1,4 @@
-package org.xorrr.fundsoverview.events;
+package org.xorrr.fundsoverview.eventbus;
 
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.times;
@@ -6,6 +6,12 @@ import static org.mockito.Mockito.verify;
 
 import org.junit.Before;
 import org.junit.Test;
+import org.xorrr.fundsoverview.eventbus.EventBus;
+import org.xorrr.fundsoverview.eventbus.EventHandler;
+import org.xorrr.fundsoverview.eventbus.EventType;
+import org.xorrr.fundsoverview.eventbus.events.FundAlreadyAddedHandler;
+import org.xorrr.fundsoverview.eventbus.events.InvalidIsinEventHandler;
+import org.xorrr.fundsoverview.eventbus.events.WrongCredentialsHandler;
 
 public class TestEventBus {
     private EventBus bus;

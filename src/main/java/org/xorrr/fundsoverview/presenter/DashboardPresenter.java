@@ -4,8 +4,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.xorrr.fundsoverview.events.EventBus;
-import org.xorrr.fundsoverview.events.EventType;
+import org.xorrr.fundsoverview.eventbus.EventBus;
+import org.xorrr.fundsoverview.eventbus.EventType;
 import org.xorrr.fundsoverview.model.Fund;
 import org.xorrr.fundsoverview.model.ModelFacade;
 import org.xorrr.fundsoverview.retrieval.InvalidIsinException;

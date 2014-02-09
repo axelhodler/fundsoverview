@@ -1,7 +1,9 @@
-package org.xorrr.fundsoverview.events;
+package org.xorrr.fundsoverview.eventbus.events;
 
 import java.util.ResourceBundle;
 
+import org.xorrr.fundsoverview.eventbus.EventHandler;
+import org.xorrr.fundsoverview.eventbus.EventType;
 import org.xorrr.fundsoverview.l18n.Localization;
 import org.xorrr.fundsoverview.l18n.LocalizationStrings;
 

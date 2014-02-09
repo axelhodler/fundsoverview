@@ -5,10 +5,10 @@ import java.net.UnknownHostException;
 import javax.servlet.annotation.WebServlet;
 
 import org.xorrr.fundsoverview.db.MongoFundsDatastore;
-import org.xorrr.fundsoverview.events.EventBus;
-import org.xorrr.fundsoverview.events.EventType;
-import org.xorrr.fundsoverview.events.FundAlreadyAddedHandler;
-import org.xorrr.fundsoverview.events.InvalidIsinEventHandler;
+import org.xorrr.fundsoverview.eventbus.EventBus;
+import org.xorrr.fundsoverview.eventbus.EventType;
+import org.xorrr.fundsoverview.eventbus.events.FundAlreadyAddedHandler;
+import org.xorrr.fundsoverview.eventbus.events.InvalidIsinEventHandler;
 import org.xorrr.fundsoverview.model.FundsDatastore;
 import org.xorrr.fundsoverview.model.ModelFacadeImpl;
 import org.xorrr.fundsoverview.presenter.DashboardPresenter;

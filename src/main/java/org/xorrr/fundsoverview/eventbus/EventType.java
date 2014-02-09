@@ -1,4 +1,4 @@
-package org.xorrr.fundsoverview.events;
+package org.xorrr.fundsoverview.eventbus;
 
 public enum EventType {
     FUND_ALREADY_ADDED,
