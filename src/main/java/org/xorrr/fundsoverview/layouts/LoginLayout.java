@@ -45,9 +45,9 @@ public class LoginLayout extends VerticalLayout {
             User user = userService.login(usernameField.getValue(),
                     passwordField.getValue());
             UI.getCurrent().setData(user);
-            removeAllComponents();
-            addComponent(userStatus);
+            changeLayoutIfLoginSuccessful(user);
         }
+
     };
 
     public void setUserService(UserService userService) {
@@ -83,4 +83,10 @@ public class LoginLayout extends VerticalLayout {
                 + System.getenv(EnvironmentVariables.USER));
     }
 
+    private void changeLayoutIfLoginSuccessful(User user) {
+        if (user != null) {
+            removeAllComponents();
+            addComponent(userStatus);
+        }
+    }
 }

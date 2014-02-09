@@ -1,7 +1,6 @@
 package org.xorrr.fundsoverview.layouts;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.*;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -36,6 +35,15 @@ public class TestLoginLayout {
 
     private void componentWasRemoved(Component component) {
         assertEquals(-1, layout.getComponentIndex(component));
+    }
+
+    private void loginWithWrongCredentials() {
+        TextField username = layout.getUsernameField();
+        username.setValue("wrongUser");
+        TextField password = layout.getPasswordField();
+        password.setValue("wrongPassword");
+        Button loginButton = layout.getLoginButton();
+        loginButton.click();
     }
 
     @Before
@@ -83,5 +91,21 @@ public class TestLoginLayout {
         loginUser();
 
         checkComponentExistence(layout.getUserStatus());
+    }
+
+    @Test
+    public void loginFormIsNotRemovedAfterFailedLogin() {
+        loginWithWrongCredentials();
+
+        checkComponentExistence(layout.getPasswordField());
+        checkComponentExistence(layout.getUsernameField());
+        checkComponentExistence(layout.getLoginButton());
+    }
+
+    @Test
+    public void userNameIsNotDisplayedAfterFailedLogin() {
+        loginWithWrongCredentials();
+
+        assertEquals(-1, layout.getComponentIndex(layout.getUserStatus()));
     }
 }
