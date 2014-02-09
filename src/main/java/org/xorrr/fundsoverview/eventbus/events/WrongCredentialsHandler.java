@@ -16,7 +16,7 @@ public class WrongCredentialsHandler implements EventHandler {
     public void handleEvent(EventType t) {
         ResourceBundle bundle = Localization.getMessages();
         Notification notif = new Notification(
-                bundle.getString(LocalizationStrings.ISIN_INVALID));
+                bundle.getString(LocalizationStrings.WRONG_CREDENTIALS));
         notif.show(Page.getCurrent());
     }
 
