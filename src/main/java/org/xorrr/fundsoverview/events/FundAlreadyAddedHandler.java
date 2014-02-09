@@ -8,7 +8,7 @@ import org.xorrr.fundsoverview.l18n.LocalizationStrings;
 import com.vaadin.server.Page;
 import com.vaadin.ui.Notification;
 
-public class FundAlreadyAddedEventHandler implements EventHandler {
+public class FundAlreadyAddedHandler implements EventHandler {
 
     @Override
     public void handleEvent(EventType t) {

@@ -7,7 +7,7 @@ import javax.servlet.annotation.WebServlet;
 import org.xorrr.fundsoverview.db.MongoFundsDatastore;
 import org.xorrr.fundsoverview.events.EventBus;
 import org.xorrr.fundsoverview.events.EventType;
-import org.xorrr.fundsoverview.events.FundAlreadyAddedEventHandler;
+import org.xorrr.fundsoverview.events.FundAlreadyAddedHandler;
 import org.xorrr.fundsoverview.events.InvalidIsinEventHandler;
 import org.xorrr.fundsoverview.model.FundsDatastore;
 import org.xorrr.fundsoverview.model.ModelFacadeImpl;
@@ -55,7 +55,7 @@ public class MainUI extends UI {
     private EventBus initEventBus() {
         EventBus bus = EventBus.getInstance();
         bus.addHandler(EventType.FUND_ALREADY_ADDED,
-                new FundAlreadyAddedEventHandler());
+                new FundAlreadyAddedHandler());
         bus.addHandler(EventType.INVALID_ISIN, new InvalidIsinEventHandler());
         return bus;
     }

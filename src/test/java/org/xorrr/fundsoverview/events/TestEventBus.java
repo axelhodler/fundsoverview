@@ -17,7 +17,7 @@ public class TestEventBus {
 
     @Test
     public void fundAlreadyEventIsHandled() {
-        EventHandler fundAlreadyAddedHandler = mock(FundAlreadyAddedEventHandler.class);
+        EventHandler fundAlreadyAddedHandler = mock(FundAlreadyAddedHandler.class);
         bus.addHandler(EventType.FUND_ALREADY_ADDED, fundAlreadyAddedHandler);
 
         bus.fireEvent(EventType.FUND_ALREADY_ADDED);
