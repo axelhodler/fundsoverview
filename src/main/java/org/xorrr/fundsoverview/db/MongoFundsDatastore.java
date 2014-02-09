@@ -1,9 +1,11 @@
 package org.xorrr.fundsoverview.db;
 
+import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.List;
 
 import org.bson.types.ObjectId;
+import org.xorrr.fundsoverview.EnvironmentVariables;
 import org.xorrr.fundsoverview.model.Fund;
 import org.xorrr.fundsoverview.model.FundsDatastore;
 
@@ -11,12 +13,17 @@ import com.mongodb.BasicDBObject;
 import com.mongodb.DBCollection;
 import com.mongodb.DBCursor;
 import com.mongodb.MongoClient;
+import com.mongodb.MongoClientURI;
 
 public class MongoFundsDatastore implements FundsDatastore {
 
     private DBCollection col;
 
-    public MongoFundsDatastore(MongoClient client) {
+    public MongoFundsDatastore() throws UnknownHostException {
+        MongoClientURI uri = new MongoClientURI(
+                System.getenv(EnvironmentVariables.MONGODB_URI));
+        MongoClient client = new MongoClient(uri);
+
         this.col = client.getDB(DbProperties.DB)
                 .getCollection(DbProperties.COL);
     }

@@ -9,7 +9,6 @@ import org.xorrr.fundsoverview.eventbus.EventBus;
 import org.xorrr.fundsoverview.eventbus.EventType;
 import org.xorrr.fundsoverview.eventbus.events.FundAlreadyAddedHandler;
 import org.xorrr.fundsoverview.eventbus.events.InvalidIsinEventHandler;
-import org.xorrr.fundsoverview.model.FundsDatastore;
 import org.xorrr.fundsoverview.model.ModelFacadeImpl;
 import org.xorrr.fundsoverview.presenter.DashboardPresenter;
 import org.xorrr.fundsoverview.retrieval.FidelityFundDocumentAccessor;
@@ -18,8 +17,6 @@ import org.xorrr.fundsoverview.retrieval.FundValuesExtractor;
 import org.xorrr.fundsoverview.view.DashboardView;
 import org.xorrr.fundsoverview.view.DashboardViewImpl;
 
-import com.mongodb.MongoClient;
-import com.mongodb.MongoClientURI;
 import com.vaadin.annotations.Theme;
 import com.vaadin.annotations.VaadinServletConfiguration;
 import com.vaadin.navigator.Navigator;
@@ -42,8 +39,14 @@ public class MainUI extends UI {
         UI.getCurrent().getPage().setTitle("financegrabber");
         DashboardView view = new DashboardViewImpl();
         EventBus bus = initEventBus();
-        DashboardPresenter handler = new DashboardPresenter(view,
-                createModel(), bus);
+        DashboardPresenter handler = null;
+        try {
+            handler = new DashboardPresenter(view,
+                    createModel(), bus);
+        } catch (UnknownHostException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
 
         view.setHandler(handler);
         view.init();
@@ -60,25 +63,12 @@ public class MainUI extends UI {
         return bus;
     }
 
-    private ModelFacadeImpl createModel() {
-        return new ModelFacadeImpl(createFundsDatastore(), createFundScraper());
+    private ModelFacadeImpl createModel() throws UnknownHostException {
+        return new ModelFacadeImpl(new MongoFundsDatastore(), createFundScraper());
     }
 
     private FundScraper createFundScraper() {
         return new FundScraper(new FidelityFundDocumentAccessor(),
                 new FundValuesExtractor());
-    }
-
-    private FundsDatastore createFundsDatastore() {
-        MongoClientURI uri = new MongoClientURI(
-                System.getenv(EnvironmentVariables.MONGODB_URI));
-        FundsDatastore ds = null;
-
-        try {
-            ds = new MongoFundsDatastore(new MongoClient(uri));
-        } catch (UnknownHostException e) {
-            e.printStackTrace();
-        }
-        return ds;
     }
 }
