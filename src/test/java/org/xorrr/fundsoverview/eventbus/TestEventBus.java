@@ -6,9 +6,6 @@ import static org.mockito.Mockito.verify;
 
 import org.junit.Before;
 import org.junit.Test;
-import org.xorrr.fundsoverview.eventbus.EventBus;
-import org.xorrr.fundsoverview.eventbus.EventHandler;
-import org.xorrr.fundsoverview.eventbus.EventType;
 import org.xorrr.fundsoverview.eventbus.events.FundAlreadyAddedHandler;
 import org.xorrr.fundsoverview.eventbus.events.InvalidIsinEventHandler;
 import org.xorrr.fundsoverview.eventbus.events.WrongCredentialsHandler;

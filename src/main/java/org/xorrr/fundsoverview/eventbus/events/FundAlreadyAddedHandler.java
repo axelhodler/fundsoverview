@@ -1,23 +1,26 @@
 package org.xorrr.fundsoverview.eventbus.events;
 
-import java.util.ResourceBundle;
-
 import org.xorrr.fundsoverview.eventbus.EventHandler;
 import org.xorrr.fundsoverview.eventbus.EventType;
-import org.xorrr.fundsoverview.l18n.Localization;
+import org.xorrr.fundsoverview.eventbus.Notificator;
 import org.xorrr.fundsoverview.l18n.LocalizationStrings;
 
-import com.vaadin.server.Page;
-import com.vaadin.ui.Notification;
+import com.google.inject.Inject;
 
 public class FundAlreadyAddedHandler implements EventHandler {
 
+    private Notificator notificator;
+
+    @Inject
+    public FundAlreadyAddedHandler(Notificator notificator) {
+        this.notificator = notificator;
+    }
+
     @Override
     public void handleEvent(EventType t) {
-        ResourceBundle bundle = Localization.getMessages();
-        Notification notif = new Notification(
-                bundle.getString(LocalizationStrings.FUND_ALREADY_ADDED));
-        notif.show(Page.getCurrent());
+        notificator
+                .notifyFundAlreadyAdded
+                (LocalizationStrings.FUND_ALREADY_ADDED);
     }
 
 }

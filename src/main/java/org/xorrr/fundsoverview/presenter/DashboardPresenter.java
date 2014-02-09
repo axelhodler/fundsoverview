@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.xorrr.fundsoverview.di.Module;
 import org.xorrr.fundsoverview.eventbus.EventBus;
 import org.xorrr.fundsoverview.eventbus.EventType;
 import org.xorrr.fundsoverview.eventbus.events.FundAlreadyAddedHandler;
@@ -13,13 +14,16 @@ import org.xorrr.fundsoverview.model.ModelFacade;
 import org.xorrr.fundsoverview.retrieval.InvalidIsinException;
 import org.xorrr.fundsoverview.view.DashboardView;
 
+import com.google.inject.Guice;
 import com.google.inject.Inject;
+import com.google.inject.Injector;
 
 public class DashboardPresenter implements DashboardViewHandler {
 
     DashboardView view;
     ModelFacade model;
     EventBus bus;
+    private Injector injector;
 
     @Inject
     public DashboardPresenter(DashboardView view, ModelFacade model, EventBus bus) {
@@ -27,8 +31,9 @@ public class DashboardPresenter implements DashboardViewHandler {
         this.model = model;
         this.bus = bus;
 
+        this.injector = Guice.createInjector(new Module());
         bus.addHandler(EventType.FUND_ALREADY_ADDED,
-                new FundAlreadyAddedHandler());
+                injector.getInstance(FundAlreadyAddedHandler.class));
         bus.addHandler(EventType.INVALID_ISIN, new InvalidIsinEventHandler());
     }
 
