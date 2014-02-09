@@ -4,7 +4,6 @@ import java.net.UnknownHostException;
 
 import javax.servlet.annotation.WebServlet;
 
-import org.xorrr.fundsoverview.db.MongoFundsDatastore;
 import org.xorrr.fundsoverview.di.Module;
 import org.xorrr.fundsoverview.eventbus.EventBus;
 import org.xorrr.fundsoverview.eventbus.EventType;
@@ -12,7 +11,6 @@ import org.xorrr.fundsoverview.eventbus.events.FundAlreadyAddedHandler;
 import org.xorrr.fundsoverview.eventbus.events.InvalidIsinEventHandler;
 import org.xorrr.fundsoverview.model.ModelFacadeImpl;
 import org.xorrr.fundsoverview.presenter.DashboardPresenter;
-import org.xorrr.fundsoverview.retrieval.FundScraper;
 import org.xorrr.fundsoverview.view.DashboardView;
 import org.xorrr.fundsoverview.view.DashboardViewImpl;
 
@@ -69,10 +67,6 @@ public class MainUI extends UI {
     }
 
     private ModelFacadeImpl createModel() throws UnknownHostException {
-        return new ModelFacadeImpl(new MongoFundsDatastore(), createFundScraper());
-    }
-
-    private FundScraper createFundScraper() {
-        return injector.getInstance(FundScraper.class);
+        return injector.getInstance(ModelFacadeImpl.class);
     }
 }
