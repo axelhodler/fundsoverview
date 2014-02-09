@@ -25,6 +25,15 @@ public class TestLoginLayout {
         assertEquals(expectedComponent, component);
     }
 
+    private void loginUser() {
+        TextField username = layout.getUsernameField();
+        username.setValue(System.getenv(EnvironmentVariables.USER));
+        TextField password = layout.getPasswordField();
+        password.setValue(System.getenv(EnvironmentVariables.PASS));
+        Button loginButton = layout.getLoginButton();
+        loginButton.click();
+    }
+
     @Before
     public void setUp() {
         layout = new LoginLayout();
@@ -50,14 +59,10 @@ public class TestLoginLayout {
 
     @Test
     public void loginWorks() {
-        TextField username = layout.getUsernameField();
-        username.setValue(System.getenv(EnvironmentVariables.USER));
-        TextField password = layout.getPasswordField();
-        password.setValue(System.getenv(EnvironmentVariables.PASS));
-        Button loginButton = layout.getLoginButton();
-        loginButton.click();
+        loginUser();
 
         User user = (User) UI.getCurrent().getData();
         assertNotNull(user);
     }
+
 }
