@@ -77,4 +77,11 @@ public class TestLoginLayout {
         componentWasRemoved(layout.getUsernameField());
         componentWasRemoved(layout.getPasswordField());
     }
+
+    @Test
+    public void displayUserNameAfterLogin() {
+        loginUser();
+
+        checkComponentExistence(layout.getUserStatus());
+    }
 }

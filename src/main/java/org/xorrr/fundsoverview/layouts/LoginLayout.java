@@ -2,6 +2,7 @@ package org.xorrr.fundsoverview.layouts;
 
 import java.util.ResourceBundle;
 
+import org.xorrr.fundsoverview.EnvironmentVariables;
 import org.xorrr.fundsoverview.l18n.Localization;
 import org.xorrr.fundsoverview.l18n.LocalizationStrings;
 import org.xorrr.fundsoverview.login.User;
@@ -9,6 +10,7 @@ import org.xorrr.fundsoverview.login.UserService;
 
 import com.vaadin.ui.Button;
 import com.vaadin.ui.Button.ClickEvent;
+import com.vaadin.ui.Label;
 import com.vaadin.ui.TextField;
 import com.vaadin.ui.UI;
 import com.vaadin.ui.VerticalLayout;
@@ -19,6 +21,7 @@ public class LoginLayout extends VerticalLayout {
     private Button loginButton;
     private TextField usernameField;
     private TextField passwordField;
+    private Label userStatus;
     private ResourceBundle translation;
 
     private UserService userService;
@@ -43,6 +46,7 @@ public class LoginLayout extends VerticalLayout {
                     passwordField.getValue());
             UI.getCurrent().setData(user);
             removeAllComponents();
+            addComponent(userStatus);
         }
     };
 
@@ -62,6 +66,10 @@ public class LoginLayout extends VerticalLayout {
         return passwordField;
     }
 
+    public Label getUserStatus() {
+        return userStatus;
+    }
+
     private void setUpLocalization() {
         translation = Localization.getMessages();
     }
@@ -71,5 +79,8 @@ public class LoginLayout extends VerticalLayout {
                 translation.getString(LocalizationStrings.LOGIN_BUTTON));
         usernameField = new TextField(LocalizationStrings.USERNAME);
         passwordField = new TextField(LocalizationStrings.PASSWORD);
+        userStatus = new Label("logged in as "
+                + System.getenv(EnvironmentVariables.USER));
     }
+
 }
