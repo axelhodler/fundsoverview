@@ -2,10 +2,8 @@ package org.xorrr.fundsoverview.view;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
 import java.util.ResourceBundle;
 
-import org.xorrr.fundsoverview.EnvironmentVariables;
 import org.xorrr.fundsoverview.l18n.Localization;
 import org.xorrr.fundsoverview.l18n.LocalizationStrings;
 import org.xorrr.fundsoverview.layouts.LoginLayout;
@@ -32,10 +30,7 @@ public class DashboardViewImpl extends VerticalLayout implements DashboardView {
     private List<Button> buttons = new ArrayList<>();
 
     public void init() {
-        Localization helper = new Localization();
-        res = helper.getMessages(new Locale(System
-                .getenv(EnvironmentVariables.LANG), System
-                .getenv(EnvironmentVariables.COUNTRY)));
+        res = Localization.getMessages();
 
         initFormToAddFunds();
         initFundTable();
@@ -198,5 +193,4 @@ public class DashboardViewImpl extends VerticalLayout implements DashboardView {
             growthLabel.addStyleName("posGrowth");
         }
     }
-
 }

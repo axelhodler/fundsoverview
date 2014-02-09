@@ -1,6 +1,5 @@
 package org.xorrr.fundsoverview.events;
 
-import java.util.Locale;
 import java.util.ResourceBundle;
 
 import org.xorrr.fundsoverview.l18n.Localization;
@@ -13,9 +12,7 @@ public class FundAlreadyAddedEventHandler implements EventHandler {
 
     @Override
     public void handleEvent(EventType t) {
-        Localization helper = new Localization();
-        ResourceBundle bundle = helper.getMessages(new Locale(System
-                .getenv("LANG"), System.getenv("COUNTRY")));
+        ResourceBundle bundle = Localization.getMessages();
         Notification notif = new Notification(
                 bundle.getString(LocalizationStrings.FUND_ALREADY_ADDED));
         notif.show(Page.getCurrent());

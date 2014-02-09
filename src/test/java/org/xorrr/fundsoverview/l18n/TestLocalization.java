@@ -5,11 +5,9 @@ import static org.junit.Assert.assertNotNull;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
-import org.junit.Before;
 import org.junit.Test;
 
 public class TestLocalization {
-    private Localization l18n;
 
     private Locale createLocale(String language, String country) {
         return new Locale(language, country);
@@ -31,18 +29,13 @@ public class TestLocalization {
         assertNotNull(messages.getString(LocalizationStrings.PASSWORD));
     }
 
-    @Before
-    public void setUp() {
-        l18n = new Localization();
-    }
-
     @Test
     public void englishTranslationsExist() {
-        translationExists(l18n.getMessages(createLocale("en", "US")));
+        translationExists(Localization.getMessages(createLocale("en", "US")));
     }
 
     @Test
     public void germanTranslationsExist() {
-        translationExists(l18n.getMessages(createLocale("de", "DE")));
+        translationExists(Localization.getMessages(createLocale("de", "DE")));
     }
 }

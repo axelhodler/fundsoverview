@@ -9,7 +9,6 @@ import static org.mockito.Mockito.verify;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
 import java.util.ResourceBundle;
 
 import org.junit.Before;
@@ -39,7 +38,6 @@ public class TestDashboardViewImpl {
     String expectedFiveYearGrowth = "-125%";
     Fund fp;
     List<Fund> funds = new ArrayList<>();
-    Locale en;
     ResourceBundle res;
     Item testItem;
 
@@ -54,10 +52,8 @@ public class TestDashboardViewImpl {
         this.fp = fp;
     }
 
-    private void setUpLocale() {
-        Locale en = new Locale(System.getenv("LANG"), System.getenv("COUNTRY"));
-        Localization helper = new Localization();
-        res = helper.getMessages(en);
+    private void setL18nMessages() {
+        res = Localization.getMessages();
     }
 
     private void checkType(Object expected, String id) {
@@ -89,7 +85,7 @@ public class TestDashboardViewImpl {
         createTestFundProduct();
         funds.add(fp);
 
-        setUpLocale();
+        setL18nMessages();
     }
 
     @Test

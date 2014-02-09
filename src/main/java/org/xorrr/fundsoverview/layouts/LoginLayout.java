@@ -1,9 +1,7 @@
 package org.xorrr.fundsoverview.layouts;
 
-import java.util.Locale;
 import java.util.ResourceBundle;
 
-import org.xorrr.fundsoverview.EnvironmentVariables;
 import org.xorrr.fundsoverview.l18n.Localization;
 import org.xorrr.fundsoverview.l18n.LocalizationStrings;
 import org.xorrr.fundsoverview.login.User;
@@ -64,10 +62,7 @@ public class LoginLayout extends VerticalLayout {
     }
 
     private void setUpLocalization() {
-        Localization local = new Localization();
-        translation = local.getMessages(new Locale(System
-                .getenv(EnvironmentVariables.LANG), System
-                .getenv(EnvironmentVariables.PASS)));
+        translation = Localization.getMessages();
     }
 
     private void createComponents() {
