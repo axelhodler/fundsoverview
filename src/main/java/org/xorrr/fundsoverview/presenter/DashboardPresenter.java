@@ -26,7 +26,8 @@ public class DashboardPresenter implements DashboardViewHandler {
     private Injector injector;
 
     @Inject
-    public DashboardPresenter(DashboardView view, ModelFacade model, EventBus bus) {
+    public DashboardPresenter(DashboardView view, ModelFacade model,
+            EventBus bus) {
         this.view = view;
         this.model = model;
         this.bus = bus;
@@ -34,7 +35,8 @@ public class DashboardPresenter implements DashboardViewHandler {
         this.injector = Guice.createInjector(new Module());
         bus.addHandler(EventType.FUND_ALREADY_ADDED,
                 injector.getInstance(FundAlreadyAddedHandler.class));
-        bus.addHandler(EventType.INVALID_ISIN, new InvalidIsinEventHandler());
+        bus.addHandler(EventType.INVALID_ISIN,
+                injector.getInstance(InvalidIsinEventHandler.class));
     }
 
     @Override
@@ -76,19 +78,15 @@ public class DashboardPresenter implements DashboardViewHandler {
         return this.view;
     }
 
-    private void iterateSavedFunds(List<Fund> funds,
-            List<Fund> fundsWithInfos) {
+    private void iterateSavedFunds(List<Fund> funds, List<Fund> fundsWithInfos) {
         for (Fund fund : funds) {
             addExtractedToFunds(fundsWithInfos, fund);
         }
     }
 
-    private void addExtractedToFunds(
-            List<Fund> fundsWithInfos,
-            Fund fund) {
+    private void addExtractedToFunds(List<Fund> fundsWithInfos, Fund fund) {
         try {
-            Fund fp = model.getBasicFinancialProduct(fund
-                    .getIsin());
+            Fund fp = model.getBasicFinancialProduct(fund.getIsin());
             fundsWithInfos.add(fp);
         } catch (IOException e) {
             e.printStackTrace();

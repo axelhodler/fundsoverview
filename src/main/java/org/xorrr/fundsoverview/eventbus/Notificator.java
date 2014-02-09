@@ -17,8 +17,20 @@ public class Notificator {
         bundle = Localization.getMessages();
     }
 
-    public void notifyFundAlreadyAdded(String fundAlreadyAdded) {
-        notification.setCaption(bundle.getString(fundAlreadyAdded));
+    public void notifyFundAlreadyAdded(String translationVar) {
+        setCaptionAndDisplay(translationVar);
+    }
+
+    public void notifyInvalidIsin(String translationVar) {
+        setCaptionAndDisplay(translationVar);
+    }
+
+    public void notifyWrongCredentials(String wrongCredentials) {
+        setCaptionAndDisplay(wrongCredentials);
+    }
+
+    private void setCaptionAndDisplay(String translationVar) {
+        notification.setCaption(bundle.getString(translationVar));
         notification.show(Page.getCurrent());
     }
 }

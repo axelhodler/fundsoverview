@@ -1,23 +1,23 @@
 package org.xorrr.fundsoverview.eventbus.events;
 
-import java.util.ResourceBundle;
-
 import org.xorrr.fundsoverview.eventbus.EventHandler;
 import org.xorrr.fundsoverview.eventbus.EventType;
-import org.xorrr.fundsoverview.l18n.Localization;
+import org.xorrr.fundsoverview.eventbus.Notificator;
 import org.xorrr.fundsoverview.l18n.LocalizationStrings;
 
-import com.vaadin.server.Page;
-import com.vaadin.ui.Notification;
+import com.google.inject.Inject;
 
 public class InvalidIsinEventHandler implements EventHandler {
 
-    @Override
-    public void handleEvent(EventType t) {
-        ResourceBundle bundle = Localization.getMessages();
-        Notification notif = new Notification(
-                bundle.getString(LocalizationStrings.ISIN_INVALID));
-        notif.show(Page.getCurrent());
+    private Notificator notificator;
+
+    @Inject
+    public InvalidIsinEventHandler(Notificator notificator) {
+        this.notificator = notificator;
     }
 
+    @Override
+    public void handleEvent(EventType t) {
+        notificator.notifyInvalidIsin(LocalizationStrings.ISIN_INVALID);
+    }
 }

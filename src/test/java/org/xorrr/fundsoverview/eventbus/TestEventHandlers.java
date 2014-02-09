@@ -8,6 +8,8 @@ import static org.mockito.Mockito.verify;
 import org.junit.Before;
 import org.junit.Test;
 import org.xorrr.fundsoverview.eventbus.events.FundAlreadyAddedHandler;
+import org.xorrr.fundsoverview.eventbus.events.InvalidIsinEventHandler;
+import org.xorrr.fundsoverview.eventbus.events.WrongCredentialsHandler;
 
 public class TestEventHandlers {
 
@@ -25,5 +27,23 @@ public class TestEventHandlers {
         handler.handleEvent(EventType.FUND_ALREADY_ADDED);
 
         verify(notificator, times(1)).notifyFundAlreadyAdded(anyString());
+    }
+
+    @Test
+    public void notifiesInvalidIsin() {
+        InvalidIsinEventHandler handler = new InvalidIsinEventHandler(notificator);
+
+        handler.handleEvent(EventType.INVALID_ISIN);
+        
+        verify(notificator, times(1)).notifyInvalidIsin(anyString());
+    }
+
+    @Test
+    public void notifiesWrongCredentials() {
+        WrongCredentialsHandler handler = new WrongCredentialsHandler(notificator);
+
+        handler.handleEvent(EventType.INVALID_ISIN);
+        
+        verify(notificator, times(1)).notifyWrongCredentials(anyString());
     }
 }
