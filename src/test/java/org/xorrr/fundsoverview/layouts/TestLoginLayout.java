@@ -46,6 +46,10 @@ public class TestLoginLayout {
         loginButton.click();
     }
 
+    private void userNameIsNotDisplayed() {
+        assertEquals(-1, layout.getComponentIndex(layout.getUserStatus()));
+    }
+
     @Before
     public void setUp() {
         layout = new LoginLayout();
@@ -106,6 +110,6 @@ public class TestLoginLayout {
     public void userNameIsNotDisplayedAfterFailedLogin() {
         loginWithWrongCredentials();
 
-        assertEquals(-1, layout.getComponentIndex(layout.getUserStatus()));
+        userNameIsNotDisplayed();
     }
 }
