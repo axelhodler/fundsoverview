@@ -6,10 +6,14 @@ import java.util.List;
 
 import org.xorrr.fundsoverview.eventbus.EventBus;
 import org.xorrr.fundsoverview.eventbus.EventType;
+import org.xorrr.fundsoverview.eventbus.events.FundAlreadyAddedHandler;
+import org.xorrr.fundsoverview.eventbus.events.InvalidIsinEventHandler;
 import org.xorrr.fundsoverview.model.Fund;
 import org.xorrr.fundsoverview.model.ModelFacade;
 import org.xorrr.fundsoverview.retrieval.InvalidIsinException;
 import org.xorrr.fundsoverview.view.DashboardView;
+
+import com.google.inject.Inject;
 
 public class DashboardPresenter implements DashboardViewHandler {
 
@@ -17,10 +21,15 @@ public class DashboardPresenter implements DashboardViewHandler {
     ModelFacade model;
     EventBus bus;
 
+    @Inject
     public DashboardPresenter(DashboardView view, ModelFacade model, EventBus bus) {
         this.view = view;
         this.model = model;
         this.bus = bus;
+
+        bus.addHandler(EventType.FUND_ALREADY_ADDED,
+                new FundAlreadyAddedHandler());
+        bus.addHandler(EventType.INVALID_ISIN, new InvalidIsinEventHandler());
     }
 
     @Override
@@ -55,6 +64,11 @@ public class DashboardPresenter implements DashboardViewHandler {
     @Override
     public void deleteFund(String isin) {
         model.deleteFund(isin);
+    }
+
+    @Override
+    public DashboardView getView() {
+        return this.view;
     }
 
     private void iterateSavedFunds(List<Fund> funds,

@@ -1,18 +1,10 @@
 package org.xorrr.fundsoverview;
 
-import java.net.UnknownHostException;
-
 import javax.servlet.annotation.WebServlet;
 
 import org.xorrr.fundsoverview.di.Module;
-import org.xorrr.fundsoverview.eventbus.EventBus;
-import org.xorrr.fundsoverview.eventbus.EventType;
-import org.xorrr.fundsoverview.eventbus.events.FundAlreadyAddedHandler;
-import org.xorrr.fundsoverview.eventbus.events.InvalidIsinEventHandler;
-import org.xorrr.fundsoverview.model.ModelFacadeImpl;
 import org.xorrr.fundsoverview.presenter.DashboardPresenter;
 import org.xorrr.fundsoverview.view.DashboardView;
-import org.xorrr.fundsoverview.view.DashboardViewImpl;
 
 import com.google.inject.Guice;
 import com.google.inject.Injector;
@@ -38,31 +30,17 @@ public class MainUI extends UI {
     protected void init(VaadinRequest request) {
         this.injector = Guice.createInjector(new Module());
 
-        EventBus bus = new EventBus();
-        bus.addHandler(EventType.FUND_ALREADY_ADDED,
-                new FundAlreadyAddedHandler());
-        bus.addHandler(EventType.INVALID_ISIN, new InvalidIsinEventHandler());
-
         Navigator navigator = new Navigator(this, this);
         UI.getCurrent().getPage().setTitle("financegrabber");
-        DashboardView view = new DashboardViewImpl();
-        DashboardPresenter handler = null;
-        try {
-            handler = new DashboardPresenter(view,
-                    createModel(), bus);
-        } catch (UnknownHostException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
+        DashboardPresenter handler = injector
+                .getInstance(DashboardPresenter.class);
+
+        DashboardView view = handler.getView();
 
         view.setHandler(handler);
         view.init();
 
         navigator.addView("", view);
         navigator.navigateTo("");
-    }
-
-    private ModelFacadeImpl createModel() throws UnknownHostException {
-        return injector.getInstance(ModelFacadeImpl.class);
     }
 }
