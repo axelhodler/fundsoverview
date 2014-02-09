@@ -14,4 +14,5 @@ public class LocalizationStrings {
     public static final String LOGIN_BUTTON = "loginButton";
     public static final String USERNAME = "username";
     public static final String PASSWORD = "password";
+    public static final String WRONG_CREDENTIALS = "wrongCredentials";
 }

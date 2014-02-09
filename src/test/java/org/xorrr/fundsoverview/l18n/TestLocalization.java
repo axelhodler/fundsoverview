@@ -27,6 +27,7 @@ public class TestLocalization {
         assertNotNull(messages.getString(LocalizationStrings.LOGIN_BUTTON));
         assertNotNull(messages.getString(LocalizationStrings.USERNAME));
         assertNotNull(messages.getString(LocalizationStrings.PASSWORD));
+        assertNotNull(messages.getString(LocalizationStrings.WRONG_CREDENTIALS));
     }
 
     @Test
