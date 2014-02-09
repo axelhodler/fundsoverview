@@ -5,18 +5,19 @@ import java.net.UnknownHostException;
 import javax.servlet.annotation.WebServlet;
 
 import org.xorrr.fundsoverview.db.MongoFundsDatastore;
+import org.xorrr.fundsoverview.di.Module;
 import org.xorrr.fundsoverview.eventbus.EventBus;
 import org.xorrr.fundsoverview.eventbus.EventType;
 import org.xorrr.fundsoverview.eventbus.events.FundAlreadyAddedHandler;
 import org.xorrr.fundsoverview.eventbus.events.InvalidIsinEventHandler;
 import org.xorrr.fundsoverview.model.ModelFacadeImpl;
 import org.xorrr.fundsoverview.presenter.DashboardPresenter;
-import org.xorrr.fundsoverview.retrieval.FidelityFundDocumentAccessor;
 import org.xorrr.fundsoverview.retrieval.FundScraper;
-import org.xorrr.fundsoverview.retrieval.FundValuesExtractor;
 import org.xorrr.fundsoverview.view.DashboardView;
 import org.xorrr.fundsoverview.view.DashboardViewImpl;
 
+import com.google.inject.Guice;
+import com.google.inject.Injector;
 import com.vaadin.annotations.Theme;
 import com.vaadin.annotations.VaadinServletConfiguration;
 import com.vaadin.navigator.Navigator;
@@ -28,6 +29,8 @@ import com.vaadin.ui.UI;
 @SuppressWarnings("serial")
 public class MainUI extends UI {
 
+    private Injector injector;
+
     @WebServlet(value = "/*", asyncSupported = true)
     @VaadinServletConfiguration(productionMode = false, ui = MainUI.class, widgetset = "org.xorrr.AppWidgetSet")
     public static class Servlet extends VaadinServlet {
@@ -35,6 +38,8 @@ public class MainUI extends UI {
 
     @Override
     protected void init(VaadinRequest request) {
+        this.injector = Guice.createInjector(new Module());
+
         Navigator navigator = new Navigator(this, this);
         UI.getCurrent().getPage().setTitle("financegrabber");
         DashboardView view = new DashboardViewImpl();
@@ -68,7 +73,6 @@ public class MainUI extends UI {
     }
 
     private FundScraper createFundScraper() {
-        return new FundScraper(new FidelityFundDocumentAccessor(),
-                new FundValuesExtractor());
+        return injector.getInstance(FundScraper.class);
     }
 }
