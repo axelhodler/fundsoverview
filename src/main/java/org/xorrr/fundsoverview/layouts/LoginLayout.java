@@ -42,6 +42,7 @@ public class LoginLayout extends VerticalLayout {
             User user = userService.login(usernameField.getValue(),
                     passwordField.getValue());
             UI.getCurrent().setData(user);
+            removeAllComponents();
         }
     };
 

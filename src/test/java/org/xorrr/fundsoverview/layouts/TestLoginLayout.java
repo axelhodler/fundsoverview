@@ -34,6 +34,10 @@ public class TestLoginLayout {
         loginButton.click();
     }
 
+    private void componentWasRemoved(Component component) {
+        assertEquals(-1, layout.getComponentIndex(component));
+    }
+
     @Before
     public void setUp() {
         layout = new LoginLayout();
@@ -65,4 +69,12 @@ public class TestLoginLayout {
         assertNotNull(user);
     }
 
+    @Test
+    public void loginFormIsRemovedAfterLogin() {
+        loginUser();
+
+        componentWasRemoved(layout.getLoginButton());
+        componentWasRemoved(layout.getUsernameField());
+        componentWasRemoved(layout.getPasswordField());
+    }
 }
