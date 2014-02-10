@@ -9,7 +9,6 @@ import org.xorrr.fundsoverview.eventbus.EventType;
 import org.xorrr.fundsoverview.eventbus.events.WrongCredentialsHandler;
 import org.xorrr.fundsoverview.l18n.Localization;
 import org.xorrr.fundsoverview.l18n.LocalizationStrings;
-import org.xorrr.fundsoverview.login.User;
 import org.xorrr.fundsoverview.login.UserService;
 import org.xorrr.fundsoverview.util.SessionAttributes;
 
@@ -60,11 +59,9 @@ public class LoginLayout extends VerticalLayout {
 
         @Override
         public void buttonClick(ClickEvent event) {
-            User user = userService.login(usernameField.getValue(),
+            userService.login(usernameField.getValue(),
                     passwordField.getValue());
-            VaadinSession.getCurrent().setAttribute(SessionAttributes.USERNAME,
-                    usernameField.getValue());
-            changeLayoutIfLoginSuccessful(user);
+            changeLayoutIfLoginSuccessful();
         }
 
     };
@@ -102,8 +99,8 @@ public class LoginLayout extends VerticalLayout {
                 + System.getenv(EnvironmentVariables.USER));
     }
 
-    private void changeLayoutIfLoginSuccessful(User user) {
-        if (user != null) {
+    private void changeLayoutIfLoginSuccessful() {
+        if (VaadinSession.getCurrent().getAttribute(SessionAttributes.USERNAME) != null) {
             removeAllComponents();
             addComponent(userStatus);
         } else

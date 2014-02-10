@@ -9,6 +9,7 @@ import static org.mockito.Mockito.verify;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.stubbing.OngoingStubbing;
 import org.powermock.api.mockito.PowerMockito;
 import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
@@ -63,6 +64,18 @@ public class TestLoginLayout {
         assertEquals(-1, layout.getComponentIndex(layout.getUserStatus()));
     }
 
+    private OngoingStubbing<Object> mockLoggedIn() {
+        return PowerMockito.when(
+                VaadinSession.getCurrent().getAttribute(
+                        SessionAttributes.USERNAME)).thenReturn("user");
+    }
+
+    private OngoingStubbing<Object> mockLoginFailed() {
+        return PowerMockito.when(
+                VaadinSession.getCurrent().getAttribute(
+                        SessionAttributes.USERNAME)).thenReturn(null);
+    }
+
     @Before
     public void setUp() {
         bus = mock(EventBus.class);
@@ -74,15 +87,15 @@ public class TestLoginLayout {
         session = mock(VaadinSession.class);
         PowerMockito.mockStatic(VaadinSession.class);
         PowerMockito.when(VaadinSession.getCurrent()).thenReturn(session);
-        PowerMockito.when(
-                VaadinSession.getCurrent().getAttribute(
-                        SessionAttributes.USERNAME)).thenReturn("user");
+        
     }
+
 
     @Test
     public void loginButtonExists() {
         checkComponentExistence(layout.getLoginButton());
     }
+
 
     @Test
     public void usernameFieldExists() {
@@ -96,6 +109,7 @@ public class TestLoginLayout {
 
     @Test
     public void loginWorks() {
+        mockLoggedIn();
         loginUser();
 
         String userName = (String) session
@@ -105,6 +119,7 @@ public class TestLoginLayout {
 
     @Test
     public void loginFormIsRemovedAfterLogin() {
+        mockLoggedIn();
         loginUser();
 
         componentWasRemoved(layout.getLoginButton());
@@ -114,6 +129,7 @@ public class TestLoginLayout {
 
     @Test
     public void displayUserNameAfterLogin() {
+        mockLoggedIn();
         loginUser();
 
         checkComponentExistence(layout.getUserStatus());
@@ -121,6 +137,7 @@ public class TestLoginLayout {
 
     @Test
     public void loginFormIsNotRemovedAfterFailedLogin() {
+        mockLoginFailed();
         loginWithWrongCredentials();
 
         checkComponentExistence(layout.getPasswordField());
@@ -128,8 +145,10 @@ public class TestLoginLayout {
         checkComponentExistence(layout.getLoginButton());
     }
 
+
     @Test
     public void userNameIsNotDisplayedAfterFailedLogin() {
+        mockLoginFailed();
         loginWithWrongCredentials();
 
         userNameIsNotDisplayed();
@@ -137,6 +156,7 @@ public class TestLoginLayout {
 
     @Test
     public void notifyWhenWrongCredentials() {
+        mockLoginFailed();
         loginWithWrongCredentials();
 
         verify(bus, times(1)).fireEvent(EventType.WRONG_CREDENTIALS);

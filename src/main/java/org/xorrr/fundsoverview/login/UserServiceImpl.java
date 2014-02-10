@@ -1,15 +1,18 @@
 package org.xorrr.fundsoverview.login;
 
 import org.xorrr.fundsoverview.EnvironmentVariables;
+import org.xorrr.fundsoverview.util.SessionAttributes;
+
+import com.vaadin.server.VaadinSession;
 
 public class UserServiceImpl implements UserService {
 
     @Override
-    public User login(String username, String password) {
+    public void login(String username, String password) {
         if (isUsernameCorrect(username) && isPasswordCorrect(password))
-            return new User();
-        else 
-            return null;
+            VaadinSession.getCurrent().setAttribute(SessionAttributes.USERNAME,
+                    EnvironmentVariables.USER); // works currently because only
+                                                // one user exists!
     }
 
     private boolean isPasswordCorrect(String password) {
@@ -19,5 +22,4 @@ public class UserServiceImpl implements UserService {
     private boolean isUsernameCorrect(String username) {
         return username.equals(System.getenv("USER"));
     }
-
 }
