@@ -20,7 +20,7 @@ public class ModelFacadeImpl implements ModelFacade {
     }
 
     @Override
-    public Fund getBasicFinancialProduct(String isin) throws IOException,
+    public Fund getFund(String isin) throws IOException,
             InvalidIsinException {
         return this.scraper.getBasicFinancialProductForIsin(isin);
     }

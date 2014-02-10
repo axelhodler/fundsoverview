@@ -48,7 +48,7 @@ public class TestDashboardPresenter {
     @Test
     public void addsFundWithValidIsin() throws IOException,
             InvalidIsinException {
-        when(model.getBasicFinancialProduct(validIsin)).thenReturn(testFund);
+        when(model.getFund(validIsin)).thenReturn(testFund);
 
         presenter.addFund(testFund);
 
@@ -61,12 +61,12 @@ public class TestDashboardPresenter {
         Fund invalidFund = new Fund.Builder().isin(
                 invalidIsin).build();
 
-        when(model.getBasicFinancialProduct(invalidIsin)).thenThrow(
+        when(model.getFund(invalidIsin)).thenThrow(
                 new InvalidIsinException());
 
         presenter.addFund(invalidFund);
 
-        verify(model, times(1)).getBasicFinancialProduct(invalidIsin);
+        verify(model, times(1)).getFund(invalidIsin);
         verify(model, times(0)).addFund(testFund);
     }
 
@@ -84,7 +84,7 @@ public class TestDashboardPresenter {
         list.add(fp);
         list.add(fp2);
 
-        when(model.getBasicFinancialProduct(anyString())).thenReturn(
+        when(model.getFund(anyString())).thenReturn(
                 fpWithExtractedInfos);
         when(fp.getIsin()).thenReturn("thewkn");
         when(fp2.getIsin()).thenReturn("secondwkn");
@@ -92,10 +92,10 @@ public class TestDashboardPresenter {
 
         presenter.showFunds();
         verify(model, times(1)).getFunds();
-        verify(model).getBasicFinancialProduct(fp.getIsin());
-        verify(model).getBasicFinancialProduct(fp2.getIsin());
+        verify(model).getFund(fp.getIsin());
+        verify(model).getFund(fp2.getIsin());
 
-        verify(model, times(2)).getBasicFinancialProduct(anyString());
+        verify(model, times(2)).getFund(anyString());
         verify(view, times(1)).displayFunds(
                 anyListOf(Fund.class));
     }
@@ -128,12 +128,12 @@ public class TestDashboardPresenter {
         Fund invalidFund = new Fund.Builder().isin(
                 invalidIsin).build();
 
-        when(model.getBasicFinancialProduct(invalidIsin)).thenThrow(
+        when(model.getFund(invalidIsin)).thenThrow(
                 new InvalidIsinException());
 
         presenter.addFund(invalidFund);
 
-        verify(model, times(1)).getBasicFinancialProduct(invalidIsin);
+        verify(model, times(1)).getFund(invalidIsin);
         verify(bus, times(1)).fireEvent(EventType.INVALID_ISIN);
     }
 }

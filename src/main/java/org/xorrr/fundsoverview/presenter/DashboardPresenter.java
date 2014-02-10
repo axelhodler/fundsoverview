@@ -39,8 +39,8 @@ public class DashboardPresenter implements DashboardViewHandler {
     @Override
     public void addFund(Fund f) {
         try {
-            model.getBasicFinancialProduct(f.getIsin());
-            if (!model.checkIfIsinAlreadyAdded(f.getIsin()))
+            model.getFund(f.getIsin());
+            if (isinNotAlreadyAdded(f))
                 model.addFund(f);
             else
                 bus.fireEvent(EventType.FUND_ALREADY_ADDED);
@@ -75,6 +75,10 @@ public class DashboardPresenter implements DashboardViewHandler {
         return this.view;
     }
 
+    private boolean isinNotAlreadyAdded(Fund f) {
+        return !model.checkIfIsinAlreadyAdded(f.getIsin());
+    }
+
     private void setEventHandler(EventBus bus) {
         bus.addHandler(EventType.FUND_ALREADY_ADDED,
                 injector.getInstance(FundAlreadyAddedHandler.class));
@@ -90,8 +94,8 @@ public class DashboardPresenter implements DashboardViewHandler {
 
     private void addExtractedToFunds(List<Fund> fundsWithInfos, Fund fund) {
         try {
-            Fund fp = model.getBasicFinancialProduct(fund.getIsin());
-            fundsWithInfos.add(fp);
+            Fund f = model.getFund(fund.getIsin());
+            fundsWithInfos.add(f);
         } catch (IOException e) {
             e.printStackTrace();
         } catch (InvalidIsinException e) {

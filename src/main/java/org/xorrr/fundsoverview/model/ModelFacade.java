@@ -7,7 +7,7 @@ import org.xorrr.fundsoverview.retrieval.InvalidIsinException;
 
 public interface ModelFacade {
 
-    Fund getBasicFinancialProduct(String isin) throws IOException, InvalidIsinException;
+    Fund getFund(String isin) throws IOException, InvalidIsinException;
 
     void addFund(Fund fp);
 
