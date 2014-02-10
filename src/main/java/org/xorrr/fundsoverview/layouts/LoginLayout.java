@@ -15,6 +15,7 @@ import org.xorrr.fundsoverview.login.UserService;
 import com.google.inject.Guice;
 import com.google.inject.Inject;
 import com.google.inject.Injector;
+import com.vaadin.server.VaadinSession;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.Button.ClickEvent;
 import com.vaadin.ui.Label;
@@ -61,7 +62,8 @@ public class LoginLayout extends VerticalLayout {
         public void buttonClick(ClickEvent event) {
             User user = userService.login(usernameField.getValue(),
                     passwordField.getValue());
-            UI.getCurrent().setData(user);
+            VaadinSession.getCurrent().setAttribute("username",
+                    usernameField.getValue());
             changeLayoutIfLoginSuccessful(user);
         }
 

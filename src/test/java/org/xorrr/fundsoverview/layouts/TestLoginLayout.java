@@ -8,22 +8,27 @@ import static org.mockito.Mockito.verify;
 
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.powermock.api.mockito.PowerMockito;
+import org.powermock.core.classloader.annotations.PrepareForTest;
+import org.powermock.modules.junit4.PowerMockRunner;
 import org.xorrr.fundsoverview.EnvironmentVariables;
-import org.xorrr.fundsoverview.MainUI;
 import org.xorrr.fundsoverview.eventbus.EventBus;
 import org.xorrr.fundsoverview.eventbus.EventType;
-import org.xorrr.fundsoverview.login.User;
 import org.xorrr.fundsoverview.login.UserServiceImpl;
 
+import com.vaadin.server.VaadinSession;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.Component;
 import com.vaadin.ui.TextField;
-import com.vaadin.ui.UI;
 
+@RunWith(PowerMockRunner.class)
+@PrepareForTest({ VaadinSession.class })
 public class TestLoginLayout {
 
     private LoginLayout layout;
     private EventBus bus;
+    private VaadinSession session;
 
     private void checkComponentExistence(Component expectedComponent) {
         int index = layout.getComponentIndex(expectedComponent);
@@ -64,7 +69,12 @@ public class TestLoginLayout {
         layout = new LoginLayout(bus);
         layout.init();
         layout.setUserService(new UserServiceImpl());
-        UI.setCurrent(new MainUI());
+
+        session = mock(VaadinSession.class);
+        PowerMockito.mockStatic(VaadinSession.class);
+        PowerMockito.when(VaadinSession.getCurrent()).thenReturn(session);
+        PowerMockito.when(VaadinSession.getCurrent().getAttribute("username"))
+                .thenReturn("user");
     }
 
     @Test
@@ -86,8 +96,8 @@ public class TestLoginLayout {
     public void loginWorks() {
         loginUser();
 
-        User user = (User) UI.getCurrent().getData();
-        assertNotNull(user);
+        String userName = (String) session.getAttribute("username");
+        assertNotNull(userName);
     }
 
     @Test
