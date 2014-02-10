@@ -28,6 +28,8 @@ public class TestLocalization {
         assertNotNull(messages.getString(LocalizationStrings.USERNAME));
         assertNotNull(messages.getString(LocalizationStrings.PASSWORD));
         assertNotNull(messages.getString(LocalizationStrings.WRONG_CREDENTIALS));
+        assertNotNull(messages.getString(LocalizationStrings.LOGIN_TO_DELETE));
+        assertNotNull(messages.getString(LocalizationStrings.LOGIN_TO_ADD));
     }
 
     @Test
