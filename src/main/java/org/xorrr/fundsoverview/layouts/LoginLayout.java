@@ -11,6 +11,7 @@ import org.xorrr.fundsoverview.l18n.Localization;
 import org.xorrr.fundsoverview.l18n.LocalizationStrings;
 import org.xorrr.fundsoverview.login.User;
 import org.xorrr.fundsoverview.login.UserService;
+import org.xorrr.fundsoverview.util.SessionAttributes;
 
 import com.google.inject.Guice;
 import com.google.inject.Inject;
@@ -20,7 +21,6 @@ import com.vaadin.ui.Button;
 import com.vaadin.ui.Button.ClickEvent;
 import com.vaadin.ui.Label;
 import com.vaadin.ui.TextField;
-import com.vaadin.ui.UI;
 import com.vaadin.ui.VerticalLayout;
 
 public class LoginLayout extends VerticalLayout {
@@ -62,7 +62,7 @@ public class LoginLayout extends VerticalLayout {
         public void buttonClick(ClickEvent event) {
             User user = userService.login(usernameField.getValue(),
                     passwordField.getValue());
-            VaadinSession.getCurrent().setAttribute("username",
+            VaadinSession.getCurrent().setAttribute(SessionAttributes.USERNAME,
                     usernameField.getValue());
             changeLayoutIfLoginSuccessful(user);
         }

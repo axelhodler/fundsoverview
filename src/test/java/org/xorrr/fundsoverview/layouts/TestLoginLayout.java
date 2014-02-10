@@ -16,6 +16,7 @@ import org.xorrr.fundsoverview.EnvironmentVariables;
 import org.xorrr.fundsoverview.eventbus.EventBus;
 import org.xorrr.fundsoverview.eventbus.EventType;
 import org.xorrr.fundsoverview.login.UserServiceImpl;
+import org.xorrr.fundsoverview.util.SessionAttributes;
 
 import com.vaadin.server.VaadinSession;
 import com.vaadin.ui.Button;
@@ -73,8 +74,9 @@ public class TestLoginLayout {
         session = mock(VaadinSession.class);
         PowerMockito.mockStatic(VaadinSession.class);
         PowerMockito.when(VaadinSession.getCurrent()).thenReturn(session);
-        PowerMockito.when(VaadinSession.getCurrent().getAttribute("username"))
-                .thenReturn("user");
+        PowerMockito.when(
+                VaadinSession.getCurrent().getAttribute(
+                        SessionAttributes.USERNAME)).thenReturn("user");
     }
 
     @Test
@@ -96,7 +98,8 @@ public class TestLoginLayout {
     public void loginWorks() {
         loginUser();
 
-        String userName = (String) session.getAttribute("username");
+        String userName = (String) session
+                .getAttribute(SessionAttributes.USERNAME);
         assertNotNull(userName);
     }
 
