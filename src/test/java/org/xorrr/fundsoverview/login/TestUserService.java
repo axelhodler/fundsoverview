@@ -11,6 +11,8 @@ import org.powermock.api.mockito.PowerMockito;
 import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
 import org.xorrr.fundsoverview.EnvironmentVariables;
+import org.xorrr.fundsoverview.eventbus.EventBus;
+import org.xorrr.fundsoverview.eventbus.EventType;
 import org.xorrr.fundsoverview.util.SessionAttributes;
 
 import com.vaadin.server.VaadinSession;
@@ -21,10 +23,16 @@ public class TestUserService {
 
     private UserService service;
     private VaadinSession session;
+    private EventBus bus;
+
+    private void failLogin() {
+        service.login("wrong", "wrong");
+    }
 
     @Before
     public void setUp() {
-        service = new UserServiceImpl();
+        bus = mock(EventBus.class);
+        service = new UserServiceImpl(bus);
 
         session = mock(VaadinSession.class);
         PowerMockito.mockStatic(VaadinSession.class);
@@ -36,10 +44,17 @@ public class TestUserService {
 
     @Test
     public void loginFailsWithWrongCredentials() {
-        service.login("wrong", "wrong");
+        failLogin();
 
         verify(session, times(0)).setAttribute(SessionAttributes.USERNAME,
                 EnvironmentVariables.USER);
+    }
+
+    @Test
+    public void displayNotificationIfWrongCredentials() {
+        failLogin();
+
+        verify(bus, times(1)).fireEvent(EventType.WRONG_CREDENTIALS);
     }
 
     @Test
@@ -50,5 +65,4 @@ public class TestUserService {
         verify(session, times(1)).setAttribute(SessionAttributes.USERNAME,
                 EnvironmentVariables.USER);
     }
-
 }

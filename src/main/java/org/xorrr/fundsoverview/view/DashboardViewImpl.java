@@ -74,9 +74,9 @@ public class DashboardViewImpl extends VerticalLayout implements DashboardView {
 
     private void initLoginForm() {
         Injector injector = Guice.createInjector(new Module());
-        LoginLayout loginLayout = injector.getInstance(LoginLayout.class);
+        LoginLayout loginLayout = new LoginLayout();
         loginLayout.init();
-        loginLayout.setUserService(new UserServiceImpl());
+        loginLayout.setUserService(injector.getInstance(UserServiceImpl.class));
         addComponent(loginLayout);
     }
 

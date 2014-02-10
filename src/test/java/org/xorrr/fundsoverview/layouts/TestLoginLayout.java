@@ -3,8 +3,6 @@ package org.xorrr.fundsoverview.layouts;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -14,8 +12,7 @@ import org.powermock.api.mockito.PowerMockito;
 import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
 import org.xorrr.fundsoverview.EnvironmentVariables;
-import org.xorrr.fundsoverview.eventbus.EventBus;
-import org.xorrr.fundsoverview.eventbus.EventType;
+import org.xorrr.fundsoverview.login.UserService;
 import org.xorrr.fundsoverview.login.UserServiceImpl;
 import org.xorrr.fundsoverview.util.SessionAttributes;
 
@@ -29,7 +26,6 @@ import com.vaadin.ui.TextField;
 public class TestLoginLayout {
 
     private LoginLayout layout;
-    private EventBus bus;
     private VaadinSession session;
 
     private void checkComponentExistence(Component expectedComponent) {
@@ -78,11 +74,11 @@ public class TestLoginLayout {
 
     @Before
     public void setUp() {
-        bus = mock(EventBus.class);
+        UserService service = mock(UserServiceImpl.class);
 
-        layout = new LoginLayout(bus);
+        layout = new LoginLayout();
         layout.init();
-        layout.setUserService(new UserServiceImpl());
+        layout.setUserService(service);
 
         session = mock(VaadinSession.class);
         PowerMockito.mockStatic(VaadinSession.class);
@@ -152,13 +148,5 @@ public class TestLoginLayout {
         loginWithWrongCredentials();
 
         userNameIsNotDisplayed();
-    }
-
-    @Test
-    public void notifyWhenWrongCredentials() {
-        mockLoginFailed();
-        loginWithWrongCredentials();
-
-        verify(bus, times(1)).fireEvent(EventType.WRONG_CREDENTIALS);
     }
 }
