@@ -3,11 +3,18 @@ package org.xorrr.fundsoverview.layouts;
 import java.util.ResourceBundle;
 
 import org.xorrr.fundsoverview.EnvironmentVariables;
+import org.xorrr.fundsoverview.di.Module;
+import org.xorrr.fundsoverview.eventbus.EventBus;
+import org.xorrr.fundsoverview.eventbus.EventType;
+import org.xorrr.fundsoverview.eventbus.events.WrongCredentialsHandler;
 import org.xorrr.fundsoverview.l18n.Localization;
 import org.xorrr.fundsoverview.l18n.LocalizationStrings;
 import org.xorrr.fundsoverview.login.User;
 import org.xorrr.fundsoverview.login.UserService;
 
+import com.google.inject.Guice;
+import com.google.inject.Inject;
+import com.google.inject.Injector;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.Button.ClickEvent;
 import com.vaadin.ui.Label;
@@ -25,6 +32,16 @@ public class LoginLayout extends VerticalLayout {
     private ResourceBundle translation;
 
     private UserService userService;
+
+    private EventBus bus;
+
+    @Inject
+    public LoginLayout(EventBus bus) {
+        this.bus = bus;
+        Injector injector = Guice.createInjector(new Module());
+        bus.addHandler(EventType.WRONG_CREDENTIALS,
+                injector.getInstance(WrongCredentialsHandler.class));
+    }
 
     public void init() {
         setUpLocalization();
@@ -87,6 +104,7 @@ public class LoginLayout extends VerticalLayout {
         if (user != null) {
             removeAllComponents();
             addComponent(userStatus);
-        }
+        } else
+            bus.fireEvent(EventType.WRONG_CREDENTIALS);
     }
 }

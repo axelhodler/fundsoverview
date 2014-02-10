@@ -1,11 +1,17 @@
 package org.xorrr.fundsoverview.layouts;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
 
 import org.junit.Before;
 import org.junit.Test;
 import org.xorrr.fundsoverview.EnvironmentVariables;
 import org.xorrr.fundsoverview.MainUI;
+import org.xorrr.fundsoverview.eventbus.EventBus;
+import org.xorrr.fundsoverview.eventbus.EventType;
 import org.xorrr.fundsoverview.login.User;
 import org.xorrr.fundsoverview.login.UserServiceImpl;
 
@@ -17,6 +23,7 @@ import com.vaadin.ui.UI;
 public class TestLoginLayout {
 
     private LoginLayout layout;
+    private EventBus bus;
 
     private void checkComponentExistence(Component expectedComponent) {
         int index = layout.getComponentIndex(expectedComponent);
@@ -52,7 +59,9 @@ public class TestLoginLayout {
 
     @Before
     public void setUp() {
-        layout = new LoginLayout();
+        bus = mock(EventBus.class);
+
+        layout = new LoginLayout(bus);
         layout.init();
         layout.setUserService(new UserServiceImpl());
         UI.setCurrent(new MainUI());
@@ -111,5 +120,12 @@ public class TestLoginLayout {
         loginWithWrongCredentials();
 
         userNameIsNotDisplayed();
+    }
+
+    @Test
+    public void notifyWhenWrongCredentials() {
+        loginWithWrongCredentials();
+
+        verify(bus, times(1)).fireEvent(EventType.WRONG_CREDENTIALS);
     }
 }
