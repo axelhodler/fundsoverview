@@ -20,9 +20,9 @@ import com.google.inject.Injector;
 
 public class DashboardPresenter implements DashboardViewHandler {
 
-    DashboardView view;
-    ModelFacade model;
-    EventBus bus;
+    private DashboardView view;
+    private ModelFacade model;
+    private EventBus bus;
     private Injector injector;
 
     @Inject
@@ -33,18 +33,15 @@ public class DashboardPresenter implements DashboardViewHandler {
         this.bus = bus;
 
         this.injector = Guice.createInjector(new Module());
-        bus.addHandler(EventType.FUND_ALREADY_ADDED,
-                injector.getInstance(FundAlreadyAddedHandler.class));
-        bus.addHandler(EventType.INVALID_ISIN,
-                injector.getInstance(InvalidIsinEventHandler.class));
+        setEventHandler(bus);
     }
 
     @Override
-    public void addFund(Fund fp) {
+    public void addFund(Fund f) {
         try {
-            model.getBasicFinancialProduct(fp.getIsin());
-            if (!model.checkIfIsinAlreadyAdded(fp.getIsin()))
-                model.addFund(fp);
+            model.getBasicFinancialProduct(f.getIsin());
+            if (!model.checkIfIsinAlreadyAdded(f.getIsin()))
+                model.addFund(f);
             else
                 bus.fireEvent(EventType.FUND_ALREADY_ADDED);
         } catch (IOException e) {
@@ -76,6 +73,13 @@ public class DashboardPresenter implements DashboardViewHandler {
     @Override
     public DashboardView getView() {
         return this.view;
+    }
+
+    private void setEventHandler(EventBus bus) {
+        bus.addHandler(EventType.FUND_ALREADY_ADDED,
+                injector.getInstance(FundAlreadyAddedHandler.class));
+        bus.addHandler(EventType.INVALID_ISIN,
+                injector.getInstance(InvalidIsinEventHandler.class));
     }
 
     private void iterateSavedFunds(List<Fund> funds, List<Fund> fundsWithInfos) {
