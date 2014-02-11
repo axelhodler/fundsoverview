@@ -16,11 +16,13 @@ import org.xorrr.fundsoverview.login.UserService;
 import org.xorrr.fundsoverview.model.Fund;
 import org.xorrr.fundsoverview.model.ModelFacade;
 import org.xorrr.fundsoverview.retrieval.InvalidIsinException;
+import org.xorrr.fundsoverview.util.SessionAttributes;
 import org.xorrr.fundsoverview.view.DashboardView;
 
 import com.google.inject.Guice;
 import com.google.inject.Inject;
 import com.google.inject.Injector;
+import com.vaadin.server.VaadinSession;
 
 public class DashboardPresenter implements DashboardViewHandler {
 
@@ -82,7 +84,9 @@ public class DashboardPresenter implements DashboardViewHandler {
 
     @Override
     public void handleLogin(String username, String password) {
-        this.userService.login(username, password);
+        if (userService.login(username, password))
+            VaadinSession.getCurrent().setAttribute(SessionAttributes.USERNAME,
+                    username);
     }
 
     @Override

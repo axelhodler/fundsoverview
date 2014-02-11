@@ -14,6 +14,10 @@ import java.util.List;
 
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.powermock.api.mockito.PowerMockito;
+import org.powermock.core.classloader.annotations.PrepareForTest;
+import org.powermock.modules.junit4.PowerMockRunner;
 import org.xorrr.fundsoverview.EnvironmentVariables;
 import org.xorrr.fundsoverview.eventbus.EventBus;
 import org.xorrr.fundsoverview.eventbus.events.FundAlreadyAddedEvent;
@@ -24,8 +28,13 @@ import org.xorrr.fundsoverview.login.UserServiceImpl;
 import org.xorrr.fundsoverview.model.Fund;
 import org.xorrr.fundsoverview.model.ModelFacade;
 import org.xorrr.fundsoverview.retrieval.InvalidIsinException;
+import org.xorrr.fundsoverview.util.SessionAttributes;
 import org.xorrr.fundsoverview.view.DashboardView;
 
+import com.vaadin.server.VaadinSession;
+
+@RunWith(PowerMockRunner.class)
+@PrepareForTest({ VaadinSession.class })
 public class TestDashboardPresenter {
 
     private DashboardPresenter presenter;
@@ -37,6 +46,7 @@ public class TestDashboardPresenter {
     private String invalidIsin = "invalidIsin";
     private Fund testFund;
     private UserService service;
+    private VaadinSession session;
 
     private boolean loginWithCorrectCredentials() {
         return service.login(System.getenv(EnvironmentVariables.USER),
@@ -53,6 +63,10 @@ public class TestDashboardPresenter {
 
         service = mock(UserServiceImpl.class);
         presenter.setUserService(service);
+
+        session = mock(VaadinSession.class);
+        PowerMockito.mockStatic(VaadinSession.class);
+        PowerMockito.when(VaadinSession.getCurrent()).thenReturn(session);
 
         this.testFund = new Fund.Builder().isin(validIsin).build();
     }
@@ -156,5 +170,16 @@ public class TestDashboardPresenter {
         presenter.handleLogin(System.getenv(EnvironmentVariables.USER),
                 System.getenv(EnvironmentVariables.PASS));
         verify(service, times(1)).login(anyString(), anyString());
+    }
+
+    @Test
+    public void dealWithSession() {
+        when(loginWithCorrectCredentials()).thenReturn(true);
+
+        presenter.handleLogin(System.getenv(EnvironmentVariables.USER),
+                System.getenv(EnvironmentVariables.PASS));
+
+        verify(session, times(1)).setAttribute(SessionAttributes.USERNAME,
+                System.getenv(EnvironmentVariables.USER));
     }
 }
