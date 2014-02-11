@@ -24,10 +24,6 @@ public class LoginLayout extends VerticalLayout {
 
     private DashboardViewImpl view;
 
-    public LoginLayout(DashboardViewImpl view) {
-        this.view = view;
-    }
-
     public void init() {
         setUpLocalization();
 
@@ -87,5 +83,9 @@ public class LoginLayout extends VerticalLayout {
     public void displayUserName(String username) {
         userStatus = new Label(username);
         addComponent(userStatus);
+    }
+
+    public void setView(DashboardViewImpl view) {
+        this.view = view;
     }
 }

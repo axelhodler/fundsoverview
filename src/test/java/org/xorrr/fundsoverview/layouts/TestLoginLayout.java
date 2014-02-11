@@ -29,8 +29,9 @@ public class TestLoginLayout {
     @Before
     public void setUp() {
         view = mock(DashboardViewImpl.class);
-        layout = new LoginLayout(view);
+        layout = new LoginLayout();
         layout.init();
+        layout.setView(view);
     }
 
     @Test
