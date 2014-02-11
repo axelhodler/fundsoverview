@@ -3,6 +3,7 @@ package org.xorrr.fundsoverview;
 import javax.servlet.annotation.WebServlet;
 
 import org.xorrr.fundsoverview.di.Module;
+import org.xorrr.fundsoverview.login.UserService;
 import org.xorrr.fundsoverview.presenter.DashboardPresenter;
 import org.xorrr.fundsoverview.view.DashboardView;
 
@@ -39,6 +40,8 @@ public class MainUI extends UI {
 
         view.setHandler(handler);
         view.init();
+        view.getLoginLayout().setUserService(
+                injector.getInstance(UserService.class));
 
         navigator.addView("", view);
         navigator.navigateTo("");
