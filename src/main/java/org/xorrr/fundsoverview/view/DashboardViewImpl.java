@@ -96,6 +96,10 @@ public class DashboardViewImpl extends VerticalLayout implements DashboardView {
         handler.handleLogin(username, password);
     }
 
+    public void removeLoginForm() {
+        loginLayout.removeLoginForm();
+    }
+
     private void initLoginForm() {
         loginLayout.init();
         addComponent(loginLayout);
@@ -218,4 +222,5 @@ public class DashboardViewImpl extends VerticalLayout implements DashboardView {
             growthLabel.addStyleName("posGrowth");
         }
     }
+
 }

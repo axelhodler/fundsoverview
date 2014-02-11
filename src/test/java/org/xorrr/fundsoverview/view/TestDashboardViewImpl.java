@@ -43,6 +43,7 @@ public class TestDashboardViewImpl {
     List<Fund> funds = new ArrayList<>();
     ResourceBundle res;
     Item testItem;
+    private LoginLayout loginLayout;
 
     private void createTestFundProduct() {
         Fund fp = new Fund.Builder().isin(expectedIsin).build();
@@ -81,9 +82,9 @@ public class TestDashboardViewImpl {
 
     @Before
     public void setUp() {
-        LoginLayout layout = mock(LoginLayout.class);
+        loginLayout = mock(LoginLayout.class);
 
-        view = new DashboardViewImpl(layout);
+        view = new DashboardViewImpl(loginLayout);
         handler = mock(DashboardViewHandler.class);
         view.setHandler(handler);
         view.init();
@@ -174,5 +175,12 @@ public class TestDashboardViewImpl {
         view.handleLogin("", "");
 
         verify(handler, times(1)).handleLogin("", "");
+    }
+
+    @Test
+    public void loginFormCanBeRemoved() {
+        view.removeLoginForm();
+
+        verify(loginLayout, times(1)).removeLoginForm();
     }
 }
