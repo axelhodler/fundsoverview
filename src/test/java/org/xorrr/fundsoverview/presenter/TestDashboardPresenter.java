@@ -35,12 +35,15 @@ public class TestDashboardPresenter {
     private String validIsin = "validIsin";
     private String invalidIsin = "invalidIsin";
     private Fund testFund;
+    private UserService service;
 
     @Before
     public void setUp() {
         this.model = mock(ModelFacade.class);
         this.view = mock(DashboardView.class);
         this.bus = mock(EventBus.class);
+
+        service = mock(UserServiceImpl.class);
 
         this.testFund = new Fund.Builder().isin(validIsin).build();
 
@@ -141,9 +144,7 @@ public class TestDashboardPresenter {
     }
 
     @Test
-    public void testLogin() {
-        UserService service = mock(UserServiceImpl.class);
-
+    public void userServiceCanBeSet() {
         presenter.setUserService(service);
     }
 }
