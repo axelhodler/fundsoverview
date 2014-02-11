@@ -78,6 +78,11 @@ public class DashboardPresenter implements DashboardViewHandler {
         return this.view;
     }
 
+    @Override
+    public void handleLogin(String string, String string2) {
+        
+    }
+
     @Handler
     public void handleUserLoggedIn(LoggedInEvent loggedIn) {
         view.displayAddFundForm();
@@ -107,4 +112,5 @@ public class DashboardPresenter implements DashboardViewHandler {
             e.printStackTrace();
         }
     }
+
 }

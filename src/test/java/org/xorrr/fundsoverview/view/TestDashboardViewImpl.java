@@ -170,4 +170,10 @@ public class TestDashboardViewImpl {
         assertNotNull(view.getLoginLayout());
     }
 
+    @Test
+    public void loginIsHandledInPresenter() {
+        view.handleLogin("", "");
+
+        verify(handler, times(1)).handleLogin("", "");
+    }
 }

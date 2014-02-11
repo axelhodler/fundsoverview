@@ -13,4 +13,6 @@ public interface DashboardViewHandler {
     public void deleteFund(String isin);
 
     public DashboardView getView();
+
+    public void handleLogin(String string, String string2);
 }
