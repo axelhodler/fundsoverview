@@ -99,6 +99,14 @@ public class TestDashboardViewImpl {
     }
 
     @Test
+    public void addFundIdFieldExists() {
+        Component expectedComponent = view.getFundIdField();
+        int index = view.getComponentIndex(expectedComponent);
+        Component component = view.getComponent(index);
+        assertEquals(expectedComponent, component);
+    }
+
+    @Test
     public void testAddFundButton() throws IOException, InvalidIsinException {
         view.getAddFundBtn().click();
         verify(handler, times(1)).addFund(Mockito.any(Fund.class));
