@@ -81,8 +81,8 @@ public class DashboardPresenter implements DashboardViewHandler {
     }
 
     @Override
-    public void handleLogin(String string, String string2) {
-        
+    public void handleLogin(String username, String password) {
+        this.userService.login(username, password);
     }
 
     @Override

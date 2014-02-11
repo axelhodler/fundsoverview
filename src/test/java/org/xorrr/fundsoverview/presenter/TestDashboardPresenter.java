@@ -14,6 +14,7 @@ import java.util.List;
 
 import org.junit.Before;
 import org.junit.Test;
+import org.xorrr.fundsoverview.EnvironmentVariables;
 import org.xorrr.fundsoverview.eventbus.EventBus;
 import org.xorrr.fundsoverview.eventbus.events.FundAlreadyAddedEvent;
 import org.xorrr.fundsoverview.eventbus.events.InvalidIsinEvent;
@@ -37,17 +38,23 @@ public class TestDashboardPresenter {
     private Fund testFund;
     private UserService service;
 
+    private boolean loginWithCorrectCredentials() {
+        return service.login(System.getenv(EnvironmentVariables.USER),
+                System.getenv(EnvironmentVariables.PASS));
+    }
+
     @Before
     public void setUp() {
         this.model = mock(ModelFacade.class);
         this.view = mock(DashboardView.class);
         this.bus = mock(EventBus.class);
 
+        this.presenter = new DashboardPresenter(view, model, bus);
+
         service = mock(UserServiceImpl.class);
+        presenter.setUserService(service);
 
         this.testFund = new Fund.Builder().isin(validIsin).build();
-
-        this.presenter = new DashboardPresenter(view, model, bus);
     }
 
     @Test
@@ -144,7 +151,10 @@ public class TestDashboardPresenter {
     }
 
     @Test
-    public void userServiceCanBeSet() {
-        presenter.setUserService(service);
+    public void userCanLogin() {
+        when(loginWithCorrectCredentials()).thenReturn(true);
+        presenter.handleLogin(System.getenv(EnvironmentVariables.USER),
+                System.getenv(EnvironmentVariables.PASS));
+        verify(service, times(1)).login(anyString(), anyString());
     }
 }
