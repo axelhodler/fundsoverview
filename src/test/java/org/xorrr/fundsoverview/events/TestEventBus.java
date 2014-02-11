@@ -11,18 +11,23 @@ import org.xorrr.fundsoverview.eventbus.NotificationEventHandler;
 import org.xorrr.fundsoverview.eventbus.events.FundAlreadyAddedEvent;
 import org.xorrr.fundsoverview.eventbus.events.InvalidIsinEvent;
 import org.xorrr.fundsoverview.eventbus.events.WrongCredentialsEvent;
+import org.xorrr.fundsoverview.presenter.DashboardPresenter;
 
 public class TestEventBus {
 
     private EventBus bus;
     private NotificationEventHandler handler;
+    private DashboardPresenter presenter;
 
     @Before
     public void setUp() {
         bus = new EventBus();
 
         handler = mock(NotificationEventHandler.class);
+        presenter = mock(DashboardPresenter.class);
+
         bus.addHandler(handler);
+        bus.addHandler(presenter);
     }
 
     @Test
@@ -50,5 +55,14 @@ public class TestEventBus {
         bus.fireEvent(wrongCreds);
 
         verify(handler, times(1)).handleWrongCredentialsEvent(wrongCreds);
+    }
+
+    @Test
+    public void loggedInEventIsHandled() {
+        LoggedInEvent loggedIn = mock(LoggedInEvent.class);
+
+        bus.fireEvent(loggedIn);
+
+        verify(presenter, times(1)).handleUserLoggedIn(loggedIn);
     }
 }

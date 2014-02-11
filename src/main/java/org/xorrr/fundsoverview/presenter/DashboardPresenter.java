@@ -4,11 +4,14 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import net.engio.mbassy.listener.Handler;
+
 import org.xorrr.fundsoverview.di.Module;
 import org.xorrr.fundsoverview.eventbus.EventBus;
 import org.xorrr.fundsoverview.eventbus.NotificationEventHandler;
 import org.xorrr.fundsoverview.eventbus.events.FundAlreadyAddedEvent;
 import org.xorrr.fundsoverview.eventbus.events.InvalidIsinEvent;
+import org.xorrr.fundsoverview.events.LoggedInEvent;
 import org.xorrr.fundsoverview.model.Fund;
 import org.xorrr.fundsoverview.model.ModelFacade;
 import org.xorrr.fundsoverview.retrieval.InvalidIsinException;
@@ -73,6 +76,12 @@ public class DashboardPresenter implements DashboardViewHandler {
     @Override
     public DashboardView getView() {
         return this.view;
+    }
+
+    @Handler
+    public void handleUserLoggedIn(LoggedInEvent loggedIn) {
+        // TODO Auto-generated method stub
+        
     }
 
     private boolean isinNotAlreadyAdded(Fund f) {
