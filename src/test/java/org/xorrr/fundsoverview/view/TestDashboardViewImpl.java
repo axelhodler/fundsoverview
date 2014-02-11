@@ -1,6 +1,7 @@
 package org.xorrr.fundsoverview.view;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 import static org.mockito.Matchers.anyString;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.times;
@@ -150,4 +151,10 @@ public class TestDashboardViewImpl {
         verify(handler, times(1)).removeFundTableItems();
         verify(handler, times(2)).showFunds();
     }
+
+    @Test
+    public void loginLayoutCanBeAccessed() {
+        assertNotNull(view.getLoginLayout());
+    }
+
 }

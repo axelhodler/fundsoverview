@@ -31,6 +31,7 @@ public class DashboardViewImpl extends VerticalLayout implements DashboardView {
     private DashboardViewHandler handler;
     private ResourceBundle res;
     private List<Button> buttons = new ArrayList<>();
+    private LoginLayout loginLayout;
 
     public void init() {
         res = Localization.getMessages();
@@ -72,9 +73,14 @@ public class DashboardViewImpl extends VerticalLayout implements DashboardView {
         }
     }
 
+    @Override
+    public LoginLayout getLoginLayout() {
+        return this.loginLayout;
+    }
+
     private void initLoginForm() {
         Injector injector = Guice.createInjector(new Module());
-        LoginLayout loginLayout = new LoginLayout();
+        loginLayout = new LoginLayout();
         loginLayout.init();
         loginLayout.setUserService(injector.getInstance(UserServiceImpl.class));
         addComponent(loginLayout);
@@ -117,6 +123,7 @@ public class DashboardViewImpl extends VerticalLayout implements DashboardView {
             handler.showFunds();
         }
     };
+    
 
     private void initFormToAddFunds() {
         fundIdField = new TextField();
@@ -197,4 +204,5 @@ public class DashboardViewImpl extends VerticalLayout implements DashboardView {
             growthLabel.addStyleName("posGrowth");
         }
     }
+
 }
