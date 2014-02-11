@@ -80,8 +80,7 @@ public class DashboardPresenter implements DashboardViewHandler {
 
     @Handler
     public void handleUserLoggedIn(LoggedInEvent loggedIn) {
-        // TODO Auto-generated method stub
-        
+        view.displayAddFundForm();
     }
 
     private boolean isinNotAlreadyAdded(Fund f) {

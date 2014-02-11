@@ -17,6 +17,7 @@ import org.junit.Test;
 import org.xorrr.fundsoverview.eventbus.EventBus;
 import org.xorrr.fundsoverview.eventbus.events.FundAlreadyAddedEvent;
 import org.xorrr.fundsoverview.eventbus.events.InvalidIsinEvent;
+import org.xorrr.fundsoverview.events.LoggedInEvent;
 import org.xorrr.fundsoverview.model.Fund;
 import org.xorrr.fundsoverview.model.ModelFacade;
 import org.xorrr.fundsoverview.retrieval.InvalidIsinException;
@@ -127,5 +128,13 @@ public class TestDashboardPresenter {
 
         verify(model, times(1)).getFund(invalidIsin);
         verify(bus, times(1)).fireEvent(any(InvalidIsinEvent.class));
+    }
+
+    @Test
+    public void addFundFormIsShownWhenLoggedInEventHandled() {
+        LoggedInEvent event = mock(LoggedInEvent.class);
+        presenter.handleUserLoggedIn(event);
+
+        verify(view, times(1)).displayAddFundForm();
     }
 }
