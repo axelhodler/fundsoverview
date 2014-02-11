@@ -53,6 +53,11 @@ public class TestDashboardPresenter {
                 System.getenv(EnvironmentVariables.PASS));
     }
 
+    private void handleCorrectLogin() {
+        presenter.handleLogin(System.getenv(EnvironmentVariables.USER),
+                System.getenv(EnvironmentVariables.PASS));
+    }
+
     @Before
     public void setUp() {
         this.model = mock(ModelFacade.class);
@@ -67,6 +72,7 @@ public class TestDashboardPresenter {
         session = mock(VaadinSession.class);
         PowerMockito.mockStatic(VaadinSession.class);
         PowerMockito.when(VaadinSession.getCurrent()).thenReturn(session);
+        when(loginWithCorrectCredentials()).thenReturn(true);
 
         this.testFund = new Fund.Builder().isin(validIsin).build();
     }
@@ -166,18 +172,13 @@ public class TestDashboardPresenter {
 
     @Test
     public void userCanLogin() {
-        when(loginWithCorrectCredentials()).thenReturn(true);
-        presenter.handleLogin(System.getenv(EnvironmentVariables.USER),
-                System.getenv(EnvironmentVariables.PASS));
+        handleCorrectLogin();
         verify(service, times(1)).login(anyString(), anyString());
     }
 
     @Test
     public void dealWithSession() {
-        when(loginWithCorrectCredentials()).thenReturn(true);
-
-        presenter.handleLogin(System.getenv(EnvironmentVariables.USER),
-                System.getenv(EnvironmentVariables.PASS));
+        handleCorrectLogin();
 
         verify(session, times(1)).setAttribute(SessionAttributes.USERNAME,
                 System.getenv(EnvironmentVariables.USER));
@@ -185,10 +186,7 @@ public class TestDashboardPresenter {
 
     @Test
     public void fireLoggedInEventAfterSuccessfulLogin() {
-        when(loginWithCorrectCredentials()).thenReturn(true);
-
-        presenter.handleLogin(System.getenv(EnvironmentVariables.USER),
-                System.getenv(EnvironmentVariables.PASS));
+        handleCorrectLogin();
 
         verify(bus, times(1)).fireEvent(any(LoggedInEvent.class));
     }
