@@ -1,6 +1,8 @@
 package org.xorrr.fundsoverview.di;
 
 import org.xorrr.fundsoverview.db.MongoFundsDatastore;
+import org.xorrr.fundsoverview.login.UserService;
+import org.xorrr.fundsoverview.login.UserServiceImpl;
 import org.xorrr.fundsoverview.model.FundsDatastore;
 import org.xorrr.fundsoverview.model.ModelFacade;
 import org.xorrr.fundsoverview.model.ModelFacadeImpl;
@@ -22,5 +24,7 @@ public class Module extends AbstractModule {
         bind(ModelFacade.class).to(ModelFacadeImpl.class);
 
         bind(DashboardView.class).to(DashboardViewImpl.class);
+
+        bind(UserService.class).to(UserServiceImpl.class);
     }
 }
