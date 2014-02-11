@@ -84,6 +84,10 @@ public class TestDashboardViewImpl {
         assertEquals(expected, component);
     }
 
+    private void componentDoesNotExist(Component notExpected) {
+        assertEquals(-1, view.getComponentIndex(notExpected));
+    }
+
     @Before
     public void setUp() {
         view = new DashboardViewImpl();
@@ -98,8 +102,8 @@ public class TestDashboardViewImpl {
 
     @Test
     public void addFundFormDoesntExistWhenNotLoggedIn() {
-        assertEquals(-1, view.getComponentIndex(view.getAddFundBtn()));
-        assertEquals(-1, view.getComponentIndex(view.getFundIdField()));
+        componentDoesNotExist(view.getAddFundBtn());
+        componentDoesNotExist(view.getFundIdField());
     }
 
     @Test
