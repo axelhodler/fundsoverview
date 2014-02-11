@@ -74,8 +74,8 @@ public class TestDashboardViewImpl {
     }
 
     private Label getLabelFor(String l18nvar) {
-        return (Label) testItem.getItemProperty(
-                res.getString(l18nvar)).getValue();
+        return (Label) testItem.getItemProperty(res.getString(l18nvar))
+                .getValue();
     }
 
     private void checkComponentExistence(Component expected) {
@@ -97,17 +97,26 @@ public class TestDashboardViewImpl {
     }
 
     @Test
+    public void addFundFormDoesntExistWhenNotLoggedIn() {
+        assertEquals(-1, view.getComponentIndex(view.getAddFundBtn()));
+        assertEquals(-1, view.getComponentIndex(view.getFundIdField()));
+    }
+
+    @Test
     public void addFundButtonExists() {
+        view.displayAddFundForm();
         checkComponentExistence(view.getAddFundBtn());
     }
 
     @Test
     public void addFundIdFieldExists() {
+        view.displayAddFundForm();
         checkComponentExistence(view.getFundIdField());
     }
 
     @Test
     public void testAddFundButton() throws IOException, InvalidIsinException {
+        view.displayAddFundForm();
         view.getAddFundBtn().click();
         verify(handler, times(1)).addFund(Mockito.any(Fund.class));
         verify(handler, times(1)).removeFundTableItems();
@@ -122,10 +131,13 @@ public class TestDashboardViewImpl {
 
         checkLabelContent(expectedName, LocalizationStrings.FUND);
         checkLabelContent(expectedPrice, LocalizationStrings.PRICE);
-        checkLabelContent(expectedCurrentGrowth, LocalizationStrings.CURRENT_YEAR);
+        checkLabelContent(expectedCurrentGrowth,
+                LocalizationStrings.CURRENT_YEAR);
         checkLabelContent(expectedOneYearGrowth, LocalizationStrings.ONE_YEAR);
-        checkLabelContent(expectedThreeYearGrowth, LocalizationStrings.THREE_YEARS);
-        checkLabelContent(expectedFiveYearGrowth, LocalizationStrings.FIVE_YEARS);
+        checkLabelContent(expectedThreeYearGrowth,
+                LocalizationStrings.THREE_YEARS);
+        checkLabelContent(expectedFiveYearGrowth,
+                LocalizationStrings.FIVE_YEARS);
 
         checkType(Label.class, LocalizationStrings.FIVE_YEARS);
         checkType(Label.class, LocalizationStrings.CURRENT_YEAR);
@@ -158,7 +170,8 @@ public class TestDashboardViewImpl {
     public void testDeleteFundButton() throws IOException, InvalidIsinException {
         view.displayFunds(funds);
         setTestItem();
-        Button testButton = (Button) testItem.getItemProperty(res.getString(LocalizationStrings.DELETE)).getValue();
+        Button testButton = (Button) testItem.getItemProperty(
+                res.getString(LocalizationStrings.DELETE)).getValue();
 
         assertEquals(expectedIsin, testButton.getData());
 

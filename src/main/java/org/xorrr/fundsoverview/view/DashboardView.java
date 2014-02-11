@@ -29,4 +29,6 @@ public interface DashboardView extends View {
     public LoginLayout getLoginLayout();
 
     public TextField getFundIdField();
+
+    void displayAddFundForm();
 }

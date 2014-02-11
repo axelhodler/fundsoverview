@@ -17,7 +17,6 @@ import com.google.inject.Injector;
 import com.vaadin.navigator.ViewChangeListener.ViewChangeEvent;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.Button.ClickEvent;
-import com.vaadin.ui.Component;
 import com.vaadin.ui.Label;
 import com.vaadin.ui.Table;
 import com.vaadin.ui.TextField;
@@ -37,7 +36,6 @@ public class DashboardViewImpl extends VerticalLayout implements DashboardView {
     public void init() {
         res = Localization.getMessages();
 
-        initFormToAddFunds();
         initFundTable();
         initLoginForm();
     }
@@ -82,6 +80,11 @@ public class DashboardViewImpl extends VerticalLayout implements DashboardView {
     @Override
     public TextField getFundIdField() {
         return this.fundIdField;
+    }
+
+    @Override
+    public void displayAddFundForm() {
+        initFormToAddFunds();
     }
 
     private void initLoginForm() {
@@ -209,5 +212,6 @@ public class DashboardViewImpl extends VerticalLayout implements DashboardView {
             growthLabel.addStyleName("posGrowth");
         }
     }
+
 
 }
