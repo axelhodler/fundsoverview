@@ -78,6 +78,12 @@ public class TestDashboardViewImpl {
                 res.getString(l18nvar)).getValue();
     }
 
+    private void checkComponentExistence(Component expected) {
+        int index = view.getComponentIndex(expected);
+        Component component = view.getComponent(index);
+        assertEquals(expected, component);
+    }
+
     @Before
     public void setUp() {
         view = new DashboardViewImpl();
@@ -92,18 +98,12 @@ public class TestDashboardViewImpl {
 
     @Test
     public void addFundButtonExists() {
-        Component expectedComponent = view.getAddFundBtn();
-        int index = view.getComponentIndex(view.getAddFundBtn());
-        Component component = view.getComponent(index);
-        assertEquals(expectedComponent, component);
+        checkComponentExistence(view.getAddFundBtn());
     }
 
     @Test
     public void addFundIdFieldExists() {
-        Component expectedComponent = view.getFundIdField();
-        int index = view.getComponentIndex(expectedComponent);
-        Component component = view.getComponent(index);
-        assertEquals(expectedComponent, component);
+        checkComponentExistence(view.getFundIdField());
     }
 
     @Test
