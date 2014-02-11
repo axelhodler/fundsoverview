@@ -5,6 +5,7 @@ import org.xorrr.fundsoverview.di.Module;
 import org.xorrr.fundsoverview.eventbus.EventBus;
 import org.xorrr.fundsoverview.eventbus.NotificationEventHandler;
 import org.xorrr.fundsoverview.eventbus.events.WrongCredentialsEvent;
+import org.xorrr.fundsoverview.events.LoggedInEvent;
 import org.xorrr.fundsoverview.util.SessionAttributes;
 
 import com.google.inject.Guice;
@@ -26,10 +27,12 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void login(String username, String password) {
-        if (credentialsAreCorrect(username, password))
+        if (credentialsAreCorrect(username, password)) {
             VaadinSession.getCurrent().setAttribute(SessionAttributes.USERNAME,
                     EnvironmentVariables.USER); // works currently because only
                                                 // one user exists!
+            bus.fireEvent(new LoggedInEvent());
+        }
         else 
             bus.fireEvent(new WrongCredentialsEvent());
     }

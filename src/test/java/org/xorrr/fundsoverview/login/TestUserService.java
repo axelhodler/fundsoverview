@@ -14,6 +14,7 @@ import org.powermock.modules.junit4.PowerMockRunner;
 import org.xorrr.fundsoverview.EnvironmentVariables;
 import org.xorrr.fundsoverview.eventbus.EventBus;
 import org.xorrr.fundsoverview.eventbus.events.WrongCredentialsEvent;
+import org.xorrr.fundsoverview.events.LoggedInEvent;
 import org.xorrr.fundsoverview.util.SessionAttributes;
 
 import com.vaadin.server.VaadinSession;
@@ -65,5 +66,13 @@ public class TestUserService {
 
         verify(session, times(1)).setAttribute(SessionAttributes.USERNAME,
                 EnvironmentVariables.USER);
+    }
+
+    @Test
+    public void loginEventIsFiredWithCorrectCredentials() {
+        service.login(System.getenv(EnvironmentVariables.USER),
+                System.getenv(EnvironmentVariables.PASS));
+
+        verify(bus, times(1)).fireEvent(any(LoggedInEvent.class));
     }
 }
