@@ -15,10 +15,10 @@ import java.util.List;
 import org.junit.Before;
 import org.junit.Test;
 import org.xorrr.fundsoverview.eventbus.EventBus;
-import org.xorrr.fundsoverview.eventbus.EventType;
+import org.xorrr.fundsoverview.eventbus.events.FundAlreadyAddedEvent;
+import org.xorrr.fundsoverview.eventbus.events.InvalidIsinEvent;
 import org.xorrr.fundsoverview.model.Fund;
 import org.xorrr.fundsoverview.model.ModelFacade;
-import org.xorrr.fundsoverview.presenter.DashboardPresenter;
 import org.xorrr.fundsoverview.retrieval.InvalidIsinException;
 import org.xorrr.fundsoverview.view.DashboardView;
 
@@ -39,8 +39,7 @@ public class TestDashboardPresenter {
         this.view = mock(DashboardView.class);
         this.bus = mock(EventBus.class);
 
-        this.testFund = new Fund.Builder().isin(
-                validIsin).build();
+        this.testFund = new Fund.Builder().isin(validIsin).build();
 
         this.presenter = new DashboardPresenter(view, model, bus);
     }
@@ -58,11 +57,9 @@ public class TestDashboardPresenter {
     @Test
     public void dontAddFundWithInvalidIsin() throws IOException,
             InvalidIsinException {
-        Fund invalidFund = new Fund.Builder().isin(
-                invalidIsin).build();
+        Fund invalidFund = new Fund.Builder().isin(invalidIsin).build();
 
-        when(model.getFund(invalidIsin)).thenThrow(
-                new InvalidIsinException());
+        when(model.getFund(invalidIsin)).thenThrow(new InvalidIsinException());
 
         presenter.addFund(invalidFund);
 
@@ -76,16 +73,14 @@ public class TestDashboardPresenter {
         Fund fp = mock(Fund.class);
         Fund fp2 = mock(Fund.class);
 
-        Fund fpWithExtractedInfos = new Fund.Builder()
-                .build();
+        Fund fpWithExtractedInfos = new Fund.Builder().build();
         fpWithExtractedInfos.setName("name");
 
         List<Fund> list = new ArrayList<Fund>();
         list.add(fp);
         list.add(fp2);
 
-        when(model.getFund(anyString())).thenReturn(
-                fpWithExtractedInfos);
+        when(model.getFund(anyString())).thenReturn(fpWithExtractedInfos);
         when(fp.getIsin()).thenReturn("thewkn");
         when(fp2.getIsin()).thenReturn("secondwkn");
         when(model.getFunds()).thenReturn(list);
@@ -96,8 +91,7 @@ public class TestDashboardPresenter {
         verify(model).getFund(fp2.getIsin());
 
         verify(model, times(2)).getFund(anyString());
-        verify(view, times(1)).displayFunds(
-                anyListOf(Fund.class));
+        verify(view, times(1)).displayFunds(anyListOf(Fund.class));
     }
 
     @Test
@@ -120,20 +114,18 @@ public class TestDashboardPresenter {
         when(model.checkIfIsinAlreadyAdded(anyString())).thenReturn(true);
         presenter.addFund(testFund);
 
-        verify(bus, times(1)).fireEvent(EventType.FUND_ALREADY_ADDED);
+        verify(bus, times(1)).fireEvent(any(FundAlreadyAddedEvent.class));
     }
 
     @Test
     public void fireInvalidIsinEvent() throws IOException, InvalidIsinException {
-        Fund invalidFund = new Fund.Builder().isin(
-                invalidIsin).build();
+        Fund invalidFund = new Fund.Builder().isin(invalidIsin).build();
 
-        when(model.getFund(invalidIsin)).thenThrow(
-                new InvalidIsinException());
+        when(model.getFund(invalidIsin)).thenThrow(new InvalidIsinException());
 
         presenter.addFund(invalidFund);
 
         verify(model, times(1)).getFund(invalidIsin);
-        verify(bus, times(1)).fireEvent(EventType.INVALID_ISIN);
+        verify(bus, times(1)).fireEvent(any(InvalidIsinEvent.class));
     }
 }

@@ -1,26 +1,21 @@
 package org.xorrr.fundsoverview.eventbus;
 
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
-
-import com.google.gwt.thirdparty.guava.common.collect.Maps;
+import net.engio.mbassy.bus.MBassador;
+import net.engio.mbassy.bus.config.BusConfiguration;
 
 public class EventBus {
 
-    private final Map<EventType, List<EventHandler>> handlerMap = Maps
-            .newHashMap();
+    private MBassador<Event> bus;
 
-    public void addHandler(EventType type, EventHandler handler) {
-        if (!handlerMap.containsKey(type))
-            handlerMap.put(type, new LinkedList<EventHandler>());
-        handlerMap.get(type).add(handler);
+    public EventBus() {
+        bus = new MBassador<Event>(BusConfiguration.Default());
     }
 
-    public void fireEvent(EventType type) {
-        for (EventHandler handler : handlerMap.get(type)) {
-            handler.handleEvent(type);
-        }
+    public void addHandler(Object handler) {
+        bus.subscribe(handler);
     }
 
+    public void fireEvent(Event event) {
+        bus.publish(event);
+    }
 }

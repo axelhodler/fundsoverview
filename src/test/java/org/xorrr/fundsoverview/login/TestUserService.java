@@ -1,5 +1,6 @@
 package org.xorrr.fundsoverview.login;
 
+import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
@@ -12,7 +13,7 @@ import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
 import org.xorrr.fundsoverview.EnvironmentVariables;
 import org.xorrr.fundsoverview.eventbus.EventBus;
-import org.xorrr.fundsoverview.eventbus.EventType;
+import org.xorrr.fundsoverview.eventbus.events.WrongCredentialsEvent;
 import org.xorrr.fundsoverview.util.SessionAttributes;
 
 import com.vaadin.server.VaadinSession;
@@ -54,7 +55,7 @@ public class TestUserService {
     public void displayNotificationIfWrongCredentials() {
         failLogin();
 
-        verify(bus, times(1)).fireEvent(EventType.WRONG_CREDENTIALS);
+        verify(bus, times(1)).fireEvent(any(WrongCredentialsEvent.class));
     }
 
     @Test

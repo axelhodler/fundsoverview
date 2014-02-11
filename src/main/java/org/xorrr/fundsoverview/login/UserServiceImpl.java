@@ -3,8 +3,8 @@ package org.xorrr.fundsoverview.login;
 import org.xorrr.fundsoverview.EnvironmentVariables;
 import org.xorrr.fundsoverview.di.Module;
 import org.xorrr.fundsoverview.eventbus.EventBus;
-import org.xorrr.fundsoverview.eventbus.EventType;
-import org.xorrr.fundsoverview.eventbus.events.WrongCredentialsHandler;
+import org.xorrr.fundsoverview.eventbus.NotificationEventHandler;
+import org.xorrr.fundsoverview.eventbus.events.WrongCredentialsEvent;
 import org.xorrr.fundsoverview.util.SessionAttributes;
 
 import com.google.inject.Guice;
@@ -21,8 +21,7 @@ public class UserServiceImpl implements UserService {
     public UserServiceImpl(EventBus bus) {
         this.bus = bus;
         this.injector = Guice.createInjector(new Module());
-        bus.addHandler(EventType.WRONG_CREDENTIALS,
-                injector.getInstance(WrongCredentialsHandler.class));
+        bus.addHandler(injector.getInstance(NotificationEventHandler.class));
     }
 
     @Override
@@ -32,7 +31,7 @@ public class UserServiceImpl implements UserService {
                     EnvironmentVariables.USER); // works currently because only
                                                 // one user exists!
         else 
-            bus.fireEvent(EventType.WRONG_CREDENTIALS);
+            bus.fireEvent(new WrongCredentialsEvent());
     }
 
     private boolean credentialsAreCorrect(String username, String password) {

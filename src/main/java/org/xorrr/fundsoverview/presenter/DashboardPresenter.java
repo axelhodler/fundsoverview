@@ -6,9 +6,9 @@ import java.util.List;
 
 import org.xorrr.fundsoverview.di.Module;
 import org.xorrr.fundsoverview.eventbus.EventBus;
-import org.xorrr.fundsoverview.eventbus.EventType;
-import org.xorrr.fundsoverview.eventbus.events.FundAlreadyAddedHandler;
-import org.xorrr.fundsoverview.eventbus.events.InvalidIsinEventHandler;
+import org.xorrr.fundsoverview.eventbus.NotificationEventHandler;
+import org.xorrr.fundsoverview.eventbus.events.FundAlreadyAddedEvent;
+import org.xorrr.fundsoverview.eventbus.events.InvalidIsinEvent;
 import org.xorrr.fundsoverview.model.Fund;
 import org.xorrr.fundsoverview.model.ModelFacade;
 import org.xorrr.fundsoverview.retrieval.InvalidIsinException;
@@ -43,11 +43,11 @@ public class DashboardPresenter implements DashboardViewHandler {
             if (isinNotAlreadyAdded(f))
                 model.addFund(f);
             else
-                bus.fireEvent(EventType.FUND_ALREADY_ADDED);
+                bus.fireEvent(new FundAlreadyAddedEvent());
         } catch (IOException e) {
             e.printStackTrace();
         } catch (InvalidIsinException e) {
-            bus.fireEvent(EventType.INVALID_ISIN);
+            bus.fireEvent(new InvalidIsinEvent());
         }
     }
 
@@ -80,10 +80,7 @@ public class DashboardPresenter implements DashboardViewHandler {
     }
 
     private void setEventHandler(EventBus bus) {
-        bus.addHandler(EventType.FUND_ALREADY_ADDED,
-                injector.getInstance(FundAlreadyAddedHandler.class));
-        bus.addHandler(EventType.INVALID_ISIN,
-                injector.getInstance(InvalidIsinEventHandler.class));
+        bus.addHandler(injector.getInstance(NotificationEventHandler.class));
     }
 
     private void iterateSavedFunds(List<Fund> funds, List<Fund> fundsWithInfos) {
