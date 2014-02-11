@@ -5,11 +5,8 @@ import java.util.ResourceBundle;
 import org.xorrr.fundsoverview.EnvironmentVariables;
 import org.xorrr.fundsoverview.l18n.Localization;
 import org.xorrr.fundsoverview.l18n.LocalizationStrings;
-import org.xorrr.fundsoverview.login.UserService;
-import org.xorrr.fundsoverview.util.SessionAttributes;
+import org.xorrr.fundsoverview.view.DashboardViewImpl;
 
-import com.google.inject.Inject;
-import com.vaadin.server.VaadinSession;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.Button.ClickEvent;
 import com.vaadin.ui.Label;
@@ -25,11 +22,10 @@ public class LoginLayout extends VerticalLayout {
     private Label userStatus;
     private ResourceBundle translation;
 
-    private UserService userService;
+    private DashboardViewImpl view;
 
-    @Inject
-    public LoginLayout(UserService service) {
-        this.userService = service;
+    public LoginLayout(DashboardViewImpl view) {
+        this.view = view;
     }
 
     public void init() {
@@ -48,9 +44,7 @@ public class LoginLayout extends VerticalLayout {
 
         @Override
         public void buttonClick(ClickEvent event) {
-            userService.login(usernameField.getValue(),
-                    passwordField.getValue());
-            changeLayoutIfLoginSuccessful();
+            view.handleLogin();
         }
 
     };
@@ -84,10 +78,14 @@ public class LoginLayout extends VerticalLayout {
                 + System.getenv(EnvironmentVariables.USER));
     }
 
-    private void changeLayoutIfLoginSuccessful() {
-        if (VaadinSession.getCurrent().getAttribute(SessionAttributes.USERNAME) != null) {
-            removeAllComponents();
-            addComponent(userStatus);
-        }
+    public void removeLoginForm() {
+        removeComponent(loginButton);
+        removeComponent(usernameField);
+        removeComponent(passwordField);
+    }
+
+    public void displayUserName(String username) {
+        userStatus = new Label(username);
+        addComponent(userStatus);
     }
 }
