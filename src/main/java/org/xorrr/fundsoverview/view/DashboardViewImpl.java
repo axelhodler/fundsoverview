@@ -33,12 +33,15 @@ public class DashboardViewImpl extends VerticalLayout implements DashboardView {
         res = Localization.getMessages();
 
         initFundTable();
+
+        loginLayout = new LoginLayout();
+        loginLayout.setView(this);
         initLoginForm();
     }
 
     @Override
     public void enter(ViewChangeEvent event) {
-
+        
     }
 
     @Override
@@ -130,7 +133,6 @@ public class DashboardViewImpl extends VerticalLayout implements DashboardView {
             handler.showFunds();
         }
     };
-    
 
     private void initFormToAddFunds() {
         fundIdField = new TextField();
