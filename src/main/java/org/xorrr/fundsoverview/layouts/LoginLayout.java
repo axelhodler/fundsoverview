@@ -8,6 +8,7 @@ import org.xorrr.fundsoverview.l18n.LocalizationStrings;
 import org.xorrr.fundsoverview.login.UserService;
 import org.xorrr.fundsoverview.util.SessionAttributes;
 
+import com.google.inject.Inject;
 import com.vaadin.server.VaadinSession;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.Button.ClickEvent;
@@ -25,6 +26,11 @@ public class LoginLayout extends VerticalLayout {
     private ResourceBundle translation;
 
     private UserService userService;
+
+    @Inject
+    public LoginLayout(UserService service) {
+        this.userService = service;
+    }
 
     public void init() {
         setUpLocalization();
@@ -48,10 +54,6 @@ public class LoginLayout extends VerticalLayout {
         }
 
     };
-
-    public void setUserService(UserService userService) {
-        this.userService = userService;
-    }
 
     public Button getLoginButton() {
         return loginButton;

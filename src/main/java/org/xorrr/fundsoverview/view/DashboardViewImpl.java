@@ -4,12 +4,16 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
+import org.xorrr.fundsoverview.di.Module;
 import org.xorrr.fundsoverview.l18n.Localization;
 import org.xorrr.fundsoverview.l18n.LocalizationStrings;
 import org.xorrr.fundsoverview.layouts.LoginLayout;
+import org.xorrr.fundsoverview.login.UserService;
 import org.xorrr.fundsoverview.model.Fund;
 import org.xorrr.fundsoverview.presenter.DashboardViewHandler;
 
+import com.google.inject.Guice;
+import com.google.inject.Injector;
 import com.vaadin.navigator.ViewChangeListener.ViewChangeEvent;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.Button.ClickEvent;
@@ -75,7 +79,8 @@ public class DashboardViewImpl extends VerticalLayout implements DashboardView {
     }
 
     private void initLoginForm() {
-        loginLayout = new LoginLayout();
+        Injector injector = Guice.createInjector(new Module());
+        loginLayout = new LoginLayout(injector.getInstance(UserService.class));
         loginLayout.init();
         addComponent(loginLayout);
     }

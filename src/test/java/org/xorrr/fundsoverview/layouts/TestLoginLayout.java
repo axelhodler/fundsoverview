@@ -76,16 +76,13 @@ public class TestLoginLayout {
     public void setUp() {
         UserService service = mock(UserServiceImpl.class);
 
-        layout = new LoginLayout();
+        layout = new LoginLayout(service);
         layout.init();
-        layout.setUserService(service);
 
         session = mock(VaadinSession.class);
         PowerMockito.mockStatic(VaadinSession.class);
         PowerMockito.when(VaadinSession.getCurrent()).thenReturn(session);
-        
     }
-
 
     @Test
     public void loginButtonExists() {
