@@ -31,6 +31,11 @@ public class TestUserService {
         service.login("wrong", "wrong");
     }
 
+    private void passLogin() {
+        service.login(System.getenv(EnvironmentVariables.USER),
+                System.getenv(EnvironmentVariables.PASS));
+    }
+
     @Before
     public void setUp() {
         bus = mock(EventBus.class);
@@ -61,8 +66,7 @@ public class TestUserService {
 
     @Test
     public void loginWorksWithCorrectCredentials() {
-        service.login(System.getenv(EnvironmentVariables.USER),
-                System.getenv(EnvironmentVariables.PASS));
+        passLogin();
 
         verify(session, times(1)).setAttribute(SessionAttributes.USERNAME,
                 EnvironmentVariables.USER);
@@ -70,8 +74,7 @@ public class TestUserService {
 
     @Test
     public void loginEventIsFiredWithCorrectCredentials() {
-        service.login(System.getenv(EnvironmentVariables.USER),
-                System.getenv(EnvironmentVariables.PASS));
+        passLogin();
 
         verify(bus, times(1)).fireEvent(any(LoggedInEvent.class));
     }
