@@ -81,13 +81,12 @@ public class TestDashboardViewImpl {
 
     @Before
     public void setUp() {
-        view = new DashboardViewImpl();
+        LoginLayout layout = mock(LoginLayout.class);
+
+        view = new DashboardViewImpl(layout);
         handler = mock(DashboardViewHandler.class);
         view.setHandler(handler);
         view.init();
-
-        LoginLayout layout = mock(LoginLayout.class);
-        layout.setView(view);
 
         createTestFundProduct();
         funds.add(fp);

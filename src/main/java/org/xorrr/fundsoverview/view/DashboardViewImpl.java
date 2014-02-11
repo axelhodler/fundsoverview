@@ -10,6 +10,7 @@ import org.xorrr.fundsoverview.layouts.LoginLayout;
 import org.xorrr.fundsoverview.model.Fund;
 import org.xorrr.fundsoverview.presenter.DashboardViewHandler;
 
+import com.google.inject.Inject;
 import com.vaadin.navigator.ViewChangeListener.ViewChangeEvent;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.Button.ClickEvent;
@@ -29,12 +30,16 @@ public class DashboardViewImpl extends VerticalLayout implements DashboardView {
     private List<Button> buttons = new ArrayList<>();
     private LoginLayout loginLayout;
 
+    @Inject
+    public DashboardViewImpl(LoginLayout layout) {
+        this.loginLayout = layout;
+    }
+
     public void init() {
         res = Localization.getMessages();
 
         initFundTable();
 
-        loginLayout = new LoginLayout();
         loginLayout.setView(this);
         initLoginForm();
     }
