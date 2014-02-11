@@ -23,11 +23,12 @@ import org.xorrr.fundsoverview.retrieval.InvalidIsinException;
 
 import com.vaadin.data.Item;
 import com.vaadin.ui.Button;
+import com.vaadin.ui.Component;
 import com.vaadin.ui.Label;
 
 public class TestDashboardViewImpl {
 
-    private DashboardView view;
+    private DashboardViewImpl view;
     private DashboardViewHandler handler;
 
     String expectedIsin = "12345";
@@ -87,6 +88,14 @@ public class TestDashboardViewImpl {
         funds.add(fp);
 
         setL18nMessages();
+    }
+
+    @Test
+    public void addFundButtonExists() {
+        Component expectedComponent = view.getAddFundBtn();
+        int index = view.getComponentIndex(view.getAddFundBtn());
+        Component component = view.getComponent(index);
+        assertEquals(expectedComponent, component);
     }
 
     @Test
