@@ -1,5 +1,6 @@
 package org.xorrr.fundsoverview.presenter;
 
+import org.xorrr.fundsoverview.login.UserService;
 import org.xorrr.fundsoverview.model.Fund;
 import org.xorrr.fundsoverview.view.DashboardView;
 
@@ -15,4 +16,6 @@ public interface DashboardViewHandler {
     public DashboardView getView();
 
     public void handleLogin(String string, String string2);
+
+    void setUserService(UserService service);
 }

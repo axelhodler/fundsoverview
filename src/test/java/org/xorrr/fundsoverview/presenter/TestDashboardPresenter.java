@@ -18,6 +18,8 @@ import org.xorrr.fundsoverview.eventbus.EventBus;
 import org.xorrr.fundsoverview.eventbus.events.FundAlreadyAddedEvent;
 import org.xorrr.fundsoverview.eventbus.events.InvalidIsinEvent;
 import org.xorrr.fundsoverview.events.LoggedInEvent;
+import org.xorrr.fundsoverview.login.UserService;
+import org.xorrr.fundsoverview.login.UserServiceImpl;
 import org.xorrr.fundsoverview.model.Fund;
 import org.xorrr.fundsoverview.model.ModelFacade;
 import org.xorrr.fundsoverview.retrieval.InvalidIsinException;
@@ -136,5 +138,12 @@ public class TestDashboardPresenter {
         presenter.handleUserLoggedIn(event);
 
         verify(view, times(1)).displayAddFundForm();
+    }
+
+    @Test
+    public void testLogin() {
+        UserService service = mock(UserServiceImpl.class);
+
+        presenter.setUserService(service);
     }
 }

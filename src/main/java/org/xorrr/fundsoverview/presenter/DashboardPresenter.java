@@ -12,6 +12,7 @@ import org.xorrr.fundsoverview.eventbus.NotificationEventHandler;
 import org.xorrr.fundsoverview.eventbus.events.FundAlreadyAddedEvent;
 import org.xorrr.fundsoverview.eventbus.events.InvalidIsinEvent;
 import org.xorrr.fundsoverview.events.LoggedInEvent;
+import org.xorrr.fundsoverview.login.UserService;
 import org.xorrr.fundsoverview.model.Fund;
 import org.xorrr.fundsoverview.model.ModelFacade;
 import org.xorrr.fundsoverview.retrieval.InvalidIsinException;
@@ -27,6 +28,7 @@ public class DashboardPresenter implements DashboardViewHandler {
     private ModelFacade model;
     private EventBus bus;
     private Injector injector;
+    private UserService userService;
 
     @Inject
     public DashboardPresenter(DashboardView view, ModelFacade model,
@@ -81,6 +83,11 @@ public class DashboardPresenter implements DashboardViewHandler {
     @Override
     public void handleLogin(String string, String string2) {
         
+    }
+
+    @Override
+    public void setUserService(UserService service) {
+        this.userService = service;
     }
 
     @Handler
