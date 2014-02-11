@@ -3,6 +3,7 @@ package org.xorrr.fundsoverview;
 import javax.servlet.annotation.WebServlet;
 
 import org.xorrr.fundsoverview.di.Module;
+import org.xorrr.fundsoverview.login.UserServiceImpl;
 import org.xorrr.fundsoverview.presenter.DashboardPresenter;
 import org.xorrr.fundsoverview.view.DashboardView;
 
@@ -34,6 +35,7 @@ public class MainUI extends UI {
         UI.getCurrent().getPage().setTitle("financegrabber");
         DashboardPresenter handler = injector
                 .getInstance(DashboardPresenter.class);
+        handler.setUserService(new UserServiceImpl());
 
         DashboardView view = handler.getView();
 
