@@ -84,9 +84,11 @@ public class DashboardPresenter implements DashboardViewHandler {
 
     @Override
     public void handleLogin(String username, String password) {
-        if (userService.login(username, password))
+        if (userService.login(username, password)) {
             VaadinSession.getCurrent().setAttribute(SessionAttributes.USERNAME,
                     username);
+            bus.fireEvent(new LoggedInEvent());
+        }
     }
 
     @Override

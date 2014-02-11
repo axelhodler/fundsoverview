@@ -182,4 +182,14 @@ public class TestDashboardPresenter {
         verify(session, times(1)).setAttribute(SessionAttributes.USERNAME,
                 System.getenv(EnvironmentVariables.USER));
     }
+
+    @Test
+    public void fireLoggedInEventAfterSuccessfulLogin() {
+        when(loginWithCorrectCredentials()).thenReturn(true);
+
+        presenter.handleLogin(System.getenv(EnvironmentVariables.USER),
+                System.getenv(EnvironmentVariables.PASS));
+
+        verify(bus, times(1)).fireEvent(any(LoggedInEvent.class));
+    }
 }
