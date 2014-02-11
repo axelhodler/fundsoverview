@@ -50,9 +50,11 @@ public class TestLoginLayout {
 
     @Test
     public void handleLoginButton() {
+        layout.getUsernameField().setValue("");
+        layout.getPasswordField().setValue("");
         layout.getLoginButton().click();
 
-        verify(view, times(1)).handleLogin();
+        verify(view, times(1)).handleLogin("", "");
     }
 
     @Test

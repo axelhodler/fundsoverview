@@ -84,7 +84,7 @@ public class DashboardViewImpl extends VerticalLayout implements DashboardView {
     }
 
     @Override
-    public void handleLogin() {
+    public void handleLogin(String username, String password) {
         
     }
 

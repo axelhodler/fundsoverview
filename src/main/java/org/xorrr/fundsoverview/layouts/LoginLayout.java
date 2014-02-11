@@ -44,7 +44,7 @@ public class LoginLayout extends VerticalLayout {
 
         @Override
         public void buttonClick(ClickEvent event) {
-            view.handleLogin();
+            view.handleLogin(usernameField.getValue(), passwordField.getValue());
         }
 
     };
