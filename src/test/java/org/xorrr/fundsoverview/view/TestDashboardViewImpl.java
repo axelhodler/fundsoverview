@@ -183,4 +183,28 @@ public class TestDashboardViewImpl {
 
         verify(loginLayout, times(1)).removeLoginForm();
     }
+
+    @Test
+    public void fundsCanBeDisplayedWithDeleteButton() {
+        view.displayFundsWithDeleteButtons(funds);
+
+        setTestItem();
+
+        checkLabelContent(expectedName, LocalizationStrings.FUND);
+        checkLabelContent(expectedPrice, LocalizationStrings.PRICE);
+        checkLabelContent(expectedCurrentGrowth,
+                LocalizationStrings.CURRENT_YEAR);
+        checkLabelContent(expectedOneYearGrowth, LocalizationStrings.ONE_YEAR);
+        checkLabelContent(expectedThreeYearGrowth,
+                LocalizationStrings.THREE_YEARS);
+        checkLabelContent(expectedFiveYearGrowth,
+                LocalizationStrings.FIVE_YEARS);
+
+        checkType(Label.class, LocalizationStrings.FIVE_YEARS);
+        checkType(Label.class, LocalizationStrings.CURRENT_YEAR);
+        checkType(Label.class, LocalizationStrings.ONE_YEAR);
+        checkType(Label.class, LocalizationStrings.THREE_YEARS);
+        checkType(Label.class, LocalizationStrings.PRICE);
+        checkType(Button.class, LocalizationStrings.DELETE);
+    }
 }

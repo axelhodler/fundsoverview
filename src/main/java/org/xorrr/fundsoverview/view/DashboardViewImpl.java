@@ -103,8 +103,9 @@ public class DashboardViewImpl extends VerticalLayout implements DashboardView {
 
     @Override
     public void displayFundsWithDeleteButtons(List<Fund> funds) {
-        // TODO Auto-generated method stub
-        
+        for (int currentFund = 0; currentFund < funds.size(); currentFund++) {
+            addFundToTable(funds, currentFund);
+        }
     }
 
     private void initLoginForm() {
