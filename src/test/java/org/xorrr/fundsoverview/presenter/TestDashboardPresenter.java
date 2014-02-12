@@ -20,6 +20,7 @@ import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
 import org.xorrr.fundsoverview.EnvironmentVariables;
 import org.xorrr.fundsoverview.eventbus.EventBus;
+import org.xorrr.fundsoverview.eventbus.NotificationEventHandler;
 import org.xorrr.fundsoverview.eventbus.events.FundAlreadyAddedEvent;
 import org.xorrr.fundsoverview.eventbus.events.InvalidIsinEvent;
 import org.xorrr.fundsoverview.events.LoggedInEvent;
@@ -76,6 +77,17 @@ public class TestDashboardPresenter {
         when(loginWithCorrectCredentials()).thenReturn(true);
 
         this.testFund = new Fund.Builder().isin(validIsin).build();
+    }
+
+    @Test
+    public void notificationEventHandlerSubscribesToBus() {
+        //TODO issue concerning verification with any(Object)
+        verify(bus, times(2)).addHandler(any(NotificationEventHandler.class));
+    }
+
+    @Test
+    public void presenterSubscribesToBus() {
+        verify(bus, times(1)).addHandler(presenter);
     }
 
     @Test

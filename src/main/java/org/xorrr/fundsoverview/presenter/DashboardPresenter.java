@@ -108,6 +108,7 @@ public class DashboardPresenter implements DashboardViewHandler {
 
     private void setEventHandler(EventBus bus) {
         bus.addHandler(injector.getInstance(NotificationEventHandler.class));
+        bus.addHandler(this);
     }
 
     private void iterateSavedFunds(List<Fund> funds, List<Fund> fundsWithInfos) {
