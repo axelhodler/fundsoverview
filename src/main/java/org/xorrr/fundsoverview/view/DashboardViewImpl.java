@@ -110,6 +110,11 @@ public class DashboardViewImpl extends VerticalLayout implements DashboardView {
         }
     }
 
+    @Override
+    public void removeTableItems() {
+        
+    }
+
     private void initLoginForm() {
         loginLayout.init();
         addComponent(loginLayout);
@@ -240,6 +245,7 @@ public class DashboardViewImpl extends VerticalLayout implements DashboardView {
             growthLabel.addStyleName("posGrowth");
         }
     }
+
 
 
 }

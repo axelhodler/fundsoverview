@@ -37,4 +37,6 @@ public interface DashboardView extends View {
     void removeLoginForm();
 
     public void displayFundsWithDeleteButtons(List<Fund> funds);
+
+    public void removeTableItems();
 }

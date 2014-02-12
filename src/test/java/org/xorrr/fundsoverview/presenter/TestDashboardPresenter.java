@@ -226,4 +226,11 @@ public class TestDashboardPresenter {
         verify(view, times(1)).displayFundsWithDeleteButtons(
                 anyListOf(Fund.class));
     }
+
+    @Test
+    public void fundsTableIsRedrawnWithDeleteButtonsAfterLogin() {
+        presenter.handleUserLoggedIn(loggedInEvent);
+
+        verify(view, times(1)).removeTableItems();
+    }
 }

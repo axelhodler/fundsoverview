@@ -106,6 +106,7 @@ public class DashboardPresenter implements DashboardViewHandler {
         iterateSavedFunds(funds, fundsWithInfos);
 
         view.removeLoginForm();
+        view.removeTableItems();
         view.displayFundsWithDeleteButtons(fundsWithInfos);
         view.displayAddFundForm();
     }
