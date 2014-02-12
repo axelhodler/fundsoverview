@@ -112,7 +112,7 @@ public class DashboardViewImpl extends VerticalLayout implements DashboardView {
 
     @Override
     public void removeTableItems() {
-        
+        fundTable.removeAllItems();
     }
 
     private void initLoginForm() {

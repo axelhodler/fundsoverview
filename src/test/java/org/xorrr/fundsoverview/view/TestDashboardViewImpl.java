@@ -207,4 +207,13 @@ public class TestDashboardViewImpl {
         checkType(Label.class, LocalizationStrings.PRICE);
         checkType(Button.class, LocalizationStrings.DELETE);
     }
+
+    @Test
+    public void fundTableItemsCanBeRemoved() {
+        view.displayFunds(funds);
+
+        view.removeTableItems();
+
+        assertEquals(0, view.getFundTable().getItemIds().size());
+    }
 }
