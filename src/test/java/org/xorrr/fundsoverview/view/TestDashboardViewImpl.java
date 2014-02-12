@@ -1,7 +1,6 @@
 package org.xorrr.fundsoverview.view;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.*;
 import static org.mockito.Matchers.anyString;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.times;
@@ -126,7 +125,8 @@ public class TestDashboardViewImpl {
         checkType(Label.class, LocalizationStrings.ONE_YEAR);
         checkType(Label.class, LocalizationStrings.THREE_YEARS);
         checkType(Label.class, LocalizationStrings.PRICE);
-        checkType(Button.class, LocalizationStrings.DELETE);
+        assertNull(testItem.getItemProperty(
+                res.getString(LocalizationStrings.DELETE)).toString());
     }
 
     @Test
@@ -150,10 +150,10 @@ public class TestDashboardViewImpl {
 
     @Test
     public void testDeleteFundButton() throws IOException, InvalidIsinException {
-        view.displayFunds(funds);
+        view.displayFundsWithDeleteButtons(funds);
         setTestItem();
         Button testButton = (Button) testItem.getItemProperty(
-           res.getString(LocalizationStrings.DELETE)).getValue();
+                res.getString(LocalizationStrings.DELETE)).getValue();
 
         assertEquals(expectedIsin, testButton.getData());
 
@@ -164,7 +164,7 @@ public class TestDashboardViewImpl {
         verify(handler, times(2)).showFunds();
     }
 
-    //TODO check necessity
+    // TODO check necessity
     @Test
     public void loginLayoutCanBeAccessed() {
         assertNotNull(view.getLoginLayout());

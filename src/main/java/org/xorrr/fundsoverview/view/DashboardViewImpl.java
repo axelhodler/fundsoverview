@@ -103,6 +103,8 @@ public class DashboardViewImpl extends VerticalLayout implements DashboardView {
 
     @Override
     public void displayFundsWithDeleteButtons(List<Fund> funds) {
+        fundTable.addContainerProperty(
+                res.getString(LocalizationStrings.DELETE), Button.class, null);
         for (int currentFund = 0; currentFund < funds.size(); currentFund++) {
             addFundToTableWithDeleteButton(funds, currentFund);
         }
@@ -114,20 +116,13 @@ public class DashboardViewImpl extends VerticalLayout implements DashboardView {
     }
 
     private void addFundToTable(List<Fund> funds, int fundCounter) {
-        Button deleteButton = new Button(
-                res.getString(LocalizationStrings.DELETE));
-        deleteButton.setData(funds.get(fundCounter).getIsin());
-        deleteButton.addClickListener(deleteFundListener);
-
         fundTable.addItem(new Object[] { funds.get(fundCounter).getName(),
                 createPriceLabel(funds, fundCounter),
                 createCurrentYearGrowthLabel(funds, fundCounter),
                 createOneYearGrowthLabel(funds, fundCounter),
                 createThreeYearGrowthLabel(funds, fundCounter),
-                createFiveYearGrowthLabel(funds, fundCounter), deleteButton },
+                createFiveYearGrowthLabel(funds, fundCounter) },
                 new Integer(fundCounter));
-
-        buttons.add(deleteButton);
     }
 
     private void addFundToTableWithDeleteButton(List<Fund> funds, int fundCounter) {
@@ -203,8 +198,6 @@ public class DashboardViewImpl extends VerticalLayout implements DashboardView {
         fundTable.addContainerProperty(
                 res.getString(LocalizationStrings.FIVE_YEARS), Label.class,
                 null);
-        fundTable.addContainerProperty(
-                res.getString(LocalizationStrings.DELETE), Button.class, null);
     }
 
     private Label createFiveYearGrowthLabel(List<Fund> funds, int currentFund) {
