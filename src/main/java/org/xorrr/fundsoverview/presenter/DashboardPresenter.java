@@ -61,10 +61,7 @@ public class DashboardPresenter implements DashboardViewHandler {
 
     @Override
     public void showFunds() {
-        List<Fund> funds = model.getFunds();
-        List<Fund> fundsWithInfos = new ArrayList<>();
-
-        iterateSavedFunds(funds, fundsWithInfos);
+        List<Fund> fundsWithInfos = getDataForEachFund();
         view.displayFunds(fundsWithInfos);
     }
 
@@ -85,9 +82,8 @@ public class DashboardPresenter implements DashboardViewHandler {
 
     @Override
     public void handleLogin(String username, String password) {
-        if (userService.login(username, password)) {
-            VaadinSession.getCurrent().setAttribute(SessionAttributes.USERNAME,
-                    username);
+        if (credentialsAreCorrect(username, password)) {
+            setLoggedIn(username);
             bus.fireEvent(new LoggedInEvent());
         } else 
             bus.fireEvent(new WrongCredentialsEvent());
@@ -100,24 +96,35 @@ public class DashboardPresenter implements DashboardViewHandler {
 
     @Override
     public void showFundsWithDeleteButton() {
-        List<Fund> funds = model.getFunds();
-        List<Fund> fundsWithInfos = new ArrayList<>();
+        List<Fund> fundsWithInfos = getDataForEachFund();
 
-        iterateSavedFunds(funds, fundsWithInfos);
         view.displayFundsWithDeleteButtons(fundsWithInfos);
     }
 
     @Handler
     public void handleUserLoggedIn(LoggedInEvent loggedIn) {
-        List<Fund> funds = model.getFunds();
-        List<Fund> fundsWithInfos = new ArrayList<>();
-
-        iterateSavedFunds(funds, fundsWithInfos);
+        List<Fund> fundsWithInfos = getDataForEachFund();
 
         view.removeLoginForm();
         view.removeTableItems();
         view.displayFundsWithDeleteButtons(fundsWithInfos);
         view.displayAddFundForm();
+    }
+
+    private List<Fund> getDataForEachFund() {
+        List<Fund> funds = model.getFunds();
+        List<Fund> fundsWithInfos = new ArrayList<>();
+        extractFurtherInfosForEachFund(funds, fundsWithInfos);
+        return fundsWithInfos;
+    }
+
+    private void setLoggedIn(String username) {
+        VaadinSession.getCurrent().setAttribute(SessionAttributes.USERNAME,
+                username);
+    }
+
+    private boolean credentialsAreCorrect(String username, String password) {
+        return userService.login(username, password);
     }
 
     private boolean isinNotAlreadyAdded(Fund f) {
@@ -129,13 +136,13 @@ public class DashboardPresenter implements DashboardViewHandler {
         bus.addHandler(this);
     }
 
-    private void iterateSavedFunds(List<Fund> funds, List<Fund> fundsWithInfos) {
+    private void extractFurtherInfosForEachFund(List<Fund> funds, List<Fund> fundsWithInfos) {
         for (Fund fund : funds) {
-            addExtractedToFunds(fundsWithInfos, fund);
+            addExtractedInfosToFunds(fundsWithInfos, fund);
         }
     }
 
-    private void addExtractedToFunds(List<Fund> fundsWithInfos, Fund fund) {
+    private void addExtractedInfosToFunds(List<Fund> fundsWithInfos, Fund fund) {
         try {
             Fund f = model.getFund(fund.getIsin());
             fundsWithInfos.add(f);
