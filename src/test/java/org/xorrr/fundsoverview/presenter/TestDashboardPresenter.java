@@ -47,6 +47,7 @@ public class TestDashboardPresenter {
     private Fund testFund;
     private UserService service;
     private VaadinSession session;
+    private LoggedInEvent loggedInEvent;
 
     private boolean loginWithCorrectCredentials() {
         return service.login(System.getenv(EnvironmentVariables.USER),
@@ -164,8 +165,8 @@ public class TestDashboardPresenter {
 
     @Test
     public void addFundFormIsShownWhenLoggedInEventHandled() {
-        LoggedInEvent event = mock(LoggedInEvent.class);
-        presenter.handleUserLoggedIn(event);
+        loggedInEvent = mock(LoggedInEvent.class);
+        presenter.handleUserLoggedIn(loggedInEvent);
 
         verify(view, times(1)).displayAddFundForm();
     }
@@ -189,5 +190,12 @@ public class TestDashboardPresenter {
         handleCorrectLogin();
 
         verify(bus, times(1)).fireEvent(any(LoggedInEvent.class));
+    }
+
+    @Test
+    public void removeLoginFormAfterLoggedInEvent() {
+        presenter.handleUserLoggedIn(loggedInEvent);
+
+        verify(view, times(1)).removeLoginForm();
     }
 }

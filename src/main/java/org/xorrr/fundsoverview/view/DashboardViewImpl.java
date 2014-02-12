@@ -96,6 +96,7 @@ public class DashboardViewImpl extends VerticalLayout implements DashboardView {
         handler.handleLogin(username, password);
     }
 
+    @Override
     public void removeLoginForm() {
         loginLayout.removeLoginForm();
     }

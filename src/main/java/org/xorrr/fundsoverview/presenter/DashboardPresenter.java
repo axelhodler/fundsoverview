@@ -98,6 +98,7 @@ public class DashboardPresenter implements DashboardViewHandler {
 
     @Handler
     public void handleUserLoggedIn(LoggedInEvent loggedIn) {
+        view.removeLoginForm();
         view.displayAddFundForm();
     }
 
