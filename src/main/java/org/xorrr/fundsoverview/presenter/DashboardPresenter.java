@@ -98,6 +98,15 @@ public class DashboardPresenter implements DashboardViewHandler {
         this.userService = service;
     }
 
+    @Override
+    public void showFundsWithDeleteButton() {
+        List<Fund> funds = model.getFunds();
+        List<Fund> fundsWithInfos = new ArrayList<>();
+
+        iterateSavedFunds(funds, fundsWithInfos);
+        view.displayFundsWithDeleteButtons(fundsWithInfos);
+    }
+
     @Handler
     public void handleUserLoggedIn(LoggedInEvent loggedIn) {
         List<Fund> funds = model.getFunds();
@@ -136,5 +145,6 @@ public class DashboardPresenter implements DashboardViewHandler {
             e.printStackTrace();
         }
     }
+
 
 }

@@ -18,4 +18,6 @@ public interface DashboardViewHandler {
     public void handleLogin(String string, String string2);
 
     void setUserService(UserService service);
+
+    public void showFundsWithDeleteButton();
 }

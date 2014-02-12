@@ -31,36 +31,38 @@ public class TestDashboardViewImpl {
     private DashboardViewImpl view;
     private DashboardViewHandler handler;
 
-    String expectedIsin = "12345";
-    String expectedName = "foo";
-    String expectedPrice = "23";
-    String expectedCurrentGrowth = "25%";
-    String expectedOneYearGrowth = "-50%";
-    String expectedThreeYearGrowth = "100%";
-    String expectedFiveYearGrowth = "-125%";
-    Fund fp;
-    List<Fund> funds = new ArrayList<>();
-    ResourceBundle res;
-    Item testItem;
+    private final String EXPECTED_ISIN = "12345";
+    private final String EXPECTED_NAME = "foo";
+    private final String EXPECTED_PRICE = "23";
+    private final String EXPECTED_CURRENT_GROWTH = "25%";
+    private final String EXPECTED_ONE_YEAR_GROWTH = "-50%";
+    private final String EXPECTED_THREE_YEAR_GROWTH = "100%";
+    private final String EXPECTED_FIVE_YEAR_GROWTH = "-125%";
+
+    private Fund f;
+    private List<Fund> funds = new ArrayList<>();
+    private ResourceBundle messages;
+    private Item testItem;
     private LoginLayout loginLayout;
 
     private void createTestFundProduct() {
-        Fund fp = new Fund.Builder().isin(expectedIsin).build();
-        fp.setName(expectedName);
-        fp.setCurrentPrice(expectedPrice);
-        fp.setCurrentGrowth(expectedCurrentGrowth);
-        fp.setOneYearGrowth(expectedOneYearGrowth);
-        fp.setThreeYearGrowth(expectedThreeYearGrowth);
-        fp.setFiveYearGrowth(expectedFiveYearGrowth);
-        this.fp = fp;
+        Fund f = new Fund.Builder().isin(EXPECTED_ISIN).build();
+        f.setName(EXPECTED_NAME);
+        f.setCurrentPrice(EXPECTED_PRICE);
+        f.setCurrentGrowth(EXPECTED_CURRENT_GROWTH);
+        f.setOneYearGrowth(EXPECTED_ONE_YEAR_GROWTH);
+        f.setThreeYearGrowth(EXPECTED_THREE_YEAR_GROWTH);
+        f.setFiveYearGrowth(EXPECTED_FIVE_YEAR_GROWTH);
+
+        this.f = f;
     }
 
-    private void setL18nMessages() {
-        res = Localization.getMessages();
+    private void setLocalizationMessages() {
+        messages = Localization.getMessages();
     }
 
     private void checkType(Object expected, String id) {
-        assertEquals(expected, testItem.getItemProperty(res.getString(id))
+        assertEquals(expected, testItem.getItemProperty(messages.getString(id))
                 .getType());
     }
 
@@ -70,28 +72,58 @@ public class TestDashboardViewImpl {
 
     private void checkLabelContent(String expected, String contentVariable) {
         assertEquals(expected,
-                testItem.getItemProperty(res.getString(contentVariable))
+                testItem.getItemProperty(messages.getString(contentVariable))
                         .getValue().toString());
     }
 
     private Label getLabelFor(String l18nvar) {
-        return (Label) testItem.getItemProperty(res.getString(l18nvar))
+        return (Label) testItem.getItemProperty(messages.getString(l18nvar))
                 .getValue();
+    }
+
+    private void checkLabelContents() {
+        checkLabelContent(EXPECTED_NAME, LocalizationStrings.FUND);
+        checkLabelContent(EXPECTED_PRICE, LocalizationStrings.PRICE);
+        checkLabelContent(EXPECTED_CURRENT_GROWTH,
+                LocalizationStrings.CURRENT_YEAR);
+        checkLabelContent(EXPECTED_ONE_YEAR_GROWTH,
+                LocalizationStrings.ONE_YEAR);
+        checkLabelContent(EXPECTED_THREE_YEAR_GROWTH,
+                LocalizationStrings.THREE_YEARS);
+        checkLabelContent(EXPECTED_FIVE_YEAR_GROWTH,
+                LocalizationStrings.FIVE_YEARS);
+    }
+
+    private void checkLabelTypes() {
+        checkType(Label.class, LocalizationStrings.FIVE_YEARS);
+        checkType(Label.class, LocalizationStrings.CURRENT_YEAR);
+        checkType(Label.class, LocalizationStrings.ONE_YEAR);
+        checkType(Label.class, LocalizationStrings.THREE_YEARS);
+        checkType(Label.class, LocalizationStrings.PRICE);
+    }
+
+    private void clickDeleteFundButton() {
+        view.getDeleteFundButtons().get(0).click();
+    }
+
+    private void displayFundsWithDeleteButtonAndTestItem() {
+        view.displayFundsWithDeleteButtons(funds);
+        setTestItem();
     }
 
     @Before
     public void setUp() {
+        handler = mock(DashboardViewHandler.class);
         loginLayout = mock(LoginLayout.class);
 
         view = new DashboardViewImpl(loginLayout);
-        handler = mock(DashboardViewHandler.class);
         view.setHandler(handler);
         view.init();
 
         createTestFundProduct();
-        funds.add(fp);
+        funds.add(f);
 
-        setL18nMessages();
+        setLocalizationMessages();
     }
 
     @Ignore
@@ -110,23 +142,10 @@ public class TestDashboardViewImpl {
 
         setTestItem();
 
-        checkLabelContent(expectedName, LocalizationStrings.FUND);
-        checkLabelContent(expectedPrice, LocalizationStrings.PRICE);
-        checkLabelContent(expectedCurrentGrowth,
-                LocalizationStrings.CURRENT_YEAR);
-        checkLabelContent(expectedOneYearGrowth, LocalizationStrings.ONE_YEAR);
-        checkLabelContent(expectedThreeYearGrowth,
-                LocalizationStrings.THREE_YEARS);
-        checkLabelContent(expectedFiveYearGrowth,
-                LocalizationStrings.FIVE_YEARS);
-
-        checkType(Label.class, LocalizationStrings.FIVE_YEARS);
-        checkType(Label.class, LocalizationStrings.CURRENT_YEAR);
-        checkType(Label.class, LocalizationStrings.ONE_YEAR);
-        checkType(Label.class, LocalizationStrings.THREE_YEARS);
-        checkType(Label.class, LocalizationStrings.PRICE);
+        checkLabelContents();
+        checkLabelTypes();
         assertNull(testItem.getItemProperty(
-                res.getString(LocalizationStrings.DELETE)).toString());
+                messages.getString(LocalizationStrings.DELETE)).toString());
     }
 
     @Test
@@ -140,7 +159,6 @@ public class TestDashboardViewImpl {
         Label threeYearGrowth = getLabelFor(LocalizationStrings.THREE_YEARS);
         Label fiveYearGrowth = getLabelFor(LocalizationStrings.FIVE_YEARS);
         Label price = getLabelFor(LocalizationStrings.PRICE);
-
         assertEquals("posGrowth", threeYearGrowth.getStyleName());
         assertEquals("negGrowth", oneYearGrowth.getStyleName());
         assertEquals("posGrowth", curYearGrowth.getStyleName());
@@ -149,19 +167,41 @@ public class TestDashboardViewImpl {
     }
 
     @Test
-    public void testDeleteFundButton() throws IOException, InvalidIsinException {
-        view.displayFundsWithDeleteButtons(funds);
-        setTestItem();
+    public void deleteButtonExists() throws IOException, InvalidIsinException {
+        displayFundsWithDeleteButtonAndTestItem();
+
         Button testButton = (Button) testItem.getItemProperty(
-                res.getString(LocalizationStrings.DELETE)).getValue();
+                messages.getString(LocalizationStrings.DELETE)).getValue();
 
-        assertEquals(expectedIsin, testButton.getData());
+        assertEquals(EXPECTED_ISIN, testButton.getData());
+    }
 
-        view.getDeleteFundButtons().get(0).click();
+    @Test
+    public void deleteButtonDeletesFund() {
+        displayFundsWithDeleteButtonAndTestItem();
+
+        clickDeleteFundButton();
 
         verify(handler, times(1)).deleteFund(anyString());
+    }
+
+
+    @Test
+    public void deleteButtonClearsTheTable() {
+        displayFundsWithDeleteButtonAndTestItem();
+
+        clickDeleteFundButton();
+
         verify(handler, times(1)).removeFundTableItems();
-        verify(handler, times(2)).showFunds();
+    }
+
+    @Test
+    public void deleteButtonRefreshesFunds() {
+        displayFundsWithDeleteButtonAndTestItem();
+
+        clickDeleteFundButton();
+
+        verify(handler, times(1)).showFundsWithDeleteButton();
     }
 
     // TODO check necessity
@@ -172,9 +212,9 @@ public class TestDashboardViewImpl {
 
     @Test
     public void loginIsHandledInPresenter() {
-        view.handleLogin("", "");
+        view.handleLogin(anyString(), anyString());
 
-        verify(handler, times(1)).handleLogin("", "");
+        verify(handler, times(1)).handleLogin(anyString(), anyString());
     }
 
     @Test
@@ -186,25 +226,10 @@ public class TestDashboardViewImpl {
 
     @Test
     public void fundsCanBeDisplayedWithDeleteButton() {
-        view.displayFundsWithDeleteButtons(funds);
+        displayFundsWithDeleteButtonAndTestItem();
 
-        setTestItem();
-
-        checkLabelContent(expectedName, LocalizationStrings.FUND);
-        checkLabelContent(expectedPrice, LocalizationStrings.PRICE);
-        checkLabelContent(expectedCurrentGrowth,
-                LocalizationStrings.CURRENT_YEAR);
-        checkLabelContent(expectedOneYearGrowth, LocalizationStrings.ONE_YEAR);
-        checkLabelContent(expectedThreeYearGrowth,
-                LocalizationStrings.THREE_YEARS);
-        checkLabelContent(expectedFiveYearGrowth,
-                LocalizationStrings.FIVE_YEARS);
-
-        checkType(Label.class, LocalizationStrings.FIVE_YEARS);
-        checkType(Label.class, LocalizationStrings.CURRENT_YEAR);
-        checkType(Label.class, LocalizationStrings.ONE_YEAR);
-        checkType(Label.class, LocalizationStrings.THREE_YEARS);
-        checkType(Label.class, LocalizationStrings.PRICE);
+        checkLabelContents();
+        checkLabelTypes();
         checkType(Button.class, LocalizationStrings.DELETE);
     }
 
