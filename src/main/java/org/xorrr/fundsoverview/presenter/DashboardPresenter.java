@@ -11,6 +11,7 @@ import org.xorrr.fundsoverview.eventbus.EventBus;
 import org.xorrr.fundsoverview.eventbus.NotificationEventHandler;
 import org.xorrr.fundsoverview.eventbus.events.FundAlreadyAddedEvent;
 import org.xorrr.fundsoverview.eventbus.events.InvalidIsinEvent;
+import org.xorrr.fundsoverview.eventbus.events.WrongCredentialsEvent;
 import org.xorrr.fundsoverview.events.LoggedInEvent;
 import org.xorrr.fundsoverview.login.UserService;
 import org.xorrr.fundsoverview.model.Fund;
@@ -88,7 +89,8 @@ public class DashboardPresenter implements DashboardViewHandler {
             VaadinSession.getCurrent().setAttribute(SessionAttributes.USERNAME,
                     username);
             bus.fireEvent(new LoggedInEvent());
-        }
+        } else 
+            bus.fireEvent(new WrongCredentialsEvent());
     }
 
     @Override

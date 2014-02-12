@@ -23,6 +23,7 @@ import org.xorrr.fundsoverview.eventbus.EventBus;
 import org.xorrr.fundsoverview.eventbus.NotificationEventHandler;
 import org.xorrr.fundsoverview.eventbus.events.FundAlreadyAddedEvent;
 import org.xorrr.fundsoverview.eventbus.events.InvalidIsinEvent;
+import org.xorrr.fundsoverview.eventbus.events.WrongCredentialsEvent;
 import org.xorrr.fundsoverview.events.LoggedInEvent;
 import org.xorrr.fundsoverview.login.UserService;
 import org.xorrr.fundsoverview.login.UserServiceImpl;
@@ -209,5 +210,12 @@ public class TestDashboardPresenter {
         presenter.handleUserLoggedIn(loggedInEvent);
 
         verify(view, times(1)).removeLoginForm();
+    }
+
+    @Test
+    public void fireWrongCredentialsIfLoginFails() {
+        presenter.handleLogin("", "");
+
+        verify(bus, times(1)).fireEvent(any(WrongCredentialsEvent.class));
     }
 }
