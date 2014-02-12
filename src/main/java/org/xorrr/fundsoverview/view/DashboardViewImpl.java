@@ -101,6 +101,12 @@ public class DashboardViewImpl extends VerticalLayout implements DashboardView {
         loginLayout.removeLoginForm();
     }
 
+    @Override
+    public void displayFundsWithDeleteButtons(List<Fund> funds) {
+        // TODO Auto-generated method stub
+        
+    }
+
     private void initLoginForm() {
         loginLayout.init();
         addComponent(loginLayout);
@@ -223,5 +229,6 @@ public class DashboardViewImpl extends VerticalLayout implements DashboardView {
             growthLabel.addStyleName("posGrowth");
         }
     }
+
 
 }

@@ -35,4 +35,6 @@ public interface DashboardView extends View {
     void handleLogin(String username, String password);
 
     void removeLoginForm();
+
+    public void displayFundsWithDeleteButtons(List<Fund> funds);
 }

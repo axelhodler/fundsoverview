@@ -82,7 +82,7 @@ public class TestDashboardPresenter {
 
     @Test
     public void notificationEventHandlerSubscribesToBus() {
-        //TODO issue concerning verification with any(Object)
+        // TODO issue concerning verification with any(Object)
         verify(bus, times(2)).addHandler(any(NotificationEventHandler.class));
     }
 
@@ -217,5 +217,13 @@ public class TestDashboardPresenter {
         presenter.handleLogin("", "");
 
         verify(bus, times(1)).fireEvent(any(WrongCredentialsEvent.class));
+    }
+
+    @Test
+    public void showFundsWithDeleteButtonsAfterLoggedInEvent() {
+        presenter.handleUserLoggedIn(loggedInEvent);
+
+        verify(view, times(1)).displayFundsWithDeleteButtons(
+                anyListOf(Fund.class));
     }
 }

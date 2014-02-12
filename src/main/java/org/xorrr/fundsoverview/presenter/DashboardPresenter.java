@@ -100,7 +100,13 @@ public class DashboardPresenter implements DashboardViewHandler {
 
     @Handler
     public void handleUserLoggedIn(LoggedInEvent loggedIn) {
+        List<Fund> funds = model.getFunds();
+        List<Fund> fundsWithInfos = new ArrayList<>();
+
+        iterateSavedFunds(funds, fundsWithInfos);
+
         view.removeLoginForm();
+        view.displayFundsWithDeleteButtons(fundsWithInfos);
         view.displayAddFundForm();
     }
 
