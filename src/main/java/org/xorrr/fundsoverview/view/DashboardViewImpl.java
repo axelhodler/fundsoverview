@@ -154,7 +154,7 @@ public class DashboardViewImpl extends VerticalLayout implements DashboardView {
             handler.addFund(new Fund.Builder().isin(fundIdField.getValue())
                     .build());
             handler.removeFundTableItems();
-            handler.showFunds();
+            handler.showFundsWithDeleteButton();
         }
     };
 
