@@ -1,11 +1,13 @@
 package org.xorrr.fundsoverview.events;
 
-import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.mockito.Mock;
+import org.mockito.runners.MockitoJUnitRunner;
 import org.xorrr.fundsoverview.eventbus.EventBus;
 import org.xorrr.fundsoverview.eventbus.NotificationEventHandler;
 import org.xorrr.fundsoverview.eventbus.events.FundAlreadyAddedEvent;
@@ -13,18 +15,27 @@ import org.xorrr.fundsoverview.eventbus.events.InvalidIsinEvent;
 import org.xorrr.fundsoverview.eventbus.events.WrongCredentialsEvent;
 import org.xorrr.fundsoverview.presenter.DashboardPresenter;
 
+@RunWith(MockitoJUnitRunner.class)
 public class TestEventBus {
 
     private EventBus bus;
+
+    @Mock
     private NotificationEventHandler handler;
+    @Mock
     private DashboardPresenter presenter;
+    @Mock
+    private FundAlreadyAddedEvent alreadyAdded;
+    @Mock
+    private InvalidIsinEvent invalidIsin;
+    @Mock
+    private WrongCredentialsEvent wrongCreds;
+    @Mock
+    private LoggedInEvent loggedIn;
 
     @Before
     public void setUp() {
         bus = new EventBus();
-
-        handler = mock(NotificationEventHandler.class);
-        presenter = mock(DashboardPresenter.class);
 
         bus.addHandler(handler);
         bus.addHandler(presenter);
@@ -32,8 +43,6 @@ public class TestEventBus {
 
     @Test
     public void fundAlreadyAddedEventIsHandled() {
-        FundAlreadyAddedEvent alreadyAdded = mock(FundAlreadyAddedEvent.class);
-
         bus.fireEvent(alreadyAdded);
 
         verify(handler, times(1)).handleFundAlreadyAddedEvent(alreadyAdded);
@@ -41,8 +50,6 @@ public class TestEventBus {
 
     @Test
     public void invalidIsinEventIsHandled() {
-        InvalidIsinEvent invalidIsin = mock(InvalidIsinEvent.class);
-
         bus.fireEvent(invalidIsin);
 
         verify(handler, times(1)).handleInvalidIsinEvent(invalidIsin);
@@ -50,8 +57,6 @@ public class TestEventBus {
 
     @Test
     public void wrongCredentialsEventIsHandled() {
-        WrongCredentialsEvent wrongCreds = mock(WrongCredentialsEvent.class);
-
         bus.fireEvent(wrongCreds);
 
         verify(handler, times(1)).handleWrongCredentialsEvent(wrongCreds);
@@ -59,8 +64,6 @@ public class TestEventBus {
 
     @Test
     public void loggedInEventIsHandled() {
-        LoggedInEvent loggedIn = mock(LoggedInEvent.class);
-
         bus.fireEvent(loggedIn);
 
         verify(presenter, times(1)).handleUserLoggedIn(loggedIn);
