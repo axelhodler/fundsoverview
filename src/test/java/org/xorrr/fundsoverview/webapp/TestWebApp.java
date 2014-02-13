@@ -45,7 +45,7 @@ public class TestWebApp {
         this.client = new MongoClient(uri);
         this.col = this.client.getDB(DbProperties.DB).getCollection(
                 DbProperties.COL);
-        this.ds = new MongoFundsDatastore(this.client);
+        this.ds = new MongoFundsDatastore();
 
         java.util.logging.Logger.getLogger("com.gargoylesoftware.htmlunit")
                 .setLevel(Level.OFF);

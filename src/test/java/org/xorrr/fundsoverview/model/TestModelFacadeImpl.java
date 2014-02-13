@@ -34,7 +34,7 @@ public class TestModelFacadeImpl {
     @Test
     public void triggerGettingFundDocument() throws IOException,
             InvalidIsinException {
-        facade.getBasicFinancialProduct(anyString());
+        facade.getFund(anyString());
         verify(scraper).getBasicFinancialProductForIsin(anyString());
     }
 

@@ -2,14 +2,15 @@ package org.xorrr.fundsoverview.view;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
 import java.util.ResourceBundle;
 
 import org.xorrr.fundsoverview.l18n.Localization;
 import org.xorrr.fundsoverview.l18n.LocalizationStrings;
+import org.xorrr.fundsoverview.layouts.LoginLayout;
 import org.xorrr.fundsoverview.model.Fund;
 import org.xorrr.fundsoverview.presenter.DashboardViewHandler;
 
+import com.google.inject.Inject;
 import com.vaadin.navigator.ViewChangeListener.ViewChangeEvent;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.Button.ClickEvent;
@@ -25,21 +26,27 @@ public class DashboardViewImpl extends VerticalLayout implements DashboardView {
     private Button addFundButton;
     private Table fundTable;
     private DashboardViewHandler handler;
-    private ResourceBundle res;
+    private ResourceBundle messages;
     private List<Button> buttons = new ArrayList<>();
+    private LoginLayout loginLayout;
+
+    @Inject
+    public DashboardViewImpl(LoginLayout layout) {
+        this.loginLayout = layout;
+    }
 
     public void init() {
-        Localization helper = new Localization();
-        res = helper.getMessages(new Locale(System.getenv("LANG"), System
-                .getenv("COUNTRY")));
+        messages = Localization.getMessages();
 
-        initFormToAddFunds();
         initFundTable();
+
+        loginLayout.setView(this);
+        initLoginForm();
     }
 
     @Override
     public void enter(ViewChangeEvent event) {
-
+        
     }
 
     @Override
@@ -55,7 +62,7 @@ public class DashboardViewImpl extends VerticalLayout implements DashboardView {
     @Override
     public List<Button> getDeleteFundButtons() {
         return this.buttons;
-    }    
+    }
 
     @Override
     public Table getFundTable() {
@@ -69,8 +76,63 @@ public class DashboardViewImpl extends VerticalLayout implements DashboardView {
         }
     }
 
+    @Override
+    public LoginLayout getLoginLayout() {
+        return this.loginLayout;
+    }
+
+    @Override
+    public TextField getFundIdField() {
+        return this.fundIdField;
+    }
+
+    @Override
+    public void displayAddFundForm() {
+        initFormToAddFunds();
+    }
+
+    @Override
+    public void handleLogin(String username, String password) {
+        handler.handleLogin(username, password);
+    }
+
+    @Override
+    public void removeLoginForm() {
+        loginLayout.removeLoginForm();
+    }
+
+    @Override
+    public void displayFundsWithDeleteButtons(List<Fund> funds) {
+        fundTable.addContainerProperty(
+                messages.getString(LocalizationStrings.DELETE), Button.class, null);
+        for (int currentFund = 0; currentFund < funds.size(); currentFund++) {
+            addFundToTableWithDeleteButton(funds, currentFund);
+        }
+    }
+
+    @Override
+    public void removeTableItems() {
+        fundTable.removeAllItems();
+    }
+
+    private void initLoginForm() {
+        loginLayout.init();
+        addComponent(loginLayout);
+    }
+
     private void addFundToTable(List<Fund> funds, int fundCounter) {
-        Button deleteButton = new Button(res.getString(LocalizationStrings.DELETE));
+        fundTable.addItem(new Object[] { funds.get(fundCounter).getName(),
+                createPriceLabel(funds, fundCounter),
+                createCurrentYearGrowthLabel(funds, fundCounter),
+                createOneYearGrowthLabel(funds, fundCounter),
+                createThreeYearGrowthLabel(funds, fundCounter),
+                createFiveYearGrowthLabel(funds, fundCounter) },
+                new Integer(fundCounter));
+    }
+
+    private void addFundToTableWithDeleteButton(List<Fund> funds, int fundCounter) {
+        Button deleteButton = new Button(
+                messages.getString(LocalizationStrings.DELETE));
         deleteButton.setData(funds.get(fundCounter).getIsin());
         deleteButton.addClickListener(deleteFundListener);
 
@@ -79,9 +141,8 @@ public class DashboardViewImpl extends VerticalLayout implements DashboardView {
                 createCurrentYearGrowthLabel(funds, fundCounter),
                 createOneYearGrowthLabel(funds, fundCounter),
                 createThreeYearGrowthLabel(funds, fundCounter),
-                createFiveYearGrowthLabel(funds, fundCounter),
-                deleteButton}, new Integer(
-                fundCounter));
+                createFiveYearGrowthLabel(funds, fundCounter), deleteButton },
+                new Integer(fundCounter));
 
         buttons.add(deleteButton);
     }
@@ -90,10 +151,10 @@ public class DashboardViewImpl extends VerticalLayout implements DashboardView {
 
         @Override
         public void buttonClick(ClickEvent event) {
-            handler.addFund(new Fund.Builder().isin(
-                    fundIdField.getValue()).build());
+            handler.addFund(new Fund.Builder().isin(fundIdField.getValue())
+                    .build());
             handler.removeFundTableItems();
-            handler.showFunds();
+            handler.showFundsWithDeleteButton();
         }
     };
 
@@ -103,7 +164,7 @@ public class DashboardViewImpl extends VerticalLayout implements DashboardView {
         public void buttonClick(ClickEvent event) {
             handler.deleteFund(event.getButton().getData().toString());
             handler.removeFundTableItems();
-            handler.showFunds();
+            handler.showFundsWithDeleteButton();
         }
     };
 
@@ -111,7 +172,7 @@ public class DashboardViewImpl extends VerticalLayout implements DashboardView {
         fundIdField = new TextField();
         fundIdField.setId("add_fund_id_field");
 
-        addFundButton = new Button(res.getString(LocalizationStrings.ADD_FUND));
+        addFundButton = new Button(messages.getString(LocalizationStrings.ADD_FUND));
         addFundButton.setId("add_fund_button");
         addFundButton.addClickListener(addFundListener);
 
@@ -127,32 +188,31 @@ public class DashboardViewImpl extends VerticalLayout implements DashboardView {
 
     private void createFundTable() {
         fundTable = new Table("Funds");
-        fundTable.addContainerProperty(res.getString(LocalizationStrings.FUND),
+        fundTable.addContainerProperty(messages.getString(LocalizationStrings.FUND),
                 String.class, null);
-        fundTable.addContainerProperty(res.getString(LocalizationStrings.PRICE),
-                Label.class, null);
         fundTable.addContainerProperty(
-                res.getString(LocalizationStrings.CURRENT_YEAR), Label.class, null);
-        fundTable.addContainerProperty(res.getString(LocalizationStrings.ONE_YEAR),
-                Label.class, null);
+                messages.getString(LocalizationStrings.PRICE), Label.class, null);
         fundTable.addContainerProperty(
-                res.getString(LocalizationStrings.THREE_YEARS), Label.class, null);
-        fundTable.addContainerProperty(res.getString(LocalizationStrings.FIVE_YEARS),
-                Label.class, null);
-        fundTable.addContainerProperty(res.getString(LocalizationStrings.DELETE),
-                Button.class, null);
+                messages.getString(LocalizationStrings.CURRENT_YEAR), Label.class,
+                null);
+        fundTable.addContainerProperty(
+                messages.getString(LocalizationStrings.ONE_YEAR), Label.class, null);
+        fundTable.addContainerProperty(
+                messages.getString(LocalizationStrings.THREE_YEARS), Label.class,
+                null);
+        fundTable.addContainerProperty(
+                messages.getString(LocalizationStrings.FIVE_YEARS), Label.class,
+                null);
     }
 
-    private Label createFiveYearGrowthLabel(List<Fund> funds,
-            int currentFund) {
+    private Label createFiveYearGrowthLabel(List<Fund> funds, int currentFund) {
         Label fiveYearGrowth = new Label(funds.get(currentFund)
                 .getFiveYearGrowth());
         setGrowthStyle(fiveYearGrowth);
         return fiveYearGrowth;
     }
 
-    private Label createThreeYearGrowthLabel(List<Fund> funds,
-            int currentFund) {
+    private Label createThreeYearGrowthLabel(List<Fund> funds, int currentFund) {
         Label threeYearGrowth = new Label(funds.get(currentFund)
                 .getThreeYearGrowth());
         setGrowthStyle(threeYearGrowth);
@@ -165,16 +225,14 @@ public class DashboardViewImpl extends VerticalLayout implements DashboardView {
         return priceField;
     }
 
-    private Label createOneYearGrowthLabel(List<Fund> funds,
-            int currentFund) {
+    private Label createOneYearGrowthLabel(List<Fund> funds, int currentFund) {
         Label oneYearGrowth = new Label(funds.get(currentFund)
                 .getOneYearGrowth());
         setGrowthStyle(oneYearGrowth);
         return oneYearGrowth;
     }
 
-    private Label createCurrentYearGrowthLabel(List<Fund> funds,
-            int currentFund) {
+    private Label createCurrentYearGrowthLabel(List<Fund> funds, int currentFund) {
         Label currentYear = new Label(funds.get(currentFund).getCurrentGrowth());
         setGrowthStyle(currentYear);
         return currentYear;
@@ -187,5 +245,7 @@ public class DashboardViewImpl extends VerticalLayout implements DashboardView {
             growthLabel.addStyleName("posGrowth");
         }
     }
+
+
 
 }

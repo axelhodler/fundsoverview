@@ -6,18 +6,21 @@ import java.util.List;
 import org.xorrr.fundsoverview.retrieval.FundScraper;
 import org.xorrr.fundsoverview.retrieval.InvalidIsinException;
 
+import com.google.inject.Inject;
+
 public class ModelFacadeImpl implements ModelFacade {
 
     private FundsDatastore ds;
     private FundScraper scraper;
 
+    @Inject
     public ModelFacadeImpl(FundsDatastore ds, FundScraper scraper) {
         this.ds = ds;
         this.scraper = scraper;
     }
 
     @Override
-    public Fund getBasicFinancialProduct(String isin) throws IOException,
+    public Fund getFund(String isin) throws IOException,
             InvalidIsinException {
         return this.scraper.getBasicFinancialProductForIsin(isin);
     }

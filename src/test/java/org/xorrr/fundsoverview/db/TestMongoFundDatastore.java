@@ -8,8 +8,7 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
-import org.xorrr.fundsoverview.db.DbProperties;
-import org.xorrr.fundsoverview.db.MongoFundsDatastore;
+import org.xorrr.fundsoverview.EnvironmentVariables;
 import org.xorrr.fundsoverview.helpers.IntegrationTest;
 import org.xorrr.fundsoverview.model.Fund;
 
@@ -47,11 +46,12 @@ public class TestMongoFundDatastore {
 
     @Before
     public void setUp() throws Exception {
-        MongoClientURI uri = new MongoClientURI("mongodb://localhost:12345");
+        MongoClientURI uri = new MongoClientURI(
+                System.getenv(EnvironmentVariables.MONGODB_URI));
         this.client = new MongoClient(uri);
         this.col = this.client.getDB(DbProperties.DB).getCollection(
                 DbProperties.COL);
-        this.ds = new MongoFundsDatastore(this.client);
+        this.ds = new MongoFundsDatastore();
     }
 
     @Test

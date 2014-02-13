@@ -5,11 +5,9 @@ import static org.junit.Assert.assertNotNull;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
-import org.junit.Before;
 import org.junit.Test;
 
 public class TestLocalization {
-    private Localization l18n;
 
     private Locale createLocale(String language, String country) {
         return new Locale(language, country);
@@ -26,20 +24,21 @@ public class TestLocalization {
         assertNotNull(messages.getString(LocalizationStrings.DELETE));
         assertNotNull(messages.getString(LocalizationStrings.FUND_ALREADY_ADDED));
         assertNotNull(messages.getString(LocalizationStrings.ISIN_INVALID));
-    }
-
-    @Before
-    public void setUp() {
-        l18n = new Localization();
+        assertNotNull(messages.getString(LocalizationStrings.LOGIN_BUTTON));
+        assertNotNull(messages.getString(LocalizationStrings.USERNAME));
+        assertNotNull(messages.getString(LocalizationStrings.PASSWORD));
+        assertNotNull(messages.getString(LocalizationStrings.WRONG_CREDENTIALS));
+        assertNotNull(messages.getString(LocalizationStrings.LOGIN_TO_DELETE));
+        assertNotNull(messages.getString(LocalizationStrings.LOGIN_TO_ADD));
     }
 
     @Test
     public void englishTranslationsExist() {
-        translationExists(l18n.getMessages(createLocale("en", "US")));
+        translationExists(Localization.getMessages(createLocale("en", "US")));
     }
 
     @Test
     public void germanTranslationsExist() {
-        translationExists(l18n.getMessages(createLocale("de", "DE")));
+        translationExists(Localization.getMessages(createLocale("de", "DE")));
     }
 }

@@ -5,11 +5,14 @@ import java.io.IOException;
 import org.jsoup.nodes.Document;
 import org.xorrr.fundsoverview.model.Fund;
 
+import com.google.inject.Inject;
+
 public class FundScraper {
 
     private FundDocumentAccessor accessor;
     private FundValuesExtractor extractor;
 
+    @Inject
     public FundScraper(FundDocumentAccessor accessor,
             FundValuesExtractor extractor) {
         this.accessor = accessor;
