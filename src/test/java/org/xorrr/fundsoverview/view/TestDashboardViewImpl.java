@@ -4,7 +4,6 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.mockito.Matchers.anyString;
-import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
@@ -15,7 +14,10 @@ import java.util.ResourceBundle;
 
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.mockito.Mock;
 import org.mockito.Mockito;
+import org.mockito.runners.MockitoJUnitRunner;
 import org.xorrr.fundsoverview.l18n.Localization;
 import org.xorrr.fundsoverview.l18n.LocalizationStrings;
 import org.xorrr.fundsoverview.layouts.LoginLayout;
@@ -27,10 +29,15 @@ import com.vaadin.data.Item;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.Label;
 
+@RunWith(MockitoJUnitRunner.class)
 public class TestDashboardViewImpl {
 
     private DashboardViewImpl view;
+
+    @Mock
     private DashboardViewHandler handler;
+    @Mock
+    private LoginLayout loginLayout;
 
     private final String EXPECTED_ISIN = "12345";
     private final String EXPECTED_NAME = "foo";
@@ -44,7 +51,6 @@ public class TestDashboardViewImpl {
     private List<Fund> funds = new ArrayList<>();
     private ResourceBundle messages;
     private Item testItem;
-    private LoginLayout loginLayout;
 
     private void createTestFundProduct() {
         Fund f = new Fund.Builder().isin(EXPECTED_ISIN).build();
@@ -114,9 +120,6 @@ public class TestDashboardViewImpl {
 
     @Before
     public void setUp() {
-        handler = mock(DashboardViewHandler.class);
-        loginLayout = mock(LoginLayout.class);
-
         view = new DashboardViewImpl(loginLayout);
         view.setHandler(handler);
         view.init();

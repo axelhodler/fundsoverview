@@ -15,6 +15,7 @@ import java.util.List;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.Mock;
 import org.powermock.api.mockito.PowerMockito;
 import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
@@ -26,7 +27,6 @@ import org.xorrr.fundsoverview.eventbus.events.InvalidIsinEvent;
 import org.xorrr.fundsoverview.eventbus.events.WrongCredentialsEvent;
 import org.xorrr.fundsoverview.events.LoggedInEvent;
 import org.xorrr.fundsoverview.login.UserService;
-import org.xorrr.fundsoverview.login.UserServiceImpl;
 import org.xorrr.fundsoverview.model.Fund;
 import org.xorrr.fundsoverview.model.ModelFacade;
 import org.xorrr.fundsoverview.retrieval.InvalidIsinException;
@@ -40,16 +40,24 @@ import com.vaadin.server.VaadinSession;
 public class TestDashboardPresenter {
 
     private DashboardPresenter presenter;
+
+    @Mock
     private ModelFacade model;
+    @Mock
     private DashboardView view;
+    @Mock
     private EventBus bus;
+    @Mock
+    private VaadinSession session;
+    @Mock
+    private LoggedInEvent loggedInEvent;
+    @Mock
+    private UserService service;
 
     private String validIsin = "validIsin";
     private String invalidIsin = "invalidIsin";
     private Fund testFund;
-    private UserService service;
-    private VaadinSession session;
-    private LoggedInEvent loggedInEvent;
+    
 
     private boolean loginWithCorrectCredentials() {
         return service.login(System.getenv(EnvironmentVariables.USER),
@@ -63,16 +71,9 @@ public class TestDashboardPresenter {
 
     @Before
     public void setUp() {
-        this.model = mock(ModelFacade.class);
-        this.view = mock(DashboardView.class);
-        this.bus = mock(EventBus.class);
-
         this.presenter = new DashboardPresenter(view, model, bus);
-
-        service = mock(UserServiceImpl.class);
         presenter.setUserService(service);
 
-        session = mock(VaadinSession.class);
         PowerMockito.mockStatic(VaadinSession.class);
         PowerMockito.when(VaadinSession.getCurrent()).thenReturn(session);
         when(loginWithCorrectCredentials()).thenReturn(true);
@@ -178,7 +179,6 @@ public class TestDashboardPresenter {
 
     @Test
     public void addFundFormIsShownWhenLoggedInEventHandled() {
-        loggedInEvent = mock(LoggedInEvent.class);
         presenter.handleUserLoggedIn(loggedInEvent);
 
         verify(view, times(1)).displayAddFundForm();
