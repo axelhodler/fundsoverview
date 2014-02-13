@@ -14,13 +14,13 @@ import com.google.inject.Inject;
 import com.vaadin.navigator.ViewChangeListener.ViewChangeEvent;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.Button.ClickEvent;
+import com.vaadin.ui.CustomLayout;
 import com.vaadin.ui.Label;
 import com.vaadin.ui.Table;
 import com.vaadin.ui.TextField;
-import com.vaadin.ui.VerticalLayout;
 
 @SuppressWarnings("serial")
-public class DashboardViewImpl extends VerticalLayout implements DashboardView {
+public class DashboardViewImpl extends CustomLayout implements DashboardView {
 
     private TextField fundIdField;
     private Button addFundButton;
@@ -32,6 +32,7 @@ public class DashboardViewImpl extends VerticalLayout implements DashboardView {
 
     @Inject
     public DashboardViewImpl(LoginLayout layout) {
+        super("testlayout");
         this.loginLayout = layout;
     }
 
@@ -117,7 +118,7 @@ public class DashboardViewImpl extends VerticalLayout implements DashboardView {
 
     private void initLoginForm() {
         loginLayout.init();
-        addComponent(loginLayout);
+        addComponent(loginLayout, "login");
     }
 
     private void addFundToTable(List<Fund> funds, int fundCounter) {
@@ -176,13 +177,13 @@ public class DashboardViewImpl extends VerticalLayout implements DashboardView {
         addFundButton.setId("add_fund_button");
         addFundButton.addClickListener(addFundListener);
 
-        addComponent(fundIdField);
-        addComponent(addFundButton);
+        addComponent(fundIdField, "fundId");
+        addComponent(addFundButton, "addFund");
     }
 
     private void initFundTable() {
         createFundTable();
-        addComponent(fundTable);
+        addComponent(fundTable, "fundstable");
         handler.showFunds();
     }
 
