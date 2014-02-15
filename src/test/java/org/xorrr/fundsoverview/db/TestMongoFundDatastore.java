@@ -30,10 +30,8 @@ public class TestMongoFundDatastore {
     private String testIsin = "testIsin";
 
     private void createAndSaveTwoBasicFinancialProducts() {
-        Fund fp = new Fund.Builder().isin(
-                testIsin).build();
-        Fund fp2 = new Fund.Builder().isin(
-                testIsin + "2").build();
+        Fund fp = new Fund.Builder().isin(testIsin).build();
+        Fund fp2 = new Fund.Builder().isin(testIsin + "2").build();
 
         this.ds.saveFund(fp);
         this.ds.saveFund(fp2);
@@ -49,15 +47,14 @@ public class TestMongoFundDatastore {
         MongoClientURI uri = new MongoClientURI(
                 System.getenv(EnvironmentVariables.MONGODB_URI));
         this.client = new MongoClient(uri);
-        this.col = this.client.getDB(DbProperties.DB).getCollection(
-                DbProperties.COL);
+        this.col = this.client.getDB(System.getenv(EnvironmentVariables.DB))
+                .getCollection(DbProperties.COL);
         this.ds = new MongoFundsDatastore();
     }
 
     @Test
     public void testAddingFinancialProduct() throws Exception {
-        Fund fp = new Fund.Builder().isin(
-                testIsin).build();
+        Fund fp = new Fund.Builder().isin(testIsin).build();
 
         this.ds.saveFund(fp);
 
@@ -76,7 +73,8 @@ public class TestMongoFundDatastore {
     @Test
     public void testDeletingSavedFinancialProduct() throws Exception {
         createAndSaveTwoBasicFinancialProducts();
-        DBCursor curs = col.find(new BasicDBObject(DbProperties.ISIN, testIsin));
+        DBCursor curs = col
+                .find(new BasicDBObject(DbProperties.ISIN, testIsin));
         String id = null;
         while (curs.hasNext()) {
             id = curs.next().get(DbProperties.ID).toString();
@@ -103,7 +101,7 @@ public class TestMongoFundDatastore {
 
     @After
     public void dropDatabase() throws Exception {
-        client.dropDatabase(DbProperties.DB);
+        client.dropDatabase(System.getenv(EnvironmentVariables.DB));
     }
 
     @AfterClass

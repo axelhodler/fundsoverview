@@ -11,6 +11,7 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Ignore;
 import org.junit.Test;
+import org.xorrr.fundsoverview.EnvironmentVariables;
 import org.xorrr.fundsoverview.db.DbProperties;
 import org.xorrr.fundsoverview.db.EmbeddedMongo;
 import org.xorrr.fundsoverview.db.MongoFundsDatastore;
@@ -43,15 +44,14 @@ public class TestWebApp {
     public void setUp() throws Exception {
         MongoClientURI uri = new MongoClientURI(System.getenv("MONGODB_URI"));
         this.client = new MongoClient(uri);
-        this.col = this.client.getDB(DbProperties.DB).getCollection(
-                DbProperties.COL);
+        this.col = this.client.getDB(System.getenv(EnvironmentVariables.DB))
+                .getCollection(DbProperties.COL);
         this.ds = new MongoFundsDatastore();
 
         java.util.logging.Logger.getLogger("com.gargoylesoftware.htmlunit")
                 .setLevel(Level.OFF);
         this.webClient = new WebClient(BrowserVersion.FIREFOX_17);
-        this.page = webClient
-                .getPage("http://localhost:8080/financegrabber");
+        this.page = webClient.getPage("http://localhost:8080/financegrabber");
         webClient.waitForBackgroundJavaScript(5000);
     }
 

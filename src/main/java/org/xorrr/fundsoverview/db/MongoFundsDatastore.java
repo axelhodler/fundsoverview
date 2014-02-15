@@ -24,7 +24,7 @@ public class MongoFundsDatastore implements FundsDatastore {
                 System.getenv(EnvironmentVariables.MONGODB_URI));
         MongoClient client = new MongoClient(uri);
 
-        this.col = client.getDB(DbProperties.DB)
+        this.col = client.getDB(System.getenv(EnvironmentVariables.DB))
                 .getCollection(DbProperties.COL);
     }
 
