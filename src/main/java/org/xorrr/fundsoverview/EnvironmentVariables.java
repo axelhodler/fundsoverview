@@ -7,4 +7,5 @@ public abstract class EnvironmentVariables {
     public static final String USER= "USER";
     public static final String PASS = "PASS";
     public static final String PORT = "PORT";
+    public static final String DB = "DB";
 }
