@@ -23,7 +23,7 @@ public class MainUI extends UI {
     private Injector injector;
 
     @WebServlet(value = "/*", asyncSupported = true)
-    @VaadinServletConfiguration(productionMode = false, ui = MainUI.class, widgetset = "org.xorrr.AppWidgetSet")
+    @VaadinServletConfiguration(productionMode = false, ui = MainUI.class, widgetset = "com.vaadin.DefaultWidgetSet")
     public static class Servlet extends VaadinServlet {
     }
 
