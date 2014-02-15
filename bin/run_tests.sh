@@ -5,5 +5,6 @@ export LANG=en
 export COUNTRY=EN
 export USER=user
 export PASS=pass
+export PORT=5000
 
 mvn test
