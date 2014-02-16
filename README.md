@@ -24,3 +24,7 @@ Also make sure the mongo daemon is running on port 27017 or edit the port accord
 *MONGODB_URI=mongodb://localhost:27017
 *LANG=en
 *COUNTRY=EN
+*USER=user
+*PASS=pass
+*PORT=5000
+*DB=fundsoverview
