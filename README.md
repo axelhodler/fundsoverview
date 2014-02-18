@@ -23,22 +23,22 @@ Also make sure the mongo daemon is running on port 27017 or edit the port accord
 ## Deployment
 ### heroku
 
-1. Install the [Heroku_Toolbelt](https://toolbelt.heroku.com)
-2. Create the app:
+* Install the [Heroku_Toolbelt](https://toolbelt.heroku.com)
+* Create the app:
 
 > heroku create
 
-3. Deploy your code:
+* Deploy your code:
 
 > git push heroku master
 
-4. On the heroku dashboard add an Add-on to the App for the Database. In our case MongoHQ or MongoLab sandboxes
-5. Get the Mongo URI that looks like this: mongodb://<user>:<password>@paulo.mongohq.com:10037/<database_name>
-6. Invoke and follow the script to set the necessary environment variables on the heroku platform:
+* On the heroku dashboard add an Add-on to the App for the Database. In our case MongoHQ or MongoLab sandboxes
+* Get the Mongo URI that looks like this: mongodb://<user>:<password>@paulo.mongohq.com:10037/<database_name>
+* Invoke and follow the script to set the necessary environment variables on the heroku platform:
 
 > /bin/set_heroku_env_vars.sh
 
-(7. the DB var is the same as the <database_name> part in the URI!)
+(* the DB var is the same as the <database_name> part in the URI!)
 
 ## Used Environment Variables Overview
 The values are examples
