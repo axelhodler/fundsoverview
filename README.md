@@ -1,10 +1,11 @@
 # Financegrabber
 
-will later on grab a few stocks, listed in a config file, from the corresponding site and present it in a dashboard like form to avoid checking these stocks one by one.
+Work in progress
 
-the stocks are not listed in the yahoo finance api
+Displays funds and their previous performance (not that it will matter concerning the performance in the future) to avoid checking them one by one. The stocks are accessed not via an API but by web-scraping, which makes the app itself very brittle. Sadly some funds are not listed in the yahoo finance api and therefore one has to make due with scraping for now.
 
-will use jsoup and vaadin and probably deployed on heroku
+## Libraries
+The app uses Vaadin7 in a MVP pattern, mongoDB, Mockito, Powermock, Jsoup, mBassador EventBus, Guice DI
 
 ## Run
 
