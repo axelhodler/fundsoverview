@@ -101,7 +101,9 @@ public class DashboardViewImpl extends CustomLayout implements DashboardView {
 
     @Override
     public void handleAddFund(String isin) {
-
+        handler.addFund(new Fund.Builder().isin(isin).build());
+        handler.removeFundTableItems();
+        handler.showFundsWithDeleteButton();
     }
 
     @Override

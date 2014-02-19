@@ -3,6 +3,7 @@ package org.xorrr.fundsoverview.view;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
+import static org.mockito.Matchers.any;
 import static org.mockito.Matchers.anyString;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
@@ -222,6 +223,15 @@ public class TestDashboardViewImpl {
         view.handleLogin(anyString(), anyString());
 
         verify(handler, times(1)).handleLogin(anyString(), anyString());
+    }
+
+    @Test
+    public void addFundHandledInPresenter() {
+        view.handleAddFund(EXPECTED_ISIN);
+
+        verify(handler, times(1)).addFund(any(Fund.class));
+        verify(handler, times(1)).removeFundTableItems();
+        verify(handler, times(1)).showFundsWithDeleteButton();
     }
 
     @Test
