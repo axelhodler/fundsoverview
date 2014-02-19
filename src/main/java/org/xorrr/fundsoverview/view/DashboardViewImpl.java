@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.xorrr.fundsoverview.l18n.Localization;
 import org.xorrr.fundsoverview.l18n.TranslationVars;
+import org.xorrr.fundsoverview.layouts.DashboardLayoutLocations;
 import org.xorrr.fundsoverview.layouts.Layouts;
 import org.xorrr.fundsoverview.layouts.LoginLayout;
 import org.xorrr.fundsoverview.model.Fund;
@@ -100,7 +101,7 @@ public class DashboardViewImpl extends CustomLayout implements DashboardView {
 
     @Override
     public void handleAddFund(String isin) {
-        
+
     }
 
     @Override
@@ -125,7 +126,7 @@ public class DashboardViewImpl extends CustomLayout implements DashboardView {
 
     private void initLoginForm() {
         loginLayout.init();
-        addComponent(loginLayout, "login");
+        addComponent(loginLayout, DashboardLayoutLocations.LOGIN);
     }
 
     private void addFundToTable(List<Fund> funds, int fundCounter) {
@@ -186,13 +187,13 @@ public class DashboardViewImpl extends CustomLayout implements DashboardView {
         addFundButton.setId("add_fund_button");
         addFundButton.addClickListener(addFundListener);
 
-        addComponent(fundIdField, "fundId");
-        addComponent(addFundButton, "addFund");
+        addComponent(fundIdField, DashboardLayoutLocations.FUND_ID);
+        addComponent(addFundButton, DashboardLayoutLocations.ADD_FUND);
     }
 
     private void initFundTable() {
         createFundTable();
-        addComponent(fundTable, "fundstable");
+        addComponent(fundTable, DashboardLayoutLocations.FUNDSTABLE);
         handler.showFunds();
     }
 
@@ -204,10 +205,9 @@ public class DashboardViewImpl extends CustomLayout implements DashboardView {
         fundTable.addContainerProperty(
                 translation.getTranslationFor(TranslationVars.PRICE),
                 Label.class, null);
-        fundTable
-                .addContainerProperty(translation
-                        .getTranslationFor(TranslationVars.CURRENT_YEAR),
-                        Label.class, null);
+        fundTable.addContainerProperty(
+                translation.getTranslationFor(TranslationVars.CURRENT_YEAR),
+                Label.class, null);
         fundTable.addContainerProperty(
                 translation.getTranslationFor(TranslationVars.ONE_YEAR),
                 Label.class, null);
@@ -259,7 +259,5 @@ public class DashboardViewImpl extends CustomLayout implements DashboardView {
             growthLabel.addStyleName("posGrowth");
         }
     }
-
-        
 
 }
