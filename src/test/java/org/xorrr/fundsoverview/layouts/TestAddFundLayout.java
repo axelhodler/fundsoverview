@@ -3,6 +3,8 @@ package org.xorrr.fundsoverview.layouts;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.mockito.Matchers.anyString;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import org.junit.Before;
@@ -14,7 +16,9 @@ import org.xorrr.fundsoverview.l18n.Localization;
 import org.xorrr.fundsoverview.l18n.TranslationVars;
 import org.xorrr.fundsoverview.view.DashboardViewImpl;
 
+import com.vaadin.ui.Button;
 import com.vaadin.ui.Component;
+import com.vaadin.ui.TextField;
 
 @RunWith(MockitoJUnitRunner.class)
 public class TestAddFundLayout {
@@ -67,5 +71,17 @@ public class TestAddFundLayout {
     public void addFundButtonCaptionTranslated() {
         checkComponentTranslation(AddFundLayoutLocations.ADD_FUND,
                 l.getTranslationFor(TranslationVars.ADD_FUND));
+    }
+
+    @Test
+    public void fundButtonWorks() {
+        TextField fundField = (TextField) layout.getComponent(AddFundLayoutLocations.FUND_FIELD);
+        fundField.setValue("g");
+
+        Button addFundButton = (Button) layout
+                .getComponent(AddFundLayoutLocations.ADD_FUND);
+
+        addFundButton.click();
+        verify(view, times(1)).handleAddFund(fundField.getValue());
     }
 }

@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.xorrr.fundsoverview.l18n.Localization;
-
 import org.xorrr.fundsoverview.l18n.TranslationVars;
 import org.xorrr.fundsoverview.layouts.Layouts;
 import org.xorrr.fundsoverview.layouts.LoginLayout;
@@ -97,6 +96,11 @@ public class DashboardViewImpl extends CustomLayout implements DashboardView {
     @Override
     public void handleLogin(String username, String password) {
         handler.handleLogin(username, password);
+    }
+
+    @Override
+    public void handleAddFund(String isin) {
+        
     }
 
     @Override
@@ -255,5 +259,7 @@ public class DashboardViewImpl extends CustomLayout implements DashboardView {
             growthLabel.addStyleName("posGrowth");
         }
     }
+
+        
 
 }

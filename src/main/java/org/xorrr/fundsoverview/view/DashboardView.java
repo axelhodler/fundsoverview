@@ -33,6 +33,8 @@ public interface DashboardView extends View {
     void displayAddFundForm();
 
     void handleLogin(String username, String password);
+    
+    void handleAddFund(String fundIsin); 
 
     void removeLoginForm();
 
