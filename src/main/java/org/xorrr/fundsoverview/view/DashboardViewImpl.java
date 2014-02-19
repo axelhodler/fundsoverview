@@ -32,7 +32,7 @@ public class DashboardViewImpl extends CustomLayout implements DashboardView {
 
     @Inject
     public DashboardViewImpl(LoginLayout layout) {
-        super("testlayout");
+        super("dashboard");
         this.loginLayout = layout;
     }
 
