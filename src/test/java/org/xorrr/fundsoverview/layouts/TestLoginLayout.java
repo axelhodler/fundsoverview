@@ -38,31 +38,31 @@ public class TestLoginLayout {
 
     @Test
     public void loginButtonExists() {
-        checkComponentExistence(LoginLayoutLocations.loginButton);
+        checkComponentExistence(LoginLocations.loginButton);
     }
 
     @Test
     public void usernameFieldExists() {
-        checkComponentExistence(LoginLayoutLocations.userField);
+        checkComponentExistence(LoginLocations.userField);
     }
 
     @Test
     public void passwordFieldExists() {
-        checkComponentExistence(LoginLayoutLocations.passField);
+        checkComponentExistence(LoginLocations.passField);
     }
 
     @Test
     public void handleLoginButton() {
         TextField userField = (TextField) layout
-                .getComponent(LoginLayoutLocations.userField);
+                .getComponent(LoginLocations.userField);
         userField.setValue("johnny");
 
         TextField pw = (TextField) layout
-                .getComponent(LoginLayoutLocations.passField);
+                .getComponent(LoginLocations.passField);
         pw.setValue("b");
 
         Button login = (Button) layout
-                .getComponent(LoginLayoutLocations.loginButton);
+                .getComponent(LoginLocations.loginButton);
         login.click();
 
         verify(view, times(1)).handleLogin("johnny", "b");
@@ -72,15 +72,15 @@ public class TestLoginLayout {
     public void loginFormCanBeRemoved() {
         layout.removeLoginForm();
 
-        componentWasRemoved(LoginLayoutLocations.loginButton);
-        componentWasRemoved(LoginLayoutLocations.userField);
-        componentWasRemoved(LoginLayoutLocations.passField);
+        componentWasRemoved(LoginLocations.loginButton);
+        componentWasRemoved(LoginLocations.userField);
+        componentWasRemoved(LoginLocations.passField);
     }
 
     @Test
     public void userNameCanBeDisplayed() {
         layout.displayUserName("");
 
-        checkComponentExistence(LoginLayoutLocations.userField);
+        checkComponentExistence(LoginLocations.userField);
     }
 }

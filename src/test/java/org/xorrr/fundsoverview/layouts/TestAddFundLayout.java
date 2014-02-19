@@ -53,33 +53,33 @@ public class TestAddFundLayout {
 
     @Test
     public void fundFieldCreated() {
-        checkComponentExistence(AddFundLayoutLocations.FUND_FIELD);
+        checkComponentExistence(AddFundLocations.FUND_FIELD);
     }
 
     @Test
     public void fundFieldCaptionTranslated() {
-        checkComponentTranslation(AddFundLayoutLocations.FUND_FIELD,
+        checkComponentTranslation(AddFundLocations.FUND_FIELD,
                 l.getTranslationFor(TranslationVars.FUND));
     }
 
     @Test
     public void addFundButtonCreated() {
-        checkComponentExistence(AddFundLayoutLocations.ADD_FUND);
+        checkComponentExistence(AddFundLocations.ADD_FUND);
     }
 
     @Test
     public void addFundButtonCaptionTranslated() {
-        checkComponentTranslation(AddFundLayoutLocations.ADD_FUND,
+        checkComponentTranslation(AddFundLocations.ADD_FUND,
                 l.getTranslationFor(TranslationVars.ADD_FUND));
     }
 
     @Test
     public void fundButtonWorks() {
-        TextField fundField = (TextField) layout.getComponent(AddFundLayoutLocations.FUND_FIELD);
+        TextField fundField = (TextField) layout.getComponent(AddFundLocations.FUND_FIELD);
         fundField.setValue("g");
 
         Button addFundButton = (Button) layout
-                .getComponent(AddFundLayoutLocations.ADD_FUND);
+                .getComponent(AddFundLocations.ADD_FUND);
 
         addFundButton.click();
         verify(view, times(1)).handleAddFund(fundField.getValue());

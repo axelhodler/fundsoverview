@@ -25,11 +25,11 @@ public class AddFundLayout extends CustomLayout {
 
     public void init() {
         fundField = new TextField(translation.getTranslationFor(TranslationVars.FUND));
-        addComponent(fundField, AddFundLayoutLocations.FUND_FIELD);
+        addComponent(fundField, AddFundLocations.FUND_FIELD);
 
         addFund = new Button(translation.getTranslationFor(TranslationVars.ADD_FUND));
         addFund.addClickListener(loginButtonListener);
-        addComponent(addFund, AddFundLayoutLocations.ADD_FUND);
+        addComponent(addFund, AddFundLocations.ADD_FUND);
     }
 
     public void setView(DashboardView view) {

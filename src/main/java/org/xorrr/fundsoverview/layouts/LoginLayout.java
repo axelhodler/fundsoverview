@@ -31,9 +31,9 @@ public class LoginLayout extends CustomLayout {
 
         createComponents();
 
-        addComponent(loginButton, LoginLayoutLocations.loginButton);
-        addComponent(usernameField, LoginLayoutLocations.userField);
-        addComponent(passwordField, LoginLayoutLocations.passField);
+        addComponent(loginButton, LoginLocations.loginButton);
+        addComponent(usernameField, LoginLocations.userField);
+        addComponent(passwordField, LoginLocations.passField);
 
         loginButton.addClickListener(loginButtonListener);
     }
