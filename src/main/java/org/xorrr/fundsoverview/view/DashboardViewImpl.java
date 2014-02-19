@@ -180,11 +180,10 @@ public class DashboardViewImpl extends CustomLayout implements DashboardView {
 
     private void initFormToAddFunds() {
         fundIdField = new TextField();
-        fundIdField.setId("add_fund_id_field");
 
         addFundButton = new Button(
                 translation.getTranslationFor(TranslationVars.ADD_FUND));
-        addFundButton.setId("add_fund_button");
+
         addFundButton.addClickListener(addFundListener);
 
         addComponent(fundIdField, DashboardLocations.FUND_ID);
