@@ -2,30 +2,26 @@ package org.xorrr.fundsoverview.layouts;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
-
-import java.util.ResourceBundle;
+import static org.mockito.Mockito.when;
 
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
-import org.powermock.api.mockito.PowerMockito;
-import org.powermock.core.classloader.annotations.PrepareForTest;
-import org.powermock.modules.junit4.PowerMockRunner;
+import org.mockito.runners.MockitoJUnitRunner;
 import org.xorrr.fundsoverview.l18n.Localization;
-import org.xorrr.fundsoverview.l18n.LocalizationStrings;
+import org.xorrr.fundsoverview.l18n.TranslationVars;
 import org.xorrr.fundsoverview.view.DashboardViewImpl;
 
 import com.vaadin.ui.Component;
 
-@RunWith(PowerMockRunner.class)
-@PrepareForTest({ Localization.class })
+@RunWith(MockitoJUnitRunner.class)
 public class TestAddFundLayout {
 
     @Mock
     DashboardViewImpl view;
     @Mock
-    ResourceBundle translation;
+    Localization translation;
 
     private AddFundLayout layout;
 
@@ -42,18 +38,14 @@ public class TestAddFundLayout {
 
     @Before
     public void setUp() {
-        PowerMockito.mockStatic(Localization.class);
-        PowerMockito.when(Localization.getMessages()).thenReturn(translation);
+        when(translation.getTranslationFor(TranslationVars.FUND))
+                .thenReturn("Fund");
+        when(translation.getTranslationFor(TranslationVars.ADD_FUND))
+                .thenReturn("");
 
         layout = new AddFundLayout();
         layout.init();
         layout.setView(view);
-    }
-
-    @Test
-    public void localizationIsAccessed() {
-        PowerMockito.verifyStatic();
-        Localization.getMessages();
     }
 
     @Test
@@ -64,6 +56,6 @@ public class TestAddFundLayout {
     @Test
     public void fundFieldCaptionTranslated() {
         checkComponentTranslation(AddFundLayoutLocations.FUND_FIELD,
-                LocalizationStrings.FUND);
+                translation.getTranslationFor(TranslationVars.FUND));
     }
 }
