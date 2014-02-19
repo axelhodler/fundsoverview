@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.xorrr.fundsoverview.l18n.Localization;
 import org.xorrr.fundsoverview.l18n.TranslationVars;
+import org.xorrr.fundsoverview.layouts.AddFundLayout;
 import org.xorrr.fundsoverview.layouts.DashboardLocations;
 import org.xorrr.fundsoverview.layouts.Layouts;
 import org.xorrr.fundsoverview.layouts.LoginLayout;
@@ -31,11 +32,13 @@ public class DashboardViewImpl extends CustomLayout implements DashboardView {
     private List<Button> buttons = new ArrayList<>();
     private LoginLayout loginLayout;
     private Localization translation;
+    private AddFundLayout addFundLayout;
 
     @Inject
-    public DashboardViewImpl(LoginLayout layout) {
+    public DashboardViewImpl(LoginLayout layout, AddFundLayout addFundLayout) {
         super(Layouts.DASHBOARD);
         this.loginLayout = layout;
+        this.addFundLayout = addFundLayout;
     }
 
     public void init() {

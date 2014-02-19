@@ -20,6 +20,7 @@ import org.mockito.Mockito;
 import org.mockito.runners.MockitoJUnitRunner;
 import org.xorrr.fundsoverview.l18n.Localization;
 import org.xorrr.fundsoverview.l18n.TranslationVars;
+import org.xorrr.fundsoverview.layouts.AddFundLayout;
 import org.xorrr.fundsoverview.layouts.LoginLayout;
 import org.xorrr.fundsoverview.model.Fund;
 import org.xorrr.fundsoverview.presenter.DashboardViewHandler;
@@ -38,6 +39,8 @@ public class TestDashboardViewImpl {
     private DashboardViewHandler handler;
     @Mock
     private LoginLayout loginLayout;
+    @Mock
+    private AddFundLayout addFundLayout;
 
     private final String EXPECTED_ISIN = "12345";
     private final String EXPECTED_NAME = "foo";
@@ -124,7 +127,7 @@ public class TestDashboardViewImpl {
 
     @Before
     public void setUp() {
-        view = new DashboardViewImpl(loginLayout);
+        view = new DashboardViewImpl(loginLayout, addFundLayout);
         view.setHandler(handler);
         view.init();
 
