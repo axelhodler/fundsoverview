@@ -22,7 +22,7 @@ public class TestAddFundLayout {
     @Mock
     DashboardViewImpl view;
     @Mock
-    Localization translation;
+    Localization l;
 
     private AddFundLayout layout;
 
@@ -38,12 +38,11 @@ public class TestAddFundLayout {
 
     @Before
     public void setUp() {
-        when(translation.getTranslationFor(TranslationVars.FUND)).thenReturn(
+        when(l.getTranslationFor(TranslationVars.FUND)).thenReturn(anyString());
+        when(l.getTranslationFor(TranslationVars.ADD_FUND)).thenReturn(
                 anyString());
-        when(translation.getTranslationFor(TranslationVars.ADD_FUND))
-                .thenReturn(anyString());
 
-        layout = new AddFundLayout(translation);
+        layout = new AddFundLayout(l);
         layout.init();
         layout.setView(view);
     }
@@ -56,7 +55,7 @@ public class TestAddFundLayout {
     @Test
     public void fundFieldCaptionTranslated() {
         checkComponentTranslation(AddFundLayoutLocations.FUND_FIELD,
-                translation.getTranslationFor(TranslationVars.FUND));
+                l.getTranslationFor(TranslationVars.FUND));
     }
 
     @Test
@@ -67,6 +66,6 @@ public class TestAddFundLayout {
     @Test
     public void addFundButtonCaptionTranslated() {
         checkComponentTranslation(AddFundLayoutLocations.ADD_FUND,
-                translation.getTranslationFor(TranslationVars.ADD_FUND));
+                l.getTranslationFor(TranslationVars.ADD_FUND));
     }
 }
