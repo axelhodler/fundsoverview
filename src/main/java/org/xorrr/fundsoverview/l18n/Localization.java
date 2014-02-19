@@ -6,7 +6,6 @@ import java.util.ResourceBundle;
 import org.xorrr.fundsoverview.EnvironmentVariables;
 
 public class Localization {
-
     private ResourceBundle messages;
 
     private static String bundleBasename = "MessagesBundle";
@@ -17,8 +16,7 @@ public class Localization {
         messages = ResourceBundle.getBundle(bundleBasename, locale);
     }
 
-    public String getTranslationFor(String username) {
-        return messages.getString(username);
+    public String getTranslationFor(String translationVar) {
+        return messages.getString(translationVar);
     }
-
 }
