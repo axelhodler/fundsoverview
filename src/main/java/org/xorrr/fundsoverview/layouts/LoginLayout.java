@@ -23,7 +23,7 @@ public class LoginLayout extends CustomLayout {
     private DashboardViewImpl view;
 
     public LoginLayout() {
-        super("login");
+        super(Layouts.LOGIN);
     }
 
     public void init() {
