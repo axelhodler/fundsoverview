@@ -1,4 +1,4 @@
-@import "../reindeer/legacy-styles.css";
+@import "bootstrap.min.css";
 
 .posGrowth {
     color: green;
