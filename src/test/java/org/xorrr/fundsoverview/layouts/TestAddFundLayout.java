@@ -2,6 +2,7 @@ package org.xorrr.fundsoverview.layouts;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
+import static org.mockito.Matchers.anyString;
 import static org.mockito.Mockito.when;
 
 import org.junit.Before;
@@ -30,20 +31,19 @@ public class TestAddFundLayout {
         assertNotNull(component);
     }
 
-    private void checkComponentTranslation(String location,
-            String expectedTranslation) {
+    private void checkComponentTranslation(String location, String expected) {
         Component component = layout.getComponent(location);
-        assertEquals(expectedTranslation, component.getCaption());
+        assertEquals(expected, component.getCaption());
     }
 
     @Before
     public void setUp() {
-        when(translation.getTranslationFor(TranslationVars.FUND))
-                .thenReturn("Fund");
+        when(translation.getTranslationFor(TranslationVars.FUND)).thenReturn(
+                anyString());
         when(translation.getTranslationFor(TranslationVars.ADD_FUND))
-                .thenReturn("");
+                .thenReturn(anyString());
 
-        layout = new AddFundLayout();
+        layout = new AddFundLayout(translation);
         layout.init();
         layout.setView(view);
     }
@@ -57,5 +57,16 @@ public class TestAddFundLayout {
     public void fundFieldCaptionTranslated() {
         checkComponentTranslation(AddFundLayoutLocations.FUND_FIELD,
                 translation.getTranslationFor(TranslationVars.FUND));
+    }
+
+    @Test
+    public void addFundButtonCreated() {
+        checkComponentExistence(AddFundLayoutLocations.ADD_FUND);
+    }
+
+    @Test
+    public void addFundButtonCaptionTranslated() {
+        checkComponentTranslation(AddFundLayoutLocations.ADD_FUND,
+                translation.getTranslationFor(TranslationVars.ADD_FUND));
     }
 }
