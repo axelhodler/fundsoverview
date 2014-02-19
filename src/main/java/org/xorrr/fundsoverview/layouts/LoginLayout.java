@@ -1,7 +1,5 @@
 package org.xorrr.fundsoverview.layouts;
 
-import java.util.ResourceBundle;
-
 import org.xorrr.fundsoverview.EnvironmentVariables;
 import org.xorrr.fundsoverview.l18n.Localization;
 import org.xorrr.fundsoverview.l18n.LocalizationStrings;
@@ -20,7 +18,7 @@ public class LoginLayout extends VerticalLayout {
     private TextField usernameField;
     private TextField passwordField;
     private Label userStatus;
-    private ResourceBundle translation;
+    private Localization translation;
 
     private DashboardViewImpl view;
 
@@ -45,6 +43,8 @@ public class LoginLayout extends VerticalLayout {
 
     };
 
+    
+
     public Button getLoginButton() {
         return loginButton;
     }
@@ -62,12 +62,12 @@ public class LoginLayout extends VerticalLayout {
     }
 
     private void setUpLocalization() {
-        translation = Localization.getMessages();
+        translation = new Localization();
     }
 
     private void createComponents() {
         loginButton = new Button(
-                translation.getString(LocalizationStrings.LOGIN_BUTTON));
+                translation.getTranslationFor(LocalizationStrings.LOGIN_BUTTON));
         usernameField = new TextField(LocalizationStrings.USERNAME);
         passwordField = new TextField(LocalizationStrings.PASSWORD);
         userStatus = new Label("logged in as "

@@ -2,43 +2,38 @@ package org.xorrr.fundsoverview.l18n;
 
 import static org.junit.Assert.assertNotNull;
 
-import java.util.Locale;
-import java.util.ResourceBundle;
-
+import org.junit.Before;
 import org.junit.Test;
 
 public class TestLocalization {
 
-    private Locale createLocale(String language, String country) {
-        return new Locale(language, country);
-    }
+    private Localization l18n;
 
-    private void translationExists(ResourceBundle messages) {
-        assertNotNull(messages.getString(LocalizationStrings.FUND));
-        assertNotNull(messages.getString(LocalizationStrings.PRICE));
-        assertNotNull(messages.getString(LocalizationStrings.CURRENT_YEAR));
-        assertNotNull(messages.getString(LocalizationStrings.ONE_YEAR));
-        assertNotNull(messages.getString(LocalizationStrings.THREE_YEARS));
-        assertNotNull(messages.getString(LocalizationStrings.FIVE_YEARS));
-        assertNotNull(messages.getString(LocalizationStrings.ADD_FUND));
-        assertNotNull(messages.getString(LocalizationStrings.DELETE));
-        assertNotNull(messages.getString(LocalizationStrings.FUND_ALREADY_ADDED));
-        assertNotNull(messages.getString(LocalizationStrings.ISIN_INVALID));
-        assertNotNull(messages.getString(LocalizationStrings.LOGIN_BUTTON));
-        assertNotNull(messages.getString(LocalizationStrings.USERNAME));
-        assertNotNull(messages.getString(LocalizationStrings.PASSWORD));
-        assertNotNull(messages.getString(LocalizationStrings.WRONG_CREDENTIALS));
-        assertNotNull(messages.getString(LocalizationStrings.LOGIN_TO_DELETE));
-        assertNotNull(messages.getString(LocalizationStrings.LOGIN_TO_ADD));
+    @Before
+    public void setUp() {
+        l18n = new Localization();
     }
 
     @Test
-    public void englishTranslationsExist() {
-        translationExists(Localization.getMessages(createLocale("en", "US")));
-    }
-
-    @Test
-    public void germanTranslationsExist() {
-        translationExists(Localization.getMessages(createLocale("de", "DE")));
+    public void translationsExist() {
+        assertNotNull(l18n.getTranslationFor(LocalizationStrings.FUND));
+        assertNotNull(l18n.getTranslationFor(LocalizationStrings.PRICE));
+        assertNotNull(l18n.getTranslationFor(LocalizationStrings.CURRENT_YEAR));
+        assertNotNull(l18n.getTranslationFor(LocalizationStrings.ONE_YEAR));
+        assertNotNull(l18n.getTranslationFor(LocalizationStrings.THREE_YEARS));
+        assertNotNull(l18n.getTranslationFor(LocalizationStrings.FIVE_YEARS));
+        assertNotNull(l18n.getTranslationFor(LocalizationStrings.ADD_FUND));
+        assertNotNull(l18n.getTranslationFor(LocalizationStrings.DELETE));
+        assertNotNull(l18n
+                .getTranslationFor(LocalizationStrings.FUND_ALREADY_ADDED));
+        assertNotNull(l18n.getTranslationFor(LocalizationStrings.ISIN_INVALID));
+        assertNotNull(l18n.getTranslationFor(LocalizationStrings.LOGIN_BUTTON));
+        assertNotNull(l18n.getTranslationFor(LocalizationStrings.USERNAME));
+        assertNotNull(l18n.getTranslationFor(LocalizationStrings.PASSWORD));
+        assertNotNull(l18n
+                .getTranslationFor(LocalizationStrings.WRONG_CREDENTIALS));
+        assertNotNull(l18n
+                .getTranslationFor(LocalizationStrings.LOGIN_TO_DELETE));
+        assertNotNull(l18n.getTranslationFor(LocalizationStrings.LOGIN_TO_ADD));
     }
 }

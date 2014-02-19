@@ -5,21 +5,20 @@ import java.util.ResourceBundle;
 
 import org.xorrr.fundsoverview.EnvironmentVariables;
 
-public abstract class Localization {
+public class Localization {
+
+    private ResourceBundle messages;
 
     private static String bundleBasename = "MessagesBundle";
 
-    public static ResourceBundle getMessages(Locale locale) {
-        ResourceBundle messages = ResourceBundle.getBundle(bundleBasename,
-                locale);
-        return messages;
-    }
-
-    public static ResourceBundle getMessages() {
+    public Localization() {
         Locale locale = new Locale(System.getenv(EnvironmentVariables.LANG),
                 System.getenv(EnvironmentVariables.COUNTRY));
-        return ResourceBundle.getBundle(bundleBasename,
-                locale);
+        messages = ResourceBundle.getBundle(bundleBasename, locale);
+    }
+
+    public String getTranslationFor(String username) {
+        return messages.getString(username);
     }
 
 }

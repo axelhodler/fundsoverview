@@ -10,7 +10,6 @@ import static org.mockito.Mockito.verify;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.ResourceBundle;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -49,8 +48,9 @@ public class TestDashboardViewImpl {
 
     private Fund f;
     private List<Fund> funds = new ArrayList<>();
-    private ResourceBundle messages;
     private Item testItem;
+
+    private Localization translation;
 
     private void createTestFundProduct() {
         Fund f = new Fund.Builder().isin(EXPECTED_ISIN).build();
@@ -65,12 +65,13 @@ public class TestDashboardViewImpl {
     }
 
     private void setLocalizationMessages() {
-        messages = Localization.getMessages();
+        translation = new Localization();
     }
 
     private void checkType(Object expected, String id) {
-        assertEquals(expected, testItem.getItemProperty(messages.getString(id))
-                .getType());
+        assertEquals(expected,
+                testItem.getItemProperty(translation.getTranslationFor(id))
+                        .getType());
     }
 
     private Item setTestItem() {
@@ -78,14 +79,16 @@ public class TestDashboardViewImpl {
     }
 
     private void checkLabelContent(String expected, String contentVariable) {
-        assertEquals(expected,
-                testItem.getItemProperty(messages.getString(contentVariable))
+        assertEquals(
+                expected,
+                testItem.getItemProperty(
+                        translation.getTranslationFor(contentVariable))
                         .getValue().toString());
     }
 
     private Label getLabelFor(String l18nvar) {
-        return (Label) testItem.getItemProperty(messages.getString(l18nvar))
-                .getValue();
+        return (Label) testItem.getItemProperty(
+                translation.getTranslationFor(l18nvar)).getValue();
     }
 
     private void checkLabelContents() {
@@ -148,7 +151,8 @@ public class TestDashboardViewImpl {
         checkLabelContents();
         checkLabelTypes();
         assertNull(testItem.getItemProperty(
-                messages.getString(LocalizationStrings.DELETE)).toString());
+                translation.getTranslationFor(LocalizationStrings.DELETE))
+                .toString());
     }
 
     @Test
@@ -174,7 +178,8 @@ public class TestDashboardViewImpl {
         displayFundsWithDeleteButtonAndTestItem();
 
         Button testButton = (Button) testItem.getItemProperty(
-                messages.getString(LocalizationStrings.DELETE)).getValue();
+                translation.getTranslationFor(LocalizationStrings.DELETE))
+                .getValue();
 
         assertEquals(EXPECTED_ISIN, testButton.getData());
     }
@@ -187,7 +192,6 @@ public class TestDashboardViewImpl {
 
         verify(handler, times(1)).deleteFund(anyString());
     }
-
 
     @Test
     public void deleteButtonClearsTheTable() {
