@@ -2,7 +2,7 @@ package org.xorrr.fundsoverview.layouts;
 
 import org.xorrr.fundsoverview.EnvironmentVariables;
 import org.xorrr.fundsoverview.l18n.Localization;
-import org.xorrr.fundsoverview.l18n.LocalizationStrings;
+import org.xorrr.fundsoverview.l18n.TranslationVars;
 import org.xorrr.fundsoverview.view.DashboardViewImpl;
 
 import com.vaadin.ui.Button;
@@ -67,9 +67,9 @@ public class LoginLayout extends VerticalLayout {
 
     private void createComponents() {
         loginButton = new Button(
-                translation.getTranslationFor(LocalizationStrings.LOGIN_BUTTON));
-        usernameField = new TextField(LocalizationStrings.USERNAME);
-        passwordField = new TextField(LocalizationStrings.PASSWORD);
+                translation.getTranslationFor(TranslationVars.LOGIN_BUTTON));
+        usernameField = new TextField(TranslationVars.USERNAME);
+        passwordField = new TextField(TranslationVars.PASSWORD);
         userStatus = new Label("logged in as "
                 + System.getenv(EnvironmentVariables.USER));
     }

@@ -1,6 +1,6 @@
 package org.xorrr.fundsoverview.l18n;
 
-public class LocalizationStrings {
+public class TranslationVars {
     public static final String FUND = "fund";
     public static final String PRICE = "price";
     public static final String CURRENT_YEAR = "currentYear";

@@ -7,7 +7,7 @@ import net.engio.mbassy.listener.References;
 import org.xorrr.fundsoverview.eventbus.events.FundAlreadyAddedEvent;
 import org.xorrr.fundsoverview.eventbus.events.InvalidIsinEvent;
 import org.xorrr.fundsoverview.eventbus.events.WrongCredentialsEvent;
-import org.xorrr.fundsoverview.l18n.LocalizationStrings;
+import org.xorrr.fundsoverview.l18n.TranslationVars;
 
 import com.google.inject.Inject;
 
@@ -23,16 +23,16 @@ public class NotificationEventHandler {
 
     @Handler
     public void handleFundAlreadyAddedEvent(FundAlreadyAddedEvent event) {
-        n.notifyFundAlreadyAdded(LocalizationStrings.FUND_ALREADY_ADDED);
+        n.notifyFundAlreadyAdded(TranslationVars.FUND_ALREADY_ADDED);
     }
 
     @Handler
     public void handleInvalidIsinEvent(InvalidIsinEvent event) {
-        n.notifyInvalidIsin(LocalizationStrings.ISIN_INVALID);
+        n.notifyInvalidIsin(TranslationVars.ISIN_INVALID);
     }
 
     @Handler
     public void handleWrongCredentialsEvent(WrongCredentialsEvent event) {
-        n.notifyWrongCredentials(LocalizationStrings.WRONG_CREDENTIALS);
+        n.notifyWrongCredentials(TranslationVars.WRONG_CREDENTIALS);
     }
 }

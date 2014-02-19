@@ -18,7 +18,7 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.runners.MockitoJUnitRunner;
 import org.xorrr.fundsoverview.l18n.Localization;
-import org.xorrr.fundsoverview.l18n.LocalizationStrings;
+import org.xorrr.fundsoverview.l18n.TranslationVars;
 import org.xorrr.fundsoverview.layouts.LoginLayout;
 import org.xorrr.fundsoverview.model.Fund;
 import org.xorrr.fundsoverview.presenter.DashboardViewHandler;
@@ -92,24 +92,24 @@ public class TestDashboardViewImpl {
     }
 
     private void checkLabelContents() {
-        checkLabelContent(EXPECTED_NAME, LocalizationStrings.FUND);
-        checkLabelContent(EXPECTED_PRICE, LocalizationStrings.PRICE);
+        checkLabelContent(EXPECTED_NAME, TranslationVars.FUND);
+        checkLabelContent(EXPECTED_PRICE, TranslationVars.PRICE);
         checkLabelContent(EXPECTED_CURRENT_GROWTH,
-                LocalizationStrings.CURRENT_YEAR);
+                TranslationVars.CURRENT_YEAR);
         checkLabelContent(EXPECTED_ONE_YEAR_GROWTH,
-                LocalizationStrings.ONE_YEAR);
+                TranslationVars.ONE_YEAR);
         checkLabelContent(EXPECTED_THREE_YEAR_GROWTH,
-                LocalizationStrings.THREE_YEARS);
+                TranslationVars.THREE_YEARS);
         checkLabelContent(EXPECTED_FIVE_YEAR_GROWTH,
-                LocalizationStrings.FIVE_YEARS);
+                TranslationVars.FIVE_YEARS);
     }
 
     private void checkLabelTypes() {
-        checkType(Label.class, LocalizationStrings.FIVE_YEARS);
-        checkType(Label.class, LocalizationStrings.CURRENT_YEAR);
-        checkType(Label.class, LocalizationStrings.ONE_YEAR);
-        checkType(Label.class, LocalizationStrings.THREE_YEARS);
-        checkType(Label.class, LocalizationStrings.PRICE);
+        checkType(Label.class, TranslationVars.FIVE_YEARS);
+        checkType(Label.class, TranslationVars.CURRENT_YEAR);
+        checkType(Label.class, TranslationVars.ONE_YEAR);
+        checkType(Label.class, TranslationVars.THREE_YEARS);
+        checkType(Label.class, TranslationVars.PRICE);
     }
 
     private void clickDeleteFundButton() {
@@ -151,7 +151,7 @@ public class TestDashboardViewImpl {
         checkLabelContents();
         checkLabelTypes();
         assertNull(testItem.getItemProperty(
-                translation.getTranslationFor(LocalizationStrings.DELETE))
+                translation.getTranslationFor(TranslationVars.DELETE))
                 .toString());
     }
 
@@ -161,11 +161,11 @@ public class TestDashboardViewImpl {
 
         setTestItem();
 
-        Label curYearGrowth = getLabelFor(LocalizationStrings.CURRENT_YEAR);
-        Label oneYearGrowth = getLabelFor(LocalizationStrings.ONE_YEAR);
-        Label threeYearGrowth = getLabelFor(LocalizationStrings.THREE_YEARS);
-        Label fiveYearGrowth = getLabelFor(LocalizationStrings.FIVE_YEARS);
-        Label price = getLabelFor(LocalizationStrings.PRICE);
+        Label curYearGrowth = getLabelFor(TranslationVars.CURRENT_YEAR);
+        Label oneYearGrowth = getLabelFor(TranslationVars.ONE_YEAR);
+        Label threeYearGrowth = getLabelFor(TranslationVars.THREE_YEARS);
+        Label fiveYearGrowth = getLabelFor(TranslationVars.FIVE_YEARS);
+        Label price = getLabelFor(TranslationVars.PRICE);
         assertEquals("posGrowth", threeYearGrowth.getStyleName());
         assertEquals("negGrowth", oneYearGrowth.getStyleName());
         assertEquals("posGrowth", curYearGrowth.getStyleName());
@@ -178,7 +178,7 @@ public class TestDashboardViewImpl {
         displayFundsWithDeleteButtonAndTestItem();
 
         Button testButton = (Button) testItem.getItemProperty(
-                translation.getTranslationFor(LocalizationStrings.DELETE))
+                translation.getTranslationFor(TranslationVars.DELETE))
                 .getValue();
 
         assertEquals(EXPECTED_ISIN, testButton.getData());
@@ -237,7 +237,7 @@ public class TestDashboardViewImpl {
 
         checkLabelContents();
         checkLabelTypes();
-        checkType(Button.class, LocalizationStrings.DELETE);
+        checkType(Button.class, TranslationVars.DELETE);
     }
 
     @Test

@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.xorrr.fundsoverview.l18n.Localization;
-import org.xorrr.fundsoverview.l18n.LocalizationStrings;
+import org.xorrr.fundsoverview.l18n.TranslationVars;
 import org.xorrr.fundsoverview.layouts.LoginLayout;
 import org.xorrr.fundsoverview.model.Fund;
 import org.xorrr.fundsoverview.presenter.DashboardViewHandler;
@@ -105,7 +105,7 @@ public class DashboardViewImpl extends CustomLayout implements DashboardView {
     @Override
     public void displayFundsWithDeleteButtons(List<Fund> funds) {
         fundTable.addContainerProperty(
-                translation.getTranslationFor(LocalizationStrings.DELETE),
+                translation.getTranslationFor(TranslationVars.DELETE),
                 Button.class, null);
         for (int currentFund = 0; currentFund < funds.size(); currentFund++) {
             addFundToTableWithDeleteButton(funds, currentFund);
@@ -135,7 +135,7 @@ public class DashboardViewImpl extends CustomLayout implements DashboardView {
     private void addFundToTableWithDeleteButton(List<Fund> funds,
             int fundCounter) {
         Button deleteButton = new Button(
-                translation.getTranslationFor(LocalizationStrings.DELETE));
+                translation.getTranslationFor(TranslationVars.DELETE));
         deleteButton.setData(funds.get(fundCounter).getIsin());
         deleteButton.addClickListener(deleteFundListener);
 
@@ -176,7 +176,7 @@ public class DashboardViewImpl extends CustomLayout implements DashboardView {
         fundIdField.setId("add_fund_id_field");
 
         addFundButton = new Button(
-                translation.getTranslationFor(LocalizationStrings.ADD_FUND));
+                translation.getTranslationFor(TranslationVars.ADD_FUND));
         addFundButton.setId("add_fund_button");
         addFundButton.addClickListener(addFundListener);
 
@@ -193,23 +193,23 @@ public class DashboardViewImpl extends CustomLayout implements DashboardView {
     private void createFundTable() {
         fundTable = new Table("Funds");
         fundTable.addContainerProperty(
-                translation.getTranslationFor(LocalizationStrings.FUND),
+                translation.getTranslationFor(TranslationVars.FUND),
                 String.class, null);
         fundTable.addContainerProperty(
-                translation.getTranslationFor(LocalizationStrings.PRICE),
+                translation.getTranslationFor(TranslationVars.PRICE),
                 Label.class, null);
         fundTable
                 .addContainerProperty(translation
-                        .getTranslationFor(LocalizationStrings.CURRENT_YEAR),
+                        .getTranslationFor(TranslationVars.CURRENT_YEAR),
                         Label.class, null);
         fundTable.addContainerProperty(
-                translation.getTranslationFor(LocalizationStrings.ONE_YEAR),
+                translation.getTranslationFor(TranslationVars.ONE_YEAR),
                 Label.class, null);
         fundTable.addContainerProperty(
-                translation.getTranslationFor(LocalizationStrings.THREE_YEARS),
+                translation.getTranslationFor(TranslationVars.THREE_YEARS),
                 Label.class, null);
         fundTable.addContainerProperty(
-                translation.getTranslationFor(LocalizationStrings.FIVE_YEARS),
+                translation.getTranslationFor(TranslationVars.FIVE_YEARS),
                 Label.class, null);
     }
 
