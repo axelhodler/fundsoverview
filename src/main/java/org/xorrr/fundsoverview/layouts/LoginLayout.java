@@ -48,24 +48,6 @@ public class LoginLayout extends CustomLayout {
 
     };
 
-    
-
-    public Button getLoginButton() {
-        return loginButton;
-    }
-
-    public TextField getUsernameField() {
-        return usernameField;
-    }
-
-    public TextField getPasswordField() {
-        return passwordField;
-    }
-
-    public Label getUserStatus() {
-        return userStatus;
-    }
-
     private void setUpLocalization() {
         translation = new Localization();
     }
