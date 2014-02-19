@@ -10,7 +10,9 @@ import org.junit.Before;
 import org.junit.Test;
 import org.xorrr.fundsoverview.view.DashboardViewImpl;
 
+import com.vaadin.ui.Button;
 import com.vaadin.ui.Component;
+import com.vaadin.ui.TextField;
 
 public class TestLoginLayout {
 
@@ -51,11 +53,19 @@ public class TestLoginLayout {
 
     @Test
     public void handleLoginButton() {
-        layout.getUsernameField().setValue("");
-        layout.getPasswordField().setValue("");
-        layout.getLoginButton().click();
+        TextField userField = (TextField) layout
+                .getComponent(LoginLayoutLocations.userField);
+        userField.setValue("johnny");
 
-        verify(view, times(1)).handleLogin("", "");
+        TextField pw = (TextField) layout
+                .getComponent(LoginLayoutLocations.passField);
+        pw.setValue("b");
+
+        Button login = (Button) layout
+                .getComponent(LoginLayoutLocations.loginButton);
+        login.click();
+
+        verify(view, times(1)).handleLogin("johnny", "b");
     }
 
     @Test
