@@ -7,11 +7,11 @@ import org.xorrr.fundsoverview.view.DashboardViewImpl;
 
 import com.vaadin.ui.Button;
 import com.vaadin.ui.Button.ClickEvent;
+import com.vaadin.ui.CustomLayout;
 import com.vaadin.ui.Label;
 import com.vaadin.ui.TextField;
-import com.vaadin.ui.VerticalLayout;
 
-public class LoginLayout extends VerticalLayout {
+public class LoginLayout extends CustomLayout {
     private static final long serialVersionUID = -6114361172208149300L;
 
     private Button loginButton;
@@ -22,14 +22,19 @@ public class LoginLayout extends VerticalLayout {
 
     private DashboardViewImpl view;
 
+    public LoginLayout() {
+        super("login");
+    }
+
     public void init() {
         setUpLocalization();
 
         createComponents();
 
-        addComponent(loginButton);
-        addComponent(usernameField);
-        addComponent(passwordField);
+        addComponent(loginButton, LoginLayoutLocations.loginButton);
+        addComponent(usernameField, LoginLayoutLocations.userField);
+        addComponent(passwordField, LoginLayoutLocations.passField);
+
         loginButton.addClickListener(loginButtonListener);
     }
 

@@ -1,6 +1,7 @@
 package org.xorrr.fundsoverview.layouts;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
@@ -16,14 +17,13 @@ public class TestLoginLayout {
     private LoginLayout layout;
     private DashboardViewImpl view;
 
-    private void checkComponentExistence(Component expectedComponent) {
-        int index = layout.getComponentIndex(expectedComponent);
-        Component component = layout.getComponent(index);
-        assertEquals(expectedComponent, component);
+    private void checkComponentExistence(String location) {
+        Component component = layout.getComponent(location);
+        assertNotNull(component);
     }
 
-    private void componentWasRemoved(Component component) {
-        assertEquals(-1, layout.getComponentIndex(component));
+    private void componentWasRemoved(String location) {
+        assertNull(layout.getComponent(location));
     }
 
     @Before
@@ -36,17 +36,17 @@ public class TestLoginLayout {
 
     @Test
     public void loginButtonExists() {
-        checkComponentExistence(layout.getLoginButton());
+        checkComponentExistence(LoginLayoutLocations.loginButton);
     }
 
     @Test
     public void usernameFieldExists() {
-        checkComponentExistence(layout.getUsernameField());
+        checkComponentExistence(LoginLayoutLocations.userField);
     }
 
     @Test
     public void passwordFieldExists() {
-        checkComponentExistence(layout.getPasswordField());
+        checkComponentExistence(LoginLayoutLocations.passField);
     }
 
     @Test
@@ -62,15 +62,15 @@ public class TestLoginLayout {
     public void loginFormCanBeRemoved() {
         layout.removeLoginForm();
 
-        componentWasRemoved(layout.getLoginButton());
-        componentWasRemoved(layout.getUsernameField());
-        componentWasRemoved(layout.getPasswordField());
+        componentWasRemoved(LoginLayoutLocations.loginButton);
+        componentWasRemoved(LoginLayoutLocations.userField);
+        componentWasRemoved(LoginLayoutLocations.passField);
     }
 
     @Test
     public void userNameCanBeDisplayed() {
         layout.displayUserName("");
 
-        checkComponentExistence(layout.getUserStatus());
+        checkComponentExistence(LoginLayoutLocations.userField);
     }
 }
