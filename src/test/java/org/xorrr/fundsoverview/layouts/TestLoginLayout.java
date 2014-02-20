@@ -1,5 +1,6 @@
 package org.xorrr.fundsoverview.layouts;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.mockito.Mockito.mock;
@@ -82,5 +83,10 @@ public class TestLoginLayout {
         layout.displayUserName("");
 
         checkComponentExistence(LoginLocations.userField);
+    }
+
+    @Test
+    public void isCorrectTemplateSet() {
+        assertEquals(Layouts.LOGIN, layout.getTemplateName());
     }
 }
