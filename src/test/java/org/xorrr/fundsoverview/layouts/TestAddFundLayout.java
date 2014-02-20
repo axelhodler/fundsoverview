@@ -84,4 +84,9 @@ public class TestAddFundLayout {
         addFundButton.click();
         verify(view, times(1)).handleAddFund(fundField.getValue());
     }
+
+    @Test
+    public void isCorrectTemplateSet() {
+        assertEquals(Layouts.FUND_ADD, layout.getTemplateName());
+    }
 }

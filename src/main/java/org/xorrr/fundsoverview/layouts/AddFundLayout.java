@@ -20,7 +20,7 @@ public class AddFundLayout extends CustomLayout {
 
     @Inject
     public AddFundLayout(Localization translation) {
-        super(Layouts.FUND_ADD);//untested
+        setTemplateName(Layouts.FUND_ADD);
         this.translation = translation;
     }
 
