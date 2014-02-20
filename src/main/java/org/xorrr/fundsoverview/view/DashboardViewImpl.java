@@ -44,6 +44,7 @@ public class DashboardViewImpl extends CustomLayout implements DashboardView {
         initFundTable();
 
         loginLayout.setView(this);
+        addFundLayout.setView(this);
         initLoginForm();
     }
 
@@ -160,6 +161,7 @@ public class DashboardViewImpl extends CustomLayout implements DashboardView {
     };
 
     private void initFormToAddFunds() {
+        addFundLayout.init();
         addComponent(addFundLayout, DashboardLocations.FUND_FORM);
     }
 
