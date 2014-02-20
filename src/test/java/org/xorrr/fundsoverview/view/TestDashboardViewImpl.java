@@ -20,6 +20,7 @@ import org.mockito.runners.MockitoJUnitRunner;
 import org.xorrr.fundsoverview.l18n.Localization;
 import org.xorrr.fundsoverview.l18n.TranslationVars;
 import org.xorrr.fundsoverview.layouts.AddFundLayout;
+import org.xorrr.fundsoverview.layouts.Layouts;
 import org.xorrr.fundsoverview.layouts.LoginLayout;
 import org.xorrr.fundsoverview.model.Fund;
 import org.xorrr.fundsoverview.presenter.DashboardViewHandler;
@@ -250,5 +251,10 @@ public class TestDashboardViewImpl {
         view.removeTableItems();
 
         assertEquals(0, view.getFundTable().getItemIds().size());
+    }
+
+    @Test
+    public void isCorrectTemplateSet() {
+        assertEquals(Layouts.DASHBOARD, view.getTemplateName());
     }
 }
