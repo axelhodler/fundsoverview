@@ -87,6 +87,6 @@ public class TestLoginLayout {
 
     @Test
     public void isCorrectTemplateSet() {
-        assertEquals(Layouts.LOGIN, layout.getTemplateName());
+        assertEquals(AllLayouts.LOGIN, layout.getTemplateName());
     }
 }

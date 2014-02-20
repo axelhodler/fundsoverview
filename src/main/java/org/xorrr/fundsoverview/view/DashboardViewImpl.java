@@ -7,7 +7,7 @@ import org.xorrr.fundsoverview.l18n.Localization;
 import org.xorrr.fundsoverview.l18n.TranslationVars;
 import org.xorrr.fundsoverview.layouts.AddFundLayout;
 import org.xorrr.fundsoverview.layouts.DashboardLocations;
-import org.xorrr.fundsoverview.layouts.Layouts;
+import org.xorrr.fundsoverview.layouts.AllLayouts;
 import org.xorrr.fundsoverview.layouts.LoginLayout;
 import org.xorrr.fundsoverview.model.Fund;
 import org.xorrr.fundsoverview.presenter.DashboardViewHandler;
@@ -33,7 +33,7 @@ public class DashboardViewImpl extends CustomLayout implements DashboardView {
 
     @Inject
     public DashboardViewImpl(LoginLayout layout, AddFundLayout addFundLayout) {
-        setTemplateName(Layouts.DASHBOARD);
+        setTemplateName(AllLayouts.DASHBOARD);
         this.loginLayout = layout;
         this.addFundLayout = addFundLayout;
     }

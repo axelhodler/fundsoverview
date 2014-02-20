@@ -87,6 +87,6 @@ public class TestAddFundLayout {
 
     @Test
     public void isCorrectTemplateSet() {
-        assertEquals(Layouts.FUND_ADD, layout.getTemplateName());
+        assertEquals(AllLayouts.FUND_ADD, layout.getTemplateName());
     }
 }
