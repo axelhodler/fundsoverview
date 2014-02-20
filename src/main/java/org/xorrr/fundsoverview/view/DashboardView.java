@@ -9,7 +9,6 @@ import org.xorrr.fundsoverview.presenter.DashboardViewHandler;
 import com.vaadin.navigator.View;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.Table;
-import com.vaadin.ui.TextField;
 
 
 public interface DashboardView extends View {
@@ -18,8 +17,6 @@ public interface DashboardView extends View {
 
     public void setHandler(DashboardViewHandler handler);
 
-    public Button getAddFundBtn();
-
     public List<Button> getDeleteFundButtons();
 
     public void displayFunds(List<Fund> funds);
@@ -27,8 +24,6 @@ public interface DashboardView extends View {
     public Table getFundTable();
 
     public LoginLayout getLoginLayout();
-
-    public TextField getFundIdField();
 
     void displayAddFundForm();
 

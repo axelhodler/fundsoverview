@@ -16,7 +16,6 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
-import org.mockito.Mockito;
 import org.mockito.runners.MockitoJUnitRunner;
 import org.xorrr.fundsoverview.l18n.Localization;
 import org.xorrr.fundsoverview.l18n.TranslationVars;
@@ -135,15 +134,6 @@ public class TestDashboardViewImpl {
         funds.add(f);
 
         setLocalizationMessages();
-    }
-
-    @Test
-    public void testAddFundButton() throws IOException, InvalidIsinException {
-        view.displayAddFundForm();
-        view.getAddFundBtn().click();
-        verify(handler, times(1)).addFund(Mockito.any(Fund.class));
-        verify(handler, times(1)).removeFundTableItems();
-        verify(handler, times(1)).showFundsWithDeleteButton();
     }
 
     @Test

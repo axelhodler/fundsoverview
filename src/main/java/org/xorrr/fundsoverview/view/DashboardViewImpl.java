@@ -19,13 +19,10 @@ import com.vaadin.ui.Button.ClickEvent;
 import com.vaadin.ui.CustomLayout;
 import com.vaadin.ui.Label;
 import com.vaadin.ui.Table;
-import com.vaadin.ui.TextField;
 
 @SuppressWarnings("serial")
 public class DashboardViewImpl extends CustomLayout implements DashboardView {
 
-    private TextField fundIdField;
-    private Button addFundButton;
     private Table fundTable;
     private DashboardViewHandler handler;
 
@@ -61,11 +58,6 @@ public class DashboardViewImpl extends CustomLayout implements DashboardView {
     }
 
     @Override
-    public Button getAddFundBtn() {
-        return this.addFundButton;
-    }
-
-    @Override
     public List<Button> getDeleteFundButtons() {
         return this.buttons;
     }
@@ -85,11 +77,6 @@ public class DashboardViewImpl extends CustomLayout implements DashboardView {
     @Override
     public LoginLayout getLoginLayout() {
         return this.loginLayout;
-    }
-
-    @Override
-    public TextField getFundIdField() {
-        return this.fundIdField;
     }
 
     @Override
@@ -162,17 +149,6 @@ public class DashboardViewImpl extends CustomLayout implements DashboardView {
         buttons.add(deleteButton);
     }
 
-    Button.ClickListener addFundListener = new Button.ClickListener() {
-
-        @Override
-        public void buttonClick(ClickEvent event) {
-            handler.addFund(new Fund.Builder().isin(fundIdField.getValue())
-                    .build());
-            handler.removeFundTableItems();
-            handler.showFundsWithDeleteButton();
-        }
-    };
-
     Button.ClickListener deleteFundListener = new Button.ClickListener() {
 
         @Override
@@ -184,15 +160,7 @@ public class DashboardViewImpl extends CustomLayout implements DashboardView {
     };
 
     private void initFormToAddFunds() {
-        fundIdField = new TextField();
-
-        addFundButton = new Button(
-                translation.getTranslationFor(TranslationVars.ADD_FUND));
-
-        addFundButton.addClickListener(addFundListener);
-
-        addComponent(fundIdField, DashboardLocations.FUND_ID);
-        addComponent(addFundButton, DashboardLocations.ADD_FUND);
+        addComponent(addFundLayout, DashboardLocations.FUND_FORM);
     }
 
     private void initFundTable() {
