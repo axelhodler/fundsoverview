@@ -1,4 +1,4 @@
-package org.xorrr.fundsoverview.events;
+package org.xorrr.fundsoverview.eventbus;
 
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
