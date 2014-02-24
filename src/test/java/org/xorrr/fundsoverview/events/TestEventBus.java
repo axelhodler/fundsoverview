@@ -12,6 +12,7 @@ import org.xorrr.fundsoverview.eventbus.EventBus;
 import org.xorrr.fundsoverview.eventbus.NotificationEventHandler;
 import org.xorrr.fundsoverview.eventbus.events.FundAlreadyAddedEvent;
 import org.xorrr.fundsoverview.eventbus.events.InvalidIsinEvent;
+import org.xorrr.fundsoverview.eventbus.events.LoggedInEvent;
 import org.xorrr.fundsoverview.eventbus.events.WrongCredentialsEvent;
 import org.xorrr.fundsoverview.presenter.DashboardPresenter;
 
