@@ -41,8 +41,6 @@ public class DashboardViewImpl extends CustomLayout implements DashboardView {
     }
 
     public void init() {
-        translation = new Localization();
-
         initFundTable();
 
         loginLayout.setView(this);

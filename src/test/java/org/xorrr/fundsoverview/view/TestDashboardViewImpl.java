@@ -7,6 +7,7 @@ import static org.mockito.Matchers.any;
 import static org.mockito.Matchers.anyString;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -56,8 +57,6 @@ public class TestDashboardViewImpl {
     private List<Fund> funds = new ArrayList<>();
     private Item testItem;
 
-    
-
     private void createTestFundProduct() {
         Fund f = new Fund.Builder().isin(EXPECTED_ISIN).build();
         f.setName(EXPECTED_NAME);
@@ -68,10 +67,6 @@ public class TestDashboardViewImpl {
         f.setFiveYearGrowth(EXPECTED_FIVE_YEAR_GROWTH);
 
         this.f = f;
-    }
-
-    private void setLocalizationMessages() {
-        translation = new Localization();
     }
 
     private void checkType(Object expected, String id) {
@@ -129,14 +124,20 @@ public class TestDashboardViewImpl {
 
     @Before
     public void setUp() {
+        when(translation.getTranslationFor(TranslationVars.DELETE)).thenReturn("del");
+        when(translation.getTranslationFor(TranslationVars.FUND)).thenReturn("fund");
+        when(translation.getTranslationFor(TranslationVars.PRICE)).thenReturn("price");
+        when(translation.getTranslationFor(TranslationVars.CURRENT_YEAR)).thenReturn("curyear");
+        when(translation.getTranslationFor(TranslationVars.ONE_YEAR)).thenReturn("oneyear");
+        when(translation.getTranslationFor(TranslationVars.THREE_YEARS)).thenReturn("threeyears");
+        when(translation.getTranslationFor(TranslationVars.FIVE_YEARS)).thenReturn("five");
+
         view = new DashboardViewImpl(loginLayout, addFundLayout, translation);
         view.setHandler(handler);
         view.init();
 
         createTestFundProduct();
         funds.add(f);
-
-        setLocalizationMessages();
     }
 
     @Test
