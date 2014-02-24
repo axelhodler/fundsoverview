@@ -145,6 +145,12 @@ public class TestDashboardViewImpl {
     }
 
     @Test
+    public void viewsAreSet() {
+        verify(loginLayout, times(1)).setView(view);
+        verify(addFundLayout, times(1)).setView(view);
+    }
+
+    @Test
     public void basicFinancialProductsAreShown() {
         view.displayFunds(funds);
 
