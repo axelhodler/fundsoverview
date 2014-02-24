@@ -11,6 +11,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
+import org.xorrr.fundsoverview.l18n.Localization;
 import org.xorrr.fundsoverview.view.DashboardViewImpl;
 
 import com.vaadin.ui.Button;
@@ -22,6 +23,9 @@ public class TestLoginLayout {
 
     @Mock
     private DashboardViewImpl view;
+
+    @Mock
+    private Localization l;
 
     private LoginLayout layout;
     
@@ -37,7 +41,7 @@ public class TestLoginLayout {
 
     @Before
     public void setUp() {
-        layout = new LoginLayout();
+        layout = new LoginLayout(l);
         layout.init();
         layout.setView(view);
     }

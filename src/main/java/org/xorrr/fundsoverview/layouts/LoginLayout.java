@@ -5,6 +5,7 @@ import org.xorrr.fundsoverview.l18n.Localization;
 import org.xorrr.fundsoverview.l18n.TranslationVars;
 import org.xorrr.fundsoverview.view.DashboardViewImpl;
 
+import com.google.inject.Inject;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.Button.ClickEvent;
 import com.vaadin.ui.CustomLayout;
@@ -22,7 +23,9 @@ public class LoginLayout extends CustomLayout {
 
     private DashboardViewImpl view;
 
-    public LoginLayout() {
+    @Inject
+    public LoginLayout(Localization l) {
+        this.translation = l;
         setTemplateName(AllLayouts.LOGIN);
     }
 
