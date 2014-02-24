@@ -3,22 +3,28 @@ package org.xorrr.fundsoverview.layouts;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
-import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.mockito.Mock;
+import org.mockito.runners.MockitoJUnitRunner;
 import org.xorrr.fundsoverview.view.DashboardViewImpl;
 
 import com.vaadin.ui.Button;
 import com.vaadin.ui.Component;
 import com.vaadin.ui.TextField;
 
+@RunWith(MockitoJUnitRunner.class)
 public class TestLoginLayout {
 
-    private LoginLayout layout;
+    @Mock
     private DashboardViewImpl view;
+
+    private LoginLayout layout;
+    
 
     private void checkComponentExistence(String location) {
         Component component = layout.getComponent(location);
@@ -31,7 +37,6 @@ public class TestLoginLayout {
 
     @Before
     public void setUp() {
-        view = mock(DashboardViewImpl.class);
         layout = new LoginLayout();
         layout.init();
         layout.setView(view);
