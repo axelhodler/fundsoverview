@@ -41,6 +41,8 @@ public class TestDashboardViewImpl {
     private LoginLayout loginLayout;
     @Mock
     private AddFundLayout addFundLayout;
+    @Mock
+    private Localization translation;
 
     private final String EXPECTED_ISIN = "12345";
     private final String EXPECTED_NAME = "foo";
@@ -54,7 +56,7 @@ public class TestDashboardViewImpl {
     private List<Fund> funds = new ArrayList<>();
     private Item testItem;
 
-    private Localization translation;
+    
 
     private void createTestFundProduct() {
         Fund f = new Fund.Builder().isin(EXPECTED_ISIN).build();
@@ -127,7 +129,7 @@ public class TestDashboardViewImpl {
 
     @Before
     public void setUp() {
-        view = new DashboardViewImpl(loginLayout, addFundLayout);
+        view = new DashboardViewImpl(loginLayout, addFundLayout, translation);
         view.setHandler(handler);
         view.init();
 

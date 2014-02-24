@@ -32,7 +32,9 @@ public class DashboardViewImpl extends CustomLayout implements DashboardView {
     private AddFundLayout addFundLayout;
 
     @Inject
-    public DashboardViewImpl(LoginLayout layout, AddFundLayout addFundLayout) {
+    public DashboardViewImpl(LoginLayout layout, AddFundLayout addFundLayout,
+            Localization l) {
+        this.translation = l;
         setTemplateName(AllLayouts.DASHBOARD);
         this.loginLayout = layout;
         this.addFundLayout = addFundLayout;
