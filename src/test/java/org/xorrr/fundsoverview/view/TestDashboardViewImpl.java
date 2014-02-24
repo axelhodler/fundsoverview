@@ -26,6 +26,7 @@ import org.xorrr.fundsoverview.layouts.LoginLayout;
 import org.xorrr.fundsoverview.model.Fund;
 import org.xorrr.fundsoverview.presenter.DashboardViewHandler;
 import org.xorrr.fundsoverview.retrieval.InvalidIsinException;
+import org.xorrr.styling.CustomStyles;
 
 import com.vaadin.data.Item;
 import com.vaadin.ui.Button;
@@ -95,14 +96,11 @@ public class TestDashboardViewImpl {
     private void checkLabelContents() {
         checkLabelContent(EXPECTED_NAME, TranslationVars.FUND);
         checkLabelContent(EXPECTED_PRICE, TranslationVars.PRICE);
-        checkLabelContent(EXPECTED_CURRENT_GROWTH,
-                TranslationVars.CURRENT_YEAR);
-        checkLabelContent(EXPECTED_ONE_YEAR_GROWTH,
-                TranslationVars.ONE_YEAR);
+        checkLabelContent(EXPECTED_CURRENT_GROWTH, TranslationVars.CURRENT_YEAR);
+        checkLabelContent(EXPECTED_ONE_YEAR_GROWTH, TranslationVars.ONE_YEAR);
         checkLabelContent(EXPECTED_THREE_YEAR_GROWTH,
                 TranslationVars.THREE_YEARS);
-        checkLabelContent(EXPECTED_FIVE_YEAR_GROWTH,
-                TranslationVars.FIVE_YEARS);
+        checkLabelContent(EXPECTED_FIVE_YEAR_GROWTH, TranslationVars.FIVE_YEARS);
     }
 
     private void checkLabelTypes() {
@@ -123,13 +121,20 @@ public class TestDashboardViewImpl {
     }
 
     private void mockLocalizationBehaviour() {
-        when(translation.getTranslationFor(TranslationVars.DELETE)).thenReturn("del");
-        when(translation.getTranslationFor(TranslationVars.FUND)).thenReturn("fund");
-        when(translation.getTranslationFor(TranslationVars.PRICE)).thenReturn("price");
-        when(translation.getTranslationFor(TranslationVars.CURRENT_YEAR)).thenReturn("curyear");
-        when(translation.getTranslationFor(TranslationVars.ONE_YEAR)).thenReturn("oneyear");
-        when(translation.getTranslationFor(TranslationVars.THREE_YEARS)).thenReturn("threeyears");
-        when(translation.getTranslationFor(TranslationVars.FIVE_YEARS)).thenReturn("five");
+        when(translation.getTranslationFor(TranslationVars.DELETE)).thenReturn(
+                "del");
+        when(translation.getTranslationFor(TranslationVars.FUND)).thenReturn(
+                "fund");
+        when(translation.getTranslationFor(TranslationVars.PRICE)).thenReturn(
+                "price");
+        when(translation.getTranslationFor(TranslationVars.CURRENT_YEAR))
+                .thenReturn("curyear");
+        when(translation.getTranslationFor(TranslationVars.ONE_YEAR))
+                .thenReturn("oneyear");
+        when(translation.getTranslationFor(TranslationVars.THREE_YEARS))
+                .thenReturn("threeyears");
+        when(translation.getTranslationFor(TranslationVars.FIVE_YEARS))
+                .thenReturn("five");
     }
 
     @Before
@@ -174,11 +179,11 @@ public class TestDashboardViewImpl {
         Label threeYearGrowth = getLabelFor(TranslationVars.THREE_YEARS);
         Label fiveYearGrowth = getLabelFor(TranslationVars.FIVE_YEARS);
         Label price = getLabelFor(TranslationVars.PRICE);
-        assertEquals("posGrowth", threeYearGrowth.getStyleName());
-        assertEquals("negGrowth", oneYearGrowth.getStyleName());
-        assertEquals("posGrowth", curYearGrowth.getStyleName());
-        assertEquals("negGrowth", fiveYearGrowth.getStyleName());
-        assertEquals("price", price.getStyleName());
+        assertEquals(CustomStyles.POS_GROWTH, threeYearGrowth.getStyleName());
+        assertEquals(CustomStyles.NEG_GROWTH, oneYearGrowth.getStyleName());
+        assertEquals(CustomStyles.POS_GROWTH, curYearGrowth.getStyleName());
+        assertEquals(CustomStyles.NEG_GROWTH, fiveYearGrowth.getStyleName());
+        assertEquals(CustomStyles.PRICE, price.getStyleName());
     }
 
     @Test

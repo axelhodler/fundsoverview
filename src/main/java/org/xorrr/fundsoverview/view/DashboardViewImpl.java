@@ -11,6 +11,7 @@ import org.xorrr.fundsoverview.layouts.AllLayouts;
 import org.xorrr.fundsoverview.layouts.LoginLayout;
 import org.xorrr.fundsoverview.model.Fund;
 import org.xorrr.fundsoverview.presenter.DashboardViewHandler;
+import org.xorrr.styling.CustomStyles;
 
 import com.google.inject.Inject;
 import com.vaadin.navigator.ViewChangeListener.ViewChangeEvent;
@@ -209,7 +210,7 @@ public class DashboardViewImpl extends CustomLayout implements DashboardView {
 
     private Label createPriceLabel(List<Fund> funds, int fundCounter) {
         Label priceField = new Label(funds.get(fundCounter).getCurrentPrice());
-        priceField.setStyleName("price");
+        priceField.setStyleName(CustomStyles.PRICE);
         return priceField;
     }
 
@@ -228,9 +229,9 @@ public class DashboardViewImpl extends CustomLayout implements DashboardView {
 
     private void setGrowthStyle(Label growthLabel) {
         if (growthLabel.getValue().subSequence(0, 1).equals("-")) {
-            growthLabel.addStyleName("negGrowth");
+            growthLabel.addStyleName(CustomStyles.NEG_GROWTH);
         } else {
-            growthLabel.addStyleName("posGrowth");
+            growthLabel.addStyleName(CustomStyles.POS_GROWTH);
         }
     }
 
