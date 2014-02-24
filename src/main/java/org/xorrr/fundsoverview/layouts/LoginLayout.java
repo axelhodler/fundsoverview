@@ -30,8 +30,6 @@ public class LoginLayout extends CustomLayout {
     }
 
     public void init() {
-        setUpLocalization();
-
         createComponents();
 
         addComponent(loginButton, LoginLocations.loginButton);
@@ -50,10 +48,6 @@ public class LoginLayout extends CustomLayout {
         }
 
     };
-
-    private void setUpLocalization() {
-        translation = new Localization();
-    }
 
     private void createComponents() {
         loginButton = new Button(
