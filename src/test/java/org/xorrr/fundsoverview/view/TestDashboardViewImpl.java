@@ -122,8 +122,7 @@ public class TestDashboardViewImpl {
         setTestItem();
     }
 
-    @Before
-    public void setUp() {
+    private void mockLocalizationBehaviour() {
         when(translation.getTranslationFor(TranslationVars.DELETE)).thenReturn("del");
         when(translation.getTranslationFor(TranslationVars.FUND)).thenReturn("fund");
         when(translation.getTranslationFor(TranslationVars.PRICE)).thenReturn("price");
@@ -131,6 +130,11 @@ public class TestDashboardViewImpl {
         when(translation.getTranslationFor(TranslationVars.ONE_YEAR)).thenReturn("oneyear");
         when(translation.getTranslationFor(TranslationVars.THREE_YEARS)).thenReturn("threeyears");
         when(translation.getTranslationFor(TranslationVars.FIVE_YEARS)).thenReturn("five");
+    }
+
+    @Before
+    public void setUp() {
+        mockLocalizationBehaviour();
 
         view = new DashboardViewImpl(loginLayout, addFundLayout, translation);
         view.setHandler(handler);
