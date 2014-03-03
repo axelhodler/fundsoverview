@@ -1,76 +1,101 @@
 package org.xorrr.fundsoverview.layouts;
 
 import static org.junit.Assert.assertEquals;
-import static org.mockito.Mockito.mock;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.mockito.Mock;
+import org.mockito.runners.MockitoJUnitRunner;
+import org.xorrr.fundsoverview.l18n.Localization;
 import org.xorrr.fundsoverview.view.DashboardViewImpl;
 
+import com.vaadin.ui.Button;
 import com.vaadin.ui.Component;
+import com.vaadin.ui.TextField;
 
+@RunWith(MockitoJUnitRunner.class)
 public class TestLoginLayout {
 
-    private LoginLayout layout;
+    @Mock
     private DashboardViewImpl view;
 
-    private void checkComponentExistence(Component expectedComponent) {
-        int index = layout.getComponentIndex(expectedComponent);
-        Component component = layout.getComponent(index);
-        assertEquals(expectedComponent, component);
+    @Mock
+    private Localization l;
+
+    private LoginLayout layout;
+    
+
+    private void checkComponentExistence(String location) {
+        Component component = layout.getComponent(location);
+        assertNotNull(component);
     }
 
-    private void componentWasRemoved(Component component) {
-        assertEquals(-1, layout.getComponentIndex(component));
+    private void componentWasRemoved(String location) {
+        assertNull(layout.getComponent(location));
     }
 
     @Before
     public void setUp() {
-        view = mock(DashboardViewImpl.class);
-        layout = new LoginLayout();
+        layout = new LoginLayout(l);
         layout.init();
         layout.setView(view);
     }
 
     @Test
     public void loginButtonExists() {
-        checkComponentExistence(layout.getLoginButton());
+        checkComponentExistence(LoginLocations.loginButton);
     }
 
     @Test
     public void usernameFieldExists() {
-        checkComponentExistence(layout.getUsernameField());
+        checkComponentExistence(LoginLocations.userField);
     }
 
     @Test
     public void passwordFieldExists() {
-        checkComponentExistence(layout.getPasswordField());
+        checkComponentExistence(LoginLocations.passField);
     }
 
     @Test
     public void handleLoginButton() {
-        layout.getUsernameField().setValue("");
-        layout.getPasswordField().setValue("");
-        layout.getLoginButton().click();
+        TextField userField = (TextField) layout
+                .getComponent(LoginLocations.userField);
+        userField.setValue("johnny");
 
-        verify(view, times(1)).handleLogin("", "");
+        TextField pw = (TextField) layout
+                .getComponent(LoginLocations.passField);
+        pw.setValue("b");
+
+        Button login = (Button) layout
+                .getComponent(LoginLocations.loginButton);
+        login.click();
+
+        verify(view, times(1)).handleLogin("johnny", "b");
     }
 
     @Test
     public void loginFormCanBeRemoved() {
         layout.removeLoginForm();
 
-        componentWasRemoved(layout.getLoginButton());
-        componentWasRemoved(layout.getUsernameField());
-        componentWasRemoved(layout.getPasswordField());
+        componentWasRemoved(LoginLocations.loginButton);
+        componentWasRemoved(LoginLocations.userField);
+        componentWasRemoved(LoginLocations.passField);
     }
 
     @Test
     public void userNameCanBeDisplayed() {
         layout.displayUserName("");
 
-        checkComponentExistence(layout.getUserStatus());
+        checkComponentExistence(LoginLocations.userField);
+    }
+
+    @Test
+    public void isCorrectTemplateSet() {
+        assertEquals(AllLayouts.LOGIN, layout.getTemplateName());
     }
 }

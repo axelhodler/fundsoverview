@@ -5,13 +5,14 @@ import org.xorrr.fundsoverview.l18n.Localization;
 import org.xorrr.fundsoverview.l18n.TranslationVars;
 import org.xorrr.fundsoverview.view.DashboardViewImpl;
 
+import com.google.inject.Inject;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.Button.ClickEvent;
+import com.vaadin.ui.CustomLayout;
 import com.vaadin.ui.Label;
 import com.vaadin.ui.TextField;
-import com.vaadin.ui.VerticalLayout;
 
-public class LoginLayout extends VerticalLayout {
+public class LoginLayout extends CustomLayout {
     private static final long serialVersionUID = -6114361172208149300L;
 
     private Button loginButton;
@@ -22,14 +23,19 @@ public class LoginLayout extends VerticalLayout {
 
     private DashboardViewImpl view;
 
-    public void init() {
-        setUpLocalization();
+    @Inject
+    public LoginLayout(Localization l) {
+        this.translation = l;
+        setTemplateName(AllLayouts.LOGIN);
+    }
 
+    public void init() {
         createComponents();
 
-        addComponent(loginButton);
-        addComponent(usernameField);
-        addComponent(passwordField);
+        addComponent(loginButton, LoginLocations.loginButton);
+        addComponent(usernameField, LoginLocations.userField);
+        addComponent(passwordField, LoginLocations.passField);
+
         loginButton.addClickListener(loginButtonListener);
     }
 
@@ -42,28 +48,6 @@ public class LoginLayout extends VerticalLayout {
         }
 
     };
-
-    
-
-    public Button getLoginButton() {
-        return loginButton;
-    }
-
-    public TextField getUsernameField() {
-        return usernameField;
-    }
-
-    public TextField getPasswordField() {
-        return passwordField;
-    }
-
-    public Label getUserStatus() {
-        return userStatus;
-    }
-
-    private void setUpLocalization() {
-        translation = new Localization();
-    }
 
     private void createComponents() {
         loginButton = new Button(

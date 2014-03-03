@@ -1,4 +1,4 @@
-package org.xorrr.fundsoverview.events;
+package org.xorrr.fundsoverview.eventbus.events;
 
 import org.xorrr.fundsoverview.eventbus.Event;
 

@@ -3,9 +3,11 @@ package org.xorrr.fundsoverview.view;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
+import static org.mockito.Matchers.any;
 import static org.mockito.Matchers.anyString;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -15,14 +17,16 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
-import org.mockito.Mockito;
 import org.mockito.runners.MockitoJUnitRunner;
 import org.xorrr.fundsoverview.l18n.Localization;
 import org.xorrr.fundsoverview.l18n.TranslationVars;
+import org.xorrr.fundsoverview.layouts.AddFundLayout;
+import org.xorrr.fundsoverview.layouts.AllLayouts;
 import org.xorrr.fundsoverview.layouts.LoginLayout;
 import org.xorrr.fundsoverview.model.Fund;
 import org.xorrr.fundsoverview.presenter.DashboardViewHandler;
 import org.xorrr.fundsoverview.retrieval.InvalidIsinException;
+import org.xorrr.styling.CustomStyles;
 
 import com.vaadin.data.Item;
 import com.vaadin.ui.Button;
@@ -37,6 +41,10 @@ public class TestDashboardViewImpl {
     private DashboardViewHandler handler;
     @Mock
     private LoginLayout loginLayout;
+    @Mock
+    private AddFundLayout addFundLayout;
+    @Mock
+    private Localization translation;
 
     private final String EXPECTED_ISIN = "12345";
     private final String EXPECTED_NAME = "foo";
@@ -50,8 +58,6 @@ public class TestDashboardViewImpl {
     private List<Fund> funds = new ArrayList<>();
     private Item testItem;
 
-    private Localization translation;
-
     private void createTestFundProduct() {
         Fund f = new Fund.Builder().isin(EXPECTED_ISIN).build();
         f.setName(EXPECTED_NAME);
@@ -62,10 +68,6 @@ public class TestDashboardViewImpl {
         f.setFiveYearGrowth(EXPECTED_FIVE_YEAR_GROWTH);
 
         this.f = f;
-    }
-
-    private void setLocalizationMessages() {
-        translation = new Localization();
     }
 
     private void checkType(Object expected, String id) {
@@ -94,14 +96,11 @@ public class TestDashboardViewImpl {
     private void checkLabelContents() {
         checkLabelContent(EXPECTED_NAME, TranslationVars.FUND);
         checkLabelContent(EXPECTED_PRICE, TranslationVars.PRICE);
-        checkLabelContent(EXPECTED_CURRENT_GROWTH,
-                TranslationVars.CURRENT_YEAR);
-        checkLabelContent(EXPECTED_ONE_YEAR_GROWTH,
-                TranslationVars.ONE_YEAR);
+        checkLabelContent(EXPECTED_CURRENT_GROWTH, TranslationVars.CURRENT_YEAR);
+        checkLabelContent(EXPECTED_ONE_YEAR_GROWTH, TranslationVars.ONE_YEAR);
         checkLabelContent(EXPECTED_THREE_YEAR_GROWTH,
                 TranslationVars.THREE_YEARS);
-        checkLabelContent(EXPECTED_FIVE_YEAR_GROWTH,
-                TranslationVars.FIVE_YEARS);
+        checkLabelContent(EXPECTED_FIVE_YEAR_GROWTH, TranslationVars.FIVE_YEARS);
     }
 
     private void checkLabelTypes() {
@@ -121,25 +120,44 @@ public class TestDashboardViewImpl {
         setTestItem();
     }
 
+    private void mockLocalizationBehaviour() {
+        when(translation.getTranslationFor(TranslationVars.DELETE)).thenReturn(
+                "del");
+        when(translation.getTranslationFor(TranslationVars.FUND)).thenReturn(
+                "fund");
+        when(translation.getTranslationFor(TranslationVars.PRICE)).thenReturn(
+                "price");
+        when(translation.getTranslationFor(TranslationVars.CURRENT_YEAR))
+                .thenReturn("curyear");
+        when(translation.getTranslationFor(TranslationVars.ONE_YEAR))
+                .thenReturn("oneyear");
+        when(translation.getTranslationFor(TranslationVars.THREE_YEARS))
+                .thenReturn("threeyears");
+        when(translation.getTranslationFor(TranslationVars.FIVE_YEARS))
+                .thenReturn("five");
+    }
+
     @Before
     public void setUp() {
-        view = new DashboardViewImpl(loginLayout);
+        mockLocalizationBehaviour();
+
+        view = new DashboardViewImpl(loginLayout, addFundLayout, translation);
         view.setHandler(handler);
         view.init();
 
         createTestFundProduct();
         funds.add(f);
-
-        setLocalizationMessages();
     }
 
     @Test
-    public void testAddFundButton() throws IOException, InvalidIsinException {
-        view.displayAddFundForm();
-        view.getAddFundBtn().click();
-        verify(handler, times(1)).addFund(Mockito.any(Fund.class));
-        verify(handler, times(1)).removeFundTableItems();
-        verify(handler, times(1)).showFundsWithDeleteButton();
+    public void loginFormInits() {
+        verify(loginLayout, times(1)).init();
+    }
+
+    @Test
+    public void viewsAreSet() {
+        verify(loginLayout, times(1)).setView(view);
+        verify(addFundLayout, times(1)).setView(view);
     }
 
     @Test
@@ -166,11 +184,11 @@ public class TestDashboardViewImpl {
         Label threeYearGrowth = getLabelFor(TranslationVars.THREE_YEARS);
         Label fiveYearGrowth = getLabelFor(TranslationVars.FIVE_YEARS);
         Label price = getLabelFor(TranslationVars.PRICE);
-        assertEquals("posGrowth", threeYearGrowth.getStyleName());
-        assertEquals("negGrowth", oneYearGrowth.getStyleName());
-        assertEquals("posGrowth", curYearGrowth.getStyleName());
-        assertEquals("negGrowth", fiveYearGrowth.getStyleName());
-        assertEquals("price", price.getStyleName());
+        assertEquals(CustomStyles.POS_GROWTH, threeYearGrowth.getStyleName());
+        assertEquals(CustomStyles.NEG_GROWTH, oneYearGrowth.getStyleName());
+        assertEquals(CustomStyles.POS_GROWTH, curYearGrowth.getStyleName());
+        assertEquals(CustomStyles.NEG_GROWTH, fiveYearGrowth.getStyleName());
+        assertEquals(CustomStyles.PRICE, price.getStyleName());
     }
 
     @Test
@@ -225,6 +243,15 @@ public class TestDashboardViewImpl {
     }
 
     @Test
+    public void addFundHandledInPresenter() {
+        view.handleAddFund(EXPECTED_ISIN);
+
+        verify(handler, times(1)).addFund(any(Fund.class));
+        verify(handler, times(1)).removeFundTableItems();
+        verify(handler, times(1)).showFundsWithDeleteButton();
+    }
+
+    @Test
     public void loginFormCanBeRemoved() {
         view.removeLoginForm();
 
@@ -247,5 +274,10 @@ public class TestDashboardViewImpl {
         view.removeTableItems();
 
         assertEquals(0, view.getFundTable().getItemIds().size());
+    }
+
+    @Test
+    public void isCorrectTemplateSet() {
+        assertEquals(AllLayouts.DASHBOARD, view.getTemplateName());
     }
 }

@@ -7,6 +7,7 @@ import org.xorrr.fundsoverview.view.DashboardView;
 
 import com.google.inject.Guice;
 import com.google.inject.Injector;
+import com.vaadin.annotations.JavaScript;
 import com.vaadin.annotations.Theme;
 import com.vaadin.navigator.Navigator;
 import com.vaadin.server.VaadinRequest;
@@ -14,6 +15,7 @@ import com.vaadin.ui.UI;
 
 @Theme("fundsoverview")
 @SuppressWarnings("serial")
+@JavaScript(value = { "jquery-1.9.1.js", "bootstrap.min.js" })
 public class MainUI extends UI {
 
     private Injector injector;

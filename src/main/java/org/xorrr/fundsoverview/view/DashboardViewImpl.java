@@ -5,9 +5,13 @@ import java.util.List;
 
 import org.xorrr.fundsoverview.l18n.Localization;
 import org.xorrr.fundsoverview.l18n.TranslationVars;
+import org.xorrr.fundsoverview.layouts.AddFundLayout;
+import org.xorrr.fundsoverview.layouts.DashboardLocations;
+import org.xorrr.fundsoverview.layouts.AllLayouts;
 import org.xorrr.fundsoverview.layouts.LoginLayout;
 import org.xorrr.fundsoverview.model.Fund;
 import org.xorrr.fundsoverview.presenter.DashboardViewHandler;
+import org.xorrr.styling.CustomStyles;
 
 import com.google.inject.Inject;
 import com.vaadin.navigator.ViewChangeListener.ViewChangeEvent;
@@ -16,32 +20,32 @@ import com.vaadin.ui.Button.ClickEvent;
 import com.vaadin.ui.CustomLayout;
 import com.vaadin.ui.Label;
 import com.vaadin.ui.Table;
-import com.vaadin.ui.TextField;
 
 @SuppressWarnings("serial")
 public class DashboardViewImpl extends CustomLayout implements DashboardView {
 
-    private TextField fundIdField;
-    private Button addFundButton;
     private Table fundTable;
     private DashboardViewHandler handler;
 
     private List<Button> buttons = new ArrayList<>();
     private LoginLayout loginLayout;
     private Localization translation;
+    private AddFundLayout addFundLayout;
 
     @Inject
-    public DashboardViewImpl(LoginLayout layout) {
-        super("testlayout");
+    public DashboardViewImpl(LoginLayout layout, AddFundLayout addFundLayout,
+            Localization l) {
+        this.translation = l;
+        setTemplateName(AllLayouts.DASHBOARD);
         this.loginLayout = layout;
+        this.addFundLayout = addFundLayout;
     }
 
     public void init() {
-        translation = new Localization();
-
         initFundTable();
 
         loginLayout.setView(this);
+        addFundLayout.setView(this);
         initLoginForm();
     }
 
@@ -53,11 +57,6 @@ public class DashboardViewImpl extends CustomLayout implements DashboardView {
     @Override
     public void setHandler(DashboardViewHandler handler) {
         this.handler = handler;
-    }
-
-    @Override
-    public Button getAddFundBtn() {
-        return this.addFundButton;
     }
 
     @Override
@@ -83,11 +82,6 @@ public class DashboardViewImpl extends CustomLayout implements DashboardView {
     }
 
     @Override
-    public TextField getFundIdField() {
-        return this.fundIdField;
-    }
-
-    @Override
     public void displayAddFundForm() {
         initFormToAddFunds();
     }
@@ -95,6 +89,13 @@ public class DashboardViewImpl extends CustomLayout implements DashboardView {
     @Override
     public void handleLogin(String username, String password) {
         handler.handleLogin(username, password);
+    }
+
+    @Override
+    public void handleAddFund(String isin) {
+        handler.addFund(new Fund.Builder().isin(isin).build());
+        handler.removeFundTableItems();
+        handler.showFundsWithDeleteButton();
     }
 
     @Override
@@ -119,7 +120,7 @@ public class DashboardViewImpl extends CustomLayout implements DashboardView {
 
     private void initLoginForm() {
         loginLayout.init();
-        addComponent(loginLayout, "login");
+        addComponent(loginLayout, DashboardLocations.LOGIN);
     }
 
     private void addFundToTable(List<Fund> funds, int fundCounter) {
@@ -150,17 +151,6 @@ public class DashboardViewImpl extends CustomLayout implements DashboardView {
         buttons.add(deleteButton);
     }
 
-    Button.ClickListener addFundListener = new Button.ClickListener() {
-
-        @Override
-        public void buttonClick(ClickEvent event) {
-            handler.addFund(new Fund.Builder().isin(fundIdField.getValue())
-                    .build());
-            handler.removeFundTableItems();
-            handler.showFundsWithDeleteButton();
-        }
-    };
-
     Button.ClickListener deleteFundListener = new Button.ClickListener() {
 
         @Override
@@ -172,21 +162,13 @@ public class DashboardViewImpl extends CustomLayout implements DashboardView {
     };
 
     private void initFormToAddFunds() {
-        fundIdField = new TextField();
-        fundIdField.setId("add_fund_id_field");
-
-        addFundButton = new Button(
-                translation.getTranslationFor(TranslationVars.ADD_FUND));
-        addFundButton.setId("add_fund_button");
-        addFundButton.addClickListener(addFundListener);
-
-        addComponent(fundIdField, "fundId");
-        addComponent(addFundButton, "addFund");
+        addFundLayout.init();
+        addComponent(addFundLayout, DashboardLocations.FUND_FORM);
     }
 
     private void initFundTable() {
         createFundTable();
-        addComponent(fundTable, "fundstable");
+        addComponent(fundTable, DashboardLocations.FUNDSTABLE);
         handler.showFunds();
     }
 
@@ -198,10 +180,9 @@ public class DashboardViewImpl extends CustomLayout implements DashboardView {
         fundTable.addContainerProperty(
                 translation.getTranslationFor(TranslationVars.PRICE),
                 Label.class, null);
-        fundTable
-                .addContainerProperty(translation
-                        .getTranslationFor(TranslationVars.CURRENT_YEAR),
-                        Label.class, null);
+        fundTable.addContainerProperty(
+                translation.getTranslationFor(TranslationVars.CURRENT_YEAR),
+                Label.class, null);
         fundTable.addContainerProperty(
                 translation.getTranslationFor(TranslationVars.ONE_YEAR),
                 Label.class, null);
@@ -229,7 +210,7 @@ public class DashboardViewImpl extends CustomLayout implements DashboardView {
 
     private Label createPriceLabel(List<Fund> funds, int fundCounter) {
         Label priceField = new Label(funds.get(fundCounter).getCurrentPrice());
-        priceField.setStyleName("price");
+        priceField.setStyleName(CustomStyles.PRICE);
         return priceField;
     }
 
@@ -248,9 +229,9 @@ public class DashboardViewImpl extends CustomLayout implements DashboardView {
 
     private void setGrowthStyle(Label growthLabel) {
         if (growthLabel.getValue().subSequence(0, 1).equals("-")) {
-            growthLabel.addStyleName("negGrowth");
+            growthLabel.addStyleName(CustomStyles.NEG_GROWTH);
         } else {
-            growthLabel.addStyleName("posGrowth");
+            growthLabel.addStyleName(CustomStyles.POS_GROWTH);
         }
     }
 
