@@ -9,6 +9,7 @@ import org.xorrr.fundsoverview.EnvironmentVariables;
 import org.xorrr.fundsoverview.model.Fund;
 import org.xorrr.fundsoverview.model.FundsDatastore;
 
+import com.google.inject.Inject;
 import com.mongodb.BasicDBObject;
 import com.mongodb.DBCollection;
 import com.mongodb.DBCursor;
@@ -18,6 +19,7 @@ public class MongoFundsDatastore implements FundsDatastore {
 
     private DBCollection col;
 
+    @Inject
     public MongoFundsDatastore(MongoClient client) throws UnknownHostException {
         this.col = client.getDB(System.getenv(EnvironmentVariables.DB))
                 .getCollection(DbProperties.COL);
