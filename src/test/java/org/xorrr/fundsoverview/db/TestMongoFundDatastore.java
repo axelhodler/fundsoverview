@@ -1,6 +1,8 @@
 package org.xorrr.fundsoverview.db;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 import org.junit.After;
 import org.junit.AfterClass;
@@ -49,7 +51,7 @@ public class TestMongoFundDatastore {
         this.client = new MongoClient(uri);
         this.col = this.client.getDB(System.getenv(EnvironmentVariables.DB))
                 .getCollection(DbProperties.COL);
-        this.ds = new MongoFundsDatastore();
+        this.ds = new MongoFundsDatastore(client);
     }
 
     @Test

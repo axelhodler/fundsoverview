@@ -13,17 +13,12 @@ import com.mongodb.BasicDBObject;
 import com.mongodb.DBCollection;
 import com.mongodb.DBCursor;
 import com.mongodb.MongoClient;
-import com.mongodb.MongoClientURI;
 
 public class MongoFundsDatastore implements FundsDatastore {
 
     private DBCollection col;
 
-    public MongoFundsDatastore() throws UnknownHostException {
-        MongoClientURI uri = new MongoClientURI(
-                System.getenv(EnvironmentVariables.MONGODB_URI));
-        MongoClient client = new MongoClient(uri);
-
+    public MongoFundsDatastore(MongoClient client) throws UnknownHostException {
         this.col = client.getDB(System.getenv(EnvironmentVariables.DB))
                 .getCollection(DbProperties.COL);
     }
