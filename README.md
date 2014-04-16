@@ -10,15 +10,15 @@ The app uses Vaadin7 in a MVP pattern, mongoDB, Mockito, Powermock, Jsoup, mBass
 ## Run
 
 To create a war and the initial widgetset for the application:
-> mvn package
+    mvn package
 
 Once package has been run you can run the project on the embedded Jetty server using:
-> mvn jetty:run
+    mvn jetty:run
 
 This will start a Jetty server with the project at [http://localhost:8080/](http://localhost:8080/)
 
 Also make sure the mongo daemon is running on port 27017 or edit the port accordingly in:
-> /bin/run.sh
+    ./bin/run.sh
 
 ## Deployment
 ### heroku
@@ -30,13 +30,13 @@ Also make sure the mongo daemon is running on port 27017 or edit the port accord
 
 * Deploy your code:
 
-> git push heroku master
+    git push heroku master
 
 * On the heroku dashboard add an Add-on to the App for the Database. In our case MongoHQ or MongoLab sandboxes
 * Get the Mongo URI that looks like this: mongodb://<user>:<password>@paulo.mongohq.com:10037/<database_name>
 * Invoke and follow the script to set the necessary environment variables on the heroku platform:
 
-> /bin/set_heroku_env_vars.sh
+    ./bin/set_heroku_env_vars.sh
 
 (* the DB var is the same as the <database_name> part in the URI!)
 
