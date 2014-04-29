@@ -20,15 +20,16 @@ import com.mongodb.DBCursor;
 import com.mongodb.DBObject;
 import com.mongodb.MongoClient;
 
+import de.flapdoodle.embed.mongo.MongodExecutable;
+
 @Category(IntegrationTest.class)
 public class TestMongoFundDatastore {
-
-    private static int port = 12345;
 
     private MongoClient client;
     private MongoFundsDatastore ds;
     private DBCollection col;
     private String testIsin = "testIsin";
+    private static MongodExecutable mongodExe;
 
     private void createAndSaveTwoBasicFinancialProducts() {
         Fund fp = new Fund.Builder().isin(testIsin).build();
@@ -40,12 +41,13 @@ public class TestMongoFundDatastore {
 
     @BeforeClass
     public static void setUpEmbeddedMongo() throws Exception {
-        EmbeddedMongo.startEmbeddedMongo(port);
+        mongodExe = EmbeddedMongo.getEmbeddedMongoExecutable();
+        mongodExe.start();
     }
 
     @Before
     public void setUp() throws Exception {
-        this.client = new MongoClient("localhost", port);
+        this.client = new MongoClient("localhost", EmbeddedMongoProperties.PORT);
         this.col = this.client.getDB(System.getenv(EnvironmentVariables.DB))
                 .getCollection(DbProperties.COL);
         this.ds = new MongoFundsDatastore(client);
@@ -105,6 +107,6 @@ public class TestMongoFundDatastore {
 
     @AfterClass
     public static void tearDown() throws Exception {
-        EmbeddedMongo.stopEmbeddedMongo();
+        mongodExe.stop();
     }
 }

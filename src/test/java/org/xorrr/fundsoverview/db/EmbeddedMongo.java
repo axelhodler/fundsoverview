@@ -11,38 +11,17 @@ import de.flapdoodle.embed.mongo.config.Net;
 import de.flapdoodle.embed.mongo.distribution.Version;
 import de.flapdoodle.embed.process.runtime.Network;
 
-public class EmbeddedMongo {
+public abstract class EmbeddedMongo {
 
-    private static MongodExecutable mongodExecutable = null;
-    private static boolean isStarted = false;
-
-    private EmbeddedMongo() {}
-
-    public static void startEmbeddedMongo(int port)
+    public static MongodExecutable getEmbeddedMongoExecutable()
             throws UnknownHostException, IOException {
-        if (!isStarted) {
-            IMongodConfig mongodConfig = new MongodConfigBuilder()
-                    .version(Version.Main.PRODUCTION)
-                    .net(new Net(port, Network.localhostIsIPv6())).build();
+        IMongodConfig mongodConfig = new MongodConfigBuilder()
+                .version(Version.Main.PRODUCTION)
+                .net(new Net(EmbeddedMongoProperties.PORT, Network
+                        .localhostIsIPv6())).build();
 
-            MongodStarter runtime = MongodStarter.getDefaultInstance();
-            startMongoExecutable(runtime, mongodConfig);
-        } else {
-            System.out.println("EmbeddedMongo has already been started");
-        }
-    }
+        MongodStarter runtime = MongodStarter.getDefaultInstance();
 
-    public static void stopEmbeddedMongo() {
-        if (mongodExecutable != null) {
-            mongodExecutable.stop();
-        }
-        isStarted = false;
-    }
-
-    private static void startMongoExecutable(MongodStarter runtime,
-            IMongodConfig mongodConfig) throws IOException {
-        mongodExecutable = runtime.prepare(mongodConfig);
-        mongodExecutable.start();
-        isStarted = true;
+        return runtime.prepare(mongodConfig);
     }
 }
