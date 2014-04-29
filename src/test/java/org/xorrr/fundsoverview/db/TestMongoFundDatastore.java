@@ -19,7 +19,6 @@ import com.mongodb.DBCollection;
 import com.mongodb.DBCursor;
 import com.mongodb.DBObject;
 import com.mongodb.MongoClient;
-import com.mongodb.MongoClientURI;
 
 @Category(IntegrationTest.class)
 public class TestMongoFundDatastore {
@@ -46,9 +45,7 @@ public class TestMongoFundDatastore {
 
     @Before
     public void setUp() throws Exception {
-        MongoClientURI uri = new MongoClientURI(
-                System.getenv(EnvironmentVariables.MONGODB_URI));
-        this.client = new MongoClient(uri);
+        this.client = new MongoClient("localhost", port);
         this.col = this.client.getDB(System.getenv(EnvironmentVariables.DB))
                 .getCollection(DbProperties.COL);
         this.ds = new MongoFundsDatastore(client);
