@@ -2,3 +2,5 @@ language: java
 
 env:
   - MONGODB_URI=mongodb://localhost:12345 LANG=en COUNTRY=EN USER=user PASS=pass PORT=5000 DB=fundsoverview
+
+script: "./bin/travis.sh"
