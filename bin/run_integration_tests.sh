@@ -1,5 +1,7 @@
 #!/bin/sh
 
+export LC_ALL="en_US.UTF-8"
+
 export MONGODB_URI=test
 export LANG=en
 export COUNTRY=EN
