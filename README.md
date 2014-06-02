@@ -1,5 +1,4 @@
-# Fundsoverview
-[![Build Status](https://travis-ci.org/xorrr/fundsoverview.png)](https://travis-ci.org/xorrr/fundsoverview)
+# Fundsoverview [![Build Status](https://travis-ci.org/xorrr/fundsoverview.svg)](https://travis-ci.org/xorrr/fundsoverview)
 
 Displays funds and their previous performance (not that it will matter concerning the performance in the future) on a dashboard to avoid checking them one by one. The stocks are accessed not via an API but by web-scraping, which makes the app itself very brittle. Sadly some funds are not listed in the yahoo finance api and therefore one has to make due with scraping for now.
 
