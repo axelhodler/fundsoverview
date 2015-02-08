@@ -46,13 +46,13 @@ public class TestDashboardViewImpl {
     @Mock
     private Localization translation;
 
-    private final String EXPECTED_ISIN = "12345";
-    private final String EXPECTED_NAME = "foo";
-    private final String EXPECTED_PRICE = "23";
-    private final String EXPECTED_CURRENT_GROWTH = "25%";
-    private final String EXPECTED_ONE_YEAR_GROWTH = "-50%";
-    private final String EXPECTED_THREE_YEAR_GROWTH = "100%";
-    private final String EXPECTED_FIVE_YEAR_GROWTH = "-125%";
+    private final static String EXPECTED_ISIN = "12345";
+    private final static String EXPECTED_NAME = "foo";
+    private final static String EXPECTED_PRICE = "23";
+    private final static String EXPECTED_CURRENT_GROWTH = "25%";
+    private final static String EXPECTED_ONE_YEAR_GROWTH = "-50%";
+    private final static String EXPECTED_THREE_YEAR_GROWTH = "100%";
+    private final static String EXPECTED_FIVE_YEAR_GROWTH = "-125%";
 
     private Fund f;
     private List<Fund> funds = new ArrayList<>();

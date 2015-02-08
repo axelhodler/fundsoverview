@@ -129,8 +129,7 @@ public class DashboardViewImpl extends CustomLayout implements DashboardView {
                 createCurrentYearGrowthLabel(funds, fundCounter),
                 createOneYearGrowthLabel(funds, fundCounter),
                 createThreeYearGrowthLabel(funds, fundCounter),
-                createFiveYearGrowthLabel(funds, fundCounter) }, new Integer(
-                fundCounter));
+                createFiveYearGrowthLabel(funds, fundCounter) }, Integer.valueOf(fundCounter));
     }
 
     private void addFundToTableWithDeleteButton(List<Fund> funds,
@@ -146,7 +145,7 @@ public class DashboardViewImpl extends CustomLayout implements DashboardView {
                 createOneYearGrowthLabel(funds, fundCounter),
                 createThreeYearGrowthLabel(funds, fundCounter),
                 createFiveYearGrowthLabel(funds, fundCounter), deleteButton },
-                new Integer(fundCounter));
+                Integer.valueOf(fundCounter));
 
         buttons.add(deleteButton);
     }

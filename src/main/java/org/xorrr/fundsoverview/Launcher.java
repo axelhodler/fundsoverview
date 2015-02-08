@@ -16,7 +16,7 @@ public class Launcher extends VaadinServlet {
     private static final long serialVersionUID = -710297323885061567L;
 
     public static void main(String[] args) throws Exception {
-        Server server = new Server(Integer.valueOf(System
+        Server server = new Server(Integer.parseInt(System
                 .getenv(EnvironmentVariables.PORT)));
         WebAppContext context = new WebAppContext();
 
